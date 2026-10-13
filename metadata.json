@@ -1,0 +1,6 @@
+{
+  "name": "Inchara Holidays | ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್",
+  "description": "Modern journeys rooted in timeless Kannada culture. Experience bespoke travel across Karnataka, India, and the world with your trusted travel partner.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

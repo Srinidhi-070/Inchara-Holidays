@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif-editorial: 'Playfair Display', 'Noto Serif Kannada', 'Cormorant Garamond', Georgia, serif;
+  --font-serif-kannada: 'Noto Serif Kannada', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', 'Noto Sans Kannada', system-ui, sans-serif;
+  --font-kannada: 'Noto Sans Kannada', 'Plus Jakarta Sans', sans-serif;
+  --color-forest: #263F32;
+  --color-ivory: #F6F3EA;
+  --color-sage: #AAB69A;
+  --color-terracotta: #B96F50;
+  --color-charcoal: #252923;
+  --color-sand: #E4D8C5;
+}
+
+@layer base {
+  body {
+    background-color: #F6F3EA;
+    color: #252923;
+    font-family: 'Plus Jakarta Sans', 'Noto Sans Kannada', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-serif-editorial {
+    font-family: 'Playfair Display', 'Noto Serif Kannada', 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: -0.015em;
+  }
+
+  .font-kannada-editorial {
+    font-family: 'Noto Serif Kannada', 'Playfair Display', serif;
+  }
+
+  .font-kannada {
+    font-family: 'Noto Sans Kannada', 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+/* =========================================================================
+   CUSTOM SCROLLBAR (Brand themed: Forest Green & Terracotta with Soft Sand)
+   ========================================================================= */
+
+/* WebKit & Chromium Browsers */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F6F3EA;
+  border-left: 1px solid rgba(38, 63, 50, 0.08);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #263F32;
+  border-radius: 9999px;
+  border: 2px solid #F6F3EA;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B96F50;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #1c2e24;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #263F32 #F6F3EA;
+}
+
+/* Custom Scrollbar for Modal interiors & dark containers */
+.custom-scrollbar-dark::-webkit-scrollbar-track {
+  background: #1c2e24;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.custom-scrollbar-dark::-webkit-scrollbar-thumb {
+  background: #AAB69A;
+  border: 2px solid #1c2e24;
+}
+
+.custom-scrollbar-dark::-webkit-scrollbar-thumb:hover {
+  background: #B96F50;
+}
+
+/* Utility to hide horizontal scrollbar while keeping scrolling functional */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Subtle architectural patterns inspired by Karnataka stone carvings */
+.bg-kannada-pattern {
+  background-image: radial-gradient(rgba(38, 63, 50, 0.06) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.bg-kannada-pattern-dark {
+  background-image: radial-gradient(rgba(246, 243, 234, 0.08) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Smooth transitions */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Keyframe animations for ambient breathing and pulses */
+@keyframes ambientGlow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.03);
+  }
+}
+
+.animate-ambient-glow {
+  animation: ambientGlow 7s ease-in-out infinite;
+}

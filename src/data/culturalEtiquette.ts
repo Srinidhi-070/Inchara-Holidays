@@ -1,0 +1,135 @@
+import { CulturalEtiquetteTip } from '../types';
+
+export const karnatakaCoreEtiquette: CulturalEtiquetteTip[] = [
+  {
+    categoryKn: 'ಸಾಂಪ್ರದಾಯಿಕ ಶುಭಾಶಯ',
+    categoryEn: 'Traditional Greeting',
+    titleKn: '‘ನಮಸ್ಕಾರ’ (Namaskara) ಮತ್ತು ವಿನಮ್ರತೆ',
+    titleEn: 'The Gracious "Namaskara"',
+    tipKn: 'ಸ್ಥಳೀಯರನ್ನು, ಹಿರಿಯರನ್ನು ಮತ್ತು ಹೋಂಸ್ಟೇ ಆತಿಥೇಯರನ್ನು ಕೈಮುಗಿದು ‘ನಮಸ್ಕಾರ’ ಎಂದು ಸ್ವಾಗತಿಸುವುದು ಕರ್ನಾಟಕದ ಸೌಜನ್ಯದ ಸಂಕೇತ. ಇದು ಯಾವುದೇ ಭಾಷೆಯ ಅಂತರವನ್ನು ಕ್ಷಣಾರ್ಧದಲ್ಲಿ ಆಪ್ತವಾಗಿಸುತ್ತದೆ.',
+    tipEn: 'Greeting hosts, elders, and locals with folded hands and a warm "Namaskara" conveys heartfelt respect and immediately creates an authentic, friendly connection across Karnataka.',
+    badge: 'ಆತಿಥ್ಯ / Hospitality',
+  },
+  {
+    categoryKn: 'ಉಡುಪಿನ ನಿಯಮ',
+    categoryEn: 'Dress Code',
+    titleKn: 'ಪವಿತ್ರ ದೇವಾಲಯಗಳಲ್ಲಿ ವಿನಮ್ರ ಉಡುಪು',
+    titleEn: 'Modest Attire at Living Shrines',
+    tipKn: 'ದೇವಾಲಯಗಳು, ಮಠಗಳು ಮತ್ತು ಪವಿತ್ರ ತಾಣಗಳಲ್ಲಿ ಭುಜ ಮತ್ತು ಮೊಣಕಾಲುಗಳನ್ನು ಮುಚ್ಚುವ ಸಾಂಪ್ರದಾಯಿಕ ಅಥವಾ ವಿನಮ್ರ ಉಡುಪು (ಕುರ್ತಾ, ಸೀರೆ, ಕಾಟನ್ ಪ್ಯಾಂಟ್) ಧರಿಸುವುದು ಸೂಕ್ತ. ಶಾರ್ಟ್ಸ್ ಅಥವಾ ಅತಿ ಸಣ್ಣ ಉಡುಪುಗಳನ್ನು ತಪ್ಪಿಸಿ.',
+    tipEn: 'When visiting active temples, pilgrimage sanctums, and heritage shrines, modest attire covering shoulders and knees is mandatory. Cotton kurtas, traditional trousers, dhotis, or sarees are warmly welcomed.',
+    badge: 'ಪಾವಿತ್ರ್ಯ / Sanctity',
+  },
+  {
+    categoryKn: 'ಪಾದರಕ್ಷೆಗಳ ನಿಯಮ',
+    categoryEn: 'Footwear Protocol',
+    titleKn: 'ಪಾದರಕ್ಷೆಗಳನ್ನು ಹೊರಗೆ ಬಿಡುವುದು',
+    titleEn: 'Removing Footwear with Care',
+    tipKn: 'ಯಾವುದೇ ದೇವಾಲಯದ ಆವರಣ, ಪೂಜಾ ಕೋಣೆ ಅಥವಾ ಸಾಂಪ್ರದಾಯಿಕ ಮನೆ/ಹೋಂಸ್ಟೇ ಪ್ರವೇಶಿಸುವ ಮುನ್ನ ಬೂಟು-ಚಪ್ಪಲಿಗಳನ್ನು ಹೊರಗೆ ಬಿಡಬೇಕು. ಬಹುತೇಕ ಪ್ರಮುಖ ತಾಣಗಳಲ್ಲಿ ಸುರಕ್ಷಿತ ಪಾದರಕ್ಷೆ ಕೌಂಟರ್‌ಗಳು ಲಭ್ಯವಿರುತ್ತವೆ.',
+    tipEn: 'Always remove shoes and sandals before stepping across temple thresholds, sanctum courtyards, and traditional homestays. Designated footwear stands are available at all major cultural shrines.',
+    badge: 'ಸಂಪ್ರದಾಯ / Custom',
+  },
+  {
+    categoryKn: 'ಛಾಯಾಗ್ರಹಣ ಗೌರವ',
+    categoryEn: 'Photography Care',
+    titleKn: 'ಗರ್ಭಗುಡಿ ಮತ್ತು ಆಚರಣೆಗಳ ಗೌರವ',
+    titleEn: 'Sanctum Sensitivity & Photography',
+    tipKn: 'ದೇವಾಲಯಗಳ ಗರ್ಭಗುಡಿಗಳಲ್ಲಿ ಮತ್ತು ಪೂಜಾ ವಿಧಿಗಳ ಸಮಯದಲ್ಲಿ ಕ್ಯಾಮರಾ ಬಳಕೆಗೆ ಕಟ್ಟುನಿಟ್ಟಿನ ನಿಷೇಧವಿದೆ. ಸ್ಥಳೀಯ ಜನರನ್ನು ಅಥವಾ ಕುಶಲಕರ್ಮಿಗಳನ್ನು ಫೋಟೋ ತೆಗೆಯುವ ಮುನ್ನ ಸೌಜನ್ಯದಿಂದ ಅನುಮತಿ ಕೇಳಿ.',
+    tipEn: 'Photography is strictly prohibited inside temple inner sanctums (Garbhagudi) and during sacred rituals. Always seek courteous verbal consent before photographing local residents or artisans.',
+    badge: 'ಗೌರವ / Decorum',
+  },
+  {
+    categoryKn: 'ಊಟೋಪಚಾರ ಪದ್ಧತಿ',
+    categoryEn: 'Dining Etiquette',
+    titleKn: 'ಬಾಳೆ ಎಲೆ ಊಟ ಮತ್ತು ಬಲಗೈ ಸಂಸ್ಕೃತಿ',
+    titleEn: 'Banana Leaf Feasts & Right-Hand Tradition',
+    tipKn: 'ಸಾಂಪ್ರದಾಯಿಕ ಬಾಳೆ ಎಲೆ ಊಟದಲ್ಲಿ ಆಹಾರವನ್ನು ಬಲಗೈಯಿಂದಲೇ ಸೇವಿಸುವುದು ಪದ್ಧತಿ. ತೀರ್ಥ-ಪ್ರಸಾದ ಅಥವಾ ಬೆಚ್ಚನೆಯ ಫಿಲ್ಟರ್ ಕಾಫಿಯನ್ನು ಸ್ವೀಕರಿಸುವಾಗ ಬಲಗೈ ಅಥವಾ ಎರಡೂ ಕೈಗಳನ್ನು ಬಳಸುವುದು ಆತಿಥ್ಯಕ್ಕೆ ಗೌರವ ನೀಡಿದಂತೆ.',
+    tipEn: 'When enjoying traditional meals served on banana leaves (Oota), eat using your right hand. Accept sacred offerings (Prasada), coffee, or gifts using your right hand or both hands as a mark of grace.',
+    badge: 'ಆಹಾರ / Culinary',
+  },
+  {
+    categoryKn: 'ಪರಂಪರೆ ರಕ್ಷಣೆ',
+    categoryEn: 'Heritage Preservation',
+    titleKn: 'ಐತಿಹಾಸಿಕ ಶಿಲ್ಪಗಳು ಮತ್ತು ಪರಿಸರ ಸಂರಕ್ಷಣೆ',
+    titleEn: 'Protecting Monoliths & Sacred Nature',
+    tipKn: 'ಹಂಪಿಯ ಕಲ್ಲಿನ ಕಂಬಗಳು, ಬೇಲೂರಿನ ಹೊಯ್ಸಳ ಶಿಲ್ಪಗಳು ಮತ್ತು ಪಶ್ಚಿಮ ಘಟ್ಟಗಳ ದೇವರ ಕಾಡುಗಳು (Sacred Groves) ಸೂಕ್ಷ್ಮ ಸಂಸ್ಕೃತಿಯ ಪ್ರತೀಕ. ಶಿಲ್ಪಗಳ ಮೇಲೆ ಹತ್ತುವುದು ಅಥವಾ ಪರಿಸರದಲ್ಲಿ ಪ್ಲಾಸ್ಟಿಕ್ ಎಸೆಯುವುದನ್ನು ಕಡ್ಡಾಯವಾಗಿ ತಪ್ಪಿಸಿ.',
+    tipEn: 'Ancient granite monoliths and Western Ghats sacred groves (Devara Kadu) represent centuries of ecological and architectural sanctity. Never climb historic pillars, touch delicate carvings, or leave plastic trace.',
+    badge: 'ಸಂರಕ್ಷಣೆ / Conservation',
+  },
+];
+
+export const destinationSpecificEtiquette: Record<string, CulturalEtiquetteTip[]> = {
+  hampi: [
+    {
+      categoryKn: 'ಸ್ಮಾರಕ ಗೌರವ',
+      categoryEn: 'Monuments',
+      titleKn: 'ಪೂಜಾ ತಾಣಗಳು ಮತ್ತು ಕಲ್ಲಿನ ರಥದ ರಕ್ಷಣೆ',
+      titleEn: 'Active Sanctum vs Protected Ruins',
+      tipKn: 'ವಿರೂಪಾಕ್ಷ ದೇವಾಲಯದಲ್ಲಿ ಇಂದಿಗೂ ನಿತ್ಯ ಪೂಜೆ ನಡೆಯುತ್ತದೆ; ಇಲ್ಲಿ ಪಾದರಕ್ಷೆ ಕಳಚಿ ವಿನಮ್ರವಾಗಿ ನಡೆದುಕೊಳ್ಳಿ. ವಿಠ್ಠಲ ದೇವಾಲಯದ ಶಿಲಾ ರಥದ ಮೇಲೆ ಹತ್ತಬಾರದು.',
+      tipEn: 'Virupaksha is an active, living temple requiring footwear removal and respectful attire. The Stone Chariot at Vijaya Vittala is a protected national treasure—admire it without climbing.',
+    },
+    {
+      categoryKn: 'ಸೂರ್ಯಾಸ್ತ & ಬೆಟ್ಟಗಳು',
+      categoryEn: 'Boulders & Hills',
+      titleKn: 'ಮಾತಂಗ & ಹೇಮಕೂಟ ಬೆಟ್ಟಗಳಲ್ಲಿ ಶಾಂತಿ',
+      titleEn: 'Quietude on Sacred Boulders',
+      tipKn: 'ಹೇಮಕೂಟ ಮತ್ತು ಮಾತಂಗ ಬೆಟ್ಟಗಳು ಧ್ಯಾನಸ್ಥ ತಾಣಗಳು. ಸೂರ್ಯೋದಯ-ಸೂರ್ಯಾಸ್ತದ ವೇಳೆ ಶಾಂತತೆ ಕಾಪಾಡಿ, ಬಂಡೆಗಳ ಮೇಲೆ ತ್ಯಾಜ್ಯ ಬಿಡಬೇಡಿ.',
+      tipEn: 'Hemakuta and Matanga hills are contemplative sanctuaries. Maintain serene quiet during sunrise and sunset, and carry all personal water bottles back with you.',
+    },
+  ],
+  coorg: [
+    {
+      categoryKn: 'ಕೊಡವ ಸಂಸ್ಕೃತಿ',
+      categoryEn: 'Kodava Traditions',
+      titleKn: 'ಹೋಂಸ್ಟೇ ಆತಿಥ್ಯ ಮತ್ತು ಐನ್ಮನೆ ಮರ್ಯಾದೆ',
+      titleEn: 'Estate Homestays & Ancestral Ainmanes',
+      tipKn: 'ಕೊಡಗಿನ ಎಸ್ಟೇಟ್‌ಗಳಲ್ಲಿ ಆತಿಥೇಯರ ಮನೆಗೆ ಪ್ರವೇಶಿಸುವಾಗ ಪಾದರಕ್ಷೆ ಕಳಚಿ. ಅವರು ಪ್ರೀತಿಯಿಂದ ನೀಡುವ ಫಿಲ್ಟರ್ ಕಾಫಿ ಮತ್ತು ಮನೆಯೂಟವನ್ನು ಗೌರವದಿಂದ ಸ್ವೀಕರಿಸಿ.',
+      tipEn: 'When staying in Coorg plantation homes, respect the family hearth. Kodava hosts take immense pride in hospitality; savor home-brewed coffee and traditional Akki Roti meals unhurriedly.',
+    },
+    {
+      categoryKn: 'ಕಾವೇರಿ ಪಾವಿತ್ರ್ಯ',
+      categoryEn: 'Sacred Waters',
+      titleKn: 'ತಲಕಾವೇರಿ ಮತ್ತು ಭಾಗಮಂಡಲ ಪವಿತ್ರತೆ',
+      titleEn: 'Sanctity of Sacred Talacauvery',
+      tipKn: 'ತಲಕಾವೇರಿಯು ಕರ್ನಾಟಕದ ಜೀವನದಿ ಕಾವೇರಿಯ ಜನ್ಮಸ್ಥಾನ. ಕುಂಡಿಕೆಯ ಸುತ್ತಲು ಶೂ ಧರಿಸುವುದು, ಗದ್ದಲ ಮಾಡುವುದು ಅಥವಾ ನೀರನ್ನು ಮಲಿನಗೊಳಿಸುವುದು ನಿಷಿದ್ಧ.',
+      tipEn: 'Talacauvery is the revered source of mother river Cauvery. Strictly observe quietude and conservative dress around the holy water spring (Kundike).',
+    },
+  ],
+  gokarna: [
+    {
+      categoryKn: 'ಕರಾವಳಿ ಮತ್ತು ಪಟ್ಟಣ',
+      categoryEn: 'Coastal Boundaries',
+      titleKn: 'ಕಡಲತೀರ ಮತ್ತು ಪಟ್ಟಣದ ನಡುವಣ ಉಡುಪಿನ ಅಂತರ',
+      titleEn: 'Beachwear vs Sacred Town Center',
+      tipKn: 'ಕುಡ್ಲೆ ಮತ್ತು ಓಂ ಬೀಚ್‌ನಲ್ಲಿ ಕರಾವಳಿ ವಿಶ್ರಾಂತಿಗೆ ಅವಕಾಶವಿದ್ದರೂ, ಮಹಾಬಲೇಶ್ವರ ದೇವಸ್ಥಾನದ ಓಣಿಗಳು ಮತ್ತು ಪಟ್ಟಣದೊಳಗೆ ಪ್ರವೇಶಿಸುವಾಗ ಪೂರ್ಣ ಉಡುಪು ಧರಿಸುವುದು ಕಡ್ಡಾಯ.',
+      tipEn: 'While beach attire is customary along Om and Kudle beaches, the historic temple town and bazaar streets of Gokarna strictly require fully covered, modest clothing.',
+    },
+    {
+      categoryKn: 'ಆತ್ಮಲಿಂಗ ದರ್ಶನ',
+      categoryEn: 'Temple Protocol',
+      titleKn: 'ಮಹಾಬಲೇಶ್ವರ ದೇವಸ್ಥಾನದ ಧಾರ್ಮಿಕ ನಿಯಮಗಳು',
+      titleEn: 'Mahabaleshwara Atmalinga Rituals',
+      tipKn: 'ಮಹಾಬಲೇಶ್ವರ ದೇವಾಲಯದ ಒಳಾಂಗಣಕ್ಕೆ ಪುರುಷರು ಸಾಂಪ್ರದಾಯಿಕ ಧೋತಿ (ಶರ್ಟ್ ತೆಗೆದು) ಧರಿಸಿ ಪ್ರವೇಶಿಸಬೇಕು. ಸಮುದ್ರಸ್ನಾನ ಅಥವಾ ಕೋಟಿತೀರ್ಥದಲ್ಲಿ ಕಾಲು ತೊಳೆದ ನಂತರ ದರ್ಶನ ಪಡೆಯುವುದು ಪದ್ಧತಿ.',
+      tipEn: 'To enter the inner sanctorum for Atmalinga sparsha, male pilgrims traditionally remove upper garments and wear dhotis. Wash feet respectfully before entering.',
+    },
+  ],
+  mysuru: [
+    {
+      categoryKn: 'ರಾಜಪರಂಪರೆ',
+      categoryEn: 'Royal Decorum',
+      titleKn: 'ಅರಮನೆ ಮತ್ತು ಚಾಮುಂಡಿ ಬೆಟ್ಟದ ಶಿಸ್ತು',
+      titleEn: 'Palace Decorum & Chamundi Hills',
+      tipKn: 'ಮೈಸೂರು ಅರಮನೆಯ ಮುಖ್ಯ ಮಹಲ್‌ಗಳಲ್ಲಿ ಪಾದರಕ್ಷೆ ನಿಷಿದ್ಧ. ಚಾಮುಂಡಿ ಬೆಟ್ಟದಲ್ಲಿ ಕಟ್ಟುನಿಟ್ಟಾದ ಸಾಲು ಪಾಲಿಸಿ, ಮೈಸೂರು ರೇಷ್ಮೆ ಮತ್ತು ಗಂಧ ಖರೀದಿಸುವಾಗ ಅಧಿಕೃತ ಸರ್ಕಾರಿ ಮಳಿಗೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.',
+      tipEn: 'Footwear is prohibited inside the residential palace quarters. At Chamundeshwari temple, maintain queue discipline and patronize certified KSIC silk and government sandalwood emporiums.',
+    },
+  ],
+  chikkamagaluru: [
+    {
+      categoryKn: 'ಎಸ್ಟೇಟ್ ಶಿಷ್ಟಾಚಾರ',
+      categoryEn: 'Estate Courtesy',
+      titleKn: 'ಕಾಫಿ ತೋಟಗಳ ನಡಿಗೆ ಮತ್ತು ಬೆಟ್ಟದ ನಿಯಮಗಳು',
+      titleEn: 'Coffee Trails & Mountain Etiquette',
+      tipKn: 'ಕಾಫಿ ಅಥವಾ ಏಲಕ್ಕಿ ತೋಟಗಳಲ್ಲಿ ನಡೆಯುವಾಗ ಕೃಷಿಕರ ಅನುಮತಿ ಪಡೆದ ಹಾದಿಗಳಲ್ಲೇ ಸಾಗಿರಿ; ಕಾಯಿಯನ್ನು ಕೀಳಬೇಡಿ. ಮುಳ್ಳಯ್ಯನಗಿರಿ ಹಾದಿಯಲ್ಲಿ ಪ್ಲಾಸ್ಟಿಕ್ ಬಾಟಲಿ ಎಸೆಯಬೇಡಿ.',
+      tipEn: 'Walk strictly along demarcated plantation paths without plucking ripening coffee berries or pepper vines. Keep mountain hairpin routes like Mullayanagiri completely plastic-free.',
+    },
+  ],
+};
