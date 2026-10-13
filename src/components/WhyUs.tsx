@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Language } from '../types';
 import { translations } from '../data/translations';
+import { ToranaGarland, LotusIcon } from './SouthIndianMotifs';
 
 interface WhyUsProps {
   language: Language;
@@ -24,7 +25,7 @@ export const WhyUs: React.FC<WhyUsProps> = ({ language }) => {
         >
           <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#B96F50] uppercase mb-2.5">
             <span className="w-5 h-px bg-[#D4AF37]" />
-            <span className="text-[#D4AF37]">✦</span>
+            <LotusIcon className="w-4 h-4 text-[#D4AF37]" />
             <span>{t.whyUs.kicker}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif-editorial text-[#263F32] tracking-tight leading-[1.18]">
@@ -33,6 +34,9 @@ export const WhyUs: React.FC<WhyUsProps> = ({ language }) => {
           <p className="mt-3.5 text-sm sm:text-base text-[#252923]/75 leading-relaxed font-normal">
             {t.whyUs.subtitle}
           </p>
+          <div className="mt-2 max-w-xs">
+            <ToranaGarland className="w-full h-5 text-[#B96F50]/50" />
+          </div>
         </motion.div>
 
         {/* Expressive Editorial Grid with Staggered Reveal */}
@@ -67,10 +71,10 @@ export const WhyUs: React.FC<WhyUsProps> = ({ language }) => {
                 </p>
               </div>
 
-              {/* Delicate hairline bottom accent */}
-              <div className="pt-6 mt-6 border-t border-[#263F32]/8 flex items-center justify-between text-[11px] text-[#252923]/50 font-medium">
+              {/* Delicate hairline bottom accent with Lotus */}
+              <div className="pt-6 mt-6 border-t border-[#263F32]/8 flex items-center justify-between text-[11px] text-[#252923]/60 font-medium">
                 <span>{language === 'kn' ? 'ಇಂಚಾರಾ ಮಾನದಂಡ' : 'Inchara Standard'}</span>
-                <span className="text-[#263F32] font-medium">✓</span>
+                <LotusIcon className="w-3.5 h-3.5 text-[#D4AF37]" />
               </div>
             </motion.div>
           ))}

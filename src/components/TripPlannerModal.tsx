@@ -21,6 +21,7 @@ import {
   Shield,
   RefreshCw,
 } from 'lucide-react';
+import { AmbariElephant, LotusIcon, KolamBorderRibbon, SikkuKolamMandala } from './SouthIndianMotifs';
 
 interface TripPlannerModalProps {
   isOpen: boolean;
@@ -245,40 +246,53 @@ Generated via Inchara Holidays Prototype`;
             </div>
 
             {/* Header */}
-            <div className="px-5 sm:px-6 py-3.5 sm:py-5 bg-[#263F32] text-[#F6F3EA] flex items-center justify-between shrink-0 shadow-xs">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-[#E4D8C5]">
-                <Compass className="w-4 h-4" />
+            <div className="px-5 sm:px-6 py-3.5 sm:py-5 bg-[#263F32] text-[#F6F3EA] flex items-center justify-between shrink-0 shadow-xs relative overflow-hidden">
+              {/* Kolam Watermark in header */}
+              <div className="absolute right-12 -bottom-6 w-28 h-28 opacity-10 pointer-events-none text-[#F5D77F]">
+                <SikkuKolamMandala className="w-full h-full" />
               </div>
-              <div>
-                <h3 className="font-bold font-serif-editorial text-base sm:text-xl text-[#F6F3EA]">
-                  {t.planner.modalTitle}
-                </h3>
-                <p className="text-[11px] sm:text-xs text-[#AAB69A]">
-                  {t.planner.step} {step} {t.planner.of} 8: {t.planner.steps[`step${step}` as keyof typeof t.planner.steps]}
-                </p>
+
+              <div className="flex items-center gap-3 relative z-10">
+                <div className="w-9 h-9 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 flex items-center justify-center text-[#F5D77F]">
+                  <AmbariElephant className="w-5 h-5 text-[#F5D77F]" />
+                </div>
+                <div>
+                  <h3 className="font-bold font-serif-editorial text-base sm:text-xl text-[#F6F3EA] flex items-center gap-2">
+                    {t.planner.modalTitle}
+                    <LotusIcon className="w-3.5 h-3.5 text-[#F5D77F]/80 hidden sm:inline-block" />
+                  </h3>
+                  <p className="text-[11px] sm:text-xs text-[#AAB69A]">
+                    {t.planner.step} {step} {t.planner.of} 8: {t.planner.steps[`step${step}` as keyof typeof t.planner.steps]}
+                  </p>
+                </div>
               </div>
+              <button
+                type="button"
+                onClick={onClose}
+                className="p-1.5 rounded-md hover:bg-white/10 text-white/80 transition-colors cursor-pointer z-10"
+                aria-label={t.modal.close}
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={onClose}
-              className="p-1.5 rounded-md hover:bg-white/10 text-white/80 transition-colors cursor-pointer"
-              aria-label={t.modal.close}
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
 
-          {/* Progress Bar */}
-          <div className="h-1 bg-[#263F32]/10 w-full shrink-0">
-            <div
-              className="h-full bg-[#B96F50] transition-all duration-300"
-              style={{ width: `${(step / 8) * 100}%` }}
-            />
-          </div>
+            {/* Progress Bar */}
+            <div className="h-1 bg-[#263F32]/10 w-full shrink-0">
+              <div
+                className="h-full bg-[#D4AF37] transition-all duration-300"
+                style={{ width: `${(step / 8) * 100}%` }}
+              />
+            </div>
 
-          {/* Step Form Body */}
-          <div className="p-5 sm:p-8 flex-1 overflow-y-auto flex flex-col justify-between">
+            {/* Continuous Sikku Kolam ribbon */}
+            <KolamBorderRibbon className="w-full h-3 shrink-0" color="#D4AF37" />
+
+            {/* Step Form Body */}
+            <div className="p-5 sm:p-8 flex-1 overflow-y-auto flex flex-col justify-between relative bg-[#FBF9F4]">
+              {/* Subtle background Kolam watermark */}
+              <div className="absolute right-4 bottom-8 w-64 h-64 opacity-[0.035] pointer-events-none text-[#263F32]">
+                <SikkuKolamMandala className="w-full h-full" />
+              </div>
             <div className="space-y-6">
               {/* STEP 1: Travel Scope */}
               {step === 1 && (

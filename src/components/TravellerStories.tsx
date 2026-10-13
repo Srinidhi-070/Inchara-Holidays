@@ -4,6 +4,7 @@ import { Language } from '../types';
 import { translations } from '../data/translations';
 import { communityReflections } from '../data/community';
 import { Quote } from 'lucide-react';
+import { LotusIcon, ToranaGarland, SikkuKolamMandala } from './SouthIndianMotifs';
 
 interface TravellerStoriesProps {
   language: Language;
@@ -15,6 +16,11 @@ export const TravellerStories: React.FC<TravellerStoriesProps> = ({ language }) 
 
   return (
     <section className="py-20 sm:py-28 bg-[#FBF8F1] bg-kolam-subtle border-t border-[#263F32]/10 overflow-hidden relative">
+      {/* Subtle Sikku Kolam Mandala watermark */}
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-80 h-80 opacity-[0.03] pointer-events-none text-[#263F32]">
+        <SikkuKolamMandala className="w-full h-full" />
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -26,7 +32,7 @@ export const TravellerStories: React.FC<TravellerStoriesProps> = ({ language }) 
         >
           <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#B96F50] uppercase mb-2.5">
             <span className="w-5 h-px bg-[#D4AF37]" />
-            <span className="text-[#D4AF37]">✦</span>
+            <LotusIcon className="w-4 h-4 text-[#D4AF37]" />
             <span>{t.community.kicker}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif-editorial text-[#263F32] tracking-tight leading-[1.18]">
@@ -35,6 +41,10 @@ export const TravellerStories: React.FC<TravellerStoriesProps> = ({ language }) 
           <p className="mt-3.5 text-sm sm:text-base text-[#252923]/75 leading-relaxed font-normal">
             {t.community.subtitle}
           </p>
+
+          <div className="mt-3 text-[#D4AF37]/50">
+            <ToranaGarland className="w-40 h-3" />
+          </div>
         </motion.div>
 
         {/* Clear placeholder disclaimer tag as mandated by prompt guidelines */}

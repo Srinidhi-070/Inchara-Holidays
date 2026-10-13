@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
 import { X, Send, Phone, Mail, MapPin, CheckCircle2 } from 'lucide-react';
+import { AmbariElephant, LotusIcon, KolamBorderRibbon, SikkuKolamMandala } from './SouthIndianMotifs';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -59,25 +60,42 @@ export const ContactModal: React.FC<ContactModalProps> = ({
           <div className="h-1 w-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#B96F50]" />
 
           {/* Header */}
-          <div className="px-5 sm:px-6 py-4 sm:py-5 bg-[#263F32] text-[#F6F3EA] flex items-center justify-between shrink-0">
-            <div>
-              <h3 className="font-bold font-serif-editorial text-lg text-[#F6F3EA]">
-                {language === 'kn' ? 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್ ಸಂಪರ್ಕಿಸಿ' : 'Contact Inchara Holidays'}
-              </h3>
-              <p className="text-xs text-[#AAB69A]">
-                {t.brandName} · {t.tagline}
-              </p>
+          <div className="px-5 sm:px-6 py-4 sm:py-5 bg-[#263F32] text-[#F6F3EA] flex items-center justify-between shrink-0 relative overflow-hidden">
+            {/* Kolam Watermark */}
+            <div className="absolute right-12 -bottom-6 w-24 h-24 opacity-15 pointer-events-none text-[#F5D77F]">
+              <SikkuKolamMandala className="w-full h-full" />
+            </div>
+
+            <div className="flex items-center gap-3 relative z-10">
+              <div className="w-9 h-9 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 flex items-center justify-center text-[#F5D77F]">
+                <LotusIcon className="w-5 h-5 text-[#F5D77F]" />
+              </div>
+              <div>
+                <h3 className="font-bold font-serif-editorial text-lg text-[#F6F3EA]">
+                  {language === 'kn' ? 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್ ಸಂಪರ್ಕಿಸಿ' : 'Contact Inchara Holidays'}
+                </h3>
+                <p className="text-xs text-[#AAB69A]">
+                  {t.brandName} · {t.tagline}
+                </p>
+              </div>
             </div>
             <button
               type="button"
               onClick={onClose}
-              className="p-1.5 rounded-md hover:bg-white/10 text-white/80 transition-colors"
+              className="p-1.5 rounded-md hover:bg-white/10 text-white/80 transition-colors cursor-pointer z-10"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          <div className="p-6 sm:p-8">
+          {/* Kolam border ribbon */}
+          <KolamBorderRibbon className="w-full h-3 shrink-0" color="#D4AF37" />
+
+          <div className="p-6 sm:p-8 relative bg-[#FBF8F1]">
+            {/* Subtle background Kolam watermark */}
+            <div className="absolute right-4 bottom-6 w-52 h-52 opacity-[0.035] pointer-events-none text-[#263F32]">
+              <SikkuKolamMandala className="w-full h-full" />
+            </div>
             {submitted ? (
               <div className="py-8 text-center space-y-4">
                 <div className="w-12 h-12 rounded-full bg-[#263F32]/10 text-[#263F32] flex items-center justify-center mx-auto">

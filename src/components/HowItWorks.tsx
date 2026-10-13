@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { Language } from '../types';
 import { translations } from '../data/translations';
 import { Compass, CalendarDays, ShieldCheck, HeartHandshake } from 'lucide-react';
+import { LotusIcon, ToranaGarland, SikkuKolamMandala } from './SouthIndianMotifs';
 
 interface HowItWorksProps {
   language: Language;
@@ -42,6 +43,11 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ language, onOpenPlanner 
 
   return (
     <section id="how-it-works" className="py-20 sm:py-28 bg-[#FBF8F1] bg-kolam-subtle border-y border-[#263F32]/10 overflow-hidden relative">
+      {/* Background Sikku Kolam Watermark */}
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 opacity-[0.03] pointer-events-none text-[#263F32]">
+        <SikkuKolamMandala className="w-full h-full" />
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -53,9 +59,9 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ language, onOpenPlanner 
         >
           <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#B96F50] uppercase mb-2.5">
             <span className="w-4 h-px bg-[#D4AF37]" />
-            <span className="text-[#D4AF37]">✦</span>
+            <LotusIcon className="w-4 h-4 text-[#D4AF37]" />
             <span>{t.howItWorks.kicker}</span>
-            <span className="text-[#D4AF37]">✦</span>
+            <LotusIcon className="w-4 h-4 text-[#D4AF37]" />
             <span className="w-4 h-px bg-[#D4AF37]" />
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif-editorial text-[#263F32] tracking-tight leading-[1.18]">
@@ -64,6 +70,11 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ language, onOpenPlanner 
           <p className="mt-3.5 text-sm sm:text-base text-[#252923]/75 leading-relaxed font-normal">
             {t.howItWorks.subtitle}
           </p>
+
+          {/* Decorative Torana Garland */}
+          <div className="mt-4 flex justify-center text-[#D4AF37]/50">
+            <ToranaGarland className="w-48 h-3.5" />
+          </div>
         </motion.div>
 
         {/* 3 Simple Stages Horizontal Storytelling Flow */}

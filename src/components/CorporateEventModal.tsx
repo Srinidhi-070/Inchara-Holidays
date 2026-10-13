@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Building2, CheckCircle2, Copy, Send, PhoneCall } from 'lucide-react';
 import { Language, CorporateInquiryData } from '../types';
+import { AmbariElephant, KolamBorderRibbon, SikkuKolamMandala } from './SouthIndianMotifs';
 
 interface CorporateEventModalProps {
   isOpen: boolean;
@@ -172,35 +173,47 @@ Requirements: ${formData.additionalRequirements || 'None specified'}`;
             </div>
 
             {/* Header banner */}
-            <div className="bg-[#263F32] text-[#F6F3EA] px-6 py-4 sm:py-5 relative shrink-0 shadow-xs">
+            <div className="bg-[#263F32] text-[#F6F3EA] px-6 py-4 sm:py-5 relative shrink-0 shadow-xs overflow-hidden">
+              {/* Kolam Watermark in header */}
+              <div className="absolute -right-8 -bottom-8 w-36 h-36 opacity-15 pointer-events-none text-[#F5D77F]">
+                <SikkuKolamMandala className="w-full h-full" />
+              </div>
+
               <button
                 type="button"
                 onClick={onClose}
-                className="absolute top-5 right-5 p-1.5 rounded-full bg-white/10 text-[#F6F3EA] hover:bg-white/20 transition-colors cursor-pointer"
+                className="absolute top-5 right-5 p-1.5 rounded-full bg-white/10 text-[#F6F3EA] hover:bg-white/20 transition-colors cursor-pointer z-10"
                 aria-label="Close dialog"
               >
                 <X className="w-5 h-5" />
               </button>
-              <div className="flex items-center gap-2.5 mb-1.5">
-                <span className="p-1.5 rounded-lg bg-[#B96F50]/20 text-[#D88D6F]">
-                  <Building2 className="w-5 h-5" />
+              <div className="flex items-center gap-2.5 mb-1.5 relative z-10">
+                <span className="p-1.5 rounded-lg bg-[#D4AF37]/20 text-[#F5D77F] flex items-center justify-center">
+                  <AmbariElephant className="w-5 h-5 text-[#F5D77F]" />
                 </span>
-                <span className="text-xs tracking-wider uppercase font-semibold text-[#D88D6F]">
-                  {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಮತ್ತು ಉದ್ಯೋಗಿ ಕೂಟಗಳು' : 'Corporate Events & Team Outings'}
+                <span className="text-xs tracking-wider uppercase font-semibold text-[#F5D77F]">
+                  {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಮತ್ತು ಉದ್ಯೋಗಿ ಕೂಟಗಳು' : 'Corporate Events & Executive Retreats'}
                 </span>
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold font-serif-editorial">
+              <h2 className="text-xl sm:text-2xl font-bold font-serif-editorial relative z-10">
                 {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಕಾರ್ಯಕ್ರಮ ಯೋಜನೆ' : 'Plan a Corporate Event or Team Outing'}
               </h2>
-              <p className="text-xs sm:text-sm text-[#F6F3EA]/80 mt-1">
+              <p className="text-xs sm:text-sm text-[#F6F3EA]/80 mt-1 relative z-10">
                 {isKn
-                  ? 'ನಿಮ್ಮ ತಂಡದ ವಿಶ್ರಾಂತಿ, ಪ್ರೇರಣೆ ಹಾಗೂ ಸಂಭ್ರಮಕ್ಕೆ ಪರಿಪೂರ್ಣ ವಾತಾವರಣ ನಿರ್ಮಿಸುತ್ತೇವೆ.'
-                  : 'Tailored retreats, seamless team coordination, and dedicated hospitality for your team.'}
+                  ? 'ನಿಮ್ಮ ತಂಡದ ವಿಶ್ರಾಂತಿ, ಪ್ರೇರಣೆ ಹಾಗೂ ಸಂಭ್ರಮಕ್ಕೆ ರಾಜಮನೆತನದ ಆತಿಥ್ಯದೊಂದಿಗೆ ಪರಿಪೂರ್ಣ ವಾತಾವರಣ.'
+                  : 'Tailored retreats, seamless team coordination, and regal hospitality for your company.'}
               </p>
             </div>
 
+            {/* Kolam border ribbon */}
+            <KolamBorderRibbon className="w-full h-3.5 shrink-0" color="#D4AF37" />
+
             {/* Content Body */}
-            <div className="p-5 sm:p-7 flex-1 overflow-y-auto">
+            <div className="p-5 sm:p-7 flex-1 overflow-y-auto relative bg-[#FBF9F4]">
+              {/* Subtle background Kolam watermark */}
+              <div className="absolute right-4 bottom-8 w-64 h-64 opacity-[0.035] pointer-events-none text-[#263F32]">
+                <SikkuKolamMandala className="w-full h-full" />
+              </div>
               {!submitted ? (
                 <form onSubmit={handleSubmit} className="space-y-4 text-sm text-[#252923]">
                   {/* Org Name & Contact Person */}

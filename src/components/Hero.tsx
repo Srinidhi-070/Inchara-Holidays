@@ -3,6 +3,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import { Language } from '../types';
 import { translations } from '../data/translations';
 import { ArrowRight, Compass, ChevronDown } from 'lucide-react';
+import { AmbariElephant, LotusIcon, ToranaGarland } from './SouthIndianMotifs';
 
 interface HeroProps {
   language: Language;
@@ -42,6 +43,11 @@ export const Hero: React.FC<HeroProps> = ({
         <div className="absolute inset-0 bg-radial from-transparent via-[#263F32]/30 to-[#162E22]/90" />
         {/* Delicate South Indian Kolam motif texture overlay */}
         <div className="absolute inset-0 bg-kolam-dark opacity-35 pointer-events-none mix-blend-overlay" />
+
+        {/* Auspicious Mysore Ambari Elephant Watermark Silhouette */}
+        <div className="hidden lg:block absolute right-8 bottom-12 w-96 h-80 text-[#D4AF37] opacity-15 pointer-events-none select-none">
+          <AmbariElephant className="w-full h-full" color="#D4AF37" />
+        </div>
       </motion.div>
 
       {/* Hero Content Container */}
@@ -55,8 +61,8 @@ export const Hero: React.FC<HeroProps> = ({
             className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold tracking-wide text-[#E5B842] mb-3 sm:mb-4"
           >
             <span className="w-6 h-px bg-[#D4AF37]" />
+            <LotusIcon className="w-4 h-4 text-[#F5D77F]" />
             <span className="flex items-center gap-1.5">
-              <span className="text-[#D4AF37]">✦</span>
               <span>{t.hero.kicker}</span>
             </span>
             <span aria-hidden="true" className="opacity-40">·</span>

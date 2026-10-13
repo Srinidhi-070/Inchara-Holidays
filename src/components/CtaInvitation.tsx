@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { Language } from '../types';
 import { translations } from '../data/translations';
 import { ArrowRight, MessageCircle, Compass } from 'lucide-react';
+import { AmbariElephant, LotusIcon, KolamBorderRibbon, SikkuKolamMandala } from './SouthIndianMotifs';
 
 interface CtaInvitationProps {
   language: Language;
@@ -20,9 +21,17 @@ export const CtaInvitation: React.FC<CtaInvitationProps> = ({
 
   return (
     <section className="py-20 sm:py-28 bg-[#162E22] text-[#F6F3EA] relative overflow-hidden">
+      {/* Top Kolam border ribbon */}
+      <KolamBorderRibbon className="absolute top-0 left-0 right-0 w-full h-3 z-20" color="#D4AF37" />
+
       {/* Decorative Kolam pattern & Warm Mysore Gold Glow */}
       <div className="absolute inset-0 bg-kolam-dark opacity-30 pointer-events-none mix-blend-overlay" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#D4AF37]/15 rounded-full blur-3xl pointer-events-none" />
+
+      {/* Large Sikku Kolam Mandala watermark in center */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] text-[#D4AF37] opacity-[0.05] pointer-events-none">
+        <SikkuKolamMandala className="w-full h-full" />
+      </div>
 
       <motion.div
         initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
@@ -31,8 +40,8 @@ export const CtaInvitation: React.FC<CtaInvitationProps> = ({
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
       >
-        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#D4AF37]/25 to-white/5 border border-[#D4AF37]/40 text-[#F5D77F] flex items-center justify-center mx-auto mb-6 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
-          <Compass className="w-7 h-7" />
+        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#D4AF37]/25 to-white/5 border border-[#D4AF37]/50 text-[#F5D77F] flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.25)]">
+          <AmbariElephant className="w-9 h-9 text-[#F5D77F]" />
         </div>
 
         <h2 className="text-3xl sm:text-5xl font-bold font-serif-editorial text-[#F6F3EA] tracking-tight leading-tight mb-6 text-balance">

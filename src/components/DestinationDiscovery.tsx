@@ -4,6 +4,7 @@ import { Language, Destination } from '../types';
 import { translations } from '../data/translations';
 import { destinations } from '../data/destinations';
 import { ArrowUpRight, Calendar, Clock, Sparkles } from 'lucide-react';
+import { ToranaGarland, KolamCorner, GopuramIcon } from './SouthIndianMotifs';
 
 interface DestinationDiscoveryProps {
   language: Language;
@@ -55,6 +56,9 @@ export const DestinationDiscovery: React.FC<DestinationDiscoveryProps> = ({
             <p className="mt-3.5 text-sm sm:text-base text-[#252923]/80 leading-relaxed font-normal max-w-xl">
               {t.discovery.subtitle}
             </p>
+            <div className="mt-2.5 max-w-xs">
+              <ToranaGarland className="w-full h-5 text-[#B96F50]/50" />
+            </div>
           </motion.div>
 
           {/* Interactive Filter Tabs */}

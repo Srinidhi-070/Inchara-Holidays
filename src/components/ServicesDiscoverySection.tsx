@@ -19,6 +19,15 @@ import {
   Coffee,
   HeartHandshake
 } from 'lucide-react';
+import {
+  AmbariElephant,
+  GopuramIcon,
+  LotusIcon,
+  TempleBell,
+  ToranaGarland,
+  BananaLeafIcon,
+  SikkuKolamMandala
+} from './SouthIndianMotifs';
 
 interface ServicesDiscoverySectionProps {
   language: Language;
@@ -53,7 +62,7 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
       id: 'packages',
       labelKn: 'ರಜಾ ಪ್ರವಾಸಗಳು',
       labelEn: 'Holiday Packages',
-      icon: Compass,
+      icon: GopuramIcon,
       descKn: 'ಕುಟುಂಬ & ಗುಂಪು ಪಯಣಗಳು',
       descEn: 'Family & Curated Tours',
     },
@@ -61,7 +70,7 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
       id: 'corporate',
       labelKn: 'ಕಾರ್ಪೊರೇಟ್ ಕಾರ್ಯಕ್ರಮಗಳು',
       labelEn: 'Corporate Events',
-      icon: Building2,
+      icon: AmbariElephant,
       descKn: 'ಟೀಮ್ ಔಟಿಂಗ್ & ಆಫ್‌ಸೈಟ್',
       descEn: 'Team Retreats & Off-sites',
     },
@@ -69,7 +78,7 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
       id: 'catering',
       labelKn: 'ಆಹಾರ ಸೇವೆಗಳು',
       labelEn: 'Catering & Hospitality',
-      icon: UtensilsCrossed,
+      icon: BananaLeafIcon,
       descKn: 'ಸಮಾರಂಭ & ಪ್ರವಾಸ ಭೋಜನ',
       descEn: 'Gatherings & Travel Dining',
     },
@@ -77,7 +86,7 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
       id: 'school',
       labelKn: 'ಶಾಲಾ ಕಾರ್ಯಕ್ರಮಗಳು',
       labelEn: 'School Trips & Events',
-      icon: GraduationCap,
+      icon: TempleBell,
       descKn: 'ಸುರಕ್ಷಿತ ಶೈಕ್ಷಣಿಕ ಪ್ರವಾಸಗಳು',
       descEn: 'Educational Study Tours',
     },
@@ -377,14 +386,17 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
             transition={{ duration: 0.6 }}
             className="rounded-3xl bg-linear-to-br from-[#1C2F25] to-[#263F32] text-[#F6F3EA] p-6 sm:p-10 lg:p-14 shadow-xl border border-white/10 relative overflow-hidden"
           >
-            {/* Visual background accents */}
+            {/* Visual background accents & Royal Ambari Elephant Watermark */}
             <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-[#B96F50]/15 blur-3xl pointer-events-none" />
+            <div className="hidden sm:block absolute right-8 top-12 w-64 h-56 text-[#D4AF37] opacity-10 pointer-events-none select-none">
+              <AmbariElephant className="w-full h-full" color="#D4AF37" />
+            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               {/* Left Column: Story & Offerings */}
               <div className="lg:col-span-7 space-y-6">
                 <div className="flex items-center gap-2 text-xs font-semibold text-[#D88D6F] uppercase tracking-wider">
-                  <Building2 className="w-4 h-4" />
+                  <AmbariElephant className="w-5 h-5 text-[#D88D6F]" />
                   <span>02. {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಕಾರ್ಯಕ್ರಮಗಳು & ಟೀಮ್ ಔಟಿಂಗ್' : 'Corporate Events & Team Outings'}</span>
                 </div>
 
@@ -540,14 +552,15 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#263F32]/10">
               <div className="max-w-2xl">
                 <div className="flex items-center gap-2 text-xs font-semibold text-[#B96F50] uppercase tracking-wider mb-2">
-                  <UtensilsCrossed className="w-4 h-4" />
-                  <span>03. {isKn ? 'ಆಹಾರ ಸೇವೆಗಳು & ಆತಿಥ್ಯ' : 'Catering & Hospitality'}</span>
+                  <BananaLeafIcon className="w-5 h-5 text-[#B96F50]" />
+                  <span>03. {isKn ? 'ಆಹಾರ ಸೇವೆಗಳು & ಸಾಂಪ್ರದಾಯಿಕ ಆತಿಥ್ಯ' : 'Catering & Traditional Hospitality'}</span>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-bold font-serif-editorial text-[#263F32]">
                   {isKn
                     ? 'ರುಚಿಕರ ಶುದ್ಧ ಆಹಾರ, ಅಚ್ಚುಕಟ್ಟು ಪಂಕ್ತಿ ಸೇವೆ'
                     : 'Authentic Flavors & Thoughtful Hospitality'}
                 </h3>
+                <ToranaGarland className="w-48 h-5 text-[#B96F50]/60 my-2" />
                 <p className="mt-2 text-sm sm:text-base text-[#252923]/70">
                   {isKn
                     ? 'ಕಾರ್ಪೊರೇಟ್ ಸಭೆಗಳು, ಶಾಲಾ ಸಮಾರಂಭಗಳು, ಪ್ರವಾಸದ ಹಾದಿಯಲ್ಲಿ ಬಿಸಿಬಿಸಿ ಊಟೋಪಚಾರ ಹಾಗೂ ಕೌಟುಂಬಿಕ ಸಮಾರಂಭಗಳಿಗೆ ಸೂಕ್ತವಾದ ಗುಣಮಟ್ಟದ ಆಹಾರ ವ್ಯವಸ್ಥೆ.'
@@ -728,7 +741,7 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
               {/* Right Column: Descriptions & Action */}
               <div className="lg:col-span-7 order-1 lg:order-2 space-y-6">
                 <div className="flex items-center gap-2 text-xs font-semibold text-emerald-300 uppercase tracking-wider">
-                  <GraduationCap className="w-4 h-4" />
+                  <TempleBell className="w-4 h-4" />
                   <span>04. {isKn ? 'ಶಾಲಾ ಪ್ರವಾಸಗಳು & ಶೈಕ್ಷಣಿಕ ಕಾರ್ಯಕ್ರಮಗಳು' : 'School Trips & Educational Events'}</span>
                 </div>
 

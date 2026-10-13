@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, GraduationCap, CheckCircle2, Copy, Send, PhoneCall } from 'lucide-react';
 import { Language, SchoolTripInquiryData } from '../types';
+import { TempleBell, KolamBorderRibbon, SikkuKolamMandala } from './SouthIndianMotifs';
 
 interface SchoolTripModalProps {
   isOpen: boolean;
@@ -175,35 +176,47 @@ Safety & Dietary Needs: ${formData.safetyOrDietaryNeeds || 'Standard safety requ
             </div>
 
             {/* Header */}
-            <div className="bg-[#1D4E3A] text-[#F6F3EA] px-6 py-4 sm:py-5 relative shrink-0 shadow-xs">
+            <div className="bg-[#1D4E3A] text-[#F6F3EA] px-6 py-4 sm:py-5 relative shrink-0 shadow-xs overflow-hidden">
+              {/* Kolam Watermark in header */}
+              <div className="absolute -right-8 -bottom-8 w-36 h-36 opacity-15 pointer-events-none text-[#F5D77F]">
+                <SikkuKolamMandala className="w-full h-full" />
+              </div>
+
               <button
                 type="button"
                 onClick={onClose}
-                className="absolute top-4 sm:top-5 right-5 p-1.5 rounded-full bg-white/10 text-[#F6F3EA] hover:bg-white/20 transition-colors cursor-pointer"
+                className="absolute top-4 sm:top-5 right-5 p-1.5 rounded-full bg-white/10 text-[#F6F3EA] hover:bg-white/20 transition-colors cursor-pointer z-10"
                 aria-label="Close dialog"
               >
                 <X className="w-5 h-5" />
               </button>
-              <div className="flex items-center gap-2 mb-1.5">
-                <span className="p-1.5 rounded-lg bg-emerald-400/20 text-emerald-300">
-                  <GraduationCap className="w-5 h-5" />
+              <div className="flex items-center gap-2 mb-1.5 relative z-10">
+                <span className="p-1.5 rounded-lg bg-emerald-400/20 text-[#F5D77F] flex items-center justify-center">
+                  <TempleBell className="w-5 h-5 text-[#F5D77F]" />
                 </span>
-                <span className="text-xs tracking-wider uppercase font-semibold text-emerald-200">
-                  {isKn ? 'ಶಾಲಾ ಪ್ರವಾಸಗಳು & ಶೈಕ್ಷಣಿಕ ಕಾರ್ಯಕ್ರಮಗಳು' : 'Educational Trips & School Expeditions'}
+                <span className="text-xs tracking-wider uppercase font-semibold text-[#F5D77F]">
+                  {isKn ? 'ಶಾಲಾ ಪ್ರವಾಸಗಳು & ಶೈಕ್ಷಣಿಕ ಕಾರ್ಯಕ್ರಮಗಳು' : 'Educational Trips & Heritage Expeditions'}
                 </span>
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold font-serif-editorial">
+              <h2 className="text-xl sm:text-2xl font-bold font-serif-editorial relative z-10">
                 {isKn ? 'ಶಾಲಾ / ಕಾಲೇಜು ಪ್ರವಾಸ ರೂಪಿಸಿ' : 'Plan an Educational Trip'}
               </h2>
-              <p className="text-xs sm:text-sm text-[#F6F3EA]/85 mt-1">
+              <p className="text-xs sm:text-sm text-[#F6F3EA]/85 mt-1 relative z-10">
                 {isKn
-                  ? 'ವಿದ್ಯಾರ್ಥಿಗಳ ಸುರಕ್ಷತೆ, ಪೌಷ್ಟಿಕ ಆಹಾರ ಹಾಗೂ ಪ್ರಾಯೋಗಿಕ ಕಲಿಕೆಗೆ ಆದ್ಯತೆ ನೀಡುವ ವಿಶ್ವಾಸಾರ್ಹ ಪ್ರವಾಸ ವ್ಯವಸ್ಥೆ.'
-                  : 'Safety-first itineraries, verified transport, hygienic meals, and experiential learning for students.'}
+                  ? 'ವಿದ್ಯಾರ್ಥಿಗಳ ಸುರಕ್ಷತೆ, ಪೌಷ್ಟಿಕ ಆಹಾರ ಹಾಗೂ ಸಂಸ್ಕೃತಿ ಮತ್ತು ಇತಿಹಾಸದ ಪ್ರಾಯೋಗಿಕ ಕಲಿಕೆಗೆ ಆದ್ಯತೆ ನೀಡುವ ವಿಶ್ವಾಸಾರ್ಹ ಪ್ರವಾಸ ವ್ಯವಸ್ಥೆ.'
+                  : 'Safety-first itineraries, verified transport, hygienic meals, and living heritage exploration for students.'}
               </p>
             </div>
 
+            {/* Kolam border ribbon */}
+            <KolamBorderRibbon className="w-full h-3.5 shrink-0" color="#D4AF37" />
+
             {/* Form */}
-            <div className="p-5 sm:p-7 flex-1 overflow-y-auto">
+            <div className="p-5 sm:p-7 flex-1 overflow-y-auto relative bg-[#FBF9F4]">
+              {/* Subtle background Kolam watermark */}
+              <div className="absolute right-4 bottom-8 w-64 h-64 opacity-[0.035] pointer-events-none text-[#1D4E3A]">
+                <SikkuKolamMandala className="w-full h-full" />
+              </div>
               {!submitted ? (
                 <form onSubmit={handleSubmit} className="space-y-4 text-sm text-[#252923]">
                   {/* Institution Name */}

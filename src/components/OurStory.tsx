@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { Language } from '../types';
 import { translations } from '../data/translations';
 import { Compass, Sparkles, MapPin } from 'lucide-react';
+import { AmbariElephant, SikkuKolamMandala, LotusIcon, KolamCorner } from './SouthIndianMotifs';
 
 interface OurStoryProps {
   language: Language;
@@ -25,7 +26,15 @@ export const OurStory: React.FC<OurStoryProps> = ({ language, onOpenPlanner }) =
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 relative"
           >
-            <div className="relative rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-[#1c2e24]">
+            <div className="relative rounded-2xl overflow-hidden border border-[#D4AF37]/30 shadow-2xl bg-[#1c2e24]">
+              {/* Kolam corner decorative accents */}
+              <div className="absolute top-2 left-2 z-10 pointer-events-none opacity-60">
+                <KolamCorner className="w-10 h-10" color="#D4AF37" position="top-left" />
+              </div>
+              <div className="absolute top-2 right-2 z-10 pointer-events-none opacity-60">
+                <KolamCorner className="w-10 h-10" color="#D4AF37" position="top-right" />
+              </div>
+
               <img
                 src="/images/south_indian_temple.jpg"
                 alt="Traditional South Indian temple heritage and cultural roots of Karnataka"
@@ -34,9 +43,10 @@ export const OurStory: React.FC<OurStoryProps> = ({ language, onOpenPlanner }) =
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#263F32] via-transparent to-transparent" />
               
-              <div className="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-black/40 backdrop-blur-md border border-white/20 text-xs">
-                <div className="text-[#AAB69A] font-semibold mb-1">
-                  {language === 'kn' ? 'ಮೂಲ ಧ್ಯೇಯ' : 'Core Promise'}
+              <div className="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-black/60 backdrop-blur-md border border-[#D4AF37]/40 text-xs">
+                <div className="text-[#F5D77F] font-semibold mb-1 flex items-center gap-1.5">
+                  <LotusIcon className="w-3.5 h-3.5 text-[#F5D77F]" />
+                  <span>{language === 'kn' ? 'ಮೂಲ ಧ್ಯೇಯ' : 'Core Promise'}</span>
                 </div>
                 <div className="text-[#F6F3EA] font-semibold text-sm">
                   {t.subtagline}
@@ -51,16 +61,23 @@ export const OurStory: React.FC<OurStoryProps> = ({ language, onOpenPlanner }) =
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-7 space-y-6"
+            className="lg:col-span-7 space-y-6 relative overflow-hidden"
           >
+            {/* Sikku Kolam Mandala Watermark */}
+            <div className="hidden sm:block absolute -right-16 -top-16 w-80 h-80 text-[#D4AF37] opacity-10 pointer-events-none select-none">
+              <SikkuKolamMandala className="w-full h-full" color="#F5D77F" />
+            </div>
+
             <motion.div
               initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="relative z-10"
             >
-              <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#AAB69A] uppercase mb-2.5">
-                <span className="w-5 h-px bg-[#AAB69A]" />
+              <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#F5D77F] uppercase mb-2.5">
+                <span className="w-5 h-px bg-[#D4AF37]" />
+                <LotusIcon className="w-4 h-4 text-[#D4AF37]" />
                 <span>{t.ourStory.kicker}</span>
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif-editorial text-[#F6F3EA] tracking-tight leading-[1.18]">

@@ -17,6 +17,7 @@ import {
   Home as HomeIcon,
   Info
 } from 'lucide-react';
+import { AmbariElephant, KolamBorderRibbon } from './SouthIndianMotifs';
 
 interface HeaderProps {
   language: Language;
@@ -113,8 +114,11 @@ export const Header: React.FC<HeaderProps> = ({
             : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-3 sm:py-4 text-[#F6F3EA]'
         }`}
       >
-        {/* Subtle Kasavu Gold Hairline at top */}
+        {/* Subtle Kasavu Gold Hairline & Kolam Ribbon at top */}
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#B96F50] via-[#D4AF37] to-[#263F32]" />
+        <div className="absolute top-[2px] left-0 right-0 h-2 opacity-35 overflow-hidden pointer-events-none">
+          <KolamBorderRibbon patternUnits={48} className="h-full" color={isScrolled ? '#D4AF37' : '#F5D77F'} dotColor={isScrolled ? '#B96F50' : '#D4AF37'} />
+        </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4 lg:gap-8">
@@ -129,20 +133,20 @@ export const Header: React.FC<HeaderProps> = ({
               aria-label="Inchara Holidays Home"
             >
               <div
-                className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 shadow-xs border ${
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm border ${
                   isScrolled
-                    ? 'bg-[#263F32] border-[#D4AF37]/40 text-[#D4AF37]'
-                    : 'bg-[#F6F3EA]/15 border-[#D4AF37]/50 text-[#F5D77F] backdrop-blur-xs'
+                    ? 'bg-[#1E3B2B] border-[#D4AF37]/50 text-[#D4AF37]'
+                    : 'bg-[#162E22]/85 border-[#D4AF37]/60 text-[#F5D77F] backdrop-blur-md'
                 }`}
               >
-                <Compass className="w-4 h-4 transition-transform group-hover:rotate-45 duration-300" />
+                <AmbariElephant className="w-6 h-6 transition-transform group-hover:scale-110 duration-300" color={isScrolled ? '#D4AF37' : '#F5D77F'} />
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center gap-1.5">
                   <span className="text-base sm:text-lg lg:text-xl font-bold tracking-tight font-serif-editorial">
                     {isKn ? 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್' : 'Inchara Holidays'}
                   </span>
-                  <span className="text-[10px] text-[#D4AF37] hidden sm:inline">✦</span>
+                  <span className="text-[10px] text-[#D4AF37]">✦</span>
                 </div>
                 <span
                   className={`text-[9px] sm:text-[10px] tracking-wider uppercase font-medium ${

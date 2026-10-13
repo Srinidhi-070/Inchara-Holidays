@@ -16,6 +16,7 @@ import {
   Copy,
   Check,
 } from 'lucide-react';
+import { AmbariElephant, LotusIcon, SikkuKolamMandala, KolamCorner } from './SouthIndianMotifs';
 
 interface DestinationModalProps {
   destination: Destination | null;
@@ -176,15 +177,20 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#263F32] via-[#263F32]/50 to-transparent" />
 
-            <div className="absolute bottom-5 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6 text-[#F6F3EA]">
-              <div className="flex items-center gap-2 text-xs font-medium text-[#AAB69A] mb-1">
-                <span>{language === 'kn' ? destination.regionKn : destination.regionEn}</span>
-                <span aria-hidden="true">·</span>
-                <span>{language === 'kn' ? destination.tagKn : destination.tagEn}</span>
+            <div className="absolute bottom-5 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6 text-[#F6F3EA] flex items-end justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2 text-xs font-medium text-[#F5D77F] mb-1">
+                  <span>{language === 'kn' ? destination.regionKn : destination.regionEn}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>{language === 'kn' ? destination.tagKn : destination.tagEn}</span>
+                </div>
+                <h3 className="text-xl sm:text-3xl lg:text-4xl font-bold font-serif-editorial tracking-tight">
+                  {language === 'kn' ? destination.nameKn : destination.nameEn}
+                </h3>
               </div>
-              <h3 className="text-xl sm:text-3xl lg:text-4xl font-bold font-serif-editorial tracking-tight">
-                {language === 'kn' ? destination.nameKn : destination.nameEn}
-              </h3>
+              <div className="hidden sm:block p-2 rounded-xl bg-black/40 border border-[#D4AF37]/40 backdrop-blur-md">
+                <AmbariElephant className="w-8 h-8 text-[#F5D77F]" color="#F5D77F" />
+              </div>
             </div>
           </div>
 
@@ -243,29 +249,36 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
               </div>
             </div>
 
-            {/* Cultural Etiquette Section */}
+            {/* Cultural Etiquette Section (Styled with Kaavi Terracotta & Sikku Kolam - Image 2) */}
             <div className="p-6 sm:p-7 rounded-2xl bg-gradient-to-br from-[#263F32]/8 via-[#E4D8C5]/40 to-[#263F32]/5 border border-[#263F32]/15 space-y-6">
-              {/* Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#263F32]/12 pb-4">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#B96F50]">
-                    <Sparkles className="w-4 h-4 text-[#B96F50]" />
-                    <span>{t.modal.culturalEtiquette}</span>
-                    <span aria-hidden="true">·</span>
-                    <span className="text-[#263F32]/75 font-medium">
-                      {language === 'kn' ? 'ಕರ್ನಾಟಕ ಪರಂಪರೆ' : 'Karnataka Heritage'}
-                    </span>
-                  </div>
-                  <h4 className="text-xl sm:text-2xl font-bold font-serif-editorial text-[#263F32] tracking-tight">
-                    {language === 'kn' ? 'ಪ್ರಯಾಣಿಕರ ಸಾಂಸ್ಕೃತಿಕ ಶಿಷ್ಟಾಚಾರ' : 'Cultural Etiquette & Respect'}
-                  </h4>
-                  <p className="text-xs sm:text-sm text-[#252923]/75 leading-relaxed font-normal">
-                    {t.modal.culturalEtiquetteSub}
-                  </p>
+              {/* Kaavi Terracotta Header Banner with White Sikku Kolam Watermark */}
+              <div className="relative rounded-xl bg-gradient-to-r from-[#9E3D28] via-[#B34A34] to-[#8C341F] text-[#FBF8F1] p-5 border border-[#D4AF37]/40 overflow-hidden shadow-sm">
+                {/* Authentic Sikku Kolam Watermark (Directly from Image 2) */}
+                <div className="absolute right-2 -bottom-6 w-32 h-32 text-white opacity-25 pointer-events-none select-none">
+                  <SikkuKolamMandala className="w-full h-full" color="#FBF8F1" />
                 </div>
-                <div className="self-start sm:self-center px-3 py-1.5 rounded-lg bg-[#263F32] text-[#F6F3EA] text-[11px] font-semibold tracking-wide flex items-center gap-1.5 shrink-0 shadow-xs">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#AAB69A]" />
-                  <span>{language === 'kn' ? 'ವಿಶ್ವಾಸಾರ್ಹ ಸಲಹೆಗಳು' : 'Trusted Guidelines'}</span>
+
+                <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#F5D77F]">
+                      <LotusIcon className="w-4 h-4 text-[#F5D77F]" />
+                      <span>{t.modal.culturalEtiquette}</span>
+                      <span aria-hidden="true">·</span>
+                      <span className="text-[#FBF8F1]/90 font-medium">
+                        {language === 'kn' ? 'ಕರ್ನಾಟಕ ಪರಂಪರೆ' : 'Karnataka Heritage'}
+                      </span>
+                    </div>
+                    <h4 className="text-xl sm:text-2xl font-bold font-serif-editorial text-white tracking-tight">
+                      {language === 'kn' ? 'ಪ್ರಯಾಣಿಕರ ಸಾಂಸ್ಕೃತಿಕ ಶಿಷ್ಟಾಚಾರ' : 'Cultural Etiquette & Respect'}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-[#FBF8F1]/85 leading-relaxed font-normal max-w-xl">
+                      {t.modal.culturalEtiquetteSub}
+                    </p>
+                  </div>
+                  <div className="self-start sm:self-center px-3 py-1.5 rounded-lg bg-black/30 backdrop-blur-md text-[#F5D77F] border border-[#D4AF37]/40 text-[11px] font-semibold tracking-wide flex items-center gap-1.5 shrink-0 shadow-xs">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#F5D77F]" />
+                    <span>{language === 'kn' ? 'ವಿಶ್ವಾಸಾರ್ಹ ಸಲಹೆಗಳು' : 'Trusted Guidelines'}</span>
+                  </div>
                 </div>
               </div>
 

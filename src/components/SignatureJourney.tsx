@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { Language } from '../types';
 import { translations } from '../data/translations';
 import { Compass, Calendar, MapPin, ArrowRight, Check } from 'lucide-react';
+import { SikkuKolamMandala, KolamBorderRibbon, GopuramIcon } from './SouthIndianMotifs';
 
 interface SignatureJourneyProps {
   language: Language;
@@ -33,7 +34,7 @@ export const SignatureJourney: React.FC<SignatureJourneyProps> = ({
           className="rounded-2xl border border-[#D4AF37]/30 bg-gradient-to-b from-[#263F32]/80 to-[#162E22]/90 overflow-hidden shadow-2xl backdrop-blur-md"
         >
           {/* Top Publication Header Bar */}
-          <div className="px-6 py-4 border-b border-[#D4AF37]/20 flex flex-wrap items-center justify-between gap-4 text-xs tracking-widest text-[#F5D77F] uppercase bg-black/20">
+          <div className="px-6 py-4 border-b border-[#D4AF37]/20 flex flex-wrap items-center justify-between gap-4 text-xs tracking-widest text-[#F5D77F] uppercase bg-black/20 relative">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-[#D4AF37] animate-deepam shadow-[0_0_8px_rgba(212,175,55,0.8)]" />
               <span className="font-semibold text-white tracking-wider">{t.signature.kicker}</span>
@@ -44,6 +45,10 @@ export const SignatureJourney: React.FC<SignatureJourneyProps> = ({
               <span aria-hidden="true">·</span>
               <span>KARNATAKA COAST & MALNAD HERITAGE CIRCUIT</span>
             </div>
+          </div>
+          {/* Kolam decorative border ribbon */}
+          <div className="h-1.5 w-full overflow-hidden opacity-30">
+            <KolamBorderRibbon patternUnits={40} className="h-full" color="#F5D77F" dotColor="#D4AF37" />
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
@@ -69,11 +74,16 @@ export const SignatureJourney: React.FC<SignatureJourneyProps> = ({
             </div>
 
             {/* Editorial Narrative (5 cols) */}
-            <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between space-y-6">
-              <div>
+            <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between space-y-6 relative overflow-hidden">
+              {/* Authentic Sikku Kolam Mandala watermark (Image 2 style) */}
+              <div className="absolute -right-12 -bottom-12 w-64 h-64 text-[#D4AF37] opacity-10 pointer-events-none select-none">
+                <SikkuKolamMandala className="w-full h-full" color="#F5D77F" />
+              </div>
+
+              <div className="relative z-10">
                 {/* Route strip */}
-                <div className="inline-flex items-center gap-2 text-xs text-[#B96F50] font-semibold mb-3">
-                  <MapPin className="w-3.5 h-3.5" />
+                <div className="inline-flex items-center gap-2 text-xs text-[#F5D77F] font-semibold mb-3">
+                  <GopuramIcon className="w-4 h-4 text-[#D4AF37]" />
                   <span className="line-clamp-1">{t.signature.route}</span>
                 </div>
 

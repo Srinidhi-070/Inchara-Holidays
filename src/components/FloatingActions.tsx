@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp, Calendar } from 'lucide-react';
+import { AmbariElephant } from './SouthIndianMotifs';
 import { Language } from '../types';
 
 interface FloatingActionsProps {
@@ -60,7 +61,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
               data-cursor="Plan"
               aria-label={language === 'kn' ? 'ಪ್ರವಾಸ ರೂಪಿಸಿ' : 'Plan Trip'}
             >
-              <Calendar className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <AmbariElephant className="w-4 h-4 text-[#D4AF37]" />
               <span>{language === 'kn' ? 'ಪ್ರವಾಸ ರೂಪಿಸಿ' : 'Plan Trip'}</span>
             </motion.button>
 

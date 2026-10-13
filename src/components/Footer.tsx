@@ -2,6 +2,7 @@ import React from 'react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
 import { Compass, Globe, Mail, Phone, MapPin, Building2, UtensilsCrossed, GraduationCap, Heart } from 'lucide-react';
+import { AmbariElephant, KolamBorderRibbon, SikkuKolamMandala } from './SouthIndianMotifs';
 
 interface FooterProps {
   language: Language;
@@ -25,6 +26,10 @@ export const Footer: React.FC<FooterProps> = ({
     <footer className="bg-[#14261C] text-[#F6F3EA] border-t-2 border-[#D4AF37]/60 pt-16 pb-12 relative overflow-hidden">
       {/* Kolam pattern overlay */}
       <div className="absolute inset-0 bg-kolam-dark opacity-20 pointer-events-none mix-blend-overlay" />
+      {/* Continuous Kolam Looped Border Ribbon at top of footer */}
+      <div className="absolute top-0 left-0 right-0 h-2 opacity-35 overflow-hidden pointer-events-none">
+        <KolamBorderRibbon patternUnits={48} className="h-full" color="#D4AF37" dotColor="#F5D77F" />
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Main Footer Grid */}
@@ -227,8 +232,11 @@ export const Footer: React.FC<FooterProps> = ({
 
         {/* Bottom Strip */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#F6F3EA]/50">
-          <div>{t.footer.copyright}</div>
-          <div className="text-[11px] text-center sm:text-right">
+          <div className="flex items-center gap-2">
+            <AmbariElephant className="w-5 h-5 text-[#D4AF37]/60 shrink-0" color="#D4AF37" />
+            <span>{t.footer.copyright}</span>
+          </div>
+          <div className="text-[11px] text-center sm:text-right text-[#F5D77F]/60">
             {t.footer.disclaimer}
           </div>
         </div>

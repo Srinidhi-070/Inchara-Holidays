@@ -4,6 +4,7 @@ import { Language, Experience } from '../types';
 import { translations } from '../data/translations';
 import { experiences } from '../data/experiences';
 import { ArrowRight, Check, Compass, Sparkles, Heart } from 'lucide-react';
+import { LotusIcon, GopuramIcon, KolamBorderRibbon, SikkuKolamMandala } from './SouthIndianMotifs';
 
 interface ExperiencesSectionProps {
   language: Language;
@@ -20,9 +21,17 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
 
   return (
     <section id="experiences" className="py-20 sm:py-28 bg-[#1B2F24] text-[#F6F3EA] relative overflow-hidden">
+      {/* Top Kolam border ribbon */}
+      <KolamBorderRibbon className="absolute top-0 left-0 right-0 w-full h-3 z-20" color="#D4AF37" />
+
       {/* Kolam geometric background motif */}
       <div className="absolute inset-0 bg-kolam-dark opacity-25 pointer-events-none mix-blend-overlay" />
       <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#D4AF37]/10 rounded-full blur-3xl pointer-events-none" />
+
+      {/* Sikku Kolam Mandala watermark */}
+      <div className="absolute -left-20 bottom-12 w-96 h-96 opacity-[0.04] pointer-events-none text-[#F5D77F]">
+        <SikkuKolamMandala className="w-full h-full" />
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -35,7 +44,7 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
         >
           <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#F5D77F] uppercase mb-2.5">
             <span className="w-5 h-px bg-[#D4AF37]" />
-            <span className="text-[#D4AF37]">✦</span>
+            <LotusIcon className="w-4 h-4 text-[#D4AF37]" />
             <span>{t.experiences.kicker}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif-editorial text-[#F6F3EA] tracking-tight leading-[1.18]">
