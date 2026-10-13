@@ -22,22 +22,25 @@ export const Footer: React.FC<FooterProps> = ({
   const isKn = language === 'kn';
 
   return (
-    <footer className="bg-[#252923] text-[#F6F3EA] border-t border-white/10 pt-16 pb-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-[#14261C] text-[#F6F3EA] border-t-2 border-[#D4AF37]/60 pt-16 pb-12 relative overflow-hidden">
+      {/* Kolam pattern overlay */}
+      <div className="absolute inset-0 bg-kolam-dark opacity-20 pointer-events-none mix-blend-overlay" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/10">
           {/* Brand Col (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-[#263F32] border border-[#AAB69A]/30 flex items-center justify-center text-[#E4D8C5]">
-                <Compass className="w-4 h-4" />
+              <div className="w-9 h-9 rounded-full bg-[#1E3B2B] border border-[#D4AF37]/50 flex items-center justify-center text-[#F5D77F] shadow-[0_0_10px_rgba(212,175,55,0.25)]">
+                <Compass className="w-5 h-5 text-[#D4AF37]" />
               </div>
               <div>
                 <span className="text-xl font-bold font-serif-editorial tracking-tight text-[#F6F3EA] block">
                   {isKn ? 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್' : 'Inchara Holidays'}
                 </span>
-                <span className="text-[10px] text-[#AAB69A] tracking-wider uppercase block">
-                  {isKn ? 'ಪ್ರವಾಸ · ಈವೆಂಟ್ಸ್ · ಆತಿಥ್ಯ' : 'Travel · Events · Hospitality'}
+                <span className="text-[10px] text-[#F5D77F] tracking-wider uppercase block font-medium">
+                  {isKn ? 'ಅತಿಥಿ ದೇವೋ ಭವ · ಪ್ರವಾಸ & ಆತಿಥ್ಯ' : 'Atithi Devo Bhava · Travel & Hospitality'}
                 </span>
               </div>
             </div>

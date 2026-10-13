@@ -13,7 +13,7 @@ export const experiences: Experience[] = [
     badgeEn: 'Multi-generational Comfort',
     idealForKn: 'ಕುಟುಂಬಗಳು, ಹಿರಿಯರು, ಮಕ್ಕಳೊಂದಿಗಿನ ರಜಾ',
     idealForEn: 'Families, elders, school break travels',
-    image: '/src/assets/images/coorg_misty_plantation_1791795473840.jpg',
+    image: '/images/coorg_misty_plantation_1791795473840.jpg',
     highlightsKn: [
       'ಸ್ವಚ್ಛ, ವಿಶಾಲವಾದ ವಾಹನ ಮತ್ತು ಅನುಭವಿ ಶಾಂತ ಚಾಲಕರು',
       'ಹಿರಿಯರಿಗೆ ಸುಲಭ ಮೆಟ್ಟಿಲುಗಳುಳ್ಳ ಮತ್ತು ಶಾಂತ ವಾತಾವರಣದ ವಾಸ್ತವ್ಯ',
@@ -39,7 +39,7 @@ export const experiences: Experience[] = [
     badgeEn: 'Intimate & Peaceful',
     idealForKn: 'ಹನಿಮೂನ್, ವಾರ್ಷಿಕೋತ್ಸವ, ವಾರಾಂತ್ಯ ವಿಶ್ರಾಂತಿ',
     idealForEn: 'Honeymoons, anniversaries, quiet escapes',
-    image: '/src/assets/images/signature_gokarna_coast_1791795485390.jpg',
+    image: '/images/signature_gokarna_coast_1791795485390.jpg',
     highlightsKn: [
       'ಖಾಸಗಿ ಬಾಲ್ಕನಿ ಮತ್ತು ಕಣಿವೆಯ ನೋಟವಿರುವ ಕಾಟೇಜ್‌ಗಳು',
       'ಕಡಲತೀರ ಅಥವಾ ತೋಟದಲ್ಲಿ ಸೂರ್ಯಾಸ್ತದ ವಿಶ್ರಾಂತಿ',
@@ -65,7 +65,7 @@ export const experiences: Experience[] = [
     badgeEn: 'Architectural Exploration',
     idealForKn: 'ಇತಿಹಾಸ ಪ್ರೇಮಿಗಳು, ಛಾಯಾಗ್ರಾಹಕರು, ಕಲಾಭಿಮಾನಿಗಳು',
     idealForEn: 'History enthusiasts, photographers, art scholars',
-    image: '/src/assets/images/hampi_stone_chariot_1791795462673.jpg',
+    image: '/images/hoysala_belur.jpg',
     highlightsKn: [
       'ಅನುಭವಿ ಸ್ಥಳೀಯ ಇತಿಹಾಸಕಾರರ ಆಪ್ತ ವಿವರಣೆ ಮತ್ತು ಮಾರ್ಗದರ್ಶನ',
       'ಜನಜಂಗುಳಿಯಿಲ್ಲದ ಬೆಳಗಿನ ಜಾವದ ದೇವಾಲಯ ಪ್ರವೇಶ',
@@ -91,7 +91,7 @@ export const experiences: Experience[] = [
     badgeEn: 'Biodiversity & Forest Trails',
     idealForKn: 'ಪರಿಸರ ಪ್ರೇಮಿಗಳು, ವನ್ಯಜೀವಿ ಛಾಯಾಗ್ರಾಹಕರು',
     idealForEn: 'Wildlife photographers, bird watchers, nature seekers',
-    image: '/src/assets/images/hero_western_ghats_1791795450720.jpg',
+    image: '/images/chikmagalur_peaks.jpg',
     highlightsKn: [
       'ಕಬ್ಬಿನಿ / ಬಂಡೀಪುರ ಅರಣ್ಯ ಇಲಾಖೆಯ ಅಧಿಕೃತ ಜೀಪ್ ಸಫಾರಿ ಸಂಯೋಜನೆ',
       'ಪಕ್ಷಿ ವೀಕ್ಷಣೆ ಮತ್ತು ಅಪರೂಪದ ಔಷಧೀಯ ಸಸ್ಯಗಳ ಪರಿಚಯ',
@@ -117,7 +117,7 @@ export const experiences: Experience[] = [
     badgeEn: 'Scenic Byways',
     idealForKn: 'ಡ್ರೈವಿಂಗ್ ಪ್ರಿಯರು, ವಾರಾಂತ್ಯ ಅನ್ವೇಷಕರು, ಸ್ನೇಹಿತರು',
     idealForEn: 'Road lovers, weekend road-trippers, explorer circles',
-    image: '/src/assets/images/hero_western_ghats_1791795450720.jpg',
+    image: '/images/hero_western_ghats_1791795450720.jpg',
     highlightsKn: [
       'ಘಾಟ್‌ಗಳಲ್ಲಿ ಸುರಕ್ಷಿತವಾಗಿ ಚಲಾಯಿಸುವ ಅನುಭವಿ ವಾಹನ ಸಾರಥಿಗಳು',
       'ಪ್ರಸಿದ್ಧ ಹೆದ್ದಾರಿ ಹೋಟೆಲ್‌ಗಳು ಮತ್ತು ರುಚಿಕರ ಉಪಹಾರ ತಾಣಗಳ ಶಿಫಾರಸು',
@@ -143,7 +143,7 @@ export const experiences: Experience[] = [
     badgeEn: 'Global Coordination',
     idealForKn: 'ಮೊದಲ ಬಾರಿಗೆ ವಿದೇಶಕ್ಕೆ ಹೋಗುವವರು, ಸಾಹಸಿಗಳು, ಪ್ರೇಮಿಗಳು',
     idealForEn: 'First-time overseas travellers, bespoke holiday makers',
-    image: '/src/assets/images/signature_gokarna_coast_1791795485390.jpg',
+    image: '/images/japan_kyoto.jpg',
     highlightsKn: [
       'ವೀಸಾ ಅರ್ಜಿ ಮತ್ತು ಅಗತ್ಯ ದಾಖಲೆಗಳ ನಿಖರ ಪರಿಶೀಲನಾ ಪಟ್ಟಿ',
       'ಸ್ಥಳೀಯ ಸಿಮ್ ಕಾರ್ಡ್, ಮೆಟ್ರೋ ಪಾಸ್ ಮತ್ತು ಕರೆನ್ಸಿ ಮಾರ್ಗದರ್ಶನ',

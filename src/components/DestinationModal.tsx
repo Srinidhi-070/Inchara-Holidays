@@ -150,8 +150,11 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.98, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-4xl bg-[#F6F3EA] rounded-2xl shadow-2xl overflow-hidden border border-[#263F32]/15 text-[#252923] max-h-[94dvh] flex flex-col my-4"
+          className="relative w-full max-w-4xl bg-[#FBF8F1] rounded-2xl shadow-2xl overflow-hidden border border-[#D4AF37]/40 text-[#252923] max-h-[94dvh] flex flex-col my-4"
         >
+          {/* Top Kasavu gold highlight */}
+          <div className="h-1 w-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#B96F50]" />
+
           {/* Close button */}
           <button
             type="button"

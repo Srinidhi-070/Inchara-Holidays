@@ -54,7 +54,10 @@ export const ContactModal: React.FC<ContactModalProps> = ({
       <div className="fixed inset-0 bg-black/75 backdrop-blur-xs" onClick={onClose} />
 
       <div className="relative min-h-screen flex items-center justify-center p-3 sm:p-4">
-        <div className="relative w-full max-w-lg bg-[#F6F3EA] rounded-2xl shadow-2xl overflow-hidden border border-[#263F32]/15 text-[#252923] max-h-[92dvh] flex flex-col my-4">
+        <div className="relative w-full max-w-lg bg-[#FBF8F1] rounded-2xl shadow-2xl overflow-hidden border border-[#D4AF37]/40 text-[#252923] max-h-[92dvh] flex flex-col my-4">
+          {/* Top Kasavu gold hairline */}
+          <div className="h-1 w-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#B96F50]" />
+
           {/* Header */}
           <div className="px-5 sm:px-6 py-4 sm:py-5 bg-[#263F32] text-[#F6F3EA] flex items-center justify-between shrink-0">
             <div>

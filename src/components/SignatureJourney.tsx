@@ -17,30 +17,32 @@ export const SignatureJourney: React.FC<SignatureJourneyProps> = ({
   const t = translations[language];
 
   return (
-    <section className="py-20 sm:py-28 bg-[#252923] text-[#F6F3EA] relative overflow-hidden">
-      {/* Background Graphic Accents with Ambient Animation */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#B96F50]/15 rounded-full blur-3xl pointer-events-none animate-ambient-glow" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#263F32]/25 rounded-full blur-3xl pointer-events-none animate-ambient-glow" style={{ animationDelay: '3.5s' }} />
+    <section className="py-20 sm:py-28 bg-[#1E2E24] text-[#F6F3EA] relative overflow-hidden">
+      {/* Background Graphic Accents with Kolam pattern and Ambient Animation */}
+      <div className="absolute inset-0 bg-kolam-dark opacity-20 pointer-events-none mix-blend-overlay" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#D4AF37]/15 rounded-full blur-3xl pointer-events-none animate-ambient-glow" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#B96F50]/20 rounded-full blur-3xl pointer-events-none animate-ambient-glow" style={{ animationDelay: '3.5s' }} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Publication Style Cover Layout */}
+        {/* Publication Style Cover Layout with Kasavu Gold hairline */}
         <motion.div
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-2xl border border-white/15 bg-gradient-to-b from-white/5 to-white/0 overflow-hidden shadow-2xl backdrop-blur-xs"
+          className="rounded-2xl border border-[#D4AF37]/30 bg-gradient-to-b from-[#263F32]/80 to-[#162E22]/90 overflow-hidden shadow-2xl backdrop-blur-md"
         >
           {/* Top Publication Header Bar */}
-          <div className="px-6 py-4 border-b border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs tracking-widest text-[#E4D8C5] uppercase">
+          <div className="px-6 py-4 border-b border-[#D4AF37]/20 flex flex-wrap items-center justify-between gap-4 text-xs tracking-widest text-[#F5D77F] uppercase bg-black/20">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#B96F50] animate-pulse" />
-              <span className="font-semibold">{t.signature.kicker}</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-[#D4AF37] animate-deepam shadow-[0_0_8px_rgba(212,175,55,0.8)]" />
+              <span className="font-semibold text-white tracking-wider">{t.signature.kicker}</span>
             </div>
-            <div className="hidden sm:flex items-center gap-3 text-[#AAB69A]">
+            <div className="hidden sm:flex items-center gap-3 text-[#E4D8C5]">
+              <span className="text-[#D4AF37]">✦</span>
               <span>VOL. 2026</span>
               <span aria-hidden="true">·</span>
-              <span>KARNATAKA COAST & MALNAD EDITION</span>
+              <span>KARNATAKA COAST & MALNAD HERITAGE CIRCUIT</span>
             </div>
           </div>
 
@@ -51,18 +53,18 @@ export const SignatureJourney: React.FC<SignatureJourneyProps> = ({
               data-cursor="Journey"
             >
               <img
-                src="/src/assets/images/signature_gokarna_coast_1791795485390.jpg"
+                src="/images/signature_gokarna_coast_1791795485390.jpg"
                 alt="Gokarna coastline at sunset"
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#252923] via-transparent to-transparent lg:hidden" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#162E22] via-transparent to-transparent lg:hidden" />
               {/* Overlay stamp watermark */}
-              <div className="absolute top-6 left-6 p-3 rounded-lg bg-black/40 backdrop-blur-md border border-white/20 text-xs text-[#F6F3EA] space-y-0.5">
-                <div className="text-[10px] uppercase tracking-wider text-[#AAB69A]">
+              <div className="absolute top-6 left-6 p-3 rounded-lg bg-black/60 backdrop-blur-md border border-[#D4AF37]/40 text-xs text-[#F6F3EA] space-y-0.5 shadow-lg">
+                <div className="text-[10px] uppercase tracking-wider text-[#F5D77F] font-medium">
                   {language === 'kn' ? 'ಮಾರ್ಗ ಸಂಚಿಕೆ' : 'Selected Circuit'}
                 </div>
-                <div className="font-semibold">{t.signature.duration}</div>
+                <div className="font-semibold text-white">{t.signature.duration}</div>
               </div>
             </div>
 
@@ -103,12 +105,12 @@ export const SignatureJourney: React.FC<SignatureJourneyProps> = ({
                   type="button"
                   onClick={onPlanSignatureJourney}
                   data-cursor="Plan"
-                  className="px-6 py-3 rounded-md bg-[#F6F3EA] text-[#263F32] hover:bg-white text-xs font-semibold tracking-wide transition-all shadow-sm flex items-center justify-center gap-2 active:scale-95 cursor-pointer"
+                  className="px-6 py-3 rounded-md bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-[#162E22] hover:brightness-105 text-xs font-bold tracking-wide transition-all shadow-md flex items-center justify-center gap-2 active:scale-95 cursor-pointer"
                 >
                   <span>{t.signature.ctaPlanThis}</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#B96F50]" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#162E22]" />
                 </button>
-                <div className="text-center sm:text-left text-[11px] text-[#AAB69A]">
+                <div className="text-center sm:text-left text-[11px] text-[#E4D8C5]">
                   {language === 'kn' ? 'ಸಂಪೂರ್ಣ ವೈಯಕ್ತಿಕ ಹೊಂದಾಣಿಕೆ ಸಾಧ್ಯ' : 'Fully customizable to your schedule'}
                 </div>
               </div>

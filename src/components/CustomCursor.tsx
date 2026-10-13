@@ -88,18 +88,18 @@ export const CustomCursor: React.FC = () => {
         }}
         animate={{
           scale: hoverLabel ? 1.8 : isHoveringClickable ? 1.5 : 1,
-          borderColor: isHoveringClickable ? '#B96F50' : 'rgba(38, 63, 50, 0.45)',
+          borderColor: isHoveringClickable ? '#D4AF37' : 'rgba(212, 175, 55, 0.45)',
           backgroundColor: hoverLabel
-            ? 'rgba(38, 63, 50, 0.92)'
+            ? 'rgba(22, 46, 34, 0.95)'
             : isHoveringClickable
-            ? 'rgba(185, 111, 80, 0.12)'
+            ? 'rgba(212, 175, 55, 0.15)'
             : 'rgba(246, 243, 234, 0.05)',
         }}
         transition={{ duration: 0.18, ease: 'easeOut' }}
-        className="w-9 h-9 rounded-full border border-[#263F32]/45 backdrop-blur-[1px] flex items-center justify-center shadow-xs"
+        className="w-9 h-9 rounded-full border border-[#D4AF37]/45 backdrop-blur-[1px] flex items-center justify-center shadow-xs"
       >
         {hoverLabel && (
-          <span className="text-[8px] font-semibold tracking-wider uppercase text-[#F6F3EA] px-1 font-serif-editorial select-none">
+          <span className="text-[8px] font-semibold tracking-wider uppercase text-[#F5D77F] px-1 font-serif-editorial select-none">
             {hoverLabel}
           </span>
         )}
@@ -115,7 +115,7 @@ export const CustomCursor: React.FC = () => {
         }}
         animate={{
           scale: isHoveringClickable ? 0.4 : 1,
-          backgroundColor: isHoveringClickable ? '#B96F50' : '#263F32',
+          backgroundColor: isHoveringClickable ? '#D4AF37' : '#263F32',
         }}
         transition={{ duration: 0.15 }}
         className="w-2 h-2 rounded-full shadow-xs"

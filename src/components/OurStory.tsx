@@ -27,8 +27,8 @@ export const OurStory: React.FC<OurStoryProps> = ({ language, onOpenPlanner }) =
           >
             <div className="relative rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-[#1c2e24]">
               <img
-                src="/src/assets/images/coorg_misty_plantation_1791795473840.jpg"
-                alt="Western Ghats coffee trail"
+                src="/images/south_indian_temple.jpg"
+                alt="Traditional South Indian temple heritage and cultural roots of Karnataka"
                 className="w-full aspect-4/5 object-cover object-center"
                 referrerPolicy="no-referrer"
               />

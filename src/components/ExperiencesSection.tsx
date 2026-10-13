@@ -19,7 +19,11 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
   const t = translations[language];
 
   return (
-    <section id="experiences" className="py-20 sm:py-28 bg-[#263F32] text-[#F6F3EA] relative overflow-hidden bg-kannada-pattern-dark">
+    <section id="experiences" className="py-20 sm:py-28 bg-[#1B2F24] text-[#F6F3EA] relative overflow-hidden">
+      {/* Kolam geometric background motif */}
+      <div className="absolute inset-0 bg-kolam-dark opacity-25 pointer-events-none mix-blend-overlay" />
+      <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#D4AF37]/10 rounded-full blur-3xl pointer-events-none" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -29,8 +33,9 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-2xl mb-12 sm:mb-16"
         >
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#AAB69A] uppercase mb-2.5">
-            <span className="w-5 h-px bg-[#AAB69A]" />
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#F5D77F] uppercase mb-2.5">
+            <span className="w-5 h-px bg-[#D4AF37]" />
+            <span className="text-[#D4AF37]">✦</span>
             <span>{t.experiences.kicker}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif-editorial text-[#F6F3EA] tracking-tight leading-[1.18]">
@@ -61,7 +66,7 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
                   data-cursor="Select"
                   className={`w-full text-left p-4 sm:p-5 rounded-xl border transition-all duration-200 flex flex-col justify-between cursor-pointer ${
                     isSelected
-                      ? 'bg-[#F6F3EA] text-[#263F32] border-[#F6F3EA] shadow-lg translate-x-1 sm:translate-x-2'
+                      ? 'bg-[#FBF8F1] text-[#1E3B2B] border-[#D4AF37] shadow-lg translate-x-1 sm:translate-x-2'
                       : 'bg-white/5 text-[#F6F3EA] border-white/10 hover:bg-white/10 hover:border-white/20'
                   }`}
                 >
@@ -101,7 +106,7 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.65, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-7 bg-[#1e3228] border border-white/15 rounded-2xl overflow-hidden shadow-2xl"
+            className="lg:col-span-7 bg-[#1A2E22] border border-[#D4AF37]/30 rounded-2xl overflow-hidden shadow-2xl"
           >
             {/* Visual Header */}
             <div className="relative aspect-16/9 overflow-hidden">
@@ -163,14 +168,14 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
                       language === 'kn' ? selectedExp.titleKn : selectedExp.titleEn
                     )
                   }
-                  className="px-5 py-2.5 rounded-md bg-[#F6F3EA] text-[#263F32] hover:bg-white text-xs font-semibold tracking-wide transition-all flex items-center gap-2 shadow-xs active:scale-95"
+                  className="px-5 py-2.5 rounded-md bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-[#162E22] hover:brightness-105 text-xs font-bold tracking-wide transition-all flex items-center gap-2 shadow-sm active:scale-95 cursor-pointer"
                 >
                   <span>
                     {language === 'kn'
                       ? 'ಈ ಶೈಲಿಯಲ್ಲಿ ಪ್ರವಾಸ ರೂಪಿಸಿ'
                       : 'Plan in this travel style'}
                   </span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#B96F50]" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#162E22]" />
                 </button>
               </div>
             </div>

@@ -12,8 +12,8 @@ export const WhyUs: React.FC<WhyUsProps> = ({ language }) => {
   const t = translations[language];
 
   return (
-    <section id="why-us" className="py-20 sm:py-28 bg-[#F6F3EA] bg-kannada-pattern overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="why-us" className="py-20 sm:py-28 bg-[#FBF8F1] bg-kolam-subtle overflow-hidden relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
@@ -23,7 +23,8 @@ export const WhyUs: React.FC<WhyUsProps> = ({ language }) => {
           className="max-w-2xl mb-14 sm:mb-20"
         >
           <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#B96F50] uppercase mb-2.5">
-            <span className="w-5 h-px bg-[#B96F50]" />
+            <span className="w-5 h-px bg-[#D4AF37]" />
+            <span className="text-[#D4AF37]">✦</span>
             <span>{t.whyUs.kicker}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif-editorial text-[#263F32] tracking-tight leading-[1.18]">

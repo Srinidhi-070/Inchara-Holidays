@@ -573,7 +573,7 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
               <div className="rounded-2xl bg-[#F6F3EA] overflow-hidden border border-[#263F32]/10 group">
                 <div className="aspect-4/3 overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&w=800&q=80"
+                    src="/images/south_indian_feast.jpg"
                     alt="Traditional south indian feast on plantain banana leaf"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
@@ -597,8 +597,8 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
               <div className="rounded-2xl bg-[#F6F3EA] overflow-hidden border border-[#263F32]/10 group">
                 <div className="aspect-4/3 overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80"
-                    alt="Corporate buffet and live gourmet counter"
+                    src="/images/south_indian_coffee.jpg"
+                    alt="Traditional South Indian filter coffee in etched brass davarah"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
@@ -607,12 +607,12 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
                     {isKn ? 'ಕಾರ್ಪೊರೇಟ್ & ಹೈ-ಟೀ' : 'Corporate Buffets & Hi-Tea'}
                   </span>
                   <h4 className="text-base font-bold font-serif-editorial text-[#263F32] mt-1">
-                    {isKn ? 'ಎಕ್ಸಿಕ್ಯೂಟಿವ್ ಬಫೆ & ಸ್ನ್ಯಾಕ್ಸ್' : 'Executive Spreads & Refreshments'}
+                    {isKn ? 'ದಾವಣಗೆರೆ ಬೆಣ್ಣೆದೋಸೆ & ಫಿಲ್ಟರ್ ಕಾಫಿ' : 'Authentic Filter Coffee & High-Tea'}
                   </h4>
                   <p className="text-xs text-[#252923]/75 mt-1.5 leading-relaxed">
                     {isKn
-                      ? 'ಕಾನ್ಫರೆನ್ಸ್‌ಗಳಿಗೆ ಫಿಲ್ಟರ್ ಕಾಫಿ, ಕುಕ್ಕೀಸ್, ತಿಂಡಿಗಳು, ಮತ್ತು ಅಚ್ಚುಕಟ್ಟಾದ ಮಲ್ಟಿ-ಕುಸೀನ್ ಬಫೆ ಕೌಂಟರ್ ವ್ಯವಸ್ಥೆ.'
-                      : 'Filter coffee stations, curated snacks, and multi-cuisine lunch buffets for corporate gatherings.'}
+                      ? 'ಕಾನ್ಫರೆನ್ಸ್‌ಗಳಿಗೆ ಅಪ್ಪಟ ಹಿತ್ತಾಳೆ ಲೋಟದ ಫಿಲ್ಟರ್ ಕಾಫಿ, ಗರಿಗರಿ ತಿಂಡಿಗಳು, ಮತ್ತು ಅಚ್ಚುಕಟ್ಟಾದ ಮಲ್ಟಿ-ಕುಸೀನ್ ಬಫೆ ಕೌಂಟರ್ ವ್ಯವಸ್ಥೆ.'
+                      : 'Traditional brass davarah filter coffee stations, regional savouries, and multi-cuisine lunch buffets for corporate gatherings.'}
                   </p>
                 </div>
               </div>

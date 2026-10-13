@@ -32,30 +32,35 @@ export const Hero: React.FC<HeroProps> = ({
         className="absolute inset-0 z-0 origin-center"
       >
         <img
-          src="/src/assets/images/hero_western_ghats_1791795450720.jpg"
+          src="/images/hero_western_ghats_1791795450720.jpg"
           alt="Misty Western Ghats mountain landscape at dawn in Karnataka"
           className="w-full h-full object-cover object-center"
           referrerPolicy="no-referrer"
         />
         {/* Measured Scrim for AA contrast (WCAG 4.5:1) */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#263F32] via-[#263F32]/65 to-black/40" />
-        <div className="absolute inset-0 bg-radial from-transparent via-[#263F32]/30 to-[#263F32]/85" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#162E22] via-[#263F32]/70 to-black/45" />
+        <div className="absolute inset-0 bg-radial from-transparent via-[#263F32]/30 to-[#162E22]/90" />
+        {/* Delicate South Indian Kolam motif texture overlay */}
+        <div className="absolute inset-0 bg-kolam-dark opacity-35 pointer-events-none mix-blend-overlay" />
       </motion.div>
 
       {/* Hero Content Container */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="max-w-3xl lg:max-w-4xl">
-          {/* Natural human editorial kicker without pills */}
+          {/* Natural human editorial kicker with traditional auspicious emblem */}
           <motion.div
             initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold tracking-wide text-[#E4D8C5] mb-3 sm:mb-4"
+            className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold tracking-wide text-[#E5B842] mb-3 sm:mb-4"
           >
-            <span className="w-6 h-px bg-[#AAB69A]/80" />
-            <span>{t.hero.kicker}</span>
+            <span className="w-6 h-px bg-[#D4AF37]" />
+            <span className="flex items-center gap-1.5">
+              <span className="text-[#D4AF37]">✦</span>
+              <span>{t.hero.kicker}</span>
+            </span>
             <span aria-hidden="true" className="opacity-40">·</span>
-            <span className="text-[#AAB69A]">{language === 'kn' ? 'ಆಧುನಿಕ ಪಯಣಗಳು' : 'Timeless Roots'}</span>
+            <span className="text-[#F5D77F]">{language === 'kn' ? 'ಆಧುನಿಕ ಪಯಣಗಳು' : 'Timeless Roots'}</span>
           </motion.div>
 
           {/* Expressive Bilingual Display Headline */}

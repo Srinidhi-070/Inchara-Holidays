@@ -109,41 +109,47 @@ export const Header: React.FC<HeaderProps> = ({
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#F6F3EA]/95 backdrop-blur-md shadow-xs border-b border-[#263F32]/10 py-3 text-[#252923]'
-            : 'bg-linear-to-b from-black/60 via-black/30 to-transparent py-4 sm:py-5 text-[#F6F3EA]'
+            ? 'bg-[#FBF8F1]/96 backdrop-blur-md shadow-sm border-b border-[#D4AF37]/30 py-2.5 sm:py-3 text-[#252923]'
+            : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-3 sm:py-4 text-[#F6F3EA]'
         }`}
       >
+        {/* Subtle Kasavu Gold Hairline at top */}
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#B96F50] via-[#D4AF37] to-[#263F32]" />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4 lg:gap-8">
-            {/* Zone 1: Brand Wordmark */}
+            {/* Zone 1: Brand Wordmark with South Indian Emblem */}
             <a
               href="#"
               onClick={(e) => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="flex items-center gap-2 group whitespace-nowrap shrink-0"
+              className="flex items-center gap-2.5 group whitespace-nowrap shrink-0"
               aria-label="Inchara Holidays Home"
             >
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+                className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 shadow-xs border ${
                   isScrolled
-                    ? 'bg-[#263F32] text-[#F6F3EA]'
-                    : 'bg-[#F6F3EA]/20 text-[#F6F3EA] backdrop-blur-xs'
+                    ? 'bg-[#263F32] border-[#D4AF37]/40 text-[#D4AF37]'
+                    : 'bg-[#F6F3EA]/15 border-[#D4AF37]/50 text-[#F5D77F] backdrop-blur-xs'
                 }`}
               >
-                <Compass className="w-4 h-4" />
+                <Compass className="w-4 h-4 transition-transform group-hover:rotate-45 duration-300" />
               </div>
               <div className="flex flex-col">
-                <span className="text-base sm:text-lg lg:text-xl font-bold tracking-tight font-serif-editorial">
-                  {isKn ? 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್' : 'Inchara Holidays'}
-                </span>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-base sm:text-lg lg:text-xl font-bold tracking-tight font-serif-editorial">
+                    {isKn ? 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್' : 'Inchara Holidays'}
+                  </span>
+                  <span className="text-[10px] text-[#D4AF37] hidden sm:inline">✦</span>
+                </div>
                 <span
                   className={`text-[9px] sm:text-[10px] tracking-wider uppercase font-medium ${
-                    isScrolled ? 'text-[#263F32]/70' : 'text-[#F6F3EA]/80'
+                    isScrolled ? 'text-[#8C5E14]' : 'text-[#E5B842]'
                   }`}
                 >
-                  {isKn ? 'Inchara Holidays & Events' : 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್ & ಈವೆಂಟ್ಸ್'}
+                  {isKn ? 'ಅತಿಥಿ ದೇವೋ ಭವ · ಪ್ರವಾಸ & ಆತಿಥ್ಯ' : 'Atithi Devo Bhava · Travel & Events'}
                 </span>
               </div>
             </a>

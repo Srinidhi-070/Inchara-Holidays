@@ -234,8 +234,11 @@ Generated via Inchara Holidays Prototype`;
               damping: 28,
               stiffness: 280,
             }}
-            className="pointer-events-auto relative w-full h-[94dvh] max-h-[96dvh] lg:h-full lg:max-h-full lg:w-[620px] xl:w-[680px] bg-[#F6F3EA] rounded-t-3xl lg:rounded-none lg:rounded-l-3xl shadow-2xl overflow-hidden border-t lg:border-t-0 lg:border-l border-[#263F32]/15 text-[#252923] flex flex-col"
+            className="pointer-events-auto relative w-full h-[94dvh] max-h-[96dvh] lg:h-full lg:max-h-full lg:w-[620px] xl:w-[680px] bg-[#FBF8F1] rounded-t-3xl lg:rounded-none lg:rounded-l-3xl shadow-2xl overflow-hidden border-t lg:border-t-0 lg:border-l border-[#D4AF37]/35 text-[#252923] flex flex-col"
           >
+            {/* Top Kasavu gold hairline */}
+            <div className="h-1 w-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#B96F50]" />
+
             {/* Mobile Sheet Pull Handle Bar */}
             <div className="lg:hidden w-full flex items-center justify-center pt-2.5 pb-1 bg-[#263F32] shrink-0">
               <div className="w-12 h-1.5 rounded-full bg-white/25" />

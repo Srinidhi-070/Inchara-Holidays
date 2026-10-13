@@ -41,8 +41,8 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ language, onOpenPlanner 
   ];
 
   return (
-    <section id="how-it-works" className="py-20 sm:py-28 bg-[#F6F3EA] border-y border-[#263F32]/10 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="how-it-works" className="py-20 sm:py-28 bg-[#FBF8F1] bg-kolam-subtle border-y border-[#263F32]/10 overflow-hidden relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
@@ -52,9 +52,11 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ language, onOpenPlanner 
           className="text-center max-w-2xl mx-auto mb-16"
         >
           <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#B96F50] uppercase mb-2.5">
-            <span className="w-4 h-px bg-[#B96F50]" />
+            <span className="w-4 h-px bg-[#D4AF37]" />
+            <span className="text-[#D4AF37]">✦</span>
             <span>{t.howItWorks.kicker}</span>
-            <span className="w-4 h-px bg-[#B96F50]" />
+            <span className="text-[#D4AF37]">✦</span>
+            <span className="w-4 h-px bg-[#D4AF37]" />
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif-editorial text-[#263F32] tracking-tight leading-[1.18]">
             {t.howItWorks.title}
@@ -130,12 +132,12 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ language, onOpenPlanner 
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-12 p-6 rounded-xl bg-[#E4D8C5]/50 border border-[#263F32]/10 max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left"
+          className="mt-12 p-6 rounded-xl bg-gradient-to-r from-[#F5D77F]/20 via-[#FBF8F1] to-[#E4D8C5]/30 border border-[#D4AF37]/40 max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-sm"
         >
           <div className="flex items-center gap-3">
-            <HeartHandshake className="w-6 h-6 text-[#263F32] shrink-0" />
+            <HeartHandshake className="w-6 h-6 text-[#1E3B2B] shrink-0" />
             <div className="text-xs sm:text-sm text-[#252923]/85">
-              <span className="font-semibold text-[#263F32]">
+              <span className="font-semibold text-[#1E3B2B]">
                 {language === 'kn' ? 'ನೇರ ಮತ್ತು ಆತ್ಮೀಯ ಸಂಬಂಧ:' : 'Direct, personal bond:'}{' '}
               </span>
               <span>
@@ -148,7 +150,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ language, onOpenPlanner 
           <button
             type="button"
             onClick={onOpenPlanner}
-            className="px-4 py-2 rounded-md bg-[#263F32] text-[#F6F3EA] hover:bg-[#1f3328] text-xs font-semibold whitespace-nowrap transition-all shrink-0 shadow-xs active:scale-95"
+            className="px-5 py-2.5 rounded-md bg-[#1E3B2B] text-[#F5D77F] border border-[#D4AF37]/40 hover:bg-[#162E22] text-xs font-bold whitespace-nowrap transition-all shrink-0 shadow-sm active:scale-95 cursor-pointer"
           >
             {t.ctaSection.btnPlan}
           </button>

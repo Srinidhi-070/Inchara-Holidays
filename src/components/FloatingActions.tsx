@@ -56,11 +56,11 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               onClick={onOpenPlanner}
-              className="hidden sm:inline-flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-[#263F32] text-[#F6F3EA] text-xs font-semibold shadow-lg hover:bg-[#1c2e24] transition-colors border border-white/15 cursor-pointer backdrop-blur-xs"
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-[#162E22] to-[#263F32] text-[#F5D77F] text-xs font-bold shadow-xl hover:brightness-110 transition-all border border-[#D4AF37]/50 cursor-pointer backdrop-blur-xs"
               data-cursor="Plan"
               aria-label={language === 'kn' ? 'ಪ್ರವಾಸ ರೂಪಿಸಿ' : 'Plan Trip'}
             >
-              <Calendar className="w-3.5 h-3.5 text-[#B96F50]" />
+              <Calendar className="w-3.5 h-3.5 text-[#D4AF37]" />
               <span>{language === 'kn' ? 'ಪ್ರವಾಸ ರೂಪಿಸಿ' : 'Plan Trip'}</span>
             </motion.button>
 
@@ -70,7 +70,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
               onClick={scrollToTop}
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.92 }}
-              className="relative w-11 h-11 rounded-full bg-[#F6F3EA] text-[#263F32] flex items-center justify-center shadow-lg hover:shadow-xl transition-all border border-[#263F32]/15 cursor-pointer group"
+              className="relative w-11 h-11 rounded-full bg-[#FBF8F1] text-[#162E22] flex items-center justify-center shadow-lg hover:shadow-xl transition-all border border-[#D4AF37]/40 cursor-pointer group"
               data-cursor="Top"
               aria-label={language === 'kn' ? 'ಮೇಲಕ್ಕೆ ಹೋಗಿ' : 'Back to top'}
             >
@@ -88,7 +88,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
                   cx="20"
                   cy="20"
                   r={radius}
-                  className="stroke-[#B96F50] transition-all duration-150"
+                  className="stroke-[#D4AF37] transition-all duration-150"
                   strokeWidth="2.5"
                   strokeDasharray={circumference}
                   strokeDashoffset={strokeDashoffset}
@@ -96,7 +96,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
                   fill="transparent"
                 />
               </svg>
-              <ArrowUp className="w-4 h-4 text-[#263F32] group-hover:text-[#B96F50] transition-colors relative z-10" />
+              <ArrowUp className="w-4 h-4 text-[#162E22] group-hover:text-[#D4AF37] transition-colors relative z-10" />
             </motion.button>
           </motion.div>
         )}
