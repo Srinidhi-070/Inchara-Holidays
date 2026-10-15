@@ -4,7 +4,7 @@ import { Language } from '../types';
 import { translations } from '../data/translations';
 import { communityReflections } from '../data/community';
 import { Quote } from 'lucide-react';
-import { LotusIcon, ToranaGarland, SikkuKolamMandala } from './SouthIndianMotifs';
+import { LotusIcon, SikkuKolamMandala } from './SouthIndianMotifs';
 
 interface TravellerStoriesProps {
   language: Language;
@@ -41,10 +41,6 @@ export const TravellerStories: React.FC<TravellerStoriesProps> = ({ language }) 
           <p className="mt-3.5 text-sm sm:text-base text-[#252923]/75 leading-relaxed font-normal">
             {t.community.subtitle}
           </p>
-
-          <div className="mt-3 text-[#D4AF37]/50">
-            <ToranaGarland className="w-40 h-3" />
-          </div>
         </motion.div>
 
         {/* Clear placeholder disclaimer tag as mandated by prompt guidelines */}

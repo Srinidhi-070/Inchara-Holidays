@@ -3,7 +3,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import { Language } from '../types';
 import { translations } from '../data/translations';
 import { ArrowRight, Compass, ChevronDown } from 'lucide-react';
-import { AmbariElephant, LotusIcon, ToranaGarland } from './SouthIndianMotifs';
+import { AmbariElephant, LotusIcon } from './SouthIndianMotifs';
 
 interface HeroProps {
   language: Language;

@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { Language } from '../types';
 import { translations } from '../data/translations';
 import { Compass, CalendarDays, ShieldCheck, HeartHandshake } from 'lucide-react';
-import { LotusIcon, ToranaGarland, SikkuKolamMandala } from './SouthIndianMotifs';
+import { LotusIcon, SikkuKolamMandala } from './SouthIndianMotifs';
 
 interface HowItWorksProps {
   language: Language;
@@ -70,11 +70,6 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ language, onOpenPlanner 
           <p className="mt-3.5 text-sm sm:text-base text-[#252923]/75 leading-relaxed font-normal">
             {t.howItWorks.subtitle}
           </p>
-
-          {/* Decorative Torana Garland */}
-          <div className="mt-4 flex justify-center text-[#D4AF37]/50">
-            <ToranaGarland className="w-48 h-3.5" />
-          </div>
         </motion.div>
 
         {/* 3 Simple Stages Horizontal Storytelling Flow */}

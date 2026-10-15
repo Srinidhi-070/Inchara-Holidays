@@ -24,7 +24,6 @@ import {
   GopuramIcon,
   LotusIcon,
   TempleBell,
-  ToranaGarland,
   BananaLeafIcon,
   SikkuKolamMandala
 } from './SouthIndianMotifs';
@@ -560,7 +559,6 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
                     ? 'ರುಚಿಕರ ಶುದ್ಧ ಆಹಾರ, ಅಚ್ಚುಕಟ್ಟು ಪಂಕ್ತಿ ಸೇವೆ'
                     : 'Authentic Flavors & Thoughtful Hospitality'}
                 </h3>
-                <ToranaGarland className="w-48 h-5 text-[#B96F50]/60 my-2" />
                 <p className="mt-2 text-sm sm:text-base text-[#252923]/70">
                   {isKn
                     ? 'ಕಾರ್ಪೊರೇಟ್ ಸಭೆಗಳು, ಶಾಲಾ ಸಮಾರಂಭಗಳು, ಪ್ರವಾಸದ ಹಾದಿಯಲ್ಲಿ ಬಿಸಿಬಿಸಿ ಊಟೋಪಚಾರ ಹಾಗೂ ಕೌಟುಂಬಿಕ ಸಮಾರಂಭಗಳಿಗೆ ಸೂಕ್ತವಾದ ಗುಣಮಟ್ಟದ ಆಹಾರ ವ್ಯವಸ್ಥೆ.'

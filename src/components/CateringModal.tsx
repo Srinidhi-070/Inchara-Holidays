@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, UtensilsCrossed, CheckCircle2, Copy, Send, PhoneCall } from 'lucide-react';
 import { Language, CateringInquiryData } from '../types';
-import { BananaLeafIcon, ToranaGarland, KolamBorderRibbon, SikkuKolamMandala } from './SouthIndianMotifs';
+import { BananaLeafIcon, KolamBorderRibbon, SikkuKolamMandala } from './SouthIndianMotifs';
 
 interface CateringModalProps {
   isOpen: boolean;
@@ -255,11 +255,6 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                     ? 'ಸಮಾರಂಭಗಳು, ಕಾರ್ಪೊರೇಟ್ ಸಭೆಗಳು ಹಾಗೂ ಬಾಳೆ ಎಲೆ ಸಾಂಪ್ರದಾಯಿಕ ಊಟೋಪಚಾರದ ನೈಜ ರುಚಿ.'
                     : 'Delightful menus, authentic plantain leaf feasts, and seamless hospitality for your gatherings.'}
                 </p>
-
-                {/* Decorative Torana Garland under title */}
-                <div className="mt-3 text-[#F5D77F]/60 flex items-center">
-                  <ToranaGarland className="w-48 h-3" />
-                </div>
               </div>
             </div>
 

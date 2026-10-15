@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Language } from '../types';
 import { translations } from '../data/translations';
-import { ToranaGarland, LotusIcon } from './SouthIndianMotifs';
+import { LotusIcon } from './SouthIndianMotifs';
 
 interface WhyUsProps {
   language: Language;
@@ -34,9 +34,6 @@ export const WhyUs: React.FC<WhyUsProps> = ({ language }) => {
           <p className="mt-3.5 text-sm sm:text-base text-[#252923]/75 leading-relaxed font-normal">
             {t.whyUs.subtitle}
           </p>
-          <div className="mt-2 max-w-xs">
-            <ToranaGarland className="w-full h-5 text-[#B96F50]/50" />
-          </div>
         </motion.div>
 
         {/* Expressive Editorial Grid with Staggered Reveal */}
