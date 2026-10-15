@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
 import { X, Send, Phone, Mail, MapPin, CheckCircle2 } from 'lucide-react';
@@ -15,6 +15,17 @@ export const ContactModal: React.FC<ContactModalProps> = ({
   language,
   onClose,
 }) => {
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   const [name, setName] = useState('');
   const [phoneOrEmail, setPhoneOrEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -81,10 +92,15 @@ export const ContactModal: React.FC<ContactModalProps> = ({
             </div>
             <button
               type="button"
-              onClick={onClose}
-              className="p-1.5 rounded-md hover:bg-white/10 text-white/80 transition-colors cursor-pointer z-10"
+              onClick={(e) => {
+                e.stopPropagation();
+                onClose();
+              }}
+              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white/90 flex items-center justify-center transition-all cursor-pointer z-50 pointer-events-auto shadow-md"
+              aria-label={t.modal.close}
+              data-cursor="Close"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5 pointer-events-none" />
             </button>
           </div>
 

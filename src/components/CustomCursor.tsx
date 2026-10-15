@@ -96,10 +96,10 @@ export const CustomCursor: React.FC = () => {
             : 'rgba(246, 243, 234, 0.05)',
         }}
         transition={{ duration: 0.18, ease: 'easeOut' }}
-        className="w-9 h-9 rounded-full border border-[#D4AF37]/45 backdrop-blur-[1px] flex items-center justify-center shadow-xs"
+        className="w-9 h-9 rounded-full border border-[#D4AF37]/45 backdrop-blur-[1px] flex items-center justify-center shadow-xs pointer-events-none select-none"
       >
         {hoverLabel && (
-          <span className="text-[8px] font-semibold tracking-wider uppercase text-[#F5D77F] px-1 font-serif-editorial select-none">
+          <span className="text-[8px] font-semibold tracking-wider uppercase text-[#F5D77F] px-1 font-serif-editorial select-none pointer-events-none">
             {hoverLabel}
           </span>
         )}
@@ -118,7 +118,7 @@ export const CustomCursor: React.FC = () => {
           backgroundColor: isHoveringClickable ? '#D4AF37' : '#263F32',
         }}
         transition={{ duration: 0.15 }}
-        className="w-2 h-2 rounded-full shadow-xs"
+        className="w-2 h-2 rounded-full shadow-xs pointer-events-none"
       />
     </div>
   );

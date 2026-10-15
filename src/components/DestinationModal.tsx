@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Language, Destination, CulturalEtiquetteTip } from '../types';
 import { translations } from '../data/translations';
@@ -123,6 +123,17 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
   const shouldReduceMotion = useReducedMotion();
   const [copiedPhrase, setCopiedPhrase] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (!destination) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [destination, onClose]);
+
   if (!destination) return null;
   const t = translations[language];
 
@@ -156,15 +167,18 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
           {/* Top Kasavu gold highlight */}
           <div className="h-1 w-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#B96F50]" />
 
-          {/* Close button */}
+          {/* Close button: high z-index, pointer-events-auto, isolated hit-area */}
           <button
             type="button"
-            onClick={onClose}
-            className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/40 hover:bg-black/60 text-[#F6F3EA] backdrop-blur-md transition-colors cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+            className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-black/50 hover:bg-black/75 active:scale-95 text-[#F6F3EA] flex items-center justify-center backdrop-blur-md transition-all cursor-pointer pointer-events-auto shadow-lg"
             aria-label={t.modal.close}
             data-cursor="Close"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5 pointer-events-none" />
           </button>
 
           {/* Hero Banner inside modal */}

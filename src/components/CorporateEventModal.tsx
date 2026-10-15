@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Building2, CheckCircle2, Copy, Send, PhoneCall } from 'lucide-react';
 import { Language, CorporateInquiryData } from '../types';
@@ -15,6 +15,17 @@ export const CorporateEventModal: React.FC<CorporateEventModalProps> = ({
   language,
   onClose,
 }) => {
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   const [formData, setFormData] = useState<CorporateInquiryData>({
     organizationName: '',
     contactPerson: '',
@@ -179,30 +190,38 @@ Requirements: ${formData.additionalRequirements || 'None specified'}`;
                 <SikkuKolamMandala className="w-full h-full" />
               </div>
 
+              {/* Close dialog button: high z-index, pointer-events-auto, isolated hit-area */}
               <button
                 type="button"
-                onClick={onClose}
-                className="absolute top-5 right-5 p-1.5 rounded-full bg-white/10 text-[#F6F3EA] hover:bg-white/20 transition-colors cursor-pointer z-10"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClose();
+                }}
+                className="absolute top-4 sm:top-5 right-4 sm:right-5 w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 text-[#F6F3EA] flex items-center justify-center transition-all cursor-pointer z-50 pointer-events-auto shadow-md"
                 aria-label="Close dialog"
+                data-cursor="Close"
               >
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5 pointer-events-none" />
               </button>
-              <div className="flex items-center gap-2.5 mb-1.5 relative z-10">
-                <span className="p-1.5 rounded-lg bg-[#D4AF37]/20 text-[#F5D77F] flex items-center justify-center">
-                  <AmbariElephant className="w-5 h-5 text-[#F5D77F]" />
-                </span>
-                <span className="text-xs tracking-wider uppercase font-semibold text-[#F5D77F]">
-                  {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಮತ್ತು ಉದ್ಯೋಗಿ ಕೂಟಗಳು' : 'Corporate Events & Executive Retreats'}
-                </span>
+
+              <div className="pr-12 relative z-10">
+                <div className="flex items-center gap-2.5 mb-1.5">
+                  <span className="p-1.5 rounded-lg bg-[#D4AF37]/20 text-[#F5D77F] flex items-center justify-center">
+                    <AmbariElephant className="w-5 h-5 text-[#F5D77F]" />
+                  </span>
+                  <span className="text-xs tracking-wider uppercase font-semibold text-[#F5D77F]">
+                    {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಮತ್ತು ಉದ್ಯೋಗಿ ಕೂಟಗಳು' : 'Corporate Events & Executive Retreats'}
+                  </span>
+                </div>
+                <h2 className="text-xl sm:text-2xl font-bold font-serif-editorial">
+                  {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಕಾರ್ಯಕ್ರಮ ಯೋಜನೆ' : 'Plan a Corporate Event or Team Outing'}
+                </h2>
+                <p className="text-xs sm:text-sm text-[#F6F3EA]/80 mt-1">
+                  {isKn
+                    ? 'ನಿಮ್ಮ ತಂಡದ ವಿಶ್ರಾಂತಿ, ಪ್ರೇರಣೆ ಹಾಗೂ ಸಂಭ್ರಮಕ್ಕೆ ರಾಜಮನೆತನದ ಆತಿಥ್ಯದೊಂದಿಗೆ ಪರಿಪೂರ್ಣ ವಾತಾವರಣ.'
+                    : 'Tailored retreats, seamless team coordination, and regal hospitality for your company.'}
+                </p>
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold font-serif-editorial relative z-10">
-                {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಕಾರ್ಯಕ್ರಮ ಯೋಜನೆ' : 'Plan a Corporate Event or Team Outing'}
-              </h2>
-              <p className="text-xs sm:text-sm text-[#F6F3EA]/80 mt-1 relative z-10">
-                {isKn
-                  ? 'ನಿಮ್ಮ ತಂಡದ ವಿಶ್ರಾಂತಿ, ಪ್ರೇರಣೆ ಹಾಗೂ ಸಂಭ್ರಮಕ್ಕೆ ರಾಜಮನೆತನದ ಆತಿಥ್ಯದೊಂದಿಗೆ ಪರಿಪೂರ್ಣ ವಾತಾವರಣ.'
-                  : 'Tailored retreats, seamless team coordination, and regal hospitality for your company.'}
-              </p>
             </div>
 
             {/* Kolam border ribbon */}

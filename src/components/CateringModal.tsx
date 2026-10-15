@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, UtensilsCrossed, CheckCircle2, Copy, Send, PhoneCall } from 'lucide-react';
 import { Language, CateringInquiryData } from '../types';
@@ -16,6 +16,17 @@ export const CateringModal: React.FC<CateringModalProps> = ({
   onClose,
 }) => {
   const isKn = language === 'kn';
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   const [formData, setFormData] = useState<CateringInquiryData>({
     fullName: '',
@@ -213,34 +224,42 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                 <SikkuKolamMandala className="w-full h-full" />
               </div>
 
+              {/* Close dialog button: high z-index, pointer-events-auto, isolated hit-area */}
               <button
                 type="button"
-                onClick={onClose}
-                className="absolute top-4 sm:top-5 right-5 p-1.5 rounded-full bg-white/10 text-[#F6F3EA] hover:bg-white/20 transition-colors cursor-pointer z-10"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClose();
+                }}
+                className="absolute top-4 sm:top-5 right-4 sm:right-5 w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 text-[#F6F3EA] flex items-center justify-center transition-all cursor-pointer z-50 pointer-events-auto shadow-md"
                 aria-label="Close dialog"
+                data-cursor="Close"
               >
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5 pointer-events-none" />
               </button>
-              <div className="flex items-center gap-2 mb-1.5 relative z-10">
-                <span className="p-1.5 rounded-lg bg-white/20 text-[#F5D77F] flex items-center justify-center">
-                  <BananaLeafIcon className="w-5 h-5 text-[#F5D77F]" />
-                </span>
-                <span className="text-xs tracking-wider uppercase font-semibold text-[#F5D77F]">
-                  {isKn ? 'ಆಹಾರ ಸೇವೆಗಳು & ಸಾಂಪ್ರದಾಯಿಕ ಆತಿಥ್ಯ' : 'Catering & South Indian Hospitality'}
-                </span>
-              </div>
-              <h2 className="text-xl sm:text-2xl font-bold font-serif-editorial relative z-10">
-                {isKn ? 'ಆಹಾರ ಸೇವೆಗಳ ವಿವರಣೆ ಪಡೆಯಿರಿ' : 'Request Catering Details'}
-              </h2>
-              <p className="text-xs sm:text-sm text-[#F6F3EA]/90 mt-1 relative z-10">
-                {isKn
-                  ? 'ಸಮಾರಂಭಗಳು, ಕಾರ್ಪೊರೇಟ್ ಸಭೆಗಳು ಹಾಗೂ ಬಾಳೆ ಎಲೆ ಸಾಂಪ್ರದಾಯಿಕ ಊಟೋಪಚಾರದ ನೈಜ ರುಚಿ.'
-                  : 'Delightful menus, authentic plantain leaf feasts, and seamless hospitality for your gatherings.'}
-              </p>
 
-              {/* Decorative Torana Garland under title */}
-              <div className="mt-3 text-[#F5D77F]/60 flex items-center">
-                <ToranaGarland className="w-48 h-3" />
+              <div className="pr-12 relative z-10">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="p-1.5 rounded-lg bg-white/20 text-[#F5D77F] flex items-center justify-center">
+                    <BananaLeafIcon className="w-5 h-5 text-[#F5D77F]" />
+                  </span>
+                  <span className="text-xs tracking-wider uppercase font-semibold text-[#F5D77F]">
+                    {isKn ? 'ಆಹಾರ ಸೇವೆಗಳು & ಸಾಂಪ್ರದಾಯಿಕ ಆತಿಥ್ಯ' : 'Catering & South Indian Hospitality'}
+                  </span>
+                </div>
+                <h2 className="text-xl sm:text-2xl font-bold font-serif-editorial">
+                  {isKn ? 'ಆಹಾರ ಸೇವೆಗಳ ವಿವರಣೆ ಪಡೆಯಿರಿ' : 'Request Catering Details'}
+                </h2>
+                <p className="text-xs sm:text-sm text-[#F6F3EA]/90 mt-1">
+                  {isKn
+                    ? 'ಸಮಾರಂಭಗಳು, ಕಾರ್ಪೊರೇಟ್ ಸಭೆಗಳು ಹಾಗೂ ಬಾಳೆ ಎಲೆ ಸಾಂಪ್ರದಾಯಿಕ ಊಟೋಪಚಾರದ ನೈಜ ರುಚಿ.'
+                    : 'Delightful menus, authentic plantain leaf feasts, and seamless hospitality for your gatherings.'}
+                </p>
+
+                {/* Decorative Torana Garland under title */}
+                <div className="mt-3 text-[#F5D77F]/60 flex items-center">
+                  <ToranaGarland className="w-48 h-3" />
+                </div>
               </div>
             </div>
 

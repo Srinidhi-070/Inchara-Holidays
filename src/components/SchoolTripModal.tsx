@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, GraduationCap, CheckCircle2, Copy, Send, PhoneCall } from 'lucide-react';
 import { Language, SchoolTripInquiryData } from '../types';
@@ -16,6 +16,17 @@ export const SchoolTripModal: React.FC<SchoolTripModalProps> = ({
   onClose,
 }) => {
   const isKn = language === 'kn';
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   const [formData, setFormData] = useState<SchoolTripInquiryData>({
     institutionName: '',
@@ -182,30 +193,38 @@ Safety & Dietary Needs: ${formData.safetyOrDietaryNeeds || 'Standard safety requ
                 <SikkuKolamMandala className="w-full h-full" />
               </div>
 
+              {/* Close dialog button: high z-index, pointer-events-auto, isolated hit-area */}
               <button
                 type="button"
-                onClick={onClose}
-                className="absolute top-4 sm:top-5 right-5 p-1.5 rounded-full bg-white/10 text-[#F6F3EA] hover:bg-white/20 transition-colors cursor-pointer z-10"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClose();
+                }}
+                className="absolute top-4 sm:top-5 right-4 sm:right-5 w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 text-[#F6F3EA] flex items-center justify-center transition-all cursor-pointer z-50 pointer-events-auto shadow-md"
                 aria-label="Close dialog"
+                data-cursor="Close"
               >
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5 pointer-events-none" />
               </button>
-              <div className="flex items-center gap-2 mb-1.5 relative z-10">
-                <span className="p-1.5 rounded-lg bg-emerald-400/20 text-[#F5D77F] flex items-center justify-center">
-                  <TempleBell className="w-5 h-5 text-[#F5D77F]" />
-                </span>
-                <span className="text-xs tracking-wider uppercase font-semibold text-[#F5D77F]">
-                  {isKn ? 'ಶಾಲಾ ಪ್ರವಾಸಗಳು & ಶೈಕ್ಷಣಿಕ ಕಾರ್ಯಕ್ರಮಗಳು' : 'Educational Trips & Heritage Expeditions'}
-                </span>
+
+              <div className="pr-12 relative z-10">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="p-1.5 rounded-lg bg-emerald-400/20 text-[#F5D77F] flex items-center justify-center">
+                    <TempleBell className="w-5 h-5 text-[#F5D77F]" />
+                  </span>
+                  <span className="text-xs tracking-wider uppercase font-semibold text-[#F5D77F]">
+                    {isKn ? 'ಶಾಲಾ ಪ್ರವಾಸಗಳು & ಶೈಕ್ಷಣಿಕ ಕಾರ್ಯಕ್ರಮಗಳು' : 'Educational Trips & Heritage Expeditions'}
+                  </span>
+                </div>
+                <h2 className="text-xl sm:text-2xl font-bold font-serif-editorial">
+                  {isKn ? 'ಶಾಲಾ / ಕಾಲೇಜು ಪ್ರವಾಸ ರೂಪಿಸಿ' : 'Plan an Educational Trip'}
+                </h2>
+                <p className="text-xs sm:text-sm text-[#F6F3EA]/85 mt-1">
+                  {isKn
+                    ? 'ವಿದ್ಯಾರ್ಥಿಗಳ ಸುರಕ್ಷತೆ, ಪೌಷ್ಟಿಕ ಆಹಾರ ಹಾಗೂ ಸಂಸ್ಕೃತಿ ಮತ್ತು ಇತಿಹಾಸದ ಪ್ರಾಯೋಗಿಕ ಕಲಿಕೆಗೆ ಆದ್ಯತೆ ನೀಡುವ ವಿಶ್ವಾಸಾರ್ಹ ಪ್ರವಾಸ ವ್ಯವಸ್ಥೆ.'
+                    : 'Safety-first itineraries, verified transport, hygienic meals, and living heritage exploration for students.'}
+                </p>
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold font-serif-editorial relative z-10">
-                {isKn ? 'ಶಾಲಾ / ಕಾಲೇಜು ಪ್ರವಾಸ ರೂಪಿಸಿ' : 'Plan an Educational Trip'}
-              </h2>
-              <p className="text-xs sm:text-sm text-[#F6F3EA]/85 mt-1 relative z-10">
-                {isKn
-                  ? 'ವಿದ್ಯಾರ್ಥಿಗಳ ಸುರಕ್ಷತೆ, ಪೌಷ್ಟಿಕ ಆಹಾರ ಹಾಗೂ ಸಂಸ್ಕೃತಿ ಮತ್ತು ಇತಿಹಾಸದ ಪ್ರಾಯೋಗಿಕ ಕಲಿಕೆಗೆ ಆದ್ಯತೆ ನೀಡುವ ವಿಶ್ವಾಸಾರ್ಹ ಪ್ರವಾಸ ವ್ಯವಸ್ಥೆ.'
-                  : 'Safety-first itineraries, verified transport, hygienic meals, and living heritage exploration for students.'}
-              </p>
             </div>
 
             {/* Kolam border ribbon */}
