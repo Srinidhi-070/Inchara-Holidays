@@ -110,14 +110,14 @@ export const Header: React.FC<HeaderProps> = ({
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#FBF8F1]/96 backdrop-blur-md shadow-sm border-b border-[#D4AF37]/30 py-2.5 sm:py-3 text-[#252923]'
-            : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-3 sm:py-4 text-[#F6F3EA]'
+            ? 'bg-[#FBF8F1]/96 backdrop-blur-md shadow-xs border-b border-[#D4AF37]/25 py-2.5 sm:py-3 text-[#252923]'
+            : 'bg-gradient-to-b from-black/85 via-black/45 to-transparent py-3 sm:py-4 text-[#F6F3EA]'
         }`}
       >
-        {/* Subtle Kasavu Gold Hairline & Kolam Ribbon at top */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#B96F50] via-[#D4AF37] to-[#263F32]" />
-        <div className="absolute top-[2px] left-0 right-0 h-2 opacity-35 overflow-hidden pointer-events-none">
-          <KolamBorderRibbon patternUnits={48} className="h-full" color={isScrolled ? '#D4AF37' : '#F5D77F'} dotColor={isScrolled ? '#B96F50' : '#D4AF37'} />
+        {/* Subtle Kasavu Gold & Terracotta Hairline with delicate Kolam Ribbon */}
+        <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37]/80 to-transparent" />
+        <div className="absolute top-[1.5px] left-0 right-0 h-1.5 opacity-20 overflow-hidden pointer-events-none">
+          <KolamBorderRibbon patternUnits={48} className="h-full" color={isScrolled ? '#D4AF37' : '#F5D77F'} dotColor={isScrolled ? '#9E3D28' : '#D4AF37'} />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -133,23 +133,23 @@ export const Header: React.FC<HeaderProps> = ({
               aria-label="Inchara Holidays Home"
             >
               <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm border ${
+                className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-xs border ${
                   isScrolled
-                    ? 'bg-[#1E3B2B] border-[#D4AF37]/50 text-[#D4AF37]'
-                    : 'bg-[#162E22]/85 border-[#D4AF37]/60 text-[#F5D77F] backdrop-blur-md'
+                    ? 'bg-[#1E3B2B] border-[#D4AF37]/40 text-[#D4AF37]'
+                    : 'bg-[#162E22]/90 border-[#D4AF37]/60 text-[#F5D77F] backdrop-blur-md'
                 }`}
               >
-                <AmbariElephant className="w-6 h-6 transition-transform group-hover:scale-110 duration-300" color={isScrolled ? '#D4AF37' : '#F5D77F'} />
+                <AmbariElephant className="w-5 h-5 sm:w-5.5 sm:h-5.5 transition-transform group-hover:scale-105 duration-300" color={isScrolled ? '#D4AF37' : '#F5D77F'} />
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center gap-1.5">
                   <span className="text-base sm:text-lg lg:text-xl font-bold tracking-tight font-serif-editorial">
                     {isKn ? 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್' : 'Inchara Holidays'}
                   </span>
-                  <span className="text-[10px] text-[#D4AF37]">✦</span>
+                  <span className="text-[10px] text-[#D4AF37] opacity-80">✦</span>
                 </div>
                 <span
-                  className={`text-[9px] sm:text-[10px] tracking-wider uppercase font-medium ${
+                  className={`text-[9px] sm:text-[9.5px] tracking-[0.14em] uppercase font-medium ${
                     isScrolled ? 'text-[#8C5E14]' : 'text-[#E5B842]'
                   }`}
                 >
@@ -158,36 +158,38 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
             </a>
 
-            {/* Zone 2: Navigation Links (Desktop: lg screens and above) */}
-            <nav className="hidden xl:flex items-center gap-5 2xl:gap-6 text-xs 2xl:text-sm font-medium">
+            {/* Zone 2: Navigation Links (Desktop: xl screens and above) */}
+            <nav className="hidden xl:flex items-center gap-6 2xl:gap-7 text-xs 2xl:text-sm font-medium tracking-wide">
               {navLinks.map((link) => (
                 <button
                   key={link.id}
                   onClick={() => handleNavClick(link)}
-                  className={`transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8 decoration-1 cursor-pointer ${
-                    isScrolled
-                      ? 'text-[#252923]/80 hover:text-[#263F32] decoration-[#263F32]/40'
-                      : 'text-[#F6F3EA]/90 hover:text-white decoration-white/40'
-                  }`}
-                >
-                  {link.label}
-                </button>
-              ))}
-            </nav>
-
-            {/* Compact desktop nav for standard laptops (1024px - 1280px) */}
-            <nav className="hidden lg:flex xl:hidden items-center gap-3.5 text-xs font-medium">
-              {navLinks.slice(1, 6).map((link) => (
-                <button
-                  key={link.id}
-                  onClick={() => handleNavClick(link)}
-                  className={`transition-colors whitespace-nowrap shrink-0 hover:underline underline-offset-8 decoration-1 cursor-pointer ${
+                  className={`transition-colors whitespace-nowrap shrink-0 hover:text-[#D4AF37] relative py-1 cursor-pointer group ${
                     isScrolled
                       ? 'text-[#252923]/80 hover:text-[#263F32]'
                       : 'text-[#F6F3EA]/90 hover:text-white'
                   }`}
                 >
-                  {link.label}
+                  <span>{link.label}</span>
+                  <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#D4AF37] transition-all duration-200 group-hover:w-full" />
+                </button>
+              ))}
+            </nav>
+
+            {/* Compact desktop nav for standard laptops (1024px - 1280px) */}
+            <nav className="hidden lg:flex xl:hidden items-center gap-4 text-xs font-medium tracking-wide">
+              {navLinks.slice(1, 6).map((link) => (
+                <button
+                  key={link.id}
+                  onClick={() => handleNavClick(link)}
+                  className={`transition-colors whitespace-nowrap shrink-0 hover:text-[#D4AF37] relative py-1 cursor-pointer group ${
+                    isScrolled
+                      ? 'text-[#252923]/80 hover:text-[#263F32]'
+                      : 'text-[#F6F3EA]/90 hover:text-white'
+                  }`}
+                >
+                  <span>{link.label}</span>
+                  <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#D4AF37] transition-all duration-200 group-hover:w-full" />
                 </button>
               ))}
             </nav>
@@ -198,8 +200,8 @@ export const Header: React.FC<HeaderProps> = ({
               <div
                 className={`flex items-center p-0.5 rounded-lg border text-xs font-medium transition-colors ${
                   isScrolled
-                    ? 'border-[#263F32]/20 bg-[#263F32]/5 text-[#252923]'
-                    : 'border-white/20 bg-black/20 text-[#F6F3EA]'
+                    ? 'border-[#263F32]/15 bg-[#263F32]/5 text-[#252923]'
+                    : 'border-white/20 bg-black/30 backdrop-blur-xs text-[#F6F3EA]'
                 }`}
               >
                 <button
@@ -209,7 +211,7 @@ export const Header: React.FC<HeaderProps> = ({
                   className={`px-2 py-1 rounded-md transition-colors whitespace-nowrap cursor-pointer ${
                     language === 'kn'
                       ? 'bg-[#263F32] text-[#F6F3EA] shadow-2xs font-semibold'
-                      : 'hover:text-[#B96F50]'
+                      : 'hover:text-[#D4AF37]'
                   }`}
                 >
                   ಕನ್ನಡ
@@ -222,7 +224,7 @@ export const Header: React.FC<HeaderProps> = ({
                   className={`px-2 py-1 rounded-md transition-colors whitespace-nowrap cursor-pointer ${
                     language === 'en'
                       ? 'bg-[#263F32] text-[#F6F3EA] shadow-2xs font-semibold'
-                      : 'hover:text-[#B96F50]'
+                      : 'hover:text-[#D4AF37]'
                   }`}
                 >
                   ENG
@@ -233,13 +235,13 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 type="button"
                 onClick={onOpenPlanner}
-                className={`hidden sm:inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 whitespace-nowrap shrink-0 shadow-2xs active:scale-95 cursor-pointer ${
+                className={`hidden sm:inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-lg text-xs font-semibold tracking-wider uppercase transition-all duration-200 whitespace-nowrap shrink-0 shadow-xs active:scale-95 cursor-pointer border ${
                   isScrolled
-                    ? 'bg-[#263F32] text-[#F6F3EA] hover:bg-[#1f3328]'
-                    : 'bg-[#F6F3EA] text-[#263F32] hover:bg-white'
+                    ? 'bg-[#263F32] border-[#263F32] text-[#F6F3EA] hover:bg-[#1E3B2B] hover:border-[#D4AF37]/40'
+                    : 'bg-[#F6F3EA] border-[#D4AF37]/50 text-[#162E22] hover:bg-white hover:border-[#D4AF37]'
                 }`}
               >
-                <Calendar className="w-3.5 h-3.5" />
+                <Calendar className="w-3.5 h-3.5 text-[#D4AF37]" />
                 <span>{t.nav.planTrip}</span>
               </button>
 
@@ -275,12 +277,12 @@ export const Header: React.FC<HeaderProps> = ({
             <div>
               {/* Top Drawer Bar */}
               <div className="flex items-center justify-between pb-4 border-b border-[#263F32]/10">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-[#263F32] text-[#F6F3EA] flex items-center justify-center">
-                    <Compass className="w-4 h-4" />
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-[#162E22] border border-[#D4AF37]/50 text-[#F5D77F] flex items-center justify-center shadow-xs">
+                    <AmbariElephant className="w-5 h-5" color="#D4AF37" />
                   </div>
                   <div>
-                    <span className="font-bold font-serif-editorial text-[#263F32] text-base block leading-tight">
+                    <span className="font-bold font-serif-editorial text-[#162E22] text-base block leading-tight">
                       {isKn ? 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್' : 'Inchara Holidays'}
                     </span>
                     <span className="text-[10px] text-[#252923]/60 uppercase tracking-wider block">
@@ -311,7 +313,7 @@ export const Header: React.FC<HeaderProps> = ({
                     className={`px-3 py-1 rounded-md transition-colors cursor-pointer ${
                       language === 'kn'
                         ? 'bg-[#263F32] text-[#F6F3EA] font-semibold'
-                        : 'text-[#252923] hover:text-[#B96F50]'
+                        : 'text-[#252923] hover:text-[#9E3D28]'
                     }`}
                   >
                     ಕನ್ನಡ
@@ -322,7 +324,7 @@ export const Header: React.FC<HeaderProps> = ({
                     className={`px-3 py-1 rounded-md transition-colors cursor-pointer ${
                       language === 'en'
                         ? 'bg-[#263F32] text-[#F6F3EA] font-semibold'
-                        : 'text-[#252923] hover:text-[#B96F50]'
+                        : 'text-[#252923] hover:text-[#9E3D28]'
                     }`}
                   >
                     English
@@ -332,7 +334,7 @@ export const Header: React.FC<HeaderProps> = ({
 
               {/* Section 1: Main Services with clear hierarchy */}
               <div className="mt-6">
-                <div className="text-[11px] font-bold text-[#B96F50] uppercase tracking-wider px-2 mb-2 flex items-center gap-1.5">
+                <div className="text-[11px] font-bold text-[#9E3D28] uppercase tracking-wider px-2 mb-2 flex items-center gap-1.5">
                   <Sparkles className="w-3 h-3" />
                   <span>{isKn ? 'ನಮ್ಮ ಪ್ರಮುಖ ಸೇವೆಗಳು' : 'Core Services'}</span>
                 </div>
@@ -353,10 +355,10 @@ export const Header: React.FC<HeaderProps> = ({
                     className="text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-[#252923] hover:bg-[#263F32]/8 hover:text-[#263F32] transition-colors flex items-center justify-between cursor-pointer"
                   >
                     <span className="flex items-center gap-2.5">
-                      <Compass className="w-4 h-4 text-[#B96F50]" />
+                      <Compass className="w-4 h-4 text-[#9E3D28]" />
                       <span>{t.nav.packages}</span>
                     </span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#B96F50]/15 text-[#B96F50] font-medium">
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#9E3D28]/15 text-[#9E3D28] font-medium">
                       {isKn ? 'ಪಯಣ' : 'Travel'}
                     </span>
                   </button>
@@ -379,10 +381,10 @@ export const Header: React.FC<HeaderProps> = ({
                     className="text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-[#252923] hover:bg-[#263F32]/8 hover:text-[#263F32] transition-colors flex items-center justify-between cursor-pointer"
                   >
                     <span className="flex items-center gap-2.5">
-                      <UtensilsCrossed className="w-4 h-4 text-[#B96F50]" />
+                      <UtensilsCrossed className="w-4 h-4 text-[#9E3D28]" />
                       <span>{t.nav.catering}</span>
                     </span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#B96F50]/15 text-[#B96F50] font-medium">
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#9E3D28]/15 text-[#9E3D28] font-medium">
                       {isKn ? 'ಊಟೋಪಚಾರ' : 'Food'}
                     </span>
                   </button>
@@ -455,7 +457,7 @@ export const Header: React.FC<HeaderProps> = ({
                   href="tel:+919448000000"
                   className="py-2.5 px-3 rounded-lg border border-[#263F32]/20 text-[#263F32] text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-[#263F32]/5 transition-colors"
                 >
-                  <PhoneCall className="w-3.5 h-3.5 text-[#B96F50]" />
+                  <PhoneCall className="w-3.5 h-3.5 text-[#9E3D28]" />
                   <span>{isKn ? 'ಕರೆ ಮಾಡಿ' : 'Direct Call'}</span>
                 </a>
                 <button

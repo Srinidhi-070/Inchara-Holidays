@@ -68,7 +68,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
       <div className="relative min-h-screen flex items-center justify-center p-3 sm:p-4">
         <div className="relative w-full max-w-lg bg-[#FBF8F1] rounded-2xl shadow-2xl overflow-hidden border border-[#D4AF37]/40 text-[#252923] max-h-[92dvh] flex flex-col my-4">
           {/* Top Kasavu gold hairline */}
-          <div className="h-1 w-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#B96F50]" />
+          <div className="h-1 w-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#9E3D28]" />
 
           {/* Header */}
           <div className="px-5 sm:px-6 py-4 sm:py-5 bg-[#263F32] text-[#F6F3EA] flex items-center justify-between shrink-0 relative overflow-hidden">
@@ -144,7 +144,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
                 </p>
 
                 {error && (
-                  <div className="p-2.5 rounded-md bg-[#B96F50]/15 text-[#B96F50] text-xs font-medium border border-[#B96F50]/30">
+                  <div className="p-2.5 rounded-md bg-[#9E3D28]/15 text-[#9E3D28] text-xs font-medium border border-[#9E3D28]/30">
                     {error}
                   </div>
                 )}
@@ -204,7 +204,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
                     type="submit"
                     className="px-5 py-2.5 rounded-md bg-[#263F32] text-[#F6F3EA] hover:bg-[#1f3328] text-xs font-semibold flex items-center gap-2 shadow-xs"
                   >
-                    <Send className="w-3.5 h-3.5 text-[#B96F50]" />
+                    <Send className="w-3.5 h-3.5 text-[#F5D77F]" />
                     <span>{language === 'kn' ? 'ಸಂದೇಶ ಕಳುಹಿಸಿ' : 'Send Enquiry'}</span>
                   </button>
                 </div>

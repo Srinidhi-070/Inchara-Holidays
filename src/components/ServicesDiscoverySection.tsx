@@ -102,7 +102,7 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
     <section id="services" className="py-20 lg:py-28 bg-[#FBF9F4] relative border-b border-[#263F32]/10 overflow-hidden">
       {/* Decorative background subtle watermark */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#263F32]/[0.03] rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#B96F50]/[0.03] rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#9E3D28]/[0.03] rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
@@ -113,39 +113,41 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-14 lg:mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#263F32]/10 border border-[#263F32]/15 text-[#263F32] text-xs font-semibold uppercase tracking-wider mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-[#B96F50]" />
-            {isKn ? 'ಸಮಗ್ರ ಸೇವೆಗಳ ಶ್ರೇಣಿ' : 'Comprehensive Services'}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#263F32]/8 border border-[#263F32]/15 text-[#263F32] text-xs font-semibold uppercase tracking-wider mb-4 shadow-2xs">
+            <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
+            <span>{isKn ? 'ಸಮಗ್ರ ಸೇವೆಗಳ ಶ್ರೇಣಿ' : 'Comprehensive Services'}</span>
           </div>
 
           {/* Requested Main Title */}
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif-editorial text-[#263F32] tracking-tight leading-tight">
+          <h2 className="text-display-md font-bold font-serif-editorial text-[#162E22] tracking-tight leading-tight">
             {isKn
               ? 'ನಿಮ್ಮ ಪ್ರತಿಯೊಂದು ಯೋಜನೆಗೂ, ನಮ್ಮ ಜೊತೆಯಿದೆ.'
               : 'One partner for journeys, gatherings, and celebrations.'}
           </h2>
 
-          <p className="mt-4 text-base sm:text-lg text-[#252923]/75 leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-[#252923]/75 leading-relaxed max-w-2xl mx-auto">
             {isKn
               ? 'ವೈಯಕ್ತಿಕ ರಜಾದಿನಗಳಿಂದ ಹಿಡಿದು ಸಾಂಸ್ಥಿಕ ಸಮ್ಮೇಳನಗಳು, ಸಂಪ್ರದಾಯಬದ್ಧ ಊಟೋಪಚಾರ ಹಾಗೂ ಶಾಲಾ ಶೈಕ್ಷಣಿಕ ಪಯಣದವರೆಗೆ — ಪ್ರತಿಯೊಂದರಲ್ಲೂ ಅಚ್ಚುಕಟ್ಟು ಆತಿಥ್ಯ ಮತ್ತು ವಿಶ್ವಾಸ.'
               : 'From bespoke personal vacations and corporate retreats to respectful catering and safe student expeditions — Inchara brings authentic hospitality and care to every milestone.'}
           </p>
 
           {/* Quick Service Anchor Navigation */}
-          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 max-w-4xl mx-auto">
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
             {servicesNav.map((item) => {
               const Icon = item.icon;
               return (
                 <button
                   key={item.id}
                   onClick={() => handleScrollToSub(`service-${item.id}`)}
-                  className="flex flex-col items-center p-3 sm:p-4 rounded-xl border border-[#263F32]/15 bg-white/70 hover:bg-[#263F32] hover:text-[#F6F3EA] text-[#263F32] transition-all group cursor-pointer shadow-2xs hover:shadow-md"
+                  className="flex flex-col items-center p-3.5 sm:p-4 rounded-2xl border border-[#263F32]/12 bg-[#FBF8F1] hover:bg-[#162E22] hover:text-[#F6F3EA] text-[#263F32] transition-all duration-300 group cursor-pointer shadow-xs hover:shadow-md hover:border-[#D4AF37]/50"
                 >
-                  <Icon className="w-5 h-5 mb-1.5 text-[#B96F50] group-hover:text-[#F6F3EA] transition-colors" />
+                  <div className="w-9 h-9 rounded-full bg-[#263F32]/5 group-hover:bg-white/10 flex items-center justify-center mb-2 transition-colors">
+                    <Icon className="w-5 h-5 text-[#9E3D28] group-hover:text-[#F5D77F] transition-colors" />
+                  </div>
                   <span className="text-xs sm:text-sm font-bold font-serif-editorial text-center leading-tight">
                     {isKn ? item.labelKn : item.labelEn}
                   </span>
-                  <span className="text-[10px] text-[#252923]/60 group-hover:text-[#F6F3EA]/80 text-center mt-0.5 hidden sm:block">
+                  <span className="text-[10.5px] text-[#252923]/60 group-hover:text-[#F6F3EA]/75 text-center mt-1 hidden sm:block">
                     {isKn ? item.descKn : item.descEn}
                   </span>
                 </button>
@@ -157,25 +159,28 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
         {/* ============================================================== */}
         {/* SERVICE 1: HOLIDAY PACKAGES & TRAVEL                            */}
         {/* ============================================================== */}
-        <div id="service-packages" className="mb-24 scroll-mt-24">
+        <div id="service-packages" className="mb-20 lg:mb-24 scroll-mt-24">
           <motion.div
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 25 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl bg-white border border-[#263F32]/15 p-6 sm:p-10 lg:p-12 shadow-sm"
+            className="rounded-3xl bg-[#FBF8F1] border border-[#D4AF37]/35 p-6 sm:p-10 lg:p-12 shadow-sm relative overflow-hidden"
           >
+            {/* Top delicate gold hairline */}
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37]/70 to-transparent" />
+
             {/* Service 1 Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#263F32]/10">
               <div className="max-w-2xl">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#B96F50] uppercase tracking-wider mb-2">
-                  <Compass className="w-4 h-4" />
+                <div className="flex items-center gap-2 text-xs font-semibold text-[#9E3D28] uppercase tracking-wider mb-2">
+                  <Compass className="w-4 h-4 text-[#D4AF37]" />
                   <span>01. {isKn ? 'ರಜಾ ಪ್ರವಾಸಗಳು & ಪಯಣ' : 'Holiday Packages & Travel'}</span>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-bold font-serif-editorial text-[#263F32]">
+                <h3 className="text-2xl sm:text-3xl font-bold font-serif-editorial text-[#162E22]">
                   {isKn ? 'ಕ್ಯುರೇಟೆಡ್ & ಕಸ್ಟಮೈಸ್ಡ್ ರಜಾದಿನಗಳ ಅನುಭವ' : 'Curated Domestic & International Journeys'}
                 </h3>
-                <p className="mt-2 text-sm sm:text-base text-[#252923]/70">
+                <p className="mt-2 text-sm sm:text-base text-[#252923]/75 leading-relaxed">
                   {isKn
                     ? 'ಕುಟುಂಬದ ಪ್ರವಾಸ, ಆಪ್ತರ ಸಮೂಹ ಪಯಣ, ವಾರಾಂತ್ಯದ ವಿಶ್ರಾಂತಿ, ಪರಂಪರೆಯ ಹಾದಿ, ನಿಸರ್ಗ ಸಾಹಸ ಹಾಗೂ ಅಂತಾರಾಷ್ಟ್ರೀಯ ರಜೆಗಳು. ಪ್ರತಿ ವಿವರವನ್ನೂ ನಿಮ್ಮ ಅಭಿರುಚಿಗೆ ತಕ್ಕಂತೆ ಕಸ್ಟಮೈಸ್ ಮಾಡಲಾಗುತ್ತದೆ.'
                     : 'From family vacations and group expeditions to weekend getaways, heritage trails, nature adventures, and international travel. Paced, guided, and seamlessly coordinated.'}
@@ -187,9 +192,9 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
                 <button
                   type="button"
                   onClick={() => onOpenPlanner()}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#263F32] text-[#F6F3EA] text-xs sm:text-sm font-semibold hover:bg-[#1C2F25] transition-colors cursor-pointer shadow-xs"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#162E22] text-[#F6F3EA] text-xs sm:text-sm font-semibold hover:bg-[#1f3d2e] border border-[#D4AF37]/30 transition-all cursor-pointer shadow-xs active:scale-95"
                 >
-                  <Calendar className="w-4 h-4" />
+                  <Calendar className="w-4 h-4 text-[#D4AF37]" />
                   {isKn ? 'ನಿಮ್ಮ ಪ್ರವಾಸ ರೂಪಿಸಿ' : 'Custom Trip Inquiry'}
                 </button>
               </div>
@@ -209,7 +214,7 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
               ].map((pill, i) => (
                 <span
                   key={i}
-                  className="px-3 py-1.5 rounded-full bg-[#F6F3EA] border border-[#263F32]/10 font-medium"
+                  className="px-3 py-1.5 rounded-full bg-white border border-[#263F32]/10 font-medium text-[#162E22] shadow-2xs"
                 >
                   {isKn ? pill.kn : pill.en}
                 </span>
@@ -251,7 +256,7 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
               </div>
 
               {/* Sample Content Transparency Notice */}
-              <div className="flex items-center gap-1.5 text-[11px] text-[#B96F50] bg-[#B96F50]/10 px-3 py-1.5 rounded-xl border border-[#B96F50]/20 w-full sm:w-auto">
+              <div className="flex items-center gap-1.5 text-[11px] text-[#9E3D28] bg-[#9E3D28]/10 px-3 py-1.5 rounded-xl border border-[#9E3D28]/20 w-full sm:w-auto">
                 <Info className="w-3.5 h-3.5 shrink-0" />
                 <span>
                   {isKn
@@ -271,22 +276,22 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
                     <div
                       key={pkg.id}
                       onClick={() => setSelectedPackageId(pkg.id)}
-                      className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
+                      className={`p-4 rounded-xl border text-left transition-all duration-200 cursor-pointer ${
                         isSelected
-                          ? 'border-[#263F32] bg-[#263F32]/5 shadow-xs'
-                          : 'border-[#263F32]/15 hover:border-[#263F32]/40 bg-white'
+                          ? 'border-l-4 border-l-[#D4AF37] border-y-[#263F32]/20 border-r-[#263F32]/20 bg-white shadow-sm -translate-y-0.5'
+                          : 'border-[#263F32]/12 hover:border-[#D4AF37]/50 bg-white/70 hover:bg-white'
                       }`}
                     >
                       <div className="flex items-center justify-between text-xs mb-1">
-                        <span className="font-semibold text-[#B96F50]">
+                        <span className="font-semibold text-[#9E3D28]">
                           {isKn ? pkg.badgeKn : pkg.badgeEn}
                         </span>
                         <span className="inline-flex items-center gap-1 text-[#263F32]/70 font-medium">
-                          <Clock className="w-3 h-3" />
+                          <Clock className="w-3 h-3 text-[#D4AF37]" />
                           {isKn ? pkg.durationKn : pkg.durationEn}
                         </span>
                       </div>
-                      <h4 className="text-base font-bold font-serif-editorial text-[#263F32] leading-snug">
+                      <h4 className="text-base font-bold font-serif-editorial text-[#162E22] leading-snug">
                         {isKn ? pkg.titleKn : pkg.titleEn}
                       </h4>
                     </div>
@@ -295,29 +300,29 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
               </div>
 
               {/* Right Detail Spotlight */}
-              <div className="lg:col-span-7 bg-[#F6F3EA] rounded-2xl p-6 sm:p-8 border border-[#263F32]/15">
+              <div className="lg:col-span-7 bg-white rounded-2xl p-6 sm:p-8 border border-[#D4AF37]/35 shadow-xs relative overflow-hidden">
                 <div className="relative rounded-xl overflow-hidden aspect-16/9 mb-6 shadow-xs">
                   <img
                     src={activePackage.image}
                     alt={activePackage.imageAlt}
-                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                    className="w-full h-full object-cover img-vignette transition-transform duration-700 hover:scale-105"
                   />
-                  <div className="absolute top-3 left-3 bg-[#263F32]/90 backdrop-blur-xs text-[#F6F3EA] text-xs font-semibold px-3 py-1 rounded-full">
+                  <div className="absolute top-3 left-3 bg-[#162E22]/90 backdrop-blur-xs border border-[#D4AF37]/40 text-[#F5D77F] text-xs font-semibold px-3 py-1 rounded-full shadow-xs">
                     {isKn ? activePackage.badgeKn : activePackage.badgeEn}
                   </div>
-                  <div className="absolute bottom-3 right-3 bg-black/70 backdrop-blur-xs text-[#F6F3EA] text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5" />
+                  <div className="absolute bottom-3 right-3 bg-black/75 backdrop-blur-xs text-[#F6F3EA] text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1 border border-white/10">
+                    <Clock className="w-3.5 h-3.5 text-[#D4AF37]" />
                     {isKn ? activePackage.durationKn : activePackage.durationEn}
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold font-serif-editorial text-[#263F32]">
+                <h3 className="text-2xl font-bold font-serif-editorial text-[#162E22]">
                   {isKn ? activePackage.titleKn : activePackage.titleEn}
                 </h3>
 
                 {/* Highlights */}
                 <div className="mt-5 space-y-2">
-                  <h5 className="text-xs font-bold uppercase tracking-wider text-[#263F32]/70">
+                  <h5 className="text-xs font-bold uppercase tracking-wider text-[#162E22]/70">
                     {isKn ? 'ಪ್ರಮುಖ ಆಕರ್ಷಣೆಗಳು' : 'Signature Highlights'}
                   </h5>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#252923]">
@@ -332,13 +337,13 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
 
                 {/* Inclusions */}
                 <div className="mt-5 space-y-2 pt-4 border-t border-[#263F32]/10">
-                  <h5 className="text-xs font-bold uppercase tracking-wider text-[#263F32]/70">
+                  <h5 className="text-xs font-bold uppercase tracking-wider text-[#162E22]/70">
                     {isKn ? 'ಪ್ಯಾಕೇಜ್ ಒಳಗೊಂಡ ಸೌಲಭ್ಯಗಳು (ಮಾದರಿ)' : 'Sample Inclusions'}
                   </h5>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#252923]/80">
                     {(isKn ? activePackage.inclusionsKn : activePackage.inclusionsEn).map((inc, i) => (
                       <div key={i} className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#B96F50] mt-1.5 shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-1.5 shrink-0" />
                         <span>{inc}</span>
                       </div>
                     ))}
@@ -363,10 +368,10 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
                         isKn ? activePackage.badgeKn : activePackage.badgeEn
                       )
                     }
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#263F32] text-[#F6F3EA] text-sm font-semibold hover:bg-[#1C2F25] transition-colors cursor-pointer shadow-xs"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#162E22] text-[#F6F3EA] text-sm font-semibold hover:bg-[#1E3B2B] border border-[#D4AF37]/30 transition-colors cursor-pointer shadow-xs active:scale-95"
                   >
                     <span>{isKn ? 'ಈ ಪ್ರವಾಸದ ಕುರಿತು ವಿಚಾರಿಸಿ' : 'Inquire for This Package'}</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 text-[#D4AF37]" />
                   </button>
                 </div>
               </div>
@@ -374,19 +379,25 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
           </motion.div>
         </div>
 
+        {/* Subtle Cultural Section Divider */}
+        <div className="section-divider-forest my-16 lg:my-20" />
+
         {/* ============================================================== */}
         {/* SERVICE 2: CORPORATE EVENTS & TEAM OUTINGS                     */}
         {/* ============================================================== */}
-        <div id="service-corporate" className="mb-24 scroll-mt-24">
+        <div id="service-corporate" className="mb-20 lg:mb-24 scroll-mt-24">
           <motion.div
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 25 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl bg-linear-to-br from-[#1C2F25] to-[#263F32] text-[#F6F3EA] p-6 sm:p-10 lg:p-14 shadow-xl border border-white/10 relative overflow-hidden"
+            className="rounded-3xl bg-linear-to-br from-[#12261C] via-[#1A382A] to-[#12261C] text-[#F6F3EA] p-6 sm:p-10 lg:p-14 shadow-2xl border border-[#D4AF37]/30 relative overflow-hidden"
           >
+            {/* Top delicate gold hairline */}
+            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent" />
+
             {/* Visual background accents & Royal Ambari Elephant Watermark */}
-            <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-[#B96F50]/15 blur-3xl pointer-events-none" />
+            <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-[#D4AF37]/10 blur-3xl pointer-events-none" />
             <div className="hidden sm:block absolute right-8 top-12 w-64 h-56 text-[#D4AF37] opacity-10 pointer-events-none select-none">
               <AmbariElephant className="w-full h-full" color="#D4AF37" />
             </div>
@@ -394,8 +405,8 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               {/* Left Column: Story & Offerings */}
               <div className="lg:col-span-7 space-y-6">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#D88D6F] uppercase tracking-wider">
-                  <AmbariElephant className="w-5 h-5 text-[#D88D6F]" />
+                <div className="flex items-center gap-2 text-xs font-semibold text-[#F5D77F] uppercase tracking-wider">
+                  <AmbariElephant className="w-5 h-5 text-[#D4AF37]" />
                   <span>02. {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಕಾರ್ಯಕ್ರಮಗಳು & ಟೀಮ್ ಔಟಿಂಗ್' : 'Corporate Events & Team Outings'}</span>
                 </div>
 
@@ -453,7 +464,7 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
                   ].map((item, idx) => (
                     <div
                       key={idx}
-                      className="p-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+                      className="p-3.5 rounded-xl bg-white/[0.06] border border-white/10 hover:border-[#D4AF37]/40 hover:bg-white/[0.1] transition-all duration-300 shadow-2xs"
                     >
                       <div className="text-xs sm:text-sm font-semibold text-white">
                         {isKn ? item.kn : item.en}
@@ -470,11 +481,11 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
                   <button
                     type="button"
                     onClick={onOpenCorporateModal}
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#B96F50] text-[#F6F3EA] text-sm font-semibold hover:bg-[#D88D6F] hover:text-[#1C2F25] transition-all cursor-pointer shadow-md group"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#9E3D28] text-[#F6F3EA] text-sm font-semibold hover:bg-[#853220] border border-[#D4AF37]/35 transition-all cursor-pointer shadow-md group active:scale-95"
                   >
-                    <Building2 className="w-4 h-4" />
+                    <Building2 className="w-4 h-4 text-[#F5D77F]" />
                     <span>{isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಕಾರ್ಯಕ್ರಮ ರೂಪಿಸಿ' : 'Plan a Corporate Event'}</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 text-[#F5D77F] group-hover:translate-x-1 transition-transform" />
                   </button>
 
                   <span className="text-xs text-[#F6F3EA]/70">
@@ -536,30 +547,37 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
           </motion.div>
         </div>
 
+        {/* Subtle Cultural Section Divider */}
+        <div className="section-divider-gold my-16 lg:my-20" />
+
         {/* ============================================================== */}
         {/* SERVICE 3: CATERING & HOSPITALITY                              */}
         {/* ============================================================== */}
-        <div id="service-catering" className="mb-24 scroll-mt-24">
+        <div id="service-catering" className="mb-20 lg:mb-24 scroll-mt-24">
           <motion.div
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 25 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl bg-white border border-[#263F32]/15 p-6 sm:p-10 lg:p-14 shadow-sm"
+            className="rounded-3xl bg-[#FBF8F1] border border-[#9E3D28]/30 p-6 sm:p-10 lg:p-14 shadow-sm relative overflow-hidden"
           >
+            {/* Top delicate terracotta hairline */}
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#9E3D28]/60 to-transparent" />
+            <div className="absolute -left-16 -bottom-16 w-64 h-64 bg-[#9E3D28]/[0.03] rounded-full blur-2xl pointer-events-none" />
+
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#263F32]/10">
               <div className="max-w-2xl">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#B96F50] uppercase tracking-wider mb-2">
-                  <BananaLeafIcon className="w-5 h-5 text-[#B96F50]" />
+                <div className="flex items-center gap-2 text-xs font-semibold text-[#9E3D28] uppercase tracking-wider mb-2">
+                  <BananaLeafIcon className="w-5 h-5 text-[#9E3D28]" />
                   <span>03. {isKn ? 'ಆಹಾರ ಸೇವೆಗಳು & ಸಾಂಪ್ರದಾಯಿಕ ಆತಿಥ್ಯ' : 'Catering & Traditional Hospitality'}</span>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-bold font-serif-editorial text-[#263F32]">
+                <h3 className="text-2xl sm:text-3xl font-bold font-serif-editorial text-[#162E22]">
                   {isKn
                     ? 'ರುಚಿಕರ ಶುದ್ಧ ಆಹಾರ, ಅಚ್ಚುಕಟ್ಟು ಪಂಕ್ತಿ ಸೇವೆ'
                     : 'Authentic Flavors & Thoughtful Hospitality'}
                 </h3>
-                <p className="mt-2 text-sm sm:text-base text-[#252923]/70">
+                <p className="mt-2 text-sm sm:text-base text-[#252923]/75 leading-relaxed">
                   {isKn
                     ? 'ಕಾರ್ಪೊರೇಟ್ ಸಭೆಗಳು, ಶಾಲಾ ಸಮಾರಂಭಗಳು, ಪ್ರವಾಸದ ಹಾದಿಯಲ್ಲಿ ಬಿಸಿಬಿಸಿ ಊಟೋಪಚಾರ ಹಾಗೂ ಕೌಟುಂಬಿಕ ಸಮಾರಂಭಗಳಿಗೆ ಸೂಕ್ತವಾದ ಗುಣಮಟ್ಟದ ಆಹಾರ ವ್ಯವಸ್ಥೆ.'
                     : 'Catering for corporate summits, school events, group transit dining, and family gatherings. Prepared with hygiene, served with traditional warmth.'}
@@ -570,9 +588,9 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
                 <button
                   type="button"
                   onClick={onOpenCateringModal}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#B96F50] text-[#F6F3EA] text-sm font-semibold hover:bg-[#8C462C] transition-colors cursor-pointer shadow-xs"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#9E3D28] text-[#F6F3EA] text-sm font-semibold hover:bg-[#802D1B] border border-[#D4AF37]/30 transition-all cursor-pointer shadow-xs active:scale-95"
                 >
-                  <UtensilsCrossed className="w-4 h-4" />
+                  <UtensilsCrossed className="w-4 h-4 text-[#F5D77F]" />
                   <span>{isKn ? 'ಆಹಾರ ವಿವರಣೆ ಪಡೆಯಿರಿ' : 'Request Catering Details'}</span>
                 </button>
               </div>
@@ -581,19 +599,19 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
             {/* Sensory Photography Grid */}
             <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Card 1 */}
-              <div className="rounded-2xl bg-[#F6F3EA] overflow-hidden border border-[#263F32]/10 group">
+              <div className="rounded-2xl bg-white overflow-hidden border border-[#263F32]/12 group shadow-2xs hover:shadow-md hover:border-[#9E3D28]/40 transition-all duration-300">
                 <div className="aspect-4/3 overflow-hidden">
                   <img
                     src="/images/south_indian_feast.jpg"
                     alt="Traditional south indian feast on plantain banana leaf"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover img-warm-tone transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
                 <div className="p-5">
-                  <span className="text-xs font-semibold text-[#B96F50] uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-[#9E3D28] uppercase tracking-wider">
                     {isKn ? 'ಸಾಂಪ್ರದಾಯಿಕ ಪಂಕ್ತಿ ಭೋಜನ' : 'Traditional Plantain Feasts'}
                   </span>
-                  <h4 className="text-base font-bold font-serif-editorial text-[#263F32] mt-1">
+                  <h4 className="text-base font-bold font-serif-editorial text-[#162E22] mt-1">
                     {isKn ? 'ಬಾಳೆ ಎಲೆ ಊಟ & ಸತ್ಕಾರ' : 'Banana Leaf Banquet & Poojas'}
                   </h4>
                   <p className="text-xs text-[#252923]/75 mt-1.5 leading-relaxed">
@@ -605,19 +623,19 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
               </div>
 
               {/* Card 2 */}
-              <div className="rounded-2xl bg-[#F6F3EA] overflow-hidden border border-[#263F32]/10 group">
+              <div className="rounded-2xl bg-white overflow-hidden border border-[#263F32]/12 group shadow-2xs hover:shadow-md hover:border-[#9E3D28]/40 transition-all duration-300">
                 <div className="aspect-4/3 overflow-hidden">
                   <img
                     src="/images/south_indian_coffee.jpg"
                     alt="Traditional South Indian filter coffee in etched brass davarah"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover img-warm-tone transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
                 <div className="p-5">
-                  <span className="text-xs font-semibold text-[#B96F50] uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-[#9E3D28] uppercase tracking-wider">
                     {isKn ? 'ಕಾರ್ಪೊರೇಟ್ & ಹೈ-ಟೀ' : 'Corporate Buffets & Hi-Tea'}
                   </span>
-                  <h4 className="text-base font-bold font-serif-editorial text-[#263F32] mt-1">
+                  <h4 className="text-base font-bold font-serif-editorial text-[#162E22] mt-1">
                     {isKn ? 'ದಾವಣಗೆರೆ ಬೆಣ್ಣೆದೋಸೆ & ಫಿಲ್ಟರ್ ಕಾಫಿ' : 'Authentic Filter Coffee & High-Tea'}
                   </h4>
                   <p className="text-xs text-[#252923]/75 mt-1.5 leading-relaxed">
@@ -629,19 +647,19 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
               </div>
 
               {/* Card 3 */}
-              <div className="rounded-2xl bg-[#F6F3EA] overflow-hidden border border-[#263F32]/10 group">
+              <div className="rounded-2xl bg-white overflow-hidden border border-[#263F32]/12 group shadow-2xs hover:shadow-md hover:border-[#9E3D28]/40 transition-all duration-300">
                 <div className="aspect-4/3 overflow-hidden">
                   <img
                     src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80"
                     alt="Nutritious travel meals and school lunches"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover img-warm-tone transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
                 <div className="p-5">
-                  <span className="text-xs font-semibold text-[#B96F50] uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-[#9E3D28] uppercase tracking-wider">
                     {isKn ? 'ಪ್ರವಾಸದ ಬಾಕ್ಸ್ ಮೀಲ್ಸ್' : 'Travel & School Meals'}
                   </span>
-                  <h4 className="text-base font-bold font-serif-editorial text-[#263F32] mt-1">
+                  <h4 className="text-base font-bold font-serif-editorial text-[#162E22] mt-1">
                     {isKn ? 'ಶಾಲಾ & ಪ್ರವಾಸಿ ಪೌಷ್ಟಿಕ ಊಟ' : 'Nutritious & Hygienic Travel Packs'}
                   </h4>
                   <p className="text-xs text-[#252923]/75 mt-1.5 leading-relaxed">
@@ -654,9 +672,9 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
             </div>
 
             {/* Inquire Details Strip */}
-            <div className="mt-8 p-4 rounded-xl bg-[#263F32]/5 border border-[#263F32]/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#263F32]">
+            <div className="mt-8 p-4 rounded-xl bg-white border border-[#9E3D28]/20 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#252923]">
               <div className="flex items-center gap-2">
-                <Coffee className="w-4 h-4 text-[#B96F50] shrink-0" />
+                <Coffee className="w-4 h-4 text-[#9E3D28] shrink-0" />
                 <span>
                   {isKn
                     ? 'ಅತಿಥಿಗಳ ಸಂಖ್ಯೆ, ದಿನಾಂಕ, ಮೆನು ಶೈಲಿ ಹಾಗೂ ಲೈವ್ ಕೌಂಟರ್‌ಗಳ ಕುರಿತು ಮುಕ್ತವಾಗಿ ಚರ್ಚಿಸಿ.'
@@ -666,13 +684,16 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
               <button
                 type="button"
                 onClick={onOpenCateringModal}
-                className="font-bold underline text-[#8C462C] hover:text-[#B96F50] cursor-pointer shrink-0"
+                className="font-bold underline text-[#9E3D28] hover:text-[#853220] cursor-pointer shrink-0"
               >
                 {isKn ? 'ಮೆನು ವಿಚಾರಿಸಿ →' : 'Plan Catering Menu →'}
               </button>
             </div>
           </motion.div>
         </div>
+
+        {/* Subtle Cultural Section Divider */}
+        <div className="section-divider-forest my-16 lg:my-20" />
 
         {/* ============================================================== */}
         {/* SERVICE 4: SCHOOL TRIPS & EDUCATIONAL EVENTS                   */}
@@ -683,8 +704,11 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl bg-linear-to-br from-[#123023] via-[#1D4E3A] to-[#123023] text-[#F6F3EA] p-6 sm:p-10 lg:p-14 shadow-xl border border-white/10 relative overflow-hidden"
+            className="rounded-3xl bg-linear-to-br from-[#0B2117] via-[#123626] to-[#0B2117] text-[#F6F3EA] p-6 sm:p-10 lg:p-14 shadow-2xl border border-emerald-500/30 relative overflow-hidden"
           >
+            {/* Top delicate emerald/gold hairline */}
+            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent" />
+
             {/* Background elements */}
             <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
 
@@ -695,7 +719,7 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
                   <img
                     src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1000&q=80"
                     alt="School students on an educational field trip"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover img-vignette"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/25 to-transparent flex flex-col justify-end p-5">
                     <span className="text-xs font-semibold text-emerald-300 uppercase tracking-wider">
@@ -710,7 +734,7 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
                 </div>
 
                 {/* Safety Guarantee Matrix */}
-                <div className="p-4 rounded-xl bg-white/10 border border-white/15 space-y-2.5 text-xs">
+                <div className="p-4 rounded-xl bg-white/[0.08] border border-white/15 space-y-2.5 text-xs shadow-xs">
                   <div className="font-bold text-emerald-200 flex items-center gap-1.5 text-xs uppercase tracking-wider">
                     <ShieldCheck className="w-4 h-4 text-emerald-300" />
                     <span>{isKn ? 'ಸುರಕ್ಷತೆ ನಮ್ಮ ಮೊದಲ ಆದ್ಯತೆ' : 'Safety-First Commitment'}</span>
@@ -785,7 +809,7 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
                   ].map((circ, idx) => (
                     <div
                       key={idx}
-                      className="p-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+                      className="p-3.5 rounded-xl bg-white/[0.06] border border-white/10 hover:border-emerald-400/40 hover:bg-white/[0.1] transition-all duration-300 shadow-2xs"
                     >
                       <div className="text-xs sm:text-sm font-semibold text-white">
                         {isKn ? circ.kn : circ.en}
@@ -802,11 +826,11 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
                   <button
                     type="button"
                     onClick={onOpenSchoolModal}
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 text-[#123023] text-sm font-bold hover:bg-emerald-400 transition-all cursor-pointer shadow-md group"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 text-[#0B2117] text-sm font-bold hover:bg-emerald-400 border border-emerald-300/40 transition-all cursor-pointer shadow-md group active:scale-95"
                   >
-                    <GraduationCap className="w-4 h-4 text-[#123023]" />
+                    <GraduationCap className="w-4 h-4 text-[#0B2117]" />
                     <span>{isKn ? 'ಶಾಲಾ ಪ್ರವಾಸ ರೂಪಿಸಿ' : 'Plan an Educational Trip'}</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 text-[#0B2117] group-hover:translate-x-1 transition-transform" />
                   </button>
 
                   <span className="text-xs text-[#F6F3EA]/70">

@@ -210,10 +210,10 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
             className="pointer-events-auto relative w-full h-[94dvh] max-h-[96dvh] lg:h-full lg:max-h-full lg:w-[600px] xl:w-[660px] bg-[#FBF9F4] text-left shadow-2xl rounded-t-3xl lg:rounded-none lg:rounded-l-3xl border-t lg:border-t-0 lg:border-l border-[#D4AF37]/35 flex flex-col overflow-hidden"
           >
             {/* Top Kasavu gold hairline */}
-            <div className="h-1 w-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#B96F50]" />
+            <div className="h-1 w-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#9E3D28]" />
 
             {/* Mobile pull handle */}
-            <div className="lg:hidden w-full flex items-center justify-center pt-2.5 pb-1 bg-[#B96F50] shrink-0">
+            <div className="lg:hidden w-full flex items-center justify-center pt-2.5 pb-1 bg-[#9E3D28] shrink-0">
               <div className="w-12 h-1.5 rounded-full bg-white/30" />
             </div>
 
@@ -281,7 +281,7 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                         value={formData.fullName}
                         onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                         placeholder={isKn ? 'ನಿಮ್ಮ ಹೆಸರು' : 'Your Name'}
-                        className="w-full px-3.5 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#B96F50]/30"
+                        className="w-full px-3.5 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#9E3D28]/30"
                       />
                     </div>
                     <div>
@@ -294,7 +294,7 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="+91 98450 12345"
-                        className="w-full px-3.5 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#B96F50]/30"
+                        className="w-full px-3.5 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#9E3D28]/30"
                       />
                     </div>
                   </div>
@@ -310,7 +310,7 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                         onChange={(e) =>
                           setFormData({ ...formData, occasionType: e.target.value })
                         }
-                        className="w-full px-3 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#B96F50]/30"
+                        className="w-full px-3 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#9E3D28]/30"
                       >
                         {(isKn ? occasionOptionsKn : occasionOptionsEn).map((o) => (
                           <option key={o} value={o}>
@@ -326,7 +326,7 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                       <select
                         value={formData.guestCount}
                         onChange={(e) => setFormData({ ...formData, guestCount: e.target.value })}
-                        className="w-full px-3 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#B96F50]/30"
+                        className="w-full px-3 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#9E3D28]/30"
                       >
                         {guestCountOptions.map((g) => (
                           <option key={g} value={g}>
@@ -347,7 +347,7 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                         type="date"
                         value={formData.eventDate}
                         onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#B96F50]/30"
+                        className="w-full px-3.5 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#9E3D28]/30"
                       />
                     </div>
                     <div>
@@ -364,7 +364,7 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                         placeholder={
                           isKn ? 'ಉದಾ: ಬೆಂಗಳೂರು, ಮೈಸೂರು, ಹಾಸನ...' : 'e.g. Bengaluru, Mysuru, Hassan'
                         }
-                        className="w-full px-3.5 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#B96F50]/30"
+                        className="w-full px-3.5 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#9E3D28]/30"
                       />
                     </div>
                   </div>
@@ -384,7 +384,7 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                             onClick={() => toggleMealType(meal)}
                             className={`p-2 text-xs rounded-lg border text-left transition-colors cursor-pointer ${
                               isSelected
-                                ? 'border-[#B96F50] bg-[#B96F50]/10 text-[#8C462C] font-semibold'
+                                ? 'border-[#9E3D28] bg-[#9E3D28]/10 text-[#8C462C] font-semibold'
                                 : 'border-[#263F32]/15 bg-white text-[#252923]/80 hover:bg-[#263F32]/5'
                             }`}
                           >
@@ -406,7 +406,7 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                         onChange={(e) =>
                           setFormData({ ...formData, dietaryPreference: e.target.value })
                         }
-                        className="w-full px-3 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#B96F50]/30"
+                        className="w-full px-3 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#9E3D28]/30"
                       >
                         {(isKn ? dietaryOptionsKn : dietaryOptionsEn).map((d) => (
                           <option key={d} value={d}>
@@ -424,7 +424,7 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                         onChange={(e) =>
                           setFormData({ ...formData, serviceStyle: e.target.value })
                         }
-                        className="w-full px-3 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#B96F50]/30"
+                        className="w-full px-3 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#9E3D28]/30"
                       >
                         {(isKn ? serviceStyleOptionsKn : serviceStyleOptionsEn).map((s) => (
                           <option key={s} value={s}>
@@ -453,14 +453,14 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                           ? 'ಉದಾ: ಮಲೆನಾಡು ಕಡಬು, ಫಿಲ್ಟರ್ ಕಾಫಿ, ಜೋಳದ ರೊಟ್ಟಿ ಊಟ, ಅಥವಾ ವಿಶೇಷ ಸಿಹಿ ತಿನಿಸುಗಳು...'
                           : 'Specific sweets, live counters, welcome drinks, or custom regional recipes...'
                       }
-                      className="w-full px-3.5 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#B96F50]/30"
+                      className="w-full px-3.5 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#9E3D28]/30"
                     />
                   </div>
 
                   <div className="pt-2 flex flex-col sm:flex-row gap-3">
                     <button
                       type="submit"
-                      className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#B96F50] text-[#F6F3EA] font-semibold text-sm hover:bg-[#A3593B] transition-colors cursor-pointer shadow-sm"
+                      className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#9E3D28] text-[#F6F3EA] font-semibold text-sm hover:bg-[#A3593B] transition-colors cursor-pointer shadow-sm"
                     >
                       <Send className="w-4 h-4" />
                       {isKn ? 'ಆಹಾರ ವಿವರಣೆ ಪ್ರಸ್ತಾವನೆ ಪಡೆಯಿರಿ' : 'Request Catering Quote'}
@@ -476,7 +476,7 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                 </form>
               ) : (
                 <div className="text-center py-6 space-y-4">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-amber-100 text-[#B96F50] flex items-center justify-center">
+                  <div className="w-14 h-14 mx-auto rounded-full bg-amber-100 text-[#9E3D28] flex items-center justify-center">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <div>
@@ -490,7 +490,7 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                     </p>
                   </div>
 
-                  <div className="bg-[#B96F50]/5 border border-[#B96F50]/20 rounded-xl p-4 text-left text-xs font-mono text-[#252923] whitespace-pre-line">
+                  <div className="bg-[#9E3D28]/5 border border-[#9E3D28]/20 rounded-xl p-4 text-left text-xs font-mono text-[#252923] whitespace-pre-line">
                     {generateSummaryText()}
                   </div>
 
@@ -498,7 +498,7 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                     <button
                       type="button"
                       onClick={handleCopy}
-                      className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[#B96F50]/40 text-[#8C462C] text-xs font-semibold hover:bg-[#B96F50]/10 transition-colors cursor-pointer"
+                      className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[#9E3D28]/40 text-[#8C462C] text-xs font-semibold hover:bg-[#9E3D28]/10 transition-colors cursor-pointer"
                     >
                       <Copy className="w-4 h-4" />
                       {copied ? (isKn ? 'ನಕಲಿಸಲಾಗಿದೆ!' : 'Copied!') : isKn ? 'ಸಾರಾಂಶ ನಕಲಿಸಿ' : 'Copy Brief'}
@@ -509,7 +509,7 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#B96F50] text-[#F6F3EA] text-xs font-semibold hover:bg-[#A3593B] transition-colors"
+                      className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#9E3D28] text-[#F6F3EA] text-xs font-semibold hover:bg-[#A3593B] transition-colors"
                     >
                       <PhoneCall className="w-4 h-4" />
                       {isKn ? 'ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಚರ್ಚಿಸಿ' : 'Discuss on WhatsApp'}

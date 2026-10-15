@@ -23,11 +23,11 @@ export const Footer: React.FC<FooterProps> = ({
   const isKn = language === 'kn';
 
   return (
-    <footer className="bg-[#14261C] text-[#F6F3EA] border-t-2 border-[#D4AF37]/60 pt-16 pb-12 relative overflow-hidden">
+    <footer className="bg-[#0E1E16] text-[#F6F3EA] border-t border-[#D4AF37]/40 pt-16 pb-12 relative overflow-hidden">
       {/* Kolam pattern overlay */}
-      <div className="absolute inset-0 bg-kolam-dark opacity-20 pointer-events-none mix-blend-overlay" />
+      <div className="absolute inset-0 bg-kolam-dark opacity-15 pointer-events-none mix-blend-overlay" />
       {/* Continuous Kolam Looped Border Ribbon at top of footer */}
-      <div className="absolute top-0 left-0 right-0 h-2 opacity-35 overflow-hidden pointer-events-none">
+      <div className="absolute top-0 left-0 right-0 h-2 opacity-25 overflow-hidden pointer-events-none">
         <KolamBorderRibbon patternUnits={48} className="h-full" color="#D4AF37" dotColor="#F5D77F" />
       </div>
 
@@ -37,14 +37,14 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Brand Col (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-full bg-[#1E3B2B] border border-[#D4AF37]/50 flex items-center justify-center text-[#F5D77F] shadow-[0_0_10px_rgba(212,175,55,0.25)]">
-                <Compass className="w-5 h-5 text-[#D4AF37]" />
+              <div className="w-10 h-10 rounded-full bg-[#162E22] border border-[#D4AF37]/50 flex items-center justify-center text-[#F5D77F] shadow-[0_0_10px_rgba(212,175,55,0.25)]">
+                <AmbariElephant className="w-5.5 h-5.5" color="#D4AF37" />
               </div>
               <div>
                 <span className="text-xl font-bold font-serif-editorial tracking-tight text-[#F6F3EA] block">
                   {isKn ? 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್' : 'Inchara Holidays'}
                 </span>
-                <span className="text-[10px] text-[#F5D77F] tracking-wider uppercase block font-medium">
+                <span className="text-[10px] text-[#F5D77F] tracking-[0.14em] uppercase block font-medium">
                   {isKn ? 'ಅತಿಥಿ ದೇವೋ ಭವ · ಪ್ರವಾಸ & ಆತಿಥ್ಯ' : 'Atithi Devo Bhava · Travel & Hospitality'}
                 </span>
               </div>
@@ -54,7 +54,7 @@ export const Footer: React.FC<FooterProps> = ({
               {t.footer.aboutText}
             </p>
 
-            <div className="text-xs text-[#B96F50] font-serif-editorial italic">
+            <div className="text-xs text-[#D4AF37] font-serif-editorial italic">
               {t.footer.blessing}
             </div>
 
@@ -95,7 +95,7 @@ export const Footer: React.FC<FooterProps> = ({
                   onClick={() => onNavigateSection('service-packages')}
                   className="hover:text-white transition-colors text-left flex items-center gap-1.5 cursor-pointer"
                 >
-                  <Compass className="w-3 h-3 text-[#B96F50]" />
+                  <Compass className="w-3 h-3 text-[#D4AF37]" />
                   <span>{t.nav.packages}</span>
                 </button>
               </li>
@@ -105,7 +105,7 @@ export const Footer: React.FC<FooterProps> = ({
                   onClick={() => onNavigateSection('service-corporate')}
                   className="hover:text-white transition-colors text-left flex items-center gap-1.5 cursor-pointer"
                 >
-                  <Building2 className="w-3 h-3 text-[#B96F50]" />
+                  <Building2 className="w-3 h-3 text-[#D4AF37]" />
                   <span>{t.nav.corporate}</span>
                 </button>
               </li>
@@ -115,7 +115,7 @@ export const Footer: React.FC<FooterProps> = ({
                   onClick={() => onNavigateSection('service-catering')}
                   className="hover:text-white transition-colors text-left flex items-center gap-1.5 cursor-pointer"
                 >
-                  <UtensilsCrossed className="w-3 h-3 text-[#B96F50]" />
+                  <UtensilsCrossed className="w-3 h-3 text-[#D4AF37]" />
                   <span>{t.nav.catering}</span>
                 </button>
               </li>
@@ -133,7 +133,7 @@ export const Footer: React.FC<FooterProps> = ({
                 <button
                   type="button"
                   onClick={() => onNavigateSection('services')}
-                  className="text-[#B96F50] hover:underline transition-colors text-left font-medium cursor-pointer"
+                  className="text-[#F5D77F] hover:underline transition-colors text-left font-medium cursor-pointer"
                 >
                   {isKn ? 'ಸಮಗ್ರ ಸೇವಾ ಅವಲೋಕನ →' : 'All Services Overview →'}
                 </button>
@@ -208,7 +208,7 @@ export const Footer: React.FC<FooterProps> = ({
                 <button
                   type="button"
                   onClick={onOpenContact}
-                  className="text-left font-semibold text-[#F6F3EA] hover:text-[#B96F50] transition-colors cursor-pointer"
+                  className="text-left font-semibold text-[#F6F3EA] hover:text-[#F5D77F] transition-colors cursor-pointer"
                 >
                   {isKn ? 'ವಿಚಾರಣೆ ಕಳುಹಿಸಿ (ಸಂಪರ್ಕಿಸಿ) →' : 'Send Enquiry Note →'}
                 </button>
@@ -217,7 +217,7 @@ export const Footer: React.FC<FooterProps> = ({
                 <button
                   type="button"
                   onClick={onOpenPlanner}
-                  className="text-left text-[#B96F50] hover:underline cursor-pointer"
+                  className="text-left text-[#F5D77F] hover:underline cursor-pointer"
                 >
                   {isKn ? 'ಪ್ರವಾಸ ರೂಪಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ' : 'Start Trip Planning Flow'}
                 </button>

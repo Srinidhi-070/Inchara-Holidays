@@ -20,16 +20,19 @@ export const CtaInvitation: React.FC<CtaInvitationProps> = ({
   const t = translations[language];
 
   return (
-    <section className="py-20 sm:py-28 bg-[#162E22] text-[#F6F3EA] relative overflow-hidden">
-      {/* Top Kolam border ribbon */}
-      <KolamBorderRibbon className="absolute top-0 left-0 right-0 w-full h-3 z-20" color="#D4AF37" />
+    <section className="py-24 sm:py-32 bg-gradient-to-b from-[#162E22] via-[#0F2218] to-[#0A1810] text-[#F6F3EA] relative overflow-hidden">
+      {/* Top delicate Kasavu Gold hairline & Kolam ribbon */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37]/80 to-transparent z-20" />
+      <div className="absolute top-[2px] left-0 right-0 h-2 opacity-20 overflow-hidden pointer-events-none z-20">
+        <KolamBorderRibbon patternUnits={48} className="h-full" color="#D4AF37" dotColor="#F5D77F" />
+      </div>
 
       {/* Decorative Kolam pattern & Warm Mysore Gold Glow */}
-      <div className="absolute inset-0 bg-kolam-dark opacity-30 pointer-events-none mix-blend-overlay" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#D4AF37]/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 bg-kolam-dark opacity-20 pointer-events-none mix-blend-overlay" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#D4AF37]/10 rounded-full blur-3xl pointer-events-none" />
 
       {/* Large Sikku Kolam Mandala watermark in center */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] text-[#D4AF37] opacity-[0.05] pointer-events-none">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] text-[#D4AF37] opacity-[0.04] pointer-events-none">
         <SikkuKolamMandala className="w-full h-full" />
       </div>
 
@@ -40,11 +43,11 @@ export const CtaInvitation: React.FC<CtaInvitationProps> = ({
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
       >
-        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#D4AF37]/25 to-white/5 border border-[#D4AF37]/50 text-[#F5D77F] flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.25)]">
-          <AmbariElephant className="w-9 h-9 text-[#F5D77F]" />
+        <div className="w-16 h-16 rounded-full bg-[#12261C] border border-[#D4AF37]/60 text-[#F5D77F] flex items-center justify-center mx-auto mb-6 shadow-xl shadow-[#D4AF37]/10">
+          <AmbariElephant className="w-9 h-9 text-[#F5D77F]" color="#D4AF37" />
         </div>
 
-        <h2 className="text-3xl sm:text-5xl font-bold font-serif-editorial text-[#F6F3EA] tracking-tight leading-tight mb-6 text-balance">
+        <h2 className="text-display-md font-bold font-serif-editorial text-[#F6F3EA] tracking-tight leading-tight mb-6 text-balance">
           {t.ctaSection.headline}
         </h2>
 
@@ -56,16 +59,16 @@ export const CtaInvitation: React.FC<CtaInvitationProps> = ({
           <button
             type="button"
             onClick={onOpenPlanner}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-md bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-[#162E22] hover:brightness-105 text-sm sm:text-base font-bold tracking-wide transition-all shadow-lg active:scale-98 flex items-center justify-center gap-2.5 cursor-pointer"
+            className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-[#12261C] hover:brightness-105 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2.5 cursor-pointer border border-[#D4AF37]/50"
           >
             <span>{t.ctaSection.btnPlan}</span>
-            <ArrowRight className="w-4 h-4 text-[#162E22]" />
+            <ArrowRight className="w-4 h-4 text-[#12261C]" />
           </button>
 
           <button
             type="button"
             onClick={onOpenContact}
-            className="w-full sm:w-auto px-7 py-3.5 rounded-md border border-[#D4AF37]/40 text-[#F5D77F] hover:bg-[#D4AF37]/10 text-sm sm:text-base font-medium tracking-wide transition-colors flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full sm:w-auto px-7 py-4 rounded-xl border border-[#D4AF37]/40 text-[#F5D77F] hover:bg-white/5 text-xs sm:text-sm font-semibold tracking-wide transition-colors flex items-center justify-center gap-2 cursor-pointer active:scale-95"
           >
             <MessageCircle className="w-4 h-4 text-[#D4AF37]" />
             <span>{t.ctaSection.btnWhatsapp}</span>

@@ -249,7 +249,7 @@ Generated via Inchara Holidays Prototype`;
             className="pointer-events-auto relative w-full h-[94dvh] max-h-[96dvh] lg:h-full lg:max-h-full lg:w-[620px] xl:w-[680px] bg-[#FBF8F1] rounded-t-3xl lg:rounded-none lg:rounded-l-3xl shadow-2xl overflow-hidden border-t lg:border-t-0 lg:border-l border-[#D4AF37]/35 text-[#252923] flex flex-col"
           >
             {/* Top Kasavu gold hairline */}
-            <div className="h-1 w-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#B96F50]" />
+            <div className="h-1 w-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#9E3D28]" />
 
             {/* Mobile Sheet Pull Handle Bar */}
             <div className="lg:hidden w-full flex items-center justify-center pt-2.5 pb-1 bg-[#263F32] shrink-0">
@@ -465,7 +465,7 @@ Generated via Inchara Holidays Prototype`;
                       <span className="text-xs font-semibold text-[#263F32]">
                         {t.planner.durationQuestion}
                       </span>
-                      <span className="text-sm font-bold text-[#B96F50]">
+                      <span className="text-sm font-bold text-[#9E3D28]">
                         {formData.durationDays} {t.planner.daysLabel}
                       </span>
                     </div>
@@ -587,7 +587,7 @@ Generated via Inchara Holidays Prototype`;
                           }`}
                         >
                           <span>{label}</span>
-                          {isSelected && <Check className="w-3.5 h-3.5 text-[#B96F50]" />}
+                          {isSelected && <Check className="w-3.5 h-3.5 text-[#9E3D28]" />}
                         </button>
                       );
                     })}
@@ -741,7 +741,7 @@ Generated via Inchara Holidays Prototype`;
               {step === 8 && (
                 <div className="space-y-6">
                   <div className="space-y-1">
-                    <div className="flex items-center gap-2 text-xs font-semibold text-[#B96F50] uppercase tracking-wider">
+                    <div className="flex items-center gap-2 text-xs font-semibold text-[#9E3D28] uppercase tracking-wider">
                       <Sparkles className="w-3.5 h-3.5" />
                       <span>{t.planner.reviewTitle}</span>
                     </div>
@@ -846,7 +846,7 @@ Generated via Inchara Holidays Prototype`;
 
             {/* Validation Error Banner */}
             {validationError && (
-              <div className="mt-4 p-2.5 rounded-md bg-[#B96F50]/15 border border-[#B96F50]/30 text-xs text-[#B96F50] font-medium">
+              <div className="mt-4 p-2.5 rounded-md bg-[#9E3D28]/15 border border-[#9E3D28]/30 text-xs text-[#9E3D28] font-medium">
                 {validationError}
               </div>
             )}
@@ -873,7 +873,7 @@ Generated via Inchara Holidays Prototype`;
                   className="px-5 py-2.5 rounded-md bg-[#263F32] text-[#F6F3EA] hover:bg-[#1f3328] text-xs font-semibold flex items-center gap-2 transition-colors shadow-xs"
                 >
                   <span>{step === 7 ? t.planner.finish : t.planner.next}</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#B96F50]" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#F5D77F]" />
                 </button>
               ) : (
                 <button

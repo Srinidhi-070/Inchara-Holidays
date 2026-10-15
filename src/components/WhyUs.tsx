@@ -13,7 +13,7 @@ export const WhyUs: React.FC<WhyUsProps> = ({ language }) => {
   const t = translations[language];
 
   return (
-    <section id="why-us" className="py-20 sm:py-28 bg-[#FBF8F1] bg-kolam-subtle overflow-hidden relative">
+    <section id="why-us" className="py-24 sm:py-32 bg-[#F6F3EA] bg-kolam-subtle overflow-hidden relative border-t border-[#263F32]/8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -23,15 +23,15 @@ export const WhyUs: React.FC<WhyUsProps> = ({ language }) => {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-2xl mb-14 sm:mb-20"
         >
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#B96F50] uppercase mb-2.5">
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#9E3D28] uppercase mb-2.5">
             <span className="w-5 h-px bg-[#D4AF37]" />
             <LotusIcon className="w-4 h-4 text-[#D4AF37]" />
             <span>{t.whyUs.kicker}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif-editorial text-[#263F32] tracking-tight leading-[1.18]">
+          <h2 className="text-display-md font-bold font-serif-editorial text-[#162E22] tracking-tight leading-[1.18]">
             {t.whyUs.title}
           </h2>
-          <p className="mt-3.5 text-sm sm:text-base text-[#252923]/75 leading-relaxed font-normal">
+          <p className="mt-3.5 text-base sm:text-lg text-[#252923]/75 leading-relaxed font-normal">
             {t.whyUs.subtitle}
           </p>
         </motion.div>
@@ -49,29 +49,32 @@ export const WhyUs: React.FC<WhyUsProps> = ({ language }) => {
                 delay: shouldReduceMotion ? 0 : (idx % 3) * 0.08,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              whileHover={shouldReduceMotion ? {} : { y: -4, borderColor: 'rgba(185, 111, 80, 0.4)' }}
+              whileHover={shouldReduceMotion ? {} : { y: -4 }}
               data-cursor="Care"
-              className="p-6 sm:p-8 rounded-xl bg-white/85 backdrop-blur-xs border border-[#263F32]/10 hover:border-[#B96F50]/40 transition-all duration-300 hover:shadow-lg flex flex-col justify-between group cursor-default"
+              className="p-7 sm:p-9 rounded-2xl bg-white border border-[#263F32]/12 hover:border-[#D4AF37]/50 transition-all duration-300 shadow-xs hover:shadow-xl flex flex-col justify-between group cursor-default relative overflow-hidden"
             >
+              {/* Delicate top gold hairline */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent" />
+
               <div>
                 {/* Editorial Human Numbering */}
-                <div className="text-2xl sm:text-3xl font-serif-editorial font-bold text-[#B96F50] mb-4">
+                <div className="text-3xl sm:text-4xl font-serif-editorial font-bold text-[#9E3D28] group-hover:text-[#D4AF37] transition-colors mb-4">
                   {reason.num}
                 </div>
 
-                <h3 className="text-lg sm:text-xl font-bold font-serif-editorial text-[#263F32] mb-3 group-hover:text-[#B96F50] transition-colors">
+                <h3 className="text-xl sm:text-2xl font-bold font-serif-editorial text-[#162E22] mb-3 group-hover:text-[#9E3D28] transition-colors leading-snug">
                   {reason.title}
                 </h3>
 
-                <p className="text-xs sm:text-sm text-[#252923]/75 leading-relaxed font-normal">
+                <p className="text-sm text-[#252923]/75 leading-relaxed font-normal">
                   {reason.desc}
                 </p>
               </div>
 
               {/* Delicate hairline bottom accent with Lotus */}
-              <div className="pt-6 mt-6 border-t border-[#263F32]/8 flex items-center justify-between text-[11px] text-[#252923]/60 font-medium">
+              <div className="pt-6 mt-6 border-t border-[#263F32]/8 flex items-center justify-between text-xs text-[#252923]/60 font-medium">
                 <span>{language === 'kn' ? 'ಇಂಚಾರಾ ಮಾನದಂಡ' : 'Inchara Standard'}</span>
-                <LotusIcon className="w-3.5 h-3.5 text-[#D4AF37]" />
+                <LotusIcon className="w-4 h-4 text-[#D4AF37]" />
               </div>
             </motion.div>
           ))}

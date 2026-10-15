@@ -349,7 +349,7 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
                 >
                   <div className="flex items-center justify-between gap-3 mb-1.5">
                     <div className="flex items-center gap-2.5">
-                      <span className={isSelected ? 'text-[#B96F50]' : 'text-[#D4AF37]'}>
+                      <span className={isSelected ? 'text-[#9E3D28]' : 'text-[#D4AF37]'}>
                         {getExperienceIcon(exp.id, 'w-4 h-4')}
                       </span>
                       <span
@@ -363,7 +363,7 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
                     {/* Unboxed inline tag */}
                     <span
                       className={`text-[11px] font-medium shrink-0 ${
-                        isSelected ? 'text-[#B96F50]' : 'text-[#AAB69A]'
+                        isSelected ? 'text-[#9E3D28]' : 'text-[#AAB69A]'
                       }`}
                     >
                       {language === 'kn' ? exp.badgeKn : exp.badgeEn}
@@ -431,7 +431,7 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
                       key={i}
                       className="p-3 rounded-lg bg-white/5 border border-white/10 flex items-start gap-2.5 text-xs text-[#E4D8C5]"
                     >
-                      <Check className="w-3.5 h-3.5 text-[#B96F50] shrink-0 mt-0.5" />
+                      <Check className="w-3.5 h-3.5 text-[#9E3D28] shrink-0 mt-0.5" />
                       <span>{hl}</span>
                     </div>
                   ))}

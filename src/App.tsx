@@ -54,7 +54,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F6F3EA] text-[#252923] flex flex-col font-sans selection:bg-[#B96F50]/20 selection:text-[#263F32]">
+    <div className="min-h-screen bg-[#F6F3EA] text-[#252923] flex flex-col font-sans selection:bg-[#9E3D28]/20 selection:text-[#263F32]">
       {/* Scroll Progress Bar at the top of the viewport */}
       <ScrollProgressBar />
 

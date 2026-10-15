@@ -8,9 +8,13 @@
   --color-forest: #263F32;
   --color-ivory: #F6F3EA;
   --color-sage: #AAB69A;
-  --color-terracotta: #B96F50;
+  --color-terracotta: #9E3D28;
   --color-charcoal: #252923;
   --color-sand: #E4D8C5;
+  --color-kaavi: #9E3D28;
+  --color-gold: #D4AF37;
+  --color-gold-light: #F5D77F;
+  --color-deep-green: #162E22;
 }
 
 @layer base {
@@ -19,11 +23,15 @@
     color: #252923;
     font-family: 'Plus Jakarta Sans', 'Noto Sans Kannada', sans-serif;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, .font-serif-editorial {
     font-family: 'Playfair Display', 'Noto Serif Kannada', 'Cormorant Garamond', Georgia, serif;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
   }
 
   .font-kannada-editorial {
@@ -33,6 +41,86 @@
   .font-kannada {
     font-family: 'Noto Sans Kannada', 'Plus Jakarta Sans', sans-serif;
   }
+
+  /* Improved focus styles for accessibility */
+  :focus-visible {
+    outline: 2px solid #D4AF37;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* =========================================================================
+   FLUID TYPOGRAPHY SCALE
+   Establishes a modular type scale with clamp() for responsive sizing.
+   Mobile → Desktop range, creating stronger visual hierarchy.
+   ========================================================================= */
+
+.text-display-xl {
+  font-size: clamp(2.25rem, 5vw + 0.5rem, 4.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+.text-display-lg {
+  font-size: clamp(1.875rem, 4vw + 0.5rem, 3.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.text-display-md {
+  font-size: clamp(1.5rem, 3vw + 0.25rem, 2.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.text-display-sm {
+  font-size: clamp(1.25rem, 2vw + 0.25rem, 2rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* =========================================================================
+   EDITORIAL SECTION DIVIDERS & VISUAL RHYTHM
+   ========================================================================= */
+
+/* Gold thread separator — thin decorative line between sections */
+.section-divider-gold {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(212, 175, 55, 0.15) 15%,
+    rgba(212, 175, 55, 0.45) 50%,
+    rgba(212, 175, 55, 0.15) 85%,
+    transparent 100%
+  );
+}
+
+/* Terracotta accent divider */
+.section-divider-terracotta {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(185, 111, 80, 0.12) 15%,
+    rgba(185, 111, 80, 0.35) 50%,
+    rgba(185, 111, 80, 0.12) 85%,
+    transparent 100%
+  );
+}
+
+/* Forest green divider for light sections */
+.section-divider-forest {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(38, 63, 50, 0.08) 15%,
+    rgba(38, 63, 50, 0.2) 50%,
+    rgba(38, 63, 50, 0.08) 85%,
+    transparent 100%
+  );
 }
 
 /* =========================================================================
@@ -58,7 +146,7 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #B96F50;
+  background: #9E3D28;
 }
 
 ::-webkit-scrollbar-thumb:active {
@@ -83,7 +171,7 @@
 }
 
 .custom-scrollbar-dark::-webkit-scrollbar-thumb:hover {
-  background: #B96F50;
+  background: #9E3D28;
 }
 
 /* Utility to hide horizontal scrollbar while keeping scrolling functional */
@@ -94,6 +182,10 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* =========================================================================
+   BACKGROUND TEXTURES & CULTURAL PATTERNS
+   ========================================================================= */
 
 /* Subtle architectural patterns inspired by Karnataka stone carvings & South Indian Kolam */
 .bg-kannada-pattern {
@@ -125,7 +217,7 @@
 
 /* Temple Kasavu Gold Border Gradient */
 .border-gold-gradient {
-  border-image: linear-gradient(to right, #B96F50, #D4AF37, #B96F50) 1;
+  border-image: linear-gradient(to right, #9E3D28, #D4AF37, #9E3D28) 1;
 }
 
 /* Radiant Gold Text */
@@ -133,14 +225,36 @@
   background: linear-gradient(135deg, #D4AF37 0%, #F5D77F 50%, #B38012 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Smooth transitions */
+/* =========================================================================
+   SMOOTH TRANSITIONS & REDUCED MOTION
+   ========================================================================= */
+
 html {
   scroll-behavior: smooth;
 }
 
-/* Keyframe animations for ambient breathing and deepa pulse */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =========================================================================
+   KEYFRAME ANIMATIONS
+   ========================================================================= */
+
+/* Ambient breathing glow for decorative blurs */
 @keyframes ambientGlow {
   0%, 100% {
     opacity: 0.6;
@@ -152,6 +266,7 @@ html {
   }
 }
 
+/* Deepam (sacred oil lamp) flicker for gold indicators */
 @keyframes deepamFlicker {
   0%, 100% {
     opacity: 0.85;
@@ -165,6 +280,38 @@ html {
   }
 }
 
+/* Smooth fade-in for dynamically switched images (ExperiencesSection, etc.) */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Gentle slide-up reveal for scroll-triggered content */
+@keyframes slideUpReveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Subtle shimmer for premium accents */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 .animate-ambient-glow {
   animation: ambientGlow 7s ease-in-out infinite;
 }
@@ -172,6 +319,23 @@ html {
 .animate-deepam {
   animation: deepamFlicker 3s ease-in-out infinite;
 }
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.animate-slideUp {
+  animation: slideUpReveal 0.5s ease-out;
+}
+
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 2.5s linear infinite;
+}
+
+/* =========================================================================
+   SOUTH INDIAN CULTURAL BACKGROUNDS
+   ========================================================================= */
 
 /* Authentic South Indian Kaavi Terracotta & White Sikku Kolam (Matching Image 2) */
 .bg-kaavi {
@@ -191,3 +355,36 @@ html {
   background-repeat: repeat-x;
 }
 
+/* =========================================================================
+   IMAGE TREATMENT UTILITIES
+   ========================================================================= */
+
+/* Cinematic vignette overlay for hero-style images */
+.img-vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(22, 46, 34, 0.4) 100%
+  );
+  pointer-events: none;
+}
+
+/* Warm tone overlay for destination photography */
+.img-warm-tone {
+  filter: saturate(1.05) contrast(1.02);
+}
+
+/* Lazy-load skeleton shimmer for images */
+.img-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(38, 63, 50, 0.06) 25%,
+    rgba(38, 63, 50, 0.12) 50%,
+    rgba(38, 63, 50, 0.06) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s linear infinite;
+}

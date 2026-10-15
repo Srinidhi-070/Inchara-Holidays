@@ -165,7 +165,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
           className="relative w-full max-w-4xl bg-[#FBF8F1] rounded-2xl shadow-2xl overflow-hidden border border-[#D4AF37]/40 text-[#252923] max-h-[94dvh] flex flex-col my-4"
         >
           {/* Top Kasavu gold highlight */}
-          <div className="h-1 w-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#B96F50]" />
+          <div className="h-1 w-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#9E3D28]" />
 
           {/* Close button: high z-index, pointer-events-auto, isolated hit-area */}
           <button
@@ -240,7 +240,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
               <p className="text-sm sm:text-base text-[#252923]/80 leading-relaxed font-normal">
                 {language === 'kn' ? destination.narrativeKn : destination.narrativeEn}
               </p>
-              <p className="text-sm text-[#252923]/70 leading-relaxed italic border-l-2 border-[#B96F50] pl-4 font-serif-editorial">
+              <p className="text-sm text-[#252923]/70 leading-relaxed italic border-l-2 border-[#9E3D28] pl-4 font-serif-editorial">
                 {language === 'kn' ? destination.shortDescKn : destination.shortDescEn}
               </p>
             </div>
@@ -256,7 +256,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
                     key={i}
                     className="p-3.5 rounded-lg bg-white/70 border border-[#263F32]/10 flex items-start gap-2.5 text-xs text-[#252923]/85"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-[#B96F50] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-[#9E3D28] shrink-0 mt-0.5" />
                     <span>{hl}</span>
                   </div>
                 ))}
@@ -300,7 +300,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
               {destinationSpecificTips.length > 0 && (
                 <div className="space-y-3">
                   <div className="text-xs font-semibold text-[#263F32] uppercase tracking-wider flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#B96F50]" />
+                    <span className="w-2 h-2 rounded-full bg-[#9E3D28]" />
                     <span>
                       {language === 'kn'
                         ? `${destination.nameKn} ತಾಣದ ನಿರ್ದಿಷ್ಟ ಶಿಷ್ಟಾಚಾರ`
@@ -314,7 +314,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
                         className="p-4 rounded-xl bg-white/85 border border-[#263F32]/12 shadow-xs space-y-1.5 hover:border-[#263F32]/25 transition-colors"
                       >
                         <div className="flex items-center justify-between gap-2">
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#B96F50]">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#9E3D28]">
                             {language === 'kn' ? tip.categoryKn : tip.categoryEn}
                           </span>
                         </div>
@@ -347,7 +347,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
                       className="p-3.5 rounded-xl bg-white/75 border border-[#263F32]/10 space-y-1.5 flex flex-col justify-between"
                     >
                       <div>
-                        <div className="flex items-center justify-between text-[10px] font-bold tracking-wider text-[#B96F50] uppercase mb-1">
+                        <div className="flex items-center justify-between text-[10px] font-bold tracking-wider text-[#9E3D28] uppercase mb-1">
                           <span>{language === 'kn' ? tip.categoryKn : tip.categoryEn}</span>
                           {tip.badge && (
                             <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#263F32]/10 text-[#263F32]">
@@ -454,7 +454,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
                 className="flex-1 sm:flex-none px-5 py-2.5 rounded-md bg-[#263F32] text-[#F6F3EA] hover:bg-[#1f3328] text-xs font-semibold tracking-wide transition-colors flex items-center justify-center gap-2 shadow-sm cursor-pointer"
               >
                 <span>{t.modal.planThisTrip}</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#B96F50]" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#F5D77F]" />
               </button>
             </div>
           </div>
