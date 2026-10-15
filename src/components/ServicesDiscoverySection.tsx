@@ -17,7 +17,8 @@ import {
   Sparkles,
   MapPin,
   Coffee,
-  HeartHandshake
+  HeartHandshake,
+  ChevronDown
 } from 'lucide-react';
 import {
   AmbariElephant,
@@ -222,19 +223,20 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
             </div>
 
             {/* Sample Packages Tabs */}
-            <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 sm:gap-4 border-b border-[#263F32]/10 pb-4">
-              {/* Category Filter Pills (Mobile-optimized segmented scroll rail) */}
-              <div className="w-full sm:w-auto flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-1 px-1 -mx-1 sm:mx-0 sm:px-0 bg-[#263F32]/[0.04] sm:bg-transparent p-1 sm:p-0 rounded-2xl sm:rounded-none border border-[#263F32]/10 sm:border-0 touch-pan-x scroll-smooth">
+            <div className="mt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#263F32]/10 pb-4">
+              {/* Category Filter Pills (Fluid edge-to-edge scroll rail without artificial clipping borders) */}
+              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 -mx-4 px-4 sm:mx-0 sm:px-0 scroll-smooth snap-x">
                 {[
-                  { key: 'all', kn: 'ಎಲ್ಲಾ ಮಾದರಿಗಳು', en: 'All Curated Samples' },
+                  { key: 'all', kn: 'ಎಲ್ಲಾ ಮಾದರಿಗಳು', en: 'All Samples' },
                   { key: 'karnataka', kn: 'ಕರ್ನಾಟಕ & ಮಲೆನಾಡು', en: 'Karnataka & Malnad' },
-                  { key: 'panIndia', kn: 'ಭಾರತದ ಪ್ರವಾಸ', en: 'Pan-India Classic' },
+                  { key: 'panIndia', kn: 'ಭಾರತದ ಪಯಣ', en: 'Pan-India' },
                   { key: 'international', kn: 'ಅಂತಾರಾಷ್ಟ್ರೀಯ', en: 'International' },
                 ].map((cat) => {
                   const isCatActive = packageCategory === cat.key;
                   return (
                     <button
                       key={cat.key}
+                      type="button"
                       onClick={() => {
                         const newCat = cat.key as any;
                         setPackageCategory(newCat);
@@ -243,10 +245,10 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
                           : samplePackages.find((p) => p.category === newCat);
                         if (match) setSelectedPackageId(match.id);
                       }}
-                      className={`shrink-0 px-3.5 sm:px-4 py-2 sm:py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer min-h-[38px] sm:min-h-0 flex items-center justify-center ${
+                      className={`shrink-0 px-4 py-2 sm:py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer snap-start flex items-center justify-center ${
                         isCatActive
-                          ? 'bg-[#263F32] text-[#F6F3EA] shadow-xs font-bold'
-                          : 'bg-white/80 sm:bg-transparent text-[#263F32]/75 hover:bg-[#263F32]/10 hover:text-[#263F32] shadow-2xs sm:shadow-none'
+                          ? 'bg-[#263F32] text-[#F6F3EA] shadow-xs font-bold ring-1 ring-[#D4AF37]/50'
+                          : 'bg-white/80 text-[#263F32]/75 hover:bg-[#263F32]/10 hover:text-[#263F32] border border-[#263F32]/10'
                       }`}
                     >
                       {isKn ? cat.kn : cat.en}
@@ -255,8 +257,8 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
                 })}
               </div>
 
-              {/* Sample Content Transparency Notice */}
-              <div className="flex items-center gap-1.5 text-[11px] text-[#9E3D28] bg-[#9E3D28]/10 px-3 py-1.5 rounded-xl border border-[#9E3D28]/20 w-full sm:w-auto">
+              {/* Sample Content Transparency Notice (Desktop only — on mobile, kept discreet inside cards) */}
+              <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-[#9E3D28] bg-[#9E3D28]/10 px-3 py-1.5 rounded-xl border border-[#9E3D28]/20 shrink-0">
                 <Info className="w-3.5 h-3.5 shrink-0" />
                 <span>
                   {isKn
@@ -266,8 +268,137 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
               </div>
             </div>
 
-            {/* Interactive Package Showcase (Editorial Split Layout) */}
-            <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* ============================================================== */}
+            {/* MOBILE VIEW (< lg): Interactive Expandable Accordion Cards     */}
+            {/* ============================================================== */}
+            <div className="block lg:hidden mt-6 space-y-3.5">
+              {filteredPackages.map((pkg) => {
+                const isExpanded = pkg.id === selectedPackageId;
+                return (
+                  <div
+                    key={pkg.id}
+                    className={`rounded-2xl border transition-all duration-300 overflow-hidden bg-white ${
+                      isExpanded
+                        ? 'border-[#D4AF37] shadow-md ring-1 ring-[#D4AF37]/40'
+                        : 'border-[#263F32]/12 shadow-2xs hover:border-[#263F32]/30'
+                    }`}
+                  >
+                    {/* Clickable Card Header */}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedPackageId(isExpanded ? '' : pkg.id)}
+                      className="w-full p-4 sm:p-5 text-left flex items-start justify-between gap-3 cursor-pointer"
+                      aria-expanded={isExpanded}
+                    >
+                      <div className="space-y-1.5 flex-1 pr-2">
+                        <div className="flex items-center gap-2 text-xs">
+                          <span className="font-semibold text-[#9E3D28]">
+                            {isKn ? pkg.badgeKn : pkg.badgeEn}
+                          </span>
+                          <span className="text-[#263F32]/30">·</span>
+                          <span className="inline-flex items-center gap-1 text-[#263F32]/70 font-medium text-[11px]">
+                            <Clock className="w-3 h-3 text-[#D4AF37]" />
+                            {isKn ? pkg.durationKn : pkg.durationEn}
+                          </span>
+                        </div>
+                        <h4 className="text-base sm:text-lg font-bold font-serif-editorial text-[#162E22] leading-snug">
+                          {isKn ? pkg.titleKn : pkg.titleEn}
+                        </h4>
+                      </div>
+
+                      <div
+                        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-transform duration-200 ${
+                          isExpanded
+                            ? 'bg-[#162E22] text-[#F5D77F] rotate-180'
+                            : 'bg-[#263F32]/5 text-[#263F32]'
+                        }`}
+                      >
+                        <ChevronDown className="w-4 h-4" />
+                      </div>
+                    </button>
+
+                    {/* Unfolded Details (Immediate visual response right in place) */}
+                    {isExpanded && (
+                      <div className="px-4 pb-5 sm:px-5 sm:pb-6 pt-1 border-t border-[#263F32]/10 space-y-4 animate-fadeIn">
+                        {/* Package Image */}
+                        <div className="relative rounded-xl overflow-hidden aspect-16/9 shadow-xs mt-2">
+                          <img
+                            src={pkg.image}
+                            alt={pkg.imageAlt}
+                            className="w-full h-full object-cover img-vignette"
+                          />
+                          <div className="absolute top-2.5 left-2.5 bg-[#162E22]/90 backdrop-blur-xs border border-[#D4AF37]/40 text-[#F5D77F] text-[11px] font-semibold px-2.5 py-0.5 rounded-full shadow-xs">
+                            {isKn ? pkg.badgeKn : pkg.badgeEn}
+                          </div>
+                          <div className="absolute bottom-2.5 right-2.5 bg-black/75 backdrop-blur-xs text-[#F6F3EA] text-[11px] font-medium px-2.5 py-0.5 rounded-full flex items-center gap-1 border border-white/10">
+                            <Clock className="w-3 h-3 text-[#D4AF37]" />
+                            {isKn ? pkg.durationKn : pkg.durationEn}
+                          </div>
+                        </div>
+
+                        {/* Signature Highlights */}
+                        <div className="space-y-1.5 pt-1">
+                          <h5 className="text-[11px] font-bold uppercase tracking-wider text-[#162E22]/70">
+                            {isKn ? 'ಪ್ರಮುಖ ಆಕರ್ಷಣೆಗಳು' : 'Signature Highlights'}
+                          </h5>
+                          <div className="space-y-1.5 text-xs text-[#252923]">
+                            {(isKn ? pkg.highlightsKn : pkg.highlightsEn).map((h, i) => (
+                              <div key={i} className="flex items-start gap-2">
+                                <Check className="w-3.5 h-3.5 text-emerald-700 mt-0.5 shrink-0" />
+                                <span>{h}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Sample Inclusions */}
+                        <div className="space-y-1.5 pt-3 border-t border-[#263F32]/10">
+                          <h5 className="text-[11px] font-bold uppercase tracking-wider text-[#162E22]/70">
+                            {isKn ? 'ಪ್ಯಾಕೇಜ್ ಒಳಗೊಂಡ ಸೌಲಭ್ಯಗಳು (ಮಾದರಿ)' : 'Sample Inclusions'}
+                          </h5>
+                          <div className="space-y-1.5 text-xs text-[#252923]/80">
+                            {(isKn ? pkg.inclusionsKn : pkg.inclusionsEn).map((inc, i) => (
+                              <div key={i} className="flex items-start gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-1.5 shrink-0" />
+                                <span>{inc}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Discrete Disclaimer Note */}
+                        <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-600/20 text-[11px] text-[#252923]/80">
+                          <span className="font-semibold text-[#8C462C]">
+                            {isKn ? 'ಸೂಚನೆ:' : 'Note:'}{' '}
+                          </span>
+                          {isKn ? pkg.samplePriceDisclaimerKn : pkg.samplePriceDisclaimerEn}
+                        </div>
+
+                        {/* Primary CTA */}
+                        <button
+                          type="button"
+                          onClick={() =>
+                            onOpenPlanner(
+                              isKn ? pkg.titleKn : pkg.titleEn,
+                              isKn ? pkg.badgeKn : pkg.badgeEn
+                            )
+                          }
+                          className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#162E22] text-[#F6F3EA] text-xs font-semibold hover:bg-[#1E3B2B] border border-[#D4AF37]/30 transition-all cursor-pointer shadow-xs active:scale-98"
+                        >
+                          <span>{isKn ? 'ಈ ಪ್ರವಾಸದ ಕುರಿತು ವಿಚಾರಿಸಿ' : 'Inquire for This Package'}</span>
+                          <ArrowRight className="w-3.5 h-3.5 text-[#D4AF37]" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* ============================================================== */}
+            {/* DESKTOP VIEW (>= lg): Split Selector & Luxury Spotlight        */}
+            {/* ============================================================== */}
+            <div className="hidden lg:grid grid-cols-12 gap-8 items-start mt-8">
               {/* Left Selector List */}
               <div className="lg:col-span-5 space-y-3">
                 {filteredPackages.map((pkg) => {
