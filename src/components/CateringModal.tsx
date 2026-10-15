@@ -82,17 +82,17 @@ export const CateringModal: React.FC<CateringModalProps> = ({
   ];
 
   const dietaryOptionsKn = [
-    'ಶುದ್ಧ ಸಸ್ಯಾಹಾರಿ (Pure Vegetarian)',
+    'ಶುದ್ಧ ಸಸ್ಯಾಹಾರಿ (100% Pure Vegetarian)',
     'ಜೈನ ಆಹಾರ (Jain Vegetarian / No Onion Garlic)',
-    'ಮಿಶ್ರ ಮೆನು - ಸಸ್ಯ & ಮಾಂಸಾಹಾರಿ (Mixed Options)',
-    'ವಿಶೇಷ ಮಲೆನಾಡು/ಸ್ಥಳೀಯ ರುಚಿಗಳು (Regional Delicacies)',
+    'ಶುದ್ಧ ಸಾತ್ವಿಕ ಸಸ್ಯಾಹಾರಿ (Satvic Vegetarian)',
+    'ವಿಶೇಷ ಮಲೆನಾಡು & ಕರಾವಳಿ ಸಸ್ಯಾಹಾರಿ ರುಚಿಗಳು (Regional Karnataka Pure Veg)',
   ];
 
   const dietaryOptionsEn = [
-    'Pure Vegetarian',
+    '100% Pure Vegetarian',
     'Jain Vegetarian (No Onion / Garlic)',
-    'Mixed Cuisine Preferences',
-    'Regional Karnataka Specialties',
+    'Satvic Traditional Vegetarian',
+    'Regional Karnataka Pure Veg Specialties',
   ];
 
   const serviceStyleOptionsKn = [

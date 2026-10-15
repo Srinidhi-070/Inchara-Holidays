@@ -650,22 +650,22 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
               <div className="rounded-2xl bg-white overflow-hidden border border-[#263F32]/12 group shadow-2xs hover:shadow-md hover:border-[#9E3D28]/40 transition-all duration-300">
                 <div className="aspect-4/3 overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80"
-                    alt="Nutritious travel meals and school lunches"
+                    src="/images/pure_veg_travel_meal.jpg"
+                    alt="Authentic 100% pure vegetarian South Indian travel meal box"
                     className="w-full h-full object-cover img-warm-tone transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
                 <div className="p-5">
                   <span className="text-xs font-semibold text-[#9E3D28] uppercase tracking-wider">
-                    {isKn ? 'ಪ್ರವಾಸದ ಬಾಕ್ಸ್ ಮೀಲ್ಸ್' : 'Travel & School Meals'}
+                    {isKn ? 'ಶುದ್ಧ ಸಸ್ಯಾಹಾರಿ ಬಾಕ್ಸ್ ಮೀಲ್ಸ್' : 'Pure Veg Travel Packs'}
                   </span>
                   <h4 className="text-base font-bold font-serif-editorial text-[#162E22] mt-1">
-                    {isKn ? 'ಶಾಲಾ & ಪ್ರವಾಸಿ ಪೌಷ್ಟಿಕ ಊಟ' : 'Nutritious & Hygienic Travel Packs'}
+                    {isKn ? 'ಪೌಷ್ಟಿಕ ಶುದ್ಧ ಸಸ್ಯಾಹಾರಿ ಊಟ' : '100% Pure Vegetarian Travel Meals'}
                   </h4>
                   <p className="text-xs text-[#252923]/75 mt-1.5 leading-relaxed">
                     {isKn
-                      ? 'ಪ್ರವಾಸದ ಮಾರ್ಗದಲ್ಲಿ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಹಾಗೂ ಪ್ರವಾಸಿಗರಿಗೆ ಸುರಕ್ಷಿತ, ಬಿಸಿ ಮತ್ತು ಪರಿಸರಸ್ನೇಹಿ ಪ್ಯಾಕ್ಡ್ ಊಟ.'
-                      : 'Wholesome, timely, and hygienic boxed meals during bus transits and student field trips.'}
+                      ? 'ಪ್ರವಾಸದ ಮಾರ್ಗದಲ್ಲಿ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಹಾಗೂ ಪ್ರವಾಸಿಗರಿಗೆ ಶುದ್ಧ ಸಾತ್ವಿಕ, ಬಿಸಿ ಮತ್ತು ಪರಿಸರಸ್ನೇಹಿ ಪ್ಯಾಕ್ಡ್ ಸಸ್ಯಾಹಾರಿ ಊಟ.'
+                      : 'Wholesome, timely, and hygienic 100% pure vegetarian boxed meals during bus transits and student field trips.'}
                   </p>
                 </div>
               </div>

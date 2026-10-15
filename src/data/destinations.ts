@@ -152,7 +152,7 @@ export const destinations: Destination[] = [
     tagEn: 'Pristine Coastal Cliffs & Sacred Shorelines',
     shortDescKn: 'ಅರಬ್ಬೀ ಸಮುದ್ರದ ಅಲೆಗಳು ಬಂಡೆಗಳನ್ನು ತಬ್ಬುವ ಸುಂದರ ತಾಣ; ಆಧ್ಯಾತ್ಮಿಕ ಶಾಂತಿ ಮತ್ತು ಮುಕ್ತ ಬೀಚ್ ವಿಶ್ರಾಂತಿ.',
     shortDescEn: 'Where dramatic laterite cliffs meet the Arabian sea, offering an unhurried, soul-soothing coastal retreat.',
-    narrativeKn: 'ಓಂ ಆಕಾರದ ಬೀಚ್, ಕುಡ್ಲೆ, ಹಾಫ್ ಮೂನ್ ಮತ್ತು ಪ್ಯಾರಡೈಸ್ ತೀರಗಳು ನಗರದ ಗದ್ದಲದಿಂದ ದೂರವಿರಿಸುತ್ತವೆ. ಸಂಜೆಯ ತಂಗಾಳಿಯಲ್ಲಿ ಸಮುದ್ರದ ಮೊರೆತ ಕೇಳುತ್ತಾ ಕರಾವಳಿಯ ಮೀನೂಟ ಮತ್ತು ಎಳನೀರು ಸವಿಯುವುದು ಆನಂದದಾಯಕ.',
+    narrativeKn: 'ಓಂ ಆಕಾರದ ಬೀಚ್, ಕುಡ್ಲೆ, ಹಾಫ್ ಮೂನ್ ಮತ್ತು ಪ್ಯಾರಡೈಸ್ ತೀರಗಳು ನಗರದ ಗದ್ದಲದಿಂದ ದೂರವಿರಿಸುತ್ತವೆ. ಸಂಜೆಯ ತಂಗಾಳಿಯಲ್ಲಿ ಸಮುದ್ರದ ಮೊರೆತ ಕೇಳುತ್ತಾ ಕರಾವಳಿಯ ಶುದ್ಧ ಸಸ್ಯಾಹಾರಿ ರುಚಿಗಳು ಮತ್ತು ಎಳನೀರು ಸವಿಯುವುದು ಆನಂದದಾಯಕ.',
     narrativeEn: 'A soulful coastal sanctuary where ancient temple bells blend with crashing turquoise waves. Scenic cliff treks connect secluded crescent beaches untouched by crowds.',
     highlightsKn: [
       'ಓಂ ಬೀಚ್ ಮತ್ತು ಕುಡ್ಲೆ ನಡುವೆ ಸುಂದರ ಬೆಟ್ಟದ ನಡಿಗೆ',
@@ -164,7 +164,7 @@ export const destinations: Destination[] = [
       'Scenic cliffside trail connecting Om Beach, Half Moon & Paradise',
       'Revered Mahabaleshwara Temple with Atmalinga heritage',
       'Coastal dolphin spotting boat excursion at early dawn',
-      'Fresh coastal Karavali seafood and unhurried beach shacks',
+      'Authentic Karavali vegetarian coastal fare and fresh tender coconut',
     ],
     bestSeasonKn: 'ಅಕ್ಟೋಬರ್ – ಮಾರ್ಚ್',
     bestSeasonEn: 'October to March',
@@ -490,7 +490,7 @@ export const destinations: Destination[] = [
     tagEn: 'Limestone Sea Karsts & Lantern-Lit Quarters',
     shortDescKn: 'ಹಸಿರು ಸಾಗರದಲ್ಲಿ ಎದ್ದು ನಿಂತ ಸುಣ್ಣದಕಲ್ಲಿನ ಪರ್ವತಗಳು, ಹನೋಯಿ ಕಾಫಿ ಸಂಸ್ಕೃತಿ ಮತ್ತು ಹೊಯಿ ಆನ್ ಬೆಳಕು.',
     shortDescEn: 'Emerald bay waters dotted with thousands of dramatic limestone karsts, lantern-lit alleys, and warm street food culture.',
-    narrativeKn: 'ಹಾ ಲಾಂಗ್ ಕೊಲ್ಲಿಯಲ್ಲಿ ಕ್ರೂಸ್ ಸವಾರಿ ಮಾಡುತ್ತಾ ಸೂರ್ಯಾಸ್ತ ನೋಡುವುದು, ಹನೋಯಿಯ ಹಳೆ ಪೇಟೆಯ ಬೀದಿಗಳಲ್ಲಿ ಮೊಟ್ಟೆಯ ಕಾಫಿ (Egg Coffee) ಸವಿಯುವುದು ಮತ್ತು ಸ್ನೇಹಮಯ ಜನರ ಆತಿಥ್ಯ.',
+    narrativeKn: 'ಹಾ ಲಾಂಗ್ ಕೊಲ್ಲಿಯಲ್ಲಿ ಕ್ರೂಸ್ ಸವಾರಿ ಮಾಡುತ್ತಾ ಸೂರ್ಯಾಸ್ತ ನೋಡುವುದು, ಹನೋಯಿಯ ಹಳೆ ಪೇಟೆಯ ಬೀದಿಗಳಲ್ಲಿ ಸಾಂಪ್ರದಾಯಿಕ ಕಾಫಿ ಸಂಸ್ಕೃತಿ ಸವಿಯುವುದು ಮತ್ತು ಸ್ನೇಹಮಯ ಜನರ ಆತಿಥ್ಯ.',
     narrativeEn: 'Cruising through UNESCO-listed Ha Long Bay aboard traditional wooden junks, kayaking into hidden sea caves, and strolling through lantern-illuminated artisan workshops in Hoi An.',
     highlightsKn: [
       'ಹಾ ಲಾಂಗ್ ಕೊಲ್ಲಿಯಲ್ಲಿ ಐಷಾರಾಮಿ ಕ್ರೂಸ್ ಮತ್ತು ಕಯಾಕಿಂಗ್',
