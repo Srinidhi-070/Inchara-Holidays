@@ -4,21 +4,18 @@
  */
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Language, Destination } from './types';
+import { Language, Concept, Destination } from './types';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { ServicesDiscoverySection } from './components/ServicesDiscoverySection';
 import { DestinationDiscovery } from './components/DestinationDiscovery';
 import { DestinationModal } from './components/DestinationModal';
-import { ExperiencesSection } from './components/ExperiencesSection';
-import { HowItWorks } from './components/HowItWorks';
 import { SignatureJourney } from './components/SignatureJourney';
-import { WhyUs } from './components/WhyUs';
-import { TravellerStories } from './components/TravellerStories';
 import { OurStory } from './components/OurStory';
-import { CtaInvitation } from './components/CtaInvitation';
+import { PlannerTeaser } from './components/PlannerTeaser';
+import { TravellerStories } from './components/TravellerStories';
 import { Footer } from './components/Footer';
+import { ConceptSwitcher } from './components/ConceptSwitcher';
 import { TripPlannerModal } from './components/TripPlannerModal';
 import { CorporateEventModal } from './components/CorporateEventModal';
 import { CateringModal } from './components/CateringModal';
@@ -29,6 +26,7 @@ import { ScrollProgressBar } from './components/ScrollProgressBar';
 import { FloatingActions } from './components/FloatingActions';
 
 export default function App() {
+  const [concept, setConcept] = useState<Concept>('A');
   const [language, setLanguage] = useState<Language>('kn');
   const [plannerOpen, setPlannerOpen] = useState<boolean>(false);
   const [contactOpen, setContactOpen] = useState<boolean>(false);
@@ -54,12 +52,18 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F6F3EA] text-[#252923] flex flex-col font-sans selection:bg-[#9E3D28]/20 selection:text-[#263F32]">
+    <div
+      className={`site min-h-screen concept-${concept.toLowerCase()} language-${language}`}
+      lang={language === 'kn' ? 'kn' : 'en'}
+    >
       {/* Scroll Progress Bar at the top of the viewport */}
       <ScrollProgressBar />
 
-      {/* Dynamic Spring Custom Cursor (Active only on mouse/trackpad pointer devices) */}
+      {/* Dynamic Spring Custom Cursor (Active on non-touch pointer devices) */}
       <CustomCursor />
+
+      {/* Interactive Concept Switcher Dock (Choose between 3 Art Directions: Luxury Edit, Travel Journal, Global Explorer) */}
+      <ConceptSwitcher concept={concept} onChange={setConcept} />
 
       {/* Floating Action Button for Back to Top & Quick Planning */}
       <FloatingActions
@@ -67,24 +71,33 @@ export default function App() {
         onOpenPlanner={() => handleOpenPlanner()}
       />
 
-      {/* Top Navigation */}
-      <Header
+      {/* Top Hero Section with Integrated Header */}
+      <Hero
+        concept={concept}
         language={language}
-        onLanguageChange={setLanguage}
         onOpenPlanner={() => handleOpenPlanner()}
-        onOpenContact={() => setContactOpen(true)}
-        onNavigateSection={handleNavigateSection}
+        onExploreDestinations={() => handleNavigateSection('destinations')}
+        headerSlot={
+          <Header
+            concept={concept}
+            language={language}
+            onLanguageChange={setLanguage}
+            onOpenPlanner={() => handleOpenPlanner()}
+            onOpenContact={() => setContactOpen(true)}
+            onNavigateSection={handleNavigateSection}
+          />
+        }
       />
 
-      <main className="flex-1">
-        {/* Cinematic Hero */}
-        <Hero
+      <main>
+        {/* Asymmetrical 5-Tile Editorial Destination Discovery Grid */}
+        <DestinationDiscovery
           language={language}
-          onOpenPlanner={() => handleOpenPlanner()}
-          onExploreDestinations={() => handleNavigateSection('services')}
+          onSelectDestination={setSelectedDestination}
+          onOpenPlannerWithDest={(destName) => handleOpenPlanner(destName)}
         />
 
-        {/* Flagship Services Discovery Section: Journeys, Corporate, Catering, School */}
+        {/* 4 Flagship Hospitality Modules: Curated Holidays, Corporate, 100% Pure Veg Catering, School Trips */}
         <ServicesDiscoverySection
           language={language}
           onOpenPlanner={(dest, exp) => handleOpenPlanner(dest, exp)}
@@ -93,71 +106,45 @@ export default function App() {
           onOpenSchoolModal={() => setSchoolOpen(true)}
         />
 
-        {/* Destination Discovery */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <DestinationDiscovery
-            language={language}
-            onSelectDestination={setSelectedDestination}
-            onOpenPlannerWithDest={(destName) => handleOpenPlanner(destName)}
-          />
-        </motion.div>
-
-        {/* Travel Experiences */}
-        <ExperiencesSection
-          language={language}
-          onOpenPlannerWithExperience={(expTitle) => handleOpenPlanner('', expTitle)}
-        />
-
-        {/* How Inchara Works */}
-        <HowItWorks
-          language={language}
-          onOpenPlanner={() => handleOpenPlanner()}
-        />
-
-        {/* Signature Journey Showcase */}
+        {/* Signature Journeys with Interactive Hover Thumbnails */}
         <SignatureJourney
           language={language}
-          onPlanSignatureJourney={() =>
+          onPlanSignatureJourney={(journeyName) =>
             handleOpenPlanner(
-              language === 'kn'
-                ? 'ಗೋಕರ್ಣ ಮತ್ತು ಮಲೆನಾಡು'
-                : 'Gokarna & Malnad Haven'
+              journeyName ||
+                (language === 'kn'
+                  ? 'ಗೋಕರ್ಣ ಮತ್ತು ಮಲೆನಾಡು'
+                  : 'Gokarna & Malnad Haven')
             )
           }
         />
 
-        {/* Why Travel With Us */}
-        <WhyUs language={language} />
-
-        {/* Traveller Reflections & Stories */}
-        <TravellerStories language={language} />
-
-        {/* Our Story */}
+        {/* The Inchara Difference: Philosophy & Principles */}
         <OurStory
           language={language}
           onOpenPlanner={() => handleOpenPlanner()}
         />
 
-        {/* Final Emotional Invitation */}
-        <CtaInvitation
+        {/* Inline Step 01 Trip Planner Teaser Card */}
+        <PlannerTeaser
           language={language}
-          onOpenPlanner={() => handleOpenPlanner()}
-          onOpenContact={() => setContactOpen(true)}
+          onOpenPlanner={(selectedRegion) => handleOpenPlanner(selectedRegion)}
         />
+
+        {/* Traveller Reflections & Stories */}
+        <TravellerStories language={language} />
       </main>
 
-      {/* Footer */}
+      {/* Full-bleed Invitation & 3-Column Directory Footer */}
       <Footer
         language={language}
         onLanguageChange={setLanguage}
         onNavigateSection={handleNavigateSection}
         onOpenPlanner={() => handleOpenPlanner()}
         onOpenContact={() => setContactOpen(true)}
+        onOpenCorporate={() => setCorporateOpen(true)}
+        onOpenCatering={() => setCateringOpen(true)}
+        onOpenSchool={() => setSchoolOpen(true)}
       />
 
       {/* Destination Detail Modal */}
@@ -184,7 +171,7 @@ export default function App() {
         onClose={() => setCorporateOpen(false)}
       />
 
-      {/* Catering & Hospitality Request Modal */}
+      {/* 100% Pure Vegetarian Catering & Hospitality Request Modal */}
       <CateringModal
         isOpen={cateringOpen}
         language={language}

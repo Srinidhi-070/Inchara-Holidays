@@ -1,4 +1,5 @@
 export type Language = 'kn' | 'en';
+export type Concept = 'A' | 'B' | 'C';
 
 export interface CulturalEtiquetteTip {
   categoryKn: string;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Language, Destination, CulturalEtiquetteTip } from '../types';
 import { translations } from '../data/translations';
 import {
@@ -16,7 +16,7 @@ import {
   Copy,
   Check,
 } from 'lucide-react';
-import { AmbariElephant, LotusIcon, SikkuKolamMandala, KolamCorner } from './SouthIndianMotifs';
+import { Mark } from './Header';
 
 interface DestinationModalProps {
   destination: Destination | null;
@@ -134,11 +134,10 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [destination, onClose]);
 
-  if (!destination) return null;
   const t = translations[language];
 
   // Specific tips for this destination if defined, plus universal Karnataka etiquette
-  const destinationSpecificTips = destination.culturalEtiquette || [];
+  const destinationSpecificTips = destination?.culturalEtiquette || [];
 
   const handleCopyPhrase = (phrase: string) => {
     navigator.clipboard?.writeText(phrase);
@@ -147,7 +146,9 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto">
+    <AnimatePresence>
+      {destination && (
+        <div className="fixed inset-0 z-50 overflow-y-auto">
       {/* Backdrop */}
       <motion.div
         initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
@@ -162,10 +163,10 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.98, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-4xl bg-[#FBF8F1] rounded-2xl shadow-2xl overflow-hidden border border-[#D4AF37]/40 text-[#252923] max-h-[94dvh] flex flex-col my-4"
+          className="relative w-full max-w-4xl bg-[#fbf8f1] rounded-none shadow-2xl overflow-hidden border border-[#d4af37]/35 text-[#17261e] max-h-[94dvh] flex flex-col my-4"
         >
           {/* Top Kasavu gold highlight */}
-          <div className="h-1 w-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#9E3D28]" />
+          <div className="h-[2px] w-full bg-gradient-to-r from-[#d4af37] via-[#f5d77f] to-[#9e3d28]" />
 
           {/* Close button: high z-index, pointer-events-auto, isolated hit-area */}
           <button
@@ -174,44 +175,43 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
               e.stopPropagation();
               onClose();
             }}
-            className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-black/50 hover:bg-black/75 active:scale-95 text-[#F6F3EA] flex items-center justify-center backdrop-blur-md transition-all cursor-pointer pointer-events-auto shadow-lg"
+            className="absolute top-4 right-4 z-50 w-9 h-9 rounded-none border border-white/20 bg-black/40 hover:bg-black/70 text-white flex items-center justify-center backdrop-blur-md transition-all cursor-pointer pointer-events-auto shadow-lg"
             aria-label={t.modal.close}
-            data-cursor="Close"
           >
-            <X className="w-5 h-5 pointer-events-none" />
+            <X className="w-4 h-4 pointer-events-none" />
           </button>
 
           {/* Hero Banner inside modal */}
-          <div className="relative h-48 sm:h-72 lg:h-80 w-full overflow-hidden bg-[#263F32] shrink-0">
+          <div className="relative h-48 sm:h-72 lg:h-80 w-full overflow-hidden bg-[#162e22] shrink-0">
             <img
               src={destination.image}
               alt={destination.imageAlt}
               className="w-full h-full object-cover object-center"
               referrerPolicy="no-referrer"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#263F32] via-[#263F32]/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#162e22] via-[#162e22]/50 to-transparent" />
 
-            <div className="absolute bottom-5 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6 text-[#F6F3EA] flex items-end justify-between gap-4">
+            <div className="absolute bottom-5 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6 text-white flex items-end justify-between gap-4">
               <div>
-                <div className="flex items-center gap-2 text-xs font-medium text-[#F5D77F] mb-1">
+                <div className="flex items-center gap-2 text-xs font-medium text-[#f5d77f] mb-1">
                   <span>{language === 'kn' ? destination.regionKn : destination.regionEn}</span>
                   <span aria-hidden="true">·</span>
                   <span>{language === 'kn' ? destination.tagKn : destination.tagEn}</span>
                 </div>
-                <h3 className="text-xl sm:text-3xl lg:text-4xl font-bold font-serif-editorial tracking-tight">
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-normal font-serif tracking-tight text-white">
                   {language === 'kn' ? destination.nameKn : destination.nameEn}
                 </h3>
               </div>
-              <div className="hidden sm:block p-2 rounded-xl bg-black/40 border border-[#D4AF37]/40 backdrop-blur-md">
-                <AmbariElephant className="w-8 h-8 text-[#F5D77F]" color="#F5D77F" />
+              <div className="hidden sm:flex items-center justify-center p-2 rounded-none bg-black/40 border border-white/20 backdrop-blur-md">
+                <Mark />
               </div>
             </div>
           </div>
 
           {/* Modal Body */}
-          <div className="p-5 sm:p-8 space-y-7 flex-1 overflow-y-auto">
+          <div className="p-5 sm:p-8 space-y-7 flex-1 overflow-y-auto modal-scroll-pane">
             {/* Quick Specs Strip */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 p-4 rounded-xl bg-[#E4D8C5]/50 border border-[#263F32]/10 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 p-4 rounded-none bg-[#E4D8C5]/50 border border-[#263F32]/10 text-xs">
               <div>
                 <span className="block text-[#252923]/60 mb-0.5">{t.modal.bestTime}</span>
                 <span className="font-semibold text-[#263F32]">
@@ -254,7 +254,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
                 {(language === 'kn' ? destination.highlightsKn : destination.highlightsEn).map((hl, i) => (
                   <div
                     key={i}
-                    className="p-3.5 rounded-lg bg-white/70 border border-[#263F32]/10 flex items-start gap-2.5 text-xs text-[#252923]/85"
+                    className="p-3.5 rounded-none bg-white/70 border border-[#263F32]/10 flex items-start gap-2.5 text-xs text-[#252923]/85"
                   >
                     <CheckCircle2 className="w-4 h-4 text-[#9E3D28] shrink-0 mt-0.5" />
                     <span>{hl}</span>
@@ -264,9 +264,9 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
             </div>
 
             {/* Cultural Etiquette Section (Styled with Kaavi Terracotta & Sikku Kolam - Image 2) */}
-            <div className="p-6 sm:p-7 rounded-2xl bg-gradient-to-br from-[#263F32]/8 via-[#E4D8C5]/40 to-[#263F32]/5 border border-[#263F32]/15 space-y-6">
+            <div className="p-6 sm:p-7 rounded-none bg-gradient-to-br from-[#263F32]/8 via-[#E4D8C5]/40 to-[#263F32]/5 border border-[#263F32]/15 space-y-6">
               {/* Kaavi Terracotta Header Banner with White Sikku Kolam Watermark */}
-              <div className="relative rounded-xl bg-gradient-to-r from-[#9E3D28] via-[#B34A34] to-[#8C341F] text-[#FBF8F1] p-5 border border-[#D4AF37]/40 overflow-hidden shadow-sm">
+              <div className="relative rounded-none bg-gradient-to-r from-[#9E3D28] via-[#B34A34] to-[#8C341F] text-[#FBF8F1] p-5 border border-[#D4AF37]/40 overflow-hidden shadow-sm">
                 {/* Authentic Sikku Kolam Watermark (Directly from Image 2) */}
                 <div className="absolute right-2 -bottom-6 w-32 h-32 text-white opacity-25 pointer-events-none select-none">
                   <SikkuKolamMandala className="w-full h-full" color="#FBF8F1" />
@@ -289,7 +289,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
                       {t.modal.culturalEtiquetteSub}
                     </p>
                   </div>
-                  <div className="self-start sm:self-center px-3 py-1.5 rounded-lg bg-black/30 backdrop-blur-md text-[#F5D77F] border border-[#D4AF37]/40 text-[11px] font-semibold tracking-wide flex items-center gap-1.5 shrink-0 shadow-xs">
+                  <div className="self-start sm:self-center px-3 py-1.5 rounded-none bg-black/30 backdrop-blur-md text-[#F5D77F] border border-[#D4AF37]/40 text-[11px] font-semibold tracking-wide flex items-center gap-1.5 shrink-0 shadow-xs">
                     <ShieldCheck className="w-3.5 h-3.5 text-[#F5D77F]" />
                     <span>{language === 'kn' ? 'ವಿಶ್ವಾಸಾರ್ಹ ಸಲಹೆಗಳು' : 'Trusted Guidelines'}</span>
                   </div>
@@ -311,7 +311,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
                     {destinationSpecificTips.map((tip, idx) => (
                       <div
                         key={idx}
-                        className="p-4 rounded-xl bg-white/85 border border-[#263F32]/12 shadow-xs space-y-1.5 hover:border-[#263F32]/25 transition-colors"
+                        className="p-4 rounded-none bg-white/85 border border-[#263F32]/12 shadow-xs space-y-1.5 hover:border-[#263F32]/25 transition-colors"
                       >
                         <div className="flex items-center justify-between gap-2">
                           <span className="text-[10px] font-bold uppercase tracking-wider text-[#9E3D28]">
@@ -344,13 +344,13 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
                   {universalKarnatakaTips.map((tip, idx) => (
                     <div
                       key={idx}
-                      className="p-3.5 rounded-xl bg-white/75 border border-[#263F32]/10 space-y-1.5 flex flex-col justify-between"
+                      className="p-3.5 rounded-none bg-white/75 border border-[#263F32]/10 space-y-1.5 flex flex-col justify-between"
                     >
                       <div>
                         <div className="flex items-center justify-between text-[10px] font-bold tracking-wider text-[#9E3D28] uppercase mb-1">
                           <span>{language === 'kn' ? tip.categoryKn : tip.categoryEn}</span>
                           {tip.badge && (
-                            <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#263F32]/10 text-[#263F32]">
+                            <span className="text-[9px] px-1.5 py-0.5 rounded-none bg-[#263F32]/10 text-[#263F32]">
                               {tip.badge}
                             </span>
                           )}
@@ -368,7 +368,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
               </div>
 
               {/* Quick Kannada Travel Phrases Mini-Guide */}
-              <div className="p-4 sm:p-5 rounded-xl bg-[#263F32] text-[#F6F3EA] space-y-3 border border-white/10">
+              <div className="p-4 sm:p-5 rounded-none bg-[#263F32] text-[#F6F3EA] space-y-3 border border-white/10">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
                     <MessageCircle className="w-4 h-4 text-[#AAB69A]" />
@@ -389,7 +389,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
                       key={i}
                       type="button"
                       onClick={() => handleCopyPhrase(phrase.kn)}
-                      className="p-2.5 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10 text-left transition-all group flex items-start justify-between gap-2"
+                      className="p-2.5 rounded-none bg-white/10 hover:bg-white/15 border border-white/10 text-left transition-all group flex items-start justify-between gap-2"
                     >
                       <div className="space-y-0.5">
                         <div className="flex items-center gap-1.5">
@@ -404,7 +404,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
                           {phrase.en}
                         </div>
                       </div>
-                      <div className="shrink-0 p-1 rounded text-white/50 group-hover:text-white transition-colors">
+                      <div className="shrink-0 p-1 rounded-none text-white/50 group-hover:text-white transition-colors">
                         {copiedPhrase === phrase.kn ? (
                           <Check className="w-3.5 h-3.5 text-emerald-400" />
                         ) : (
@@ -418,7 +418,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
             </div>
 
             {/* Cultural nuance notice */}
-            <div className="p-4 rounded-xl bg-[#263F32]/5 border border-[#263F32]/15 text-xs text-[#252923]/75 space-y-1">
+            <div className="p-4 rounded-none bg-[#263F32]/5 border border-[#263F32]/15 text-xs text-[#252923]/75 space-y-1">
               <span className="font-semibold text-[#263F32]">
                 {language === 'kn' ? 'ಇಂಚಾರಾ ಪ್ರವಾಸ ಸಲಹೆ:' : 'The Inchara Guidance:'}
               </span>
@@ -441,7 +441,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 sm:flex-none px-4 py-2.5 rounded-md border border-[#263F32]/20 text-xs font-semibold text-[#252923] hover:bg-[#263F32]/5 transition-colors cursor-pointer"
+                className="button button-outline !text-[#162e22] !border-[#c9c5b9] hover:!bg-[#162e22] hover:!text-white !min-h-[2.6rem] !px-4 text-xs flex-1 sm:flex-none rounded-none"
               >
                 {t.modal.close}
               </button>
@@ -451,15 +451,17 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
                   onClose();
                   onPlanTrip(language === 'kn' ? destination.nameKn : destination.nameEn);
                 }}
-                className="flex-1 sm:flex-none px-5 py-2.5 rounded-md bg-[#263F32] text-[#F6F3EA] hover:bg-[#1f3328] text-xs font-semibold tracking-wide transition-colors flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+                className="button button-dark !min-h-[2.6rem] !px-5 text-xs flex-1 sm:flex-none flex items-center justify-center gap-2 rounded-none"
               >
                 <span>{t.modal.planThisTrip}</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#F5D77F]" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#f5d77f]" />
               </button>
             </div>
           </div>
         </motion.div>
       </div>
     </div>
+    )}
+  </AnimatePresence>
   );
 };

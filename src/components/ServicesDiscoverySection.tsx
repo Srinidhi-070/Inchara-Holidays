@@ -1,33 +1,5 @@
-import React, { useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
-import { Language, SamplePackage } from '../types';
-import { samplePackages } from '../data/packages';
-import {
-  Compass,
-  Building2,
-  UtensilsCrossed,
-  GraduationCap,
-  Calendar,
-  Clock,
-  Check,
-  ShieldCheck,
-  ArrowRight,
-  Info,
-  Users,
-  Sparkles,
-  MapPin,
-  Coffee,
-  HeartHandshake,
-  ChevronDown
-} from 'lucide-react';
-import {
-  AmbariElephant,
-  GopuramIcon,
-  LotusIcon,
-  TempleBell,
-  BananaLeafIcon,
-  SikkuKolamMandala
-} from './SouthIndianMotifs';
+import React from 'react';
+import { Language } from '../types';
 
 interface ServicesDiscoverySectionProps {
   language: Language;
@@ -44,935 +16,158 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
   onOpenCateringModal,
   onOpenSchoolModal,
 }) => {
-  const isKn = language === 'kn';
-  const shouldReduceMotion = useReducedMotion();
-
-  // Active filter for Sample Packages tab
-  const [packageCategory, setPackageCategory] = useState<'all' | 'karnataka' | 'panIndia' | 'international'>('all');
-  const [selectedPackageId, setSelectedPackageId] = useState<string>(samplePackages[0].id);
-
-  const filteredPackages = packageCategory === 'all'
-    ? samplePackages
-    : samplePackages.filter((p) => p.category === packageCategory);
-
-  const activePackage = samplePackages.find((p) => p.id === selectedPackageId) || samplePackages[0];
-
-  const servicesNav = [
-    {
-      id: 'packages',
-      labelKn: 'ರಜಾ ಪ್ರವಾಸಗಳು',
-      labelEn: 'Holiday Packages',
-      icon: GopuramIcon,
-      descKn: 'ಕುಟುಂಬ & ಗುಂಪು ಪಯಣಗಳು',
-      descEn: 'Family & Curated Tours',
-    },
-    {
-      id: 'corporate',
-      labelKn: 'ಕಾರ್ಪೊರೇಟ್ ಕಾರ್ಯಕ್ರಮಗಳು',
-      labelEn: 'Corporate Events',
-      icon: AmbariElephant,
-      descKn: 'ಟೀಮ್ ಔಟಿಂಗ್ & ಆಫ್‌ಸೈಟ್',
-      descEn: 'Team Retreats & Off-sites',
-    },
-    {
-      id: 'catering',
-      labelKn: 'ಆಹಾರ ಸೇವೆಗಳು',
-      labelEn: 'Catering & Hospitality',
-      icon: BananaLeafIcon,
-      descKn: 'ಸಮಾರಂಭ & ಪ್ರವಾಸ ಭೋಜನ',
-      descEn: 'Gatherings & Travel Dining',
-    },
-    {
-      id: 'school',
-      labelKn: 'ಶಾಲಾ ಕಾರ್ಯಕ್ರಮಗಳು',
-      labelEn: 'School Trips & Events',
-      icon: TempleBell,
-      descKn: 'ಸುರಕ್ಷಿತ ಶೈಕ್ಷಣಿಕ ಪ್ರವಾಸಗಳು',
-      descEn: 'Educational Study Tours',
-    },
-  ];
-
-  const handleScrollToSub = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
+  const kn = language === 'kn';
 
   return (
-    <section id="services" className="py-20 lg:py-28 bg-[#FBF9F4] relative border-b border-[#263F32]/10 overflow-hidden">
-      {/* Decorative background subtle watermark */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#263F32]/[0.03] rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#9E3D28]/[0.03] rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-14 lg:mb-20"
-        >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#263F32]/8 border border-[#263F32]/15 text-[#263F32] text-xs font-semibold uppercase tracking-wider mb-4 shadow-2xs">
-            <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-            <span>{isKn ? 'ಸಮಗ್ರ ಸೇವೆಗಳ ಶ್ರೇಣಿ' : 'Comprehensive Services'}</span>
-          </div>
-
-          {/* Requested Main Title */}
-          <h2 className="text-display-md font-bold font-serif-editorial text-[#162E22] tracking-tight leading-tight">
-            {isKn
-              ? 'ನಿಮ್ಮ ಪ್ರತಿಯೊಂದು ಯೋಜನೆಗೂ, ನಮ್ಮ ಜೊತೆಯಿದೆ.'
-              : 'One partner for journeys, gatherings, and celebrations.'}
-          </h2>
-
-          <p className="mt-4 text-base sm:text-lg text-[#252923]/75 leading-relaxed max-w-2xl mx-auto">
-            {isKn
-              ? 'ವೈಯಕ್ತಿಕ ರಜಾದಿನಗಳಿಂದ ಹಿಡಿದು ಸಾಂಸ್ಥಿಕ ಸಮ್ಮೇಳನಗಳು, ಸಂಪ್ರದಾಯಬದ್ಧ ಊಟೋಪಚಾರ ಹಾಗೂ ಶಾಲಾ ಶೈಕ್ಷಣಿಕ ಪಯಣದವರೆಗೆ — ಪ್ರತಿಯೊಂದರಲ್ಲೂ ಅಚ್ಚುಕಟ್ಟು ಆತಿಥ್ಯ ಮತ್ತು ವಿಶ್ವಾಸ.'
-              : 'From bespoke personal vacations and corporate retreats to respectful catering and safe student expeditions — Inchara brings authentic hospitality and care to every milestone.'}
+    <section className="services" id="services">
+      <div className="services-heading section-pad">
+        <div className="section-title">
+          <p className="section-label">
+            <span>✦</span> {kn ? 'ಕೇವಲ ಪ್ರವಾಸ ಮಾತ್ರವಲ್ಲ' : 'MORE THAN TRAVEL'}
           </p>
+          <h2>
+            {kn ? (
+              <>
+                ಆತಿಥ್ಯ,
+                <br /> ಅದರ ಎಲ್ಲ <em>ರೂಪಗಳಲ್ಲಿ.</em>
+              </>
+            ) : (
+              <>
+                Hospitality,
+                <br /> in all its <em>forms.</em>
+              </>
+            )}
+          </h2>
+        </div>
+        <p>
+          {kn
+            ? 'ಒಂದು ಜವಾಬ್ದಾರಿಯುತ ತಂಡ, ಜನರನ್ನು ಒಗ್ಗೂಡಿಸಲು ನಾಲ್ಕು ವಿಶಿಷ್ಟ ಮಾರ್ಗಗಳು. ಮೊದಲ ಸಂಭಾಷಣೆಯಿಂದ ಹಿಡಿದು ಅಂತಿಮ ಬೀಳ್ಕೊಡುಗೆಯವರೆಗೆ ಪ್ರತಿಯೊಂದು ವಿವರವನ್ನೂ ಗಮನಿಸಲಾಗುತ್ತದೆ.'
+            : 'One attentive team, four ways to bring people together. Every detail is considered, from the first conversation to the final farewell.'}
+        </p>
+      </div>
 
-          {/* Quick Service Anchor Navigation */}
-          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
-            {servicesNav.map((item) => {
-              const Icon = item.icon;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => handleScrollToSub(`service-${item.id}`)}
-                  className="flex flex-col items-center p-3.5 sm:p-4 rounded-2xl border border-[#263F32]/12 bg-[#FBF8F1] hover:bg-[#162E22] hover:text-[#F6F3EA] text-[#263F32] transition-all duration-300 group cursor-pointer shadow-xs hover:shadow-md hover:border-[#D4AF37]/50"
-                >
-                  <div className="w-9 h-9 rounded-full bg-[#263F32]/5 group-hover:bg-white/10 flex items-center justify-center mb-2 transition-colors">
-                    <Icon className="w-5 h-5 text-[#9E3D28] group-hover:text-[#F5D77F] transition-colors" />
-                  </div>
-                  <span className="text-xs sm:text-sm font-bold font-serif-editorial text-center leading-tight">
-                    {isKn ? item.labelKn : item.labelEn}
-                  </span>
-                  <span className="text-[10.5px] text-[#252923]/60 group-hover:text-[#F6F3EA]/75 text-center mt-1 hidden sm:block">
-                    {isKn ? item.descKn : item.descEn}
-                  </span>
-                </button>
-              );
-            })}
+      {/* Service 01: Curated Holidays */}
+      <div className="service-holidays" id="service-packages">
+        <img
+          alt="Lush tea gardens in Munnar"
+          src="https://images.unsplash.com/photo-1491497895121-1334fc14d8c9?auto=format&fit=crop&w=2000&q=88"
+          loading="lazy"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/images/hero_western_ghats_1791795450720.jpg';
+          }}
+        />
+        <div className="service-number">01</div>
+        <div className="service-copy">
+          <span>{kn ? 'ವೈಯಕ್ತಿಕ ಮತ್ತು ಗುಂಪು ಪ್ರವಾಸ' : 'PRIVATE & GROUP TRAVEL'}</span>
+          <h3>{kn ? 'ವಿನ್ಯಾಸಗೊಳಿಸಿದ ರಜಾ ದಿನಗಳು' : 'Curated Holidays'}</h3>
+          <p>
+            {kn
+              ? 'ಭಾರತ ಮತ್ತು ವಿದೇಶಗಳಲ್ಲಿ ನಿಮ್ಮ ಅಭಿರುಚಿಗೆ ತಕ್ಕಂತೆ ರೂಪಿಸಿದ ವೈಯಕ್ತಿಕಗೊಳಿಸಿದ ಪ್ರಯಾಣಗಳು.'
+              : 'Personalised journeys across India and beyond, built around your pace and curiosities.'}
+          </p>
+          <button
+            type="button"
+            className="button button-text"
+            onClick={() => onOpenPlanner()}
+          >
+            <span>{kn ? 'ಪ್ರವಾಸ ಅನ್ವೇಷಿಸಿ' : 'Discover holidays'}</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Service 02 & 03: Corporate and Catering */}
+      <div className="service-duo">
+        {/* Service 02: Corporate Events */}
+        <article className="service-corporate" id="service-corporate">
+          <span className="service-number">02</span>
+          <p className="mini-label">{kn ? 'ಉದ್ದೇಶಪೂರ್ವಕ ಸಭೆ' : 'GATHER WITH PURPOSE'}</p>
+          <h3>{kn ? 'ಕಾರ್ಪೊರೇಟ್ ಕಾರ್ಯಕ್ರಮಗಳು' : 'Corporate Events'}</h3>
+          <p>
+            {kn
+              ? 'ತಂಡದ ಸಮ್ಮೇಳನಗಳು, ರಿಟ್ರೀಟ್‌ಗಳು ಮತ್ತು ಆಫ್‌ಸೈಟ್‌ಗಳು — ಸರಿಯಾದ ಸ್ಥಳ ಮತ್ತು ನಿಖರ ಯೋಜನೆಯೊಂದಿಗೆ ಸ್ಮರಣೀಯ.'
+              : 'Team offsites, retreats and conferences made memorable through place, people and precision.'}
+          </p>
+          <div className="line-illustration" aria-hidden="true">
+            <span />
+            <span />
+            <span />
           </div>
-        </motion.div>
-
-        {/* ============================================================== */}
-        {/* SERVICE 1: HOLIDAY PACKAGES & TRAVEL                            */}
-        {/* ============================================================== */}
-        <div id="service-packages" className="mb-20 lg:mb-24 scroll-mt-24">
-          <motion.div
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="rounded-3xl bg-[#FBF8F1] border border-[#D4AF37]/35 p-6 sm:p-10 lg:p-12 shadow-sm relative overflow-hidden"
+          <button
+            type="button"
+            className="button button-text"
+            onClick={onOpenCorporateModal}
           >
-            {/* Top delicate gold hairline */}
-            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37]/70 to-transparent" />
+            <span>{kn ? 'ಕಾರ್ಯಕ್ರಮ ರೂಪಿಸಿ' : 'Plan an event'}</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+        </article>
 
-            {/* Service 1 Header */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#263F32]/10">
-              <div className="max-w-2xl">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#9E3D28] uppercase tracking-wider mb-2">
-                  <Compass className="w-4 h-4 text-[#D4AF37]" />
-                  <span>01. {isKn ? 'ರಜಾ ಪ್ರವಾಸಗಳು & ಪಯಣ' : 'Holiday Packages & Travel'}</span>
-                </div>
-                <h3 className="text-2xl sm:text-3xl font-bold font-serif-editorial text-[#162E22]">
-                  {isKn ? 'ಕ್ಯುರೇಟೆಡ್ & ಕಸ್ಟಮೈಸ್ಡ್ ರಜಾದಿನಗಳ ಅನುಭವ' : 'Curated Domestic & International Journeys'}
-                </h3>
-                <p className="mt-2 text-sm sm:text-base text-[#252923]/75 leading-relaxed">
-                  {isKn
-                    ? 'ಕುಟುಂಬದ ಪ್ರವಾಸ, ಆಪ್ತರ ಸಮೂಹ ಪಯಣ, ವಾರಾಂತ್ಯದ ವಿಶ್ರಾಂತಿ, ಪರಂಪರೆಯ ಹಾದಿ, ನಿಸರ್ಗ ಸಾಹಸ ಹಾಗೂ ಅಂತಾರಾಷ್ಟ್ರೀಯ ರಜೆಗಳು. ಪ್ರತಿ ವಿವರವನ್ನೂ ನಿಮ್ಮ ಅಭಿರುಚಿಗೆ ತಕ್ಕಂತೆ ಕಸ್ಟಮೈಸ್ ಮಾಡಲಾಗುತ್ತದೆ.'
-                    : 'From family vacations and group expeditions to weekend getaways, heritage trails, nature adventures, and international travel. Paced, guided, and seamlessly coordinated.'}
-                </p>
-              </div>
+        {/* Service 03: Catering & Hospitality (100% Pure Vegetarian) */}
+        <article className="service-food" id="service-catering">
+          <img
+            alt="Pure vegetarian South Indian feast and travel meal"
+            src="/images/pure_veg_travel_meal.jpg"
+            loading="lazy"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = '/images/south_indian_feast.jpg';
+            }}
+          />
+          <div className="food-caption">
+            <span>{kn ? '೦೩ / ಕ್ಯಾಟರಿಂಗ್ ಮತ್ತು ಆತಿಥ್ಯ' : '03 / CATERING & HOSPITALITY'}</span>
+            <h3>{kn ? 'ಕಥೆಗಳಿಂದ ತುಂಬಿದ ಔತಣ.' : 'A table full of stories.'}</h3>
+            <p>
+              {kn
+                ? 'ಶುದ್ಧ ಸಸ್ಯಾಹಾರಿ ಸಾಂಪ್ರದಾಯಿಕ ಅಡುಗೆಗಳು ಮತ್ತು ಪ್ರತಿಯೊಂದು ಸಮಾರಂಭಕ್ಕೂ ಶ್ರೇಷ್ಠ ಆತಿಥ್ಯ.'
+                : 'Regional 100% pure vegetarian menus and warm hospitality for celebrations of every scale.'}
+            </p>
+            <button
+              type="button"
+              className="button button-outline"
+              onClick={onOpenCateringModal}
+            >
+              <span>{kn ? 'ಕ್ಯಾಟರಿಂಗ್ ವಿವರಗಳು' : 'Explore catering'}</span>
+              <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+        </article>
+      </div>
 
-              {/* CTAs */}
-              <div className="flex flex-wrap sm:flex-nowrap gap-3 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => onOpenPlanner()}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#162E22] text-[#F6F3EA] text-xs sm:text-sm font-semibold hover:bg-[#1f3d2e] border border-[#D4AF37]/30 transition-all cursor-pointer shadow-xs active:scale-95"
-                >
-                  <Calendar className="w-4 h-4 text-[#D4AF37]" />
-                  {isKn ? 'ನಿಮ್ಮ ಪ್ರವಾಸ ರೂಪಿಸಿ' : 'Custom Trip Inquiry'}
-                </button>
-              </div>
-            </div>
-
-            {/* Service Pillars Badges */}
-            <div className="py-6 flex flex-wrap gap-2 text-xs text-[#263F32]">
-              {[
-                { kn: 'ಕುಟುಂಬ ರಜಾದಿನಗಳು', en: 'Family Holidays' },
-                { kn: 'ಗುಂಪು ಪ್ರವಾಸಗಳು', en: 'Group Tours' },
-                { kn: 'ವಾರಾಂತ್ಯದ ವಿಶ್ರಾಂತಿ', en: 'Weekend Getaways' },
-                { kn: 'ಸಾಂಸ್ಕೃತಿಕ & ಪರಂಪರೆ', en: 'Cultural & Heritage' },
-                { kn: 'ನಿಸರ್ಗ & ಸಾಹಸ', en: 'Nature & Adventure' },
-                { kn: 'ಅಂತಾರಾಷ್ಟ್ರೀಯ ರಜೆಗಳು', en: 'International Holidays' },
-                { kn: 'ವಾಹನ & ಸಾರಿಗೆ ವ್ಯವಸ್ಥೆ', en: 'Transit Coordination' },
-                { kn: 'ಸ್ಥಳೀಯ ಮಾರ್ಗದರ್ಶನ', en: 'Guided Experiences' },
-              ].map((pill, i) => (
-                <span
-                  key={i}
-                  className="px-3 py-1.5 rounded-full bg-white border border-[#263F32]/10 font-medium text-[#162E22] shadow-2xs"
-                >
-                  {isKn ? pill.kn : pill.en}
-                </span>
-              ))}
-            </div>
-
-            {/* Sample Packages Tabs */}
-            <div className="mt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#263F32]/10 pb-4">
-              {/* Category Filter Pills (Fluid edge-to-edge scroll rail without artificial clipping borders) */}
-              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 -mx-4 px-4 sm:mx-0 sm:px-0 scroll-smooth snap-x">
-                {[
-                  { key: 'all', kn: 'ಎಲ್ಲಾ ಮಾದರಿಗಳು', en: 'All Samples' },
-                  { key: 'karnataka', kn: 'ಕರ್ನಾಟಕ & ಮಲೆನಾಡು', en: 'Karnataka & Malnad' },
-                  { key: 'panIndia', kn: 'ಭಾರತದ ಪಯಣ', en: 'Pan-India' },
-                  { key: 'international', kn: 'ಅಂತಾರಾಷ್ಟ್ರೀಯ', en: 'International' },
-                ].map((cat) => {
-                  const isCatActive = packageCategory === cat.key;
-                  return (
-                    <button
-                      key={cat.key}
-                      type="button"
-                      onClick={() => {
-                        const newCat = cat.key as any;
-                        setPackageCategory(newCat);
-                        const match = newCat === 'all'
-                          ? samplePackages[0]
-                          : samplePackages.find((p) => p.category === newCat);
-                        if (match) setSelectedPackageId(match.id);
-                      }}
-                      className={`shrink-0 px-4 py-2 sm:py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer snap-start flex items-center justify-center ${
-                        isCatActive
-                          ? 'bg-[#263F32] text-[#F6F3EA] shadow-xs font-bold ring-1 ring-[#D4AF37]/50'
-                          : 'bg-white/80 text-[#263F32]/75 hover:bg-[#263F32]/10 hover:text-[#263F32] border border-[#263F32]/10'
-                      }`}
-                    >
-                      {isKn ? cat.kn : cat.en}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Sample Content Transparency Notice (Desktop only — on mobile, kept discreet inside cards) */}
-              <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-[#9E3D28] bg-[#9E3D28]/10 px-3 py-1.5 rounded-xl border border-[#9E3D28]/20 shrink-0">
-                <Info className="w-3.5 h-3.5 shrink-0" />
-                <span>
-                  {isKn
-                    ? 'ಮಾದರಿ ವಿವರಣೆಗಳು — ಅಂತಿಮ ದರ ಹಾಗೂ ದಿನಚರಿ ನಿಮ್ಮ ಅಗತ್ಯಕ್ಕೆ ತಕ್ಕಂತೆ ನಿಗದಿಯಾಗುತ್ತದೆ.'
-                    : 'Sample curated content — Exact inclusions & pricing customized upon direct inquiry.'}
-                </span>
-              </div>
-            </div>
-
-            {/* ============================================================== */}
-            {/* MOBILE VIEW (< lg): Interactive Expandable Accordion Cards     */}
-            {/* ============================================================== */}
-            <div className="block lg:hidden mt-6 space-y-3.5">
-              {filteredPackages.map((pkg) => {
-                const isExpanded = pkg.id === selectedPackageId;
-                return (
-                  <div
-                    key={pkg.id}
-                    className={`rounded-2xl border transition-all duration-300 overflow-hidden bg-white ${
-                      isExpanded
-                        ? 'border-[#D4AF37] shadow-md ring-1 ring-[#D4AF37]/40'
-                        : 'border-[#263F32]/12 shadow-2xs hover:border-[#263F32]/30'
-                    }`}
-                  >
-                    {/* Clickable Card Header */}
-                    <button
-                      type="button"
-                      onClick={() => setSelectedPackageId(isExpanded ? '' : pkg.id)}
-                      className="w-full p-4 sm:p-5 text-left flex items-start justify-between gap-3 cursor-pointer"
-                      aria-expanded={isExpanded}
-                    >
-                      <div className="space-y-1.5 flex-1 pr-2">
-                        <div className="flex items-center gap-2 text-xs">
-                          <span className="font-semibold text-[#9E3D28]">
-                            {isKn ? pkg.badgeKn : pkg.badgeEn}
-                          </span>
-                          <span className="text-[#263F32]/30">·</span>
-                          <span className="inline-flex items-center gap-1 text-[#263F32]/70 font-medium text-[11px]">
-                            <Clock className="w-3 h-3 text-[#D4AF37]" />
-                            {isKn ? pkg.durationKn : pkg.durationEn}
-                          </span>
-                        </div>
-                        <h4 className="text-base sm:text-lg font-bold font-serif-editorial text-[#162E22] leading-snug">
-                          {isKn ? pkg.titleKn : pkg.titleEn}
-                        </h4>
-                      </div>
-
-                      <div
-                        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-transform duration-200 ${
-                          isExpanded
-                            ? 'bg-[#162E22] text-[#F5D77F] rotate-180'
-                            : 'bg-[#263F32]/5 text-[#263F32]'
-                        }`}
-                      >
-                        <ChevronDown className="w-4 h-4" />
-                      </div>
-                    </button>
-
-                    {/* Unfolded Details (Immediate visual response right in place) */}
-                    {isExpanded && (
-                      <div className="px-4 pb-5 sm:px-5 sm:pb-6 pt-1 border-t border-[#263F32]/10 space-y-4 animate-fadeIn">
-                        {/* Package Image */}
-                        <div className="relative rounded-xl overflow-hidden aspect-16/9 shadow-xs mt-2">
-                          <img
-                            src={pkg.image}
-                            alt={pkg.imageAlt}
-                            className="w-full h-full object-cover img-vignette"
-                          />
-                          <div className="absolute top-2.5 left-2.5 bg-[#162E22]/90 backdrop-blur-xs border border-[#D4AF37]/40 text-[#F5D77F] text-[11px] font-semibold px-2.5 py-0.5 rounded-full shadow-xs">
-                            {isKn ? pkg.badgeKn : pkg.badgeEn}
-                          </div>
-                          <div className="absolute bottom-2.5 right-2.5 bg-black/75 backdrop-blur-xs text-[#F6F3EA] text-[11px] font-medium px-2.5 py-0.5 rounded-full flex items-center gap-1 border border-white/10">
-                            <Clock className="w-3 h-3 text-[#D4AF37]" />
-                            {isKn ? pkg.durationKn : pkg.durationEn}
-                          </div>
-                        </div>
-
-                        {/* Signature Highlights */}
-                        <div className="space-y-1.5 pt-1">
-                          <h5 className="text-[11px] font-bold uppercase tracking-wider text-[#162E22]/70">
-                            {isKn ? 'ಪ್ರಮುಖ ಆಕರ್ಷಣೆಗಳು' : 'Signature Highlights'}
-                          </h5>
-                          <div className="space-y-1.5 text-xs text-[#252923]">
-                            {(isKn ? pkg.highlightsKn : pkg.highlightsEn).map((h, i) => (
-                              <div key={i} className="flex items-start gap-2">
-                                <Check className="w-3.5 h-3.5 text-emerald-700 mt-0.5 shrink-0" />
-                                <span>{h}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Sample Inclusions */}
-                        <div className="space-y-1.5 pt-3 border-t border-[#263F32]/10">
-                          <h5 className="text-[11px] font-bold uppercase tracking-wider text-[#162E22]/70">
-                            {isKn ? 'ಪ್ಯಾಕೇಜ್ ಒಳಗೊಂಡ ಸೌಲಭ್ಯಗಳು (ಮಾದರಿ)' : 'Sample Inclusions'}
-                          </h5>
-                          <div className="space-y-1.5 text-xs text-[#252923]/80">
-                            {(isKn ? pkg.inclusionsKn : pkg.inclusionsEn).map((inc, i) => (
-                              <div key={i} className="flex items-start gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-1.5 shrink-0" />
-                                <span>{inc}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Discrete Disclaimer Note */}
-                        <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-600/20 text-[11px] text-[#252923]/80">
-                          <span className="font-semibold text-[#8C462C]">
-                            {isKn ? 'ಸೂಚನೆ:' : 'Note:'}{' '}
-                          </span>
-                          {isKn ? pkg.samplePriceDisclaimerKn : pkg.samplePriceDisclaimerEn}
-                        </div>
-
-                        {/* Primary CTA */}
-                        <button
-                          type="button"
-                          onClick={() =>
-                            onOpenPlanner(
-                              isKn ? pkg.titleKn : pkg.titleEn,
-                              isKn ? pkg.badgeKn : pkg.badgeEn
-                            )
-                          }
-                          className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#162E22] text-[#F6F3EA] text-xs font-semibold hover:bg-[#1E3B2B] border border-[#D4AF37]/30 transition-all cursor-pointer shadow-xs active:scale-98"
-                        >
-                          <span>{isKn ? 'ಈ ಪ್ರವಾಸದ ಕುರಿತು ವಿಚಾರಿಸಿ' : 'Inquire for This Package'}</span>
-                          <ArrowRight className="w-3.5 h-3.5 text-[#D4AF37]" />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* ============================================================== */}
-            {/* DESKTOP VIEW (>= lg): Split Selector & Luxury Spotlight        */}
-            {/* ============================================================== */}
-            <div className="hidden lg:grid grid-cols-12 gap-8 items-start mt-8">
-              {/* Left Selector List */}
-              <div className="lg:col-span-5 space-y-3">
-                {filteredPackages.map((pkg) => {
-                  const isSelected = pkg.id === activePackage.id;
-                  return (
-                    <div
-                      key={pkg.id}
-                      onClick={() => setSelectedPackageId(pkg.id)}
-                      className={`p-4 rounded-xl border text-left transition-all duration-200 cursor-pointer ${
-                        isSelected
-                          ? 'border-l-4 border-l-[#D4AF37] border-y-[#263F32]/20 border-r-[#263F32]/20 bg-white shadow-sm -translate-y-0.5'
-                          : 'border-[#263F32]/12 hover:border-[#D4AF37]/50 bg-white/70 hover:bg-white'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between text-xs mb-1">
-                        <span className="font-semibold text-[#9E3D28]">
-                          {isKn ? pkg.badgeKn : pkg.badgeEn}
-                        </span>
-                        <span className="inline-flex items-center gap-1 text-[#263F32]/70 font-medium">
-                          <Clock className="w-3 h-3 text-[#D4AF37]" />
-                          {isKn ? pkg.durationKn : pkg.durationEn}
-                        </span>
-                      </div>
-                      <h4 className="text-base font-bold font-serif-editorial text-[#162E22] leading-snug">
-                        {isKn ? pkg.titleKn : pkg.titleEn}
-                      </h4>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Right Detail Spotlight */}
-              <div className="lg:col-span-7 bg-white rounded-2xl p-6 sm:p-8 border border-[#D4AF37]/35 shadow-xs relative overflow-hidden">
-                <div className="relative rounded-xl overflow-hidden aspect-16/9 mb-6 shadow-xs">
-                  <img
-                    src={activePackage.image}
-                    alt={activePackage.imageAlt}
-                    className="w-full h-full object-cover img-vignette transition-transform duration-700 hover:scale-105"
-                  />
-                  <div className="absolute top-3 left-3 bg-[#162E22]/90 backdrop-blur-xs border border-[#D4AF37]/40 text-[#F5D77F] text-xs font-semibold px-3 py-1 rounded-full shadow-xs">
-                    {isKn ? activePackage.badgeKn : activePackage.badgeEn}
-                  </div>
-                  <div className="absolute bottom-3 right-3 bg-black/75 backdrop-blur-xs text-[#F6F3EA] text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1 border border-white/10">
-                    <Clock className="w-3.5 h-3.5 text-[#D4AF37]" />
-                    {isKn ? activePackage.durationKn : activePackage.durationEn}
-                  </div>
-                </div>
-
-                <h3 className="text-2xl font-bold font-serif-editorial text-[#162E22]">
-                  {isKn ? activePackage.titleKn : activePackage.titleEn}
-                </h3>
-
-                {/* Highlights */}
-                <div className="mt-5 space-y-2">
-                  <h5 className="text-xs font-bold uppercase tracking-wider text-[#162E22]/70">
-                    {isKn ? 'ಪ್ರಮುಖ ಆಕರ್ಷಣೆಗಳು' : 'Signature Highlights'}
-                  </h5>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#252923]">
-                    {(isKn ? activePackage.highlightsKn : activePackage.highlightsEn).map((h, i) => (
-                      <div key={i} className="flex items-start gap-2">
-                        <Check className="w-3.5 h-3.5 text-emerald-700 mt-0.5 shrink-0" />
-                        <span>{h}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Inclusions */}
-                <div className="mt-5 space-y-2 pt-4 border-t border-[#263F32]/10">
-                  <h5 className="text-xs font-bold uppercase tracking-wider text-[#162E22]/70">
-                    {isKn ? 'ಪ್ಯಾಕೇಜ್ ಒಳಗೊಂಡ ಸೌಲಭ್ಯಗಳು (ಮಾದರಿ)' : 'Sample Inclusions'}
-                  </h5>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#252923]/80">
-                    {(isKn ? activePackage.inclusionsKn : activePackage.inclusionsEn).map((inc, i) => (
-                      <div key={i} className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-1.5 shrink-0" />
-                        <span>{inc}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Disclaimer banner */}
-                <div className="mt-5 p-3 rounded-lg bg-amber-500/10 border border-amber-600/20 text-[11px] text-[#252923]/80">
-                  <span className="font-semibold text-[#8C462C]">
-                    {isKn ? 'ಸೂಚನೆ:' : 'Note:'}{' '}
-                  </span>
-                  {isKn ? activePackage.samplePriceDisclaimerKn : activePackage.samplePriceDisclaimerEn}
-                </div>
-
-                {/* Action button */}
-                <div className="mt-6 pt-2 flex flex-col sm:flex-row gap-3">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      onOpenPlanner(
-                        isKn ? activePackage.titleKn : activePackage.titleEn,
-                        isKn ? activePackage.badgeKn : activePackage.badgeEn
-                      )
-                    }
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#162E22] text-[#F6F3EA] text-sm font-semibold hover:bg-[#1E3B2B] border border-[#D4AF37]/30 transition-colors cursor-pointer shadow-xs active:scale-95"
-                  >
-                    <span>{isKn ? 'ಈ ಪ್ರವಾಸದ ಕುರಿತು ವಿಚಾರಿಸಿ' : 'Inquire for This Package'}</span>
-                    <ArrowRight className="w-4 h-4 text-[#D4AF37]" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+      {/* Service 04: School & Educational Trips */}
+      <div className="service-school section-pad" id="service-school">
+        <div className="school-art">
+          <div className="arch">
+            <img
+              alt="Himalayan heritage architecture"
+              src="https://images.unsplash.com/photo-1736914309887-6403a7a7b9b8?auto=format&fit=crop&w=1000&q=85"
+              loading="lazy"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = '/images/south_indian_temple.jpg';
+              }}
+            />
+          </div>
+          <span className="orbit">LEARN · WONDER · CONNECT ·</span>
         </div>
-
-        {/* Subtle Cultural Section Divider */}
-        <div className="section-divider-forest my-16 lg:my-20" />
-
-        {/* ============================================================== */}
-        {/* SERVICE 2: CORPORATE EVENTS & TEAM OUTINGS                     */}
-        {/* ============================================================== */}
-        <div id="service-corporate" className="mb-20 lg:mb-24 scroll-mt-24">
-          <motion.div
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="rounded-3xl bg-linear-to-br from-[#12261C] via-[#1A382A] to-[#12261C] text-[#F6F3EA] p-6 sm:p-10 lg:p-14 shadow-2xl border border-[#D4AF37]/30 relative overflow-hidden"
+        <div className="school-copy">
+          <span>{kn ? '೦೪ / ಶಾಲಾ ಮತ್ತು ಶೈಕ್ಷಣಿಕ ಪ್ರವಾಸಗಳು' : '04 / SCHOOL & EDUCATIONAL TRIPS'}</span>
+          <h3>
+            {kn
+              ? 'ಜಗತ್ತೇ ಅತ್ಯಂತ ಸಜೀವ ತರಗತಿ.'
+              : 'The world is the most vivid classroom.'}
+          </h3>
+          <p>
+            {kn
+              ? 'ಇತಿಹಾಸ, ಸಂಸ್ಕೃತಿ, ಪರಿಸರ ಮತ್ತು ಸಮುದಾಯವನ್ನು ವಿದ್ಯಾರ್ಥಿಗಳು ನೆನಪಿಡುವ ಅನುಭವಗಳಾಗಿ ಪರಿವರ್ತಿಸುವ ಚಿಂತನಶೀಲ ಶೈಕ್ಷಣಿಕ ಪ್ರವಾಸಗಳು.'
+              : 'Thoughtfully organised educational excursions that turn history, culture, ecology and community into experiences students remember.'}
+          </p>
+          <button
+            type="button"
+            className="button button-dark"
+            onClick={onOpenSchoolModal}
           >
-            {/* Top delicate gold hairline */}
-            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent" />
-
-            {/* Visual background accents & Royal Ambari Elephant Watermark */}
-            <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-[#D4AF37]/10 blur-3xl pointer-events-none" />
-            <div className="hidden sm:block absolute right-8 top-12 w-64 h-56 text-[#D4AF37] opacity-10 pointer-events-none select-none">
-              <AmbariElephant className="w-full h-full" color="#D4AF37" />
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-              {/* Left Column: Story & Offerings */}
-              <div className="lg:col-span-7 space-y-6">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#F5D77F] uppercase tracking-wider">
-                  <AmbariElephant className="w-5 h-5 text-[#D4AF37]" />
-                  <span>02. {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಕಾರ್ಯಕ್ರಮಗಳು & ಟೀಮ್ ಔಟಿಂಗ್' : 'Corporate Events & Team Outings'}</span>
-                </div>
-
-                <h3 className="text-3xl sm:text-4xl font-bold font-serif-editorial tracking-tight text-white leading-tight">
-                  {isKn
-                    ? 'ಕಂಪನಿಯ ಸಂಭ್ರಮ, ಟೀಮ್ ಬಿಲ್ಡಿಂಗ್ ಹಾಗೂ ಆಫ್‌ಸೈಟ್ ಸಭೆಗಳು.'
-                    : 'Polished retreats, spirited team outings & off-site summits.'}
-                </h3>
-
-                <p className="text-sm sm:text-base text-[#F6F3EA]/85 leading-relaxed">
-                  {isKn
-                    ? 'ಸ್ಟಾರ್ಟ್‌ಅಪ್‌ಗಳಿಂದ ಹಿಡಿದು ಬಹುರಾಷ್ಟ್ರೀಯ ಕಂಪನಿಗಳವರೆಗೆ — ಉದ್ಯೋಗಿಗಳ ಒಗ್ಗಟ್ಟು ಹೆಚ್ಚಿಸುವ ಚಟುವಟಿಕೆಗಳು, ವಾರ್ಷಿಕ ಸಂಭ್ರಮಗಳು ಹಾಗೂ ಕಾನ್ಫರೆನ್ಸ್‌ಗಳಿಗೆ ನಾವು ಪರಿಪೂರ್ಣ ವ್ಯವಸ್ಥೆ ಮಾಡುತ್ತೇವೆ. ಸಾರಿಗೆ, ರೆಸಾರ್ಟ್ ಬುಕಿಂಗ್, ಆಡಿಯೋ-ವಿಶುಯಲ್ ಸೆಟಪ್ ಮತ್ತು ರುಚಿಕರ ಊಟೋಪಚಾರ ಒಂದೇ ಸೂರಿನಡಿ.'
-                    : 'From growing startups to enterprise divisions — we orchestrate memorable off-sites, leadership conferences, team-bonding challenges, and annual galas with seamless travel coordination and personal warmth.'}
-                </p>
-
-                {/* 6 Category Offerings */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                  {[
-                    {
-                      kn: 'ಕಾರ್ಪೊರೇಟ್ ಟೀಮ್ ಔಟಿಂಗ್ (Team Outings)',
-                      en: 'Corporate Team Outings',
-                      subKn: 'ಚಿಕ್ಕಮಗಳೂರು, ಕೂರ್ಗ್, ಕಬಿನಿ ರೆಸಾರ್ಟ್‌ಗಳು',
-                      subEn: 'Coorg, Chikmagalur & Kabini resorts',
-                    },
-                    {
-                      kn: 'ಟೀಮ್ ಬಿಲ್ಡಿಂಗ್ ಆಟಗಳು (Team Activities)',
-                      en: 'Team-Building Activities',
-                      subKn: 'ನುರಿತ ಫೆಸಿಲಿಟೇಟರ್‌ಗಳ ಮಾರ್ಗದರ್ಶನ',
-                      subEn: 'Certified group facilitators & fun challenges',
-                    },
-                    {
-                      kn: 'ವಾರ್ಷಿಕ ಕಂಪನಿ ಸಂಭ್ರಮ (Company Celebrations)',
-                      en: 'Company Milestone Celebrations',
-                      subKn: 'ಗಾಲಾ ಡಿನ್ನರ್, ಸಾಂಸ್ಕೃತಿಕ ಸಂಜೆ, ಲೈವ್ ಸಂಗೀತ',
-                      subEn: 'Gala dinners, live acoustic sets & awards',
-                    },
-                    {
-                      kn: 'ಆಫ್‌ಸೈಟ್ ಕಾನ್ಫರೆನ್ಸ್ (Conferences & Seminars)',
-                      en: 'Conferences & Off-site Gatherings',
-                      subKn: 'ಪ್ರೊಜೆಕ್ಟರ್, ಸಭಾಂಗಣ, ಹೈ-ಟೀ & ಊಟೋಪಚಾರ',
-                      subEn: 'Boardroom AV setup, hi-tea & acoustics',
-                    },
-                    {
-                      kn: 'ಉದ್ಯೋಗಿ ತೊಡಗಿಸಿಕೊಳ್ಳುವಿಕೆ (Engagement Events)',
-                      en: 'Employee Engagement Drives',
-                      subKn: 'ಪರಿಸರ ನಡಿಗೆ, ಸಾಹಸ ಕ್ರೀಡೆ, ಯೋಗ ಶಿಬಿರಗಳು',
-                      subEn: 'Nature treks, wellness & creative workshops',
-                    },
-                    {
-                      kn: 'ಎಕ್ಸಿಕ್ಯೂಟಿವ್ ಸಾರಿಗೆ (Corporate Transit)',
-                      en: 'Corporate Travel Coordination',
-                      subKn: 'ಹವಾನಿಯಂತ್ರಿತ ಬಸ್ಸುಗಳು & ಪ್ರೀಮಿಯಂ ಕಾರುಗಳು',
-                      subEn: 'Sanitized luxury coaches & seamless transfers',
-                    },
-                  ].map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="p-3.5 rounded-xl bg-white/[0.06] border border-white/10 hover:border-[#D4AF37]/40 hover:bg-white/[0.1] transition-all duration-300 shadow-2xs"
-                    >
-                      <div className="text-xs sm:text-sm font-semibold text-white">
-                        {isKn ? item.kn : item.en}
-                      </div>
-                      <div className="text-[11px] text-[#F6F3EA]/70 mt-0.5">
-                        {isKn ? item.subKn : item.subEn}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Primary CTA */}
-                <div className="pt-4 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-                  <button
-                    type="button"
-                    onClick={onOpenCorporateModal}
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#9E3D28] text-[#F6F3EA] text-sm font-semibold hover:bg-[#853220] border border-[#D4AF37]/35 transition-all cursor-pointer shadow-md group active:scale-95"
-                  >
-                    <Building2 className="w-4 h-4 text-[#F5D77F]" />
-                    <span>{isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಕಾರ್ಯಕ್ರಮ ರೂಪಿಸಿ' : 'Plan a Corporate Event'}</span>
-                    <ArrowRight className="w-4 h-4 text-[#F5D77F] group-hover:translate-x-1 transition-transform" />
-                  </button>
-
-                  <span className="text-xs text-[#F6F3EA]/70">
-                    {isKn
-                      ? 'ತ್ವರಿತ ಪ್ರಸ್ತಾವನೆ & ಕಸ್ಟಮೈಸ್ಡ್ ಬಜೆಟ್ ಯೋಜನೆ'
-                      : 'Fast custom quotation & tailored venue options'}
-                  </span>
-                </div>
-              </div>
-
-              {/* Right Column: Visual Collages */}
-              <div className="lg:col-span-5 space-y-4">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-4/3">
-                  <img
-                    src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1000&q=80"
-                    alt="Corporate team event and conference gathering"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
-                    <span className="text-xs font-semibold text-[#D88D6F] uppercase tracking-wider">
-                      {isKn ? 'ವಿಶೇಷ ರೆಸಾರ್ಟ್ ಪಾಲುದಾರಿಕೆಗಳು' : 'Bespoke Resort Partnerships'}
-                    </span>
-                    <h5 className="text-base font-bold text-white font-serif-editorial">
-                      {isKn
-                        ? 'ಕೂರ್ಗ್, ಕಬಿನಿ ಮತ್ತು ಬೆಂಗಳೂರು ಹೊರವಲಯದ ಪ್ರಕೃತಿಧಾಮಗಳು'
-                        : 'Serene Coffee Estates & Riverfront Conference Retreats'}
-                    </h5>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="rounded-xl overflow-hidden aspect-4/3 relative border border-white/10">
-                    <img
-                      src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80"
-                      alt="Team building workshop"
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center p-2 text-center">
-                      <span className="text-[11px] font-semibold text-white">
-                        {isKn ? 'ಟೀಮ್ ಬಿಲ್ಡಿಂಗ್' : 'Team Challenges'}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="rounded-xl overflow-hidden aspect-4/3 relative border border-white/10">
-                    <img
-                      src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=600&q=80"
-                      alt="Evening gala celebration"
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center p-2 text-center">
-                      <span className="text-[11px] font-semibold text-white">
-                        {isKn ? 'ಗಾಲಾ ಸಂಜೆ' : 'Evening Galas'}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Subtle Cultural Section Divider */}
-        <div className="section-divider-gold my-16 lg:my-20" />
-
-        {/* ============================================================== */}
-        {/* SERVICE 3: CATERING & HOSPITALITY                              */}
-        {/* ============================================================== */}
-        <div id="service-catering" className="mb-20 lg:mb-24 scroll-mt-24">
-          <motion.div
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="rounded-3xl bg-[#FBF8F1] border border-[#9E3D28]/30 p-6 sm:p-10 lg:p-14 shadow-sm relative overflow-hidden"
-          >
-            {/* Top delicate terracotta hairline */}
-            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#9E3D28]/60 to-transparent" />
-            <div className="absolute -left-16 -bottom-16 w-64 h-64 bg-[#9E3D28]/[0.03] rounded-full blur-2xl pointer-events-none" />
-
-            {/* Header */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#263F32]/10">
-              <div className="max-w-2xl">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#9E3D28] uppercase tracking-wider mb-2">
-                  <BananaLeafIcon className="w-5 h-5 text-[#9E3D28]" />
-                  <span>03. {isKn ? 'ಆಹಾರ ಸೇವೆಗಳು & ಸಾಂಪ್ರದಾಯಿಕ ಆತಿಥ್ಯ' : 'Catering & Traditional Hospitality'}</span>
-                </div>
-                <h3 className="text-2xl sm:text-3xl font-bold font-serif-editorial text-[#162E22]">
-                  {isKn
-                    ? 'ರುಚಿಕರ ಶುದ್ಧ ಆಹಾರ, ಅಚ್ಚುಕಟ್ಟು ಪಂಕ್ತಿ ಸೇವೆ'
-                    : 'Authentic Flavors & Thoughtful Hospitality'}
-                </h3>
-                <p className="mt-2 text-sm sm:text-base text-[#252923]/75 leading-relaxed">
-                  {isKn
-                    ? 'ಕಾರ್ಪೊರೇಟ್ ಸಭೆಗಳು, ಶಾಲಾ ಸಮಾರಂಭಗಳು, ಪ್ರವಾಸದ ಹಾದಿಯಲ್ಲಿ ಬಿಸಿಬಿಸಿ ಊಟೋಪಚಾರ ಹಾಗೂ ಕೌಟುಂಬಿಕ ಸಮಾರಂಭಗಳಿಗೆ ಸೂಕ್ತವಾದ ಗುಣಮಟ್ಟದ ಆಹಾರ ವ್ಯವಸ್ಥೆ.'
-                    : 'Catering for corporate summits, school events, group transit dining, and family gatherings. Prepared with hygiene, served with traditional warmth.'}
-                </p>
-              </div>
-
-              <div className="shrink-0">
-                <button
-                  type="button"
-                  onClick={onOpenCateringModal}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#9E3D28] text-[#F6F3EA] text-sm font-semibold hover:bg-[#802D1B] border border-[#D4AF37]/30 transition-all cursor-pointer shadow-xs active:scale-95"
-                >
-                  <UtensilsCrossed className="w-4 h-4 text-[#F5D77F]" />
-                  <span>{isKn ? 'ಆಹಾರ ವಿವರಣೆ ಪಡೆಯಿರಿ' : 'Request Catering Details'}</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Sensory Photography Grid */}
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Card 1 */}
-              <div className="rounded-2xl bg-white overflow-hidden border border-[#263F32]/12 group shadow-2xs hover:shadow-md hover:border-[#9E3D28]/40 transition-all duration-300">
-                <div className="aspect-4/3 overflow-hidden">
-                  <img
-                    src="/images/south_indian_feast.jpg"
-                    alt="Traditional south indian feast on plantain banana leaf"
-                    className="w-full h-full object-cover img-warm-tone transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-5">
-                  <span className="text-xs font-semibold text-[#9E3D28] uppercase tracking-wider">
-                    {isKn ? 'ಸಾಂಪ್ರದಾಯಿಕ ಪಂಕ್ತಿ ಭೋಜನ' : 'Traditional Plantain Feasts'}
-                  </span>
-                  <h4 className="text-base font-bold font-serif-editorial text-[#162E22] mt-1">
-                    {isKn ? 'ಬಾಳೆ ಎಲೆ ಊಟ & ಸತ್ಕಾರ' : 'Banana Leaf Banquet & Poojas'}
-                  </h4>
-                  <p className="text-xs text-[#252923]/75 mt-1.5 leading-relaxed">
-                    {isKn
-                      ? 'ಕೌಟುಂಬಿಕ ಸಮಾರಂಭಗಳು, ಹಬ್ಬಗಳು ಹಾಗೂ ಪೂಜೆಗಳಿಗೆ ಶುದ್ಧ ಸಾತ್ವಿಕ ಅಡುಗೆ, ಪಾಯಸ, ಹಾಗೂ ಸಾಂಪ್ರದಾಯಿಕ ಸತ್ಕಾರ.'
-                      : 'Authentic festive feasts with payasa, regional delicacies, and traditional seated hospitality.'}
-                  </p>
-                </div>
-              </div>
-
-              {/* Card 2 */}
-              <div className="rounded-2xl bg-white overflow-hidden border border-[#263F32]/12 group shadow-2xs hover:shadow-md hover:border-[#9E3D28]/40 transition-all duration-300">
-                <div className="aspect-4/3 overflow-hidden">
-                  <img
-                    src="/images/south_indian_coffee.jpg"
-                    alt="Traditional South Indian filter coffee in etched brass davarah"
-                    className="w-full h-full object-cover img-warm-tone transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-5">
-                  <span className="text-xs font-semibold text-[#9E3D28] uppercase tracking-wider">
-                    {isKn ? 'ಕಾರ್ಪೊರೇಟ್ & ಹೈ-ಟೀ' : 'Corporate Buffets & Hi-Tea'}
-                  </span>
-                  <h4 className="text-base font-bold font-serif-editorial text-[#162E22] mt-1">
-                    {isKn ? 'ದಾವಣಗೆರೆ ಬೆಣ್ಣೆದೋಸೆ & ಫಿಲ್ಟರ್ ಕಾಫಿ' : 'Authentic Filter Coffee & High-Tea'}
-                  </h4>
-                  <p className="text-xs text-[#252923]/75 mt-1.5 leading-relaxed">
-                    {isKn
-                      ? 'ಕಾನ್ಫರೆನ್ಸ್‌ಗಳಿಗೆ ಅಪ್ಪಟ ಹಿತ್ತಾಳೆ ಲೋಟದ ಫಿಲ್ಟರ್ ಕಾಫಿ, ಗರಿಗರಿ ತಿಂಡಿಗಳು, ಮತ್ತು ಅಚ್ಚುಕಟ್ಟಾದ ಮಲ್ಟಿ-ಕುಸೀನ್ ಬಫೆ ಕೌಂಟರ್ ವ್ಯವಸ್ಥೆ.'
-                      : 'Traditional brass davarah filter coffee stations, regional savouries, and multi-cuisine lunch buffets for corporate gatherings.'}
-                  </p>
-                </div>
-              </div>
-
-              {/* Card 3 */}
-              <div className="rounded-2xl bg-white overflow-hidden border border-[#263F32]/12 group shadow-2xs hover:shadow-md hover:border-[#9E3D28]/40 transition-all duration-300">
-                <div className="aspect-4/3 overflow-hidden">
-                  <img
-                    src="/images/pure_veg_travel_meal.jpg"
-                    alt="Authentic 100% pure vegetarian South Indian travel meal box"
-                    className="w-full h-full object-cover img-warm-tone transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-5">
-                  <span className="text-xs font-semibold text-[#9E3D28] uppercase tracking-wider">
-                    {isKn ? 'ಶುದ್ಧ ಸಸ್ಯಾಹಾರಿ ಬಾಕ್ಸ್ ಮೀಲ್ಸ್' : 'Pure Veg Travel Packs'}
-                  </span>
-                  <h4 className="text-base font-bold font-serif-editorial text-[#162E22] mt-1">
-                    {isKn ? 'ಪೌಷ್ಟಿಕ ಶುದ್ಧ ಸಸ್ಯಾಹಾರಿ ಊಟ' : '100% Pure Vegetarian Travel Meals'}
-                  </h4>
-                  <p className="text-xs text-[#252923]/75 mt-1.5 leading-relaxed">
-                    {isKn
-                      ? 'ಪ್ರವಾಸದ ಮಾರ್ಗದಲ್ಲಿ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಹಾಗೂ ಪ್ರವಾಸಿಗರಿಗೆ ಶುದ್ಧ ಸಾತ್ವಿಕ, ಬಿಸಿ ಮತ್ತು ಪರಿಸರಸ್ನೇಹಿ ಪ್ಯಾಕ್ಡ್ ಸಸ್ಯಾಹಾರಿ ಊಟ.'
-                      : 'Wholesome, timely, and hygienic 100% pure vegetarian boxed meals during bus transits and student field trips.'}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Inquire Details Strip */}
-            <div className="mt-8 p-4 rounded-xl bg-white border border-[#9E3D28]/20 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#252923]">
-              <div className="flex items-center gap-2">
-                <Coffee className="w-4 h-4 text-[#9E3D28] shrink-0" />
-                <span>
-                  {isKn
-                    ? 'ಅತಿಥಿಗಳ ಸಂಖ್ಯೆ, ದಿನಾಂಕ, ಮೆನು ಶೈಲಿ ಹಾಗೂ ಲೈವ್ ಕೌಂಟರ್‌ಗಳ ಕುರಿತು ಮುಕ್ತವಾಗಿ ಚರ್ಚಿಸಿ.'
-                    : 'Inquire with your exact guest count, date, meal timings, and special dietary requests.'}
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={onOpenCateringModal}
-                className="font-bold underline text-[#9E3D28] hover:text-[#853220] cursor-pointer shrink-0"
-              >
-                {isKn ? 'ಮೆನು ವಿಚಾರಿಸಿ →' : 'Plan Catering Menu →'}
-              </button>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Subtle Cultural Section Divider */}
-        <div className="section-divider-forest my-16 lg:my-20" />
-
-        {/* ============================================================== */}
-        {/* SERVICE 4: SCHOOL TRIPS & EDUCATIONAL EVENTS                   */}
-        {/* ============================================================== */}
-        <div id="service-school" className="scroll-mt-24">
-          <motion.div
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="rounded-3xl bg-linear-to-br from-[#0B2117] via-[#123626] to-[#0B2117] text-[#F6F3EA] p-6 sm:p-10 lg:p-14 shadow-2xl border border-emerald-500/30 relative overflow-hidden"
-          >
-            {/* Top delicate emerald/gold hairline */}
-            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent" />
-
-            {/* Background elements */}
-            <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-              {/* Left Column: Visuals & Safety Pillars */}
-              <div className="lg:col-span-5 order-2 lg:order-1 space-y-4">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-4/3">
-                  <img
-                    src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1000&q=80"
-                    alt="School students on an educational field trip"
-                    className="w-full h-full object-cover img-vignette"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/25 to-transparent flex flex-col justify-end p-5">
-                    <span className="text-xs font-semibold text-emerald-300 uppercase tracking-wider">
-                      {isKn ? 'ಪ್ರಾಯೋಗಿಕ ಶಿಕ್ಷಣ & ಅನುಭವ' : 'Experiential Learning & Heritage'}
-                    </span>
-                    <h5 className="text-base font-bold text-white font-serif-editorial">
-                      {isKn
-                        ? 'ಪಠ್ಯಪುಸ್ತಕದ ಪಾಠಗಳು ಜೀವಂತವಾಗುವ ನೈಜ ಅನುಭವ'
-                        : 'History, Science & Nature brought to life'}
-                    </h5>
-                  </div>
-                </div>
-
-                {/* Safety Guarantee Matrix */}
-                <div className="p-4 rounded-xl bg-white/[0.08] border border-white/15 space-y-2.5 text-xs shadow-xs">
-                  <div className="font-bold text-emerald-200 flex items-center gap-1.5 text-xs uppercase tracking-wider">
-                    <ShieldCheck className="w-4 h-4 text-emerald-300" />
-                    <span>{isKn ? 'ಸುರಕ್ಷತೆ ನಮ್ಮ ಮೊದಲ ಆದ್ಯತೆ' : 'Safety-First Commitment'}</span>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[#F6F3EA]/85 text-[11px]">
-                    <div className="flex items-center gap-1.5">
-                      <Check className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
-                      <span>{isKn ? 'ಜಿಪಿಎಸ್ ಟ್ರ್ಯಾಕ್ಡ್ ವಾಹನಗಳು' : 'GPS-tracked insured coaches'}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <Check className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
-                      <span>{isKn ? 'ಪ್ರಥಮ ಚಿಕಿತ್ಸಾ ತರಬೇತಿ ಪಡೆದ ಮಾರ್ಷಲ್ಸ್' : 'First-aid certified trip marshals'}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <Check className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
-                      <span>{isKn ? 'ಶುದ್ಧ, ಪೌಷ್ಟಿಕ ಬಿಸಿ ಊಟ' : 'Hygienic wholesome meals'}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <Check className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
-                      <span>{isKn ? 'ವಿದ್ಯಾರ್ಥಿನಿಯರಿಗೆ ಪ್ರತ್ಯೇಕ ಸುರಕ್ಷತೆ' : 'Dedicated chaperone safety'}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column: Descriptions & Action */}
-              <div className="lg:col-span-7 order-1 lg:order-2 space-y-6">
-                <div className="flex items-center gap-2 text-xs font-semibold text-emerald-300 uppercase tracking-wider">
-                  <TempleBell className="w-4 h-4" />
-                  <span>04. {isKn ? 'ಶಾಲಾ ಪ್ರವಾಸಗಳು & ಶೈಕ್ಷಣಿಕ ಕಾರ್ಯಕ್ರಮಗಳು' : 'School Trips & Educational Events'}</span>
-                </div>
-
-                <h3 className="text-3xl sm:text-4xl font-bold font-serif-editorial tracking-tight text-white leading-tight">
-                  {isKn
-                    ? 'ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಜ್ಞಾನ, ಶಿಸ್ತು ಮತ್ತು ಮರೆಯಲಾಗದ ಸಾಹಸ.'
-                    : 'Safe, inspiring study tours & educational expeditions.'}
-                </h3>
-
-                <p className="text-sm sm:text-base text-[#F6F3EA]/85 leading-relaxed">
-                  {isKn
-                    ? 'ಶಾಲೆ, ಕಾಲೇಜು ಹಾಗೂ ಶಿಕ್ಷಣ ಸಂಸ್ಥೆಗಳಿಗೆ ವಿಶ್ವಾಸಾರ್ಹ ಪಾಲುದಾರರಾಗಿ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತೇವೆ. ಕರ್ನಾಟಕದ ಭವ್ಯ ಇತಿಹಾಸದ ತಾಣಗಳು (ಹಂಪಿ, ಬಾದಾಮಿ, ಮೈಸೂರು), ವಿಜ್ಞಾನ ಕೇಂದ್ರಗಳು (ತಾರಾಲಯ, HAL ಮ್ಯೂಸಿಯಂ), ಹಾಗೂ ಪರಿಸರ ಶಿಬಿರಗಳ ಸಮಗ್ರ ವ್ಯವಸ್ಥೆ.'
-                    : 'Trusted by school managements, educators, and parents. We design curriculum-aligned field trips, historical architectural tours, science expeditions, and annual picnics with verified logistics, nutritious meals, and structured student care.'}
-                </p>
-
-                {/* 4 Educational Circuits */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                  {[
-                    {
-                      kn: 'ಐತಿಹಾಸಿಕ & ವಾಸ್ತುಶಿಲ್ಪ ಅಧ್ಯಯನ',
-                      en: 'Heritage & UNESCO Circuits',
-                      subKn: 'ಹಂಪಿ, ಪಟ್ಟದಕಲ್ಲು, ಬೇಲೂರು, ಮೈಸೂರು ಅರಮನೆ',
-                      subEn: 'Hampi, Badami, Belur & Mysore Palace',
-                    },
-                    {
-                      kn: 'ವಿಜ್ಞಾನ & ಬಾಹ್ಯಾಕಾಶ ಪರಿಶೋಧನೆ',
-                      en: 'Science & Aerospace Expeditions',
-                      subKn: 'ನೆಹರೂ ತಾರಾಲಯ, HAL, ವಿಶ್ವೇಶ್ವರಯ್ಯ ಮ್ಯೂಸಿಯಂ',
-                      subEn: 'Planetarium, Visvesvaraya Museum & HAL',
-                    },
-                    {
-                      kn: 'ಪರಿಸರ ವಿಜ್ಞಾನ & ಪಶ್ಚಿಮ ಘಟ್ಟಗಳು',
-                      en: 'Ecology & Biodiversity Camps',
-                      subKn: 'ಮಲೆನಾಡು ಕಾಡುಗಳು, ಜೈವಿಕ ಉದ್ಯಾನವನಗಳು',
-                      subEn: 'Western Ghats trails & flora studies',
-                    },
-                    {
-                      kn: 'ವಾರ್ಷಿಕ ಶಾಲಾ ಪಿಕ್ನಿಕ್ & ಕ್ರೀಡೆ',
-                      en: 'Annual Picnics & Fun Retreats',
-                      subKn: 'ಮನರಂಜನಾ ಪಾರ್ಕ್, ಸಾಹಸ ಶಿಬಿರ, ಸಂವಾದ ಕೂಟ',
-                      subEn: 'Theme parks, team building & bonding camps',
-                    },
-                  ].map((circ, idx) => (
-                    <div
-                      key={idx}
-                      className="p-3.5 rounded-xl bg-white/[0.06] border border-white/10 hover:border-emerald-400/40 hover:bg-white/[0.1] transition-all duration-300 shadow-2xs"
-                    >
-                      <div className="text-xs sm:text-sm font-semibold text-white">
-                        {isKn ? circ.kn : circ.en}
-                      </div>
-                      <div className="text-[11px] text-[#F6F3EA]/70 mt-0.5">
-                        {isKn ? circ.subKn : circ.subEn}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Primary CTA */}
-                <div className="pt-4 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-                  <button
-                    type="button"
-                    onClick={onOpenSchoolModal}
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 text-[#0B2117] text-sm font-bold hover:bg-emerald-400 border border-emerald-300/40 transition-all cursor-pointer shadow-md group active:scale-95"
-                  >
-                    <GraduationCap className="w-4 h-4 text-[#0B2117]" />
-                    <span>{isKn ? 'ಶಾಲಾ ಪ್ರವಾಸ ರೂಪಿಸಿ' : 'Plan an Educational Trip'}</span>
-                    <ArrowRight className="w-4 h-4 text-[#0B2117] group-hover:translate-x-1 transition-transform" />
-                  </button>
-
-                  <span className="text-xs text-[#F6F3EA]/70">
-                    {isKn
-                      ? 'ಪೋಷಕರಿಗೆ ನಿರಾಳತೆ, ಶಿಕ್ಷಕರಿಗೆ ನೆಮ್ಮದಿ, ಮಕ್ಕಳಿಗೆ ಖುಷಿ'
-                      : 'Peace of mind for educators and parents alike'}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+            <span>{kn ? 'ಶೈಕ್ಷಣಿಕ ಪ್ರವಾಸ ರೂಪಿಸಿ' : 'Plan an educational trip'}</span>
+            <span aria-hidden="true">↗</span>
+          </button>
         </div>
       </div>
     </section>

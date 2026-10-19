@@ -1,8 +1,6 @@
 import React from 'react';
 import { Language } from '../types';
-import { translations } from '../data/translations';
-import { Compass, Globe, Mail, Phone, MapPin, Building2, UtensilsCrossed, GraduationCap, Heart } from 'lucide-react';
-import { AmbariElephant, KolamBorderRibbon, SikkuKolamMandala } from './SouthIndianMotifs';
+import { Mark } from './Header';
 
 interface FooterProps {
   language: Language;
@@ -10,6 +8,9 @@ interface FooterProps {
   onNavigateSection: (sectionId: string) => void;
   onOpenPlanner: () => void;
   onOpenContact: () => void;
+  onOpenCorporate?: () => void;
+  onOpenCatering?: () => void;
+  onOpenSchool?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -18,228 +19,210 @@ export const Footer: React.FC<FooterProps> = ({
   onNavigateSection,
   onOpenPlanner,
   onOpenContact,
+  onOpenCorporate,
+  onOpenCatering,
+  onOpenSchool,
 }) => {
-  const t = translations[language];
-  const isKn = language === 'kn';
+  const kn = language === 'kn';
+
+  const handleNavClick = (sectionId: string) => {
+    if (sectionId === 'top') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (sectionId === 'contact') {
+      onOpenContact();
+    } else {
+      onNavigateSection(sectionId);
+    }
+  };
 
   return (
-    <footer className="bg-[#0E1E16] text-[#F6F3EA] border-t border-[#D4AF37]/40 pt-16 pb-12 relative overflow-hidden">
-      {/* Kolam pattern overlay */}
-      <div className="absolute inset-0 bg-kolam-dark opacity-15 pointer-events-none mix-blend-overlay" />
-      {/* Continuous Kolam Looped Border Ribbon at top of footer */}
-      <div className="absolute top-0 left-0 right-0 h-2 opacity-25 overflow-hidden pointer-events-none">
-        <KolamBorderRibbon patternUnits={48} className="h-full" color="#D4AF37" dotColor="#F5D77F" />
+    <footer className="footer">
+      {/* Full-bleed photo invitation banner */}
+      <div className="footer-image">
+        <img
+          alt="Misty tea fields at dawn in Western Ghats"
+          src="https://images.unsplash.com/photo-1491497895121-1334fc14d8c9?auto=format&fit=crop&w=2000&q=88"
+          loading="lazy"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/images/hero_western_ghats_1791795450720.jpg';
+          }}
+        />
+        <div>
+          <span>{kn ? 'ನಿಮ್ಮ ಕಥೆ ಕಾಯುತ್ತಿದೆ' : 'YOUR STORY IS WAITING'}</span>
+          <h2>
+            {kn
+              ? 'ನಿಮ್ಮ ಮನಸ್ಸು ಮುಂದೆ ಎಲ್ಲಿಗೆ ಕರೆದೊಯ್ಯುತ್ತದೆ?'
+              : 'Where will your heart take you next?'}
+          </h2>
+          <p lang="kn">
+            {kn
+              ? 'ನಿಮ್ಮ ಮುಂದಿನ ಪ್ರಯಾಣ ಇಲ್ಲಿಂದ ಆರಂಭವಾಗುತ್ತದೆ.'
+              : 'ನಿಮ್ಮ ಮುಂದಿನ ಪ್ರಯಾಣ ಇಲ್ಲಿಂದ ಆರಂಭವಾಗುತ್ತದೆ.'}
+          </p>
+          <button
+            type="button"
+            className="button button-gold mx-auto mt-6"
+            onClick={onOpenPlanner}
+          >
+            <span>{kn ? 'ಪ್ರಯಾಣ ರೂಪಿಸಿ' : 'Plan your journey'}</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+        </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Main Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/10">
-          {/* Brand Col (2 cols) */}
-          <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-full bg-[#162E22] border border-[#D4AF37]/50 flex items-center justify-center text-[#F5D77F] shadow-[0_0_10px_rgba(212,175,55,0.25)]">
-                <AmbariElephant className="w-5.5 h-5.5" color="#D4AF37" />
-              </div>
-              <div>
-                <span className="text-xl font-bold font-serif-editorial tracking-tight text-[#F6F3EA] block">
-                  {isKn ? 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್' : 'Inchara Holidays'}
-                </span>
-                <span className="text-[10px] text-[#F5D77F] tracking-[0.14em] uppercase block font-medium">
-                  {isKn ? 'ಅತಿಥಿ ದೇವೋ ಭವ · ಪ್ರವಾಸ & ಆತಿಥ್ಯ' : 'Atithi Devo Bhava · Travel & Hospitality'}
-                </span>
-              </div>
-            </div>
+      {/* 3-column directory */}
+      <div className="footer-main section-pad">
+        <div className="footer-brand">
+          <a
+            className="brand brand-light"
+            href="#top"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          >
+            <Mark />
+            <span>
+              <strong lang="kn">ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್</strong>
+              <small>INCHARA HOLIDAYS</small>
+            </span>
+          </a>
+          <p>
+            {kn
+              ? 'ಚಿಂತನಶೀಲ ಪ್ರಯಾಣಗಳು, ನೈಜ ಅನುಭವಗಳು ಮತ್ತು ಹೃದಯಸ್ಪರ್ಶಿ ಆತಿಥ್ಯ.'
+              : 'Thoughtful journeys, genuine encounters,\nand hospitality from the heart.'}
+          </p>
+          <a href="mailto:hello@incharaholidays.com">hello@incharaholidays.com</a>
+          <a href="tel:+919900000000">+91 99000 00000</a>
+        </div>
 
-            <p className="text-xs text-[#F6F3EA]/70 leading-relaxed max-w-sm">
-              {t.footer.aboutText}
-            </p>
+        <div className="footer-links">
+          <div>
+            <span>{kn ? 'ತಾಣಗಳು & ವಿವರ' : 'EXPLORE'}</span>
+            <a
+              href="#destinations"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('destinations');
+              }}
+            >
+              {kn ? 'ತಾಣಗಳು' : 'Destinations'}
+            </a>
+            <a
+              href="#journeys"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('journeys');
+              }}
+            >
+              {kn ? 'ವಿಶೇಷ ಪಯಣಗಳು' : 'Signature journeys'}
+            </a>
+            <a
+              href="#experiences"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('experiences');
+              }}
+            >
+              {kn ? 'ಅನುಭವಗಳು' : 'Experiences'}
+            </a>
+            <a
+              href="#difference"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('difference');
+              }}
+            >
+              {kn ? 'ನಮ್ಮ ಕಥೆ' : 'About Inchara'}
+            </a>
+          </div>
 
-            <div className="text-xs text-[#D4AF37] font-serif-editorial italic">
-              {t.footer.blessing}
-            </div>
+          <div>
+            <span>{kn ? 'ಸೇವೆಗಳು' : 'SERVICES'}</span>
+            <button
+              type="button"
+              className="cursor-pointer hover:underline text-left"
+              onClick={onOpenCorporate || (() => handleNavClick('services'))}
+            >
+              {kn ? 'ಕಾರ್ಪೊರೇಟ್ ಕಾರ್ಯಕ್ರಮಗಳು' : 'Corporate events'}
+            </button>
+            <button
+              type="button"
+              className="cursor-pointer hover:underline text-left"
+              onClick={onOpenCatering || (() => handleNavClick('services'))}
+            >
+              {kn ? 'ಶುದ್ಧ ಸಸ್ಯಾಹಾರಿ ಕ್ಯಾಟರಿಂಗ್' : 'Catering & Hospitality'}
+            </button>
+            <button
+              type="button"
+              className="cursor-pointer hover:underline text-left"
+              onClick={onOpenSchool || (() => handleNavClick('services'))}
+            >
+              {kn ? 'ಶಾಲಾ ಶೈಕ್ಷಣಿಕ ಪ್ರವಾಸಗಳು' : 'School trips'}
+            </button>
+            <button
+              type="button"
+              className="cursor-pointer hover:underline text-left"
+              onClick={onOpenPlanner}
+            >
+              {kn ? 'ಪ್ರಯಾಣ ರೂಪಿಸಿ' : 'Plan your journey'}
+            </button>
+          </div>
 
-            {/* Language Switcher in Footer */}
-            <div className="pt-2 flex items-center gap-2 text-xs">
-              <Globe className="w-3.5 h-3.5 text-[#AAB69A]" />
+          <div>
+            <span>{kn ? 'ಸಂಪರ್ಕ' : 'CONNECT'}</span>
+            <a
+              href="https://wa.me/919900000000?text=Hello%20Inchara%20Holidays%2C%20I%20would%20like%20to%20plan%20a%20trip"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              WhatsApp ↗
+            </a>
+            <button
+              type="button"
+              onClick={onOpenContact}
+              className="cursor-pointer hover:underline text-left"
+            >
+              {kn ? 'ನೇರ ಸಂಪರ್ಕ' : 'Contact Enquiry'}
+            </button>
+
+            {/* Footer language toggle */}
+            <div
+              aria-label="Select language"
+              className="language-toggle language-toggle-footer inline-flex flex-row items-center mt-3"
+              role="group"
+            >
               <button
-                type="button"
-                onClick={() => onLanguageChange('kn')}
-                className={`transition-colors cursor-pointer ${
-                  language === 'kn' ? 'text-[#F6F3EA] font-bold underline' : 'text-[#F6F3EA]/60 hover:text-white'
+                aria-pressed={language === 'kn'}
+                className={`transition-colors cursor-pointer text-xs ${
+                  language === 'kn' ? 'active font-bold text-[#f5d77f]' : 'text-white/60 hover:text-white'
                 }`}
+                lang="kn"
+                onClick={() => onLanguageChange('kn')}
+                type="button"
               >
                 ಕನ್ನಡ
               </button>
-              <span className="opacity-30">/</span>
+              <span className="inline-block w-[1px] h-3 bg-white/35 mx-2" aria-hidden="true" />
               <button
-                type="button"
-                onClick={() => onLanguageChange('en')}
-                className={`transition-colors cursor-pointer ${
-                  language === 'en' ? 'text-[#F6F3EA] font-bold underline' : 'text-[#F6F3EA]/60 hover:text-white'
+                aria-pressed={language === 'en'}
+                className={`transition-colors cursor-pointer text-xs ${
+                  language === 'en' ? 'active font-bold text-[#f5d77f]' : 'text-white/60 hover:text-white'
                 }`}
+                onClick={() => onLanguageChange('en')}
+                type="button"
               >
-                English
+                EN
               </button>
             </div>
           </div>
-
-          {/* Col 2: Services Offerings (Expanded!) */}
-          <div>
-            <h4 className="text-xs uppercase tracking-wider text-[#AAB69A] font-semibold mb-4">
-              {isKn ? 'ನಮ್ಮ ಸೇವೆಗಳು' : 'Core Services'}
-            </h4>
-            <ul className="space-y-2.5 text-xs text-[#F6F3EA]/75">
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigateSection('service-packages')}
-                  className="hover:text-white transition-colors text-left flex items-center gap-1.5 cursor-pointer"
-                >
-                  <Compass className="w-3 h-3 text-[#D4AF37]" />
-                  <span>{t.nav.packages}</span>
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigateSection('service-corporate')}
-                  className="hover:text-white transition-colors text-left flex items-center gap-1.5 cursor-pointer"
-                >
-                  <Building2 className="w-3 h-3 text-[#D4AF37]" />
-                  <span>{t.nav.corporate}</span>
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigateSection('service-catering')}
-                  className="hover:text-white transition-colors text-left flex items-center gap-1.5 cursor-pointer"
-                >
-                  <UtensilsCrossed className="w-3 h-3 text-[#D4AF37]" />
-                  <span>{t.nav.catering}</span>
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigateSection('service-school')}
-                  className="hover:text-white transition-colors text-left flex items-center gap-1.5 cursor-pointer"
-                >
-                  <GraduationCap className="w-3 h-3 text-emerald-400" />
-                  <span>{t.nav.school}</span>
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigateSection('services')}
-                  className="text-[#F5D77F] hover:underline transition-colors text-left font-medium cursor-pointer"
-                >
-                  {isKn ? 'ಸಮಗ್ರ ಸೇವಾ ಅವಲೋಕನ →' : 'All Services Overview →'}
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 3: Destinations & Heritage */}
-          <div>
-            <h4 className="text-xs uppercase tracking-wider text-[#AAB69A] font-semibold mb-4">
-              {t.footer.popularDestinations}
-            </h4>
-            <ul className="space-y-2.5 text-xs text-[#F6F3EA]/75">
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigateSection('destinations')}
-                  className="hover:text-white transition-colors text-left cursor-pointer"
-                >
-                  {isKn ? 'ಕೊಡಗು (ಕೂರ್ಗ್) ಕಾಫಿ ಬೆಟ್ಟಗಳು' : 'Coorg (Kodagu) Hills'}
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigateSection('destinations')}
-                  className="hover:text-white transition-colors text-left cursor-pointer"
-                >
-                  {isKn ? 'ಹಂಪಿ ಶಿಲಾ ಪರಂಪರೆ (UNESCO)' : 'Hampi Heritage (UNESCO)'}
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigateSection('destinations')}
-                  className="hover:text-white transition-colors text-left cursor-pointer"
-                >
-                  {isKn ? 'ಗೋಕರ್ಣ ಕಡಲತೀರ & ದೇಗುಲ' : 'Gokarna Coastline'}
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigateSection('destinations')}
-                  className="hover:text-white transition-colors text-left cursor-pointer"
-                >
-                  {isKn ? 'ಚಿಕ್ಕಮಗಳೂರು ಮುಳ್ಳಯ್ಯನಗಿರಿ' : 'Chikkamagaluru Peaks'}
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigateSection('destinations')}
-                  className="hover:text-white transition-colors text-left cursor-pointer"
-                >
-                  {isKn ? 'ಮೈಸೂರು ಅರಮನೆ & ಪರಂಪರೆ' : 'Mysuru Royal Palace'}
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 4: Reach Out & Planning */}
-          <div>
-            <h4 className="text-xs uppercase tracking-wider text-[#AAB69A] font-semibold mb-4">
-              {t.footer.contactTitle}
-            </h4>
-            <div className="space-y-3 text-xs text-[#F6F3EA]/75">
-              <p className="text-[11px] text-[#AAB69A] leading-relaxed">
-                {t.footer.onlineServiceNote}
-              </p>
-              <div>
-                <button
-                  type="button"
-                  onClick={onOpenContact}
-                  className="text-left font-semibold text-[#F6F3EA] hover:text-[#F5D77F] transition-colors cursor-pointer"
-                >
-                  {isKn ? 'ವಿಚಾರಣೆ ಕಳುಹಿಸಿ (ಸಂಪರ್ಕಿಸಿ) →' : 'Send Enquiry Note →'}
-                </button>
-              </div>
-              <div>
-                <button
-                  type="button"
-                  onClick={onOpenPlanner}
-                  className="text-left text-[#F5D77F] hover:underline cursor-pointer"
-                >
-                  {isKn ? 'ಪ್ರವಾಸ ರೂಪಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ' : 'Start Trip Planning Flow'}
-                </button>
-              </div>
-              <div className="pt-2 text-[11px] text-[#AAB69A]/80">
-                <span>WhatsApp / Call: </span>
-                <span className="text-[#F6F3EA] font-mono">+91 94480 00000</span>
-              </div>
-            </div>
-          </div>
         </div>
+      </div>
 
-        {/* Bottom Strip */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#F6F3EA]/50">
-          <div className="flex items-center gap-2">
-            <AmbariElephant className="w-5 h-5 text-[#D4AF37]/60 shrink-0" color="#D4AF37" />
-            <span>{t.footer.copyright}</span>
-          </div>
-          <div className="text-[11px] text-center sm:text-right text-[#F5D77F]/60">
-            {t.footer.disclaimer}
-          </div>
-        </div>
+      <div className="footer-bottom" id="footer">
+        <span>© {new Date().getFullYear()} Inchara Holidays</span>
+        <span>{kn ? 'ನಿಧಾನವಾಗಿ ಪಯಣಿಸಿ. ಆಳವಾಗಿ ನೆನಪಿಸಿಕೊಳ್ಳಿ.' : 'Travel slowly. Remember deeply.'}</span>
+        <span>Privacy · Terms</span>
       </div>
     </footer>
   );

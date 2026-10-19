@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, UtensilsCrossed, CheckCircle2, Copy, Send, PhoneCall } from 'lucide-react';
 import { Language, CateringInquiryData } from '../types';
-import { BananaLeafIcon, KolamBorderRibbon, SikkuKolamMandala } from './SouthIndianMotifs';
+import { Mark } from './Header';
 
 interface CateringModalProps {
   isOpen: boolean;
@@ -182,11 +182,10 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
     });
   };
 
-  if (!isOpen) return null;
-
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 overflow-hidden">
+      {isOpen && (
+        <div className="fixed inset-0 z-50 overflow-hidden">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -199,74 +198,46 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
         {/* Modal / Sheet Container: Full-screen slide-up on mobile, right-docked side-sheet on larger screens */}
         <div className="fixed inset-0 flex flex-col justify-end lg:justify-stretch lg:items-end pointer-events-none">
           <motion.div
-            initial={{ y: '100%', opacity: 0.9 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: '100%', opacity: 0 }}
+            initial={{ x: '100%', opacity: 0.9 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: '100%', opacity: 0 }}
             transition={{
-              type: 'spring',
-              damping: 28,
-              stiffness: 280,
+              duration: 0.4,
+              ease: [0.16, 1, 0.3, 1],
             }}
-            className="pointer-events-auto relative w-full h-[94dvh] max-h-[96dvh] lg:h-full lg:max-h-full lg:w-[600px] xl:w-[660px] bg-[#FBF9F4] text-left shadow-2xl rounded-t-3xl lg:rounded-none lg:rounded-l-3xl border-t lg:border-t-0 lg:border-l border-[#D4AF37]/35 flex flex-col overflow-hidden"
+            className="pointer-events-auto relative w-full h-full lg:w-[620px] xl:w-[680px] bg-[#fbf8f1] text-left shadow-2xl rounded-none border-l border-[#d4af37]/35 flex flex-col overflow-hidden text-[#17261e]"
           >
             {/* Top Kasavu gold hairline */}
-            <div className="h-1 w-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#9E3D28]" />
+            <div className="h-[2px] w-full bg-gradient-to-r from-[#d4af37] via-[#f5d77f] to-[#9e3d28]" />
 
-            {/* Mobile pull handle */}
-            <div className="lg:hidden w-full flex items-center justify-center pt-2.5 pb-1 bg-[#9E3D28] shrink-0">
-              <div className="w-12 h-1.5 rounded-full bg-white/30" />
-            </div>
-
-            {/* Header */}
-            <div className="bg-[#9E3D28] text-[#F6F3EA] px-6 py-4 sm:py-5 relative shrink-0 shadow-xs overflow-hidden">
-              {/* Kolam Watermark in header */}
-              <div className="absolute -right-8 -bottom-8 w-36 h-36 opacity-15 pointer-events-none text-white">
-                <SikkuKolamMandala className="w-full h-full" />
+            {/* Editorial Header in Deep Sacred Green */}
+            <div className="px-6 py-5 bg-[#162e22] text-white flex items-center justify-between shrink-0 border-b border-white/10 relative overflow-hidden">
+              <div className="flex items-center gap-3.5 relative z-10">
+                <Mark />
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#f5d77f]">
+                      {isKn ? '೧೦೦% ಶುದ್ಧ ಸಸ್ಯಾಹಾರಿ ಆತಿಥ್ಯ' : '100% PURE VEGETARIAN HOSPITALITY'}
+                    </span>
+                  </div>
+                  <h3 className="font-normal font-serif text-xl sm:text-2xl text-white tracking-tight leading-tight">
+                    {isKn ? 'ಸಾಂಪ್ರದಾಯಿಕ ಆಹಾರ ಸೇವೆಗಳು' : 'Catering & Plantain Feasts'}
+                  </h3>
+                </div>
               </div>
 
-              {/* Close dialog button: high z-index, pointer-events-auto, isolated hit-area */}
               <button
                 type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onClose();
-                }}
-                className="absolute top-4 sm:top-5 right-4 sm:right-5 w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 text-[#F6F3EA] flex items-center justify-center transition-all cursor-pointer z-50 pointer-events-auto shadow-md"
+                onClick={onClose}
+                className="w-9 h-9 rounded-none border border-white/20 hover:border-white/50 text-white/80 hover:text-white flex items-center justify-center transition-all cursor-pointer z-50 pointer-events-auto bg-white/5 hover:bg-white/10"
                 aria-label="Close dialog"
-                data-cursor="Close"
               >
-                <X className="w-5 h-5 pointer-events-none" />
+                <X className="w-4 h-4" />
               </button>
-
-              <div className="pr-12 relative z-10">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <span className="p-1.5 rounded-lg bg-white/20 text-[#F5D77F] flex items-center justify-center">
-                    <BananaLeafIcon className="w-5 h-5 text-[#F5D77F]" />
-                  </span>
-                  <span className="text-xs tracking-wider uppercase font-semibold text-[#F5D77F]">
-                    {isKn ? 'ಆಹಾರ ಸೇವೆಗಳು & ಸಾಂಪ್ರದಾಯಿಕ ಆತಿಥ್ಯ' : 'Catering & South Indian Hospitality'}
-                  </span>
-                </div>
-                <h2 className="text-xl sm:text-2xl font-bold font-serif-editorial">
-                  {isKn ? 'ಆಹಾರ ಸೇವೆಗಳ ವಿವರಣೆ ಪಡೆಯಿರಿ' : 'Request Catering Details'}
-                </h2>
-                <p className="text-xs sm:text-sm text-[#F6F3EA]/90 mt-1">
-                  {isKn
-                    ? 'ಸಮಾರಂಭಗಳು, ಕಾರ್ಪೊರೇಟ್ ಸಭೆಗಳು ಹಾಗೂ ಬಾಳೆ ಎಲೆ ಸಾಂಪ್ರದಾಯಿಕ ಊಟೋಪಚಾರದ ನೈಜ ರುಚಿ.'
-                    : 'Delightful menus, authentic plantain leaf feasts, and seamless hospitality for your gatherings.'}
-                </p>
-              </div>
             </div>
 
-            {/* Continuous Sikku Kolam ribbon */}
-            <KolamBorderRibbon className="w-full h-3.5 shrink-0" color="#D4AF37" />
-
             {/* Form */}
-            <div className="p-5 sm:p-7 flex-1 overflow-y-auto relative bg-[#FBF9F4]">
-              {/* Subtle background Kolam watermark */}
-              <div className="absolute right-4 bottom-8 w-64 h-64 opacity-[0.035] pointer-events-none text-[#9E3D28]">
-                <SikkuKolamMandala className="w-full h-full" />
-              </div>
+            <div className="p-6 sm:p-8 flex-1 modal-scroll-pane relative bg-[#fbf8f1]">
               {!submitted ? (
                 <form onSubmit={handleSubmit} className="space-y-4 text-sm text-[#252923]">
                   {/* Name & Phone */}
@@ -460,15 +431,15 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                   <div className="pt-2 flex flex-col sm:flex-row gap-3">
                     <button
                       type="submit"
-                      className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#9E3D28] text-[#F6F3EA] font-semibold text-sm hover:bg-[#A3593B] transition-colors cursor-pointer shadow-sm"
+                      className="button button-dark !min-h-[2.85rem] !px-6 flex-1"
                     >
                       <Send className="w-4 h-4" />
-                      {isKn ? 'ಆಹಾರ ವಿವರಣೆ ಪ್ರಸ್ತಾವನೆ ಪಡೆಯಿರಿ' : 'Request Catering Quote'}
+                      <span>{isKn ? 'ಆಹಾರ ವಿವರಣೆ ಪ್ರಸ್ತಾವನೆ ಪಡೆಯಿರಿ' : 'Request Catering Quote'}</span>
                     </button>
                     <button
                       type="button"
                       onClick={onClose}
-                      className="px-5 py-3 rounded-lg border border-[#263F32]/20 text-[#263F32] text-sm font-medium hover:bg-[#263F32]/5 transition-colors cursor-pointer"
+                      className="button button-outline !text-[#162e22] !border-[#c9c5b9] hover:!bg-[#162e22] hover:!text-white !min-h-[2.85rem] !px-5"
                     >
                       {isKn ? 'ರದ್ದುಮಾಡಿ' : 'Cancel'}
                     </button>
@@ -476,21 +447,21 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                 </form>
               ) : (
                 <div className="text-center py-6 space-y-4">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-amber-100 text-[#9E3D28] flex items-center justify-center">
+                  <div className="w-14 h-14 mx-auto rounded-full bg-[#263F32]/10 text-[#263F32] flex items-center justify-center">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold font-serif-editorial text-[#263F32]">
+                    <h3 className="text-xl sm:text-2xl font-normal font-serif text-[#162e22]">
                       {isKn ? 'ಆಹಾರ ವಿವರಣೆ ಕೋರಿಕೆ ದಾಖಲಾಗಿದೆ!' : 'Catering Inquiry Submitted!'}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#252923]/80 mt-1 max-w-md mx-auto">
+                    <p className="text-xs sm:text-sm text-[#5b675f] mt-1 max-w-md mx-auto">
                       {isKn
                         ? `ಧನ್ಯವಾದಗಳು ${formData.fullName}. ನಮ್ಮ ಆತಿಥ್ಯ ಮತ್ತು ಮೆನು ಸಂಯೋಜಕರು ನಿಮ್ಮ ಕಾರ್ಯಕ್ರಮದ ದಿನಾಂಕ ಹಾಗೂ ಆದ್ಯತೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ ಸೂಕ್ತ ಮೆನು ಪ್ರಸ್ತಾವನೆಯೊಂದಿಗೆ ಸಂಪರ್ಕಿಸುತ್ತಾರೆ.`
                         : `Thank you, ${formData.fullName}. Our culinary coordinator will review your menu requirements and reach out with custom options and setup details.`}
                     </p>
                   </div>
 
-                  <div className="bg-[#9E3D28]/5 border border-[#9E3D28]/20 rounded-xl p-4 text-left text-xs font-mono text-[#252923] whitespace-pre-line">
+                  <div className="bg-[#fffdf7] border border-[#c9c5b9] rounded-xl p-4 text-left text-xs font-mono text-[#162e22] whitespace-pre-line">
                     {generateSummaryText()}
                   </div>
 
@@ -498,10 +469,10 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                     <button
                       type="button"
                       onClick={handleCopy}
-                      className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[#9E3D28]/40 text-[#8C462C] text-xs font-semibold hover:bg-[#9E3D28]/10 transition-colors cursor-pointer"
+                      className="button button-outline !text-[#162e22] !border-[#c9c5b9] hover:!bg-[#162e22] hover:!text-white !min-h-[2.6rem] !px-4 text-xs"
                     >
                       <Copy className="w-4 h-4" />
-                      {copied ? (isKn ? 'ನಕಲಿಸಲಾಗಿದೆ!' : 'Copied!') : isKn ? 'ಸಾರಾಂಶ ನಕಲಿಸಿ' : 'Copy Brief'}
+                      <span>{copied ? (isKn ? 'ನಕಲಿಸಲಾಗಿದೆ!' : 'Copied!') : isKn ? 'ಸಾರಾಂಶ ನಕಲಿಸಿ' : 'Copy Brief'}</span>
                     </button>
                     <a
                       href={`https://wa.me/919448000000?text=${encodeURIComponent(
@@ -509,15 +480,15 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#9E3D28] text-[#F6F3EA] text-xs font-semibold hover:bg-[#A3593B] transition-colors"
+                      className="button button-gold !min-h-[2.6rem] !px-4 text-xs"
                     >
                       <PhoneCall className="w-4 h-4" />
-                      {isKn ? 'ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಚರ್ಚಿಸಿ' : 'Discuss on WhatsApp'}
+                      <span>{isKn ? 'ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಚರ್ಚಿಸಿ' : 'Discuss on WhatsApp'}</span>
                     </a>
                     <button
                       type="button"
                       onClick={handleReset}
-                      className="px-4 py-2.5 rounded-lg text-xs font-medium text-[#252923]/70 hover:text-[#252923] transition-colors cursor-pointer"
+                      className="button button-text !text-[#5b675f] hover:!text-[#162e22] !min-h-[2.6rem] !px-3 text-xs"
                     >
                       {isKn ? 'ಮತ್ತೊಂದು ಕೋರಿಕೆ' : 'New Request'}
                     </button>
@@ -528,6 +499,7 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
           </motion.div>
         </div>
       </div>
+      )}
     </AnimatePresence>
   );
 };

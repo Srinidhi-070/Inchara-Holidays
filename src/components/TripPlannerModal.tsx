@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Language, TripPlanningFormData } from '../types';
 import { translations } from '../data/translations';
@@ -21,7 +21,7 @@ import {
   Shield,
   RefreshCw,
 } from 'lucide-react';
-import { AmbariElephant, LotusIcon, KolamBorderRibbon, SikkuKolamMandala } from './SouthIndianMotifs';
+import { Mark } from './Header';
 
 interface TripPlannerModalProps {
   isOpen: boolean;
@@ -68,6 +68,9 @@ export const TripPlannerModal: React.FC<TripPlannerModalProps> = ({
   }, [isOpen, onClose]);
 
   const [step, setStep] = useState<number>(1);
+  const [direction, setDirection] = useState<number>(1);
+  const contentRef = useRef<HTMLDivElement>(null);
+
   const [formData, setFormData] = useState<TripPlanningFormData>(() => {
     return {
       ...initialForm,
@@ -78,8 +81,8 @@ export const TripPlannerModal: React.FC<TripPlannerModalProps> = ({
   const [copied, setCopied] = useState<boolean>(false);
   const [validationError, setValidationError] = useState<string>('');
 
-  if (!isOpen) return null;
   const t = translations[language];
+  const kn = language === 'kn';
 
   const popularDestinationsList = [
     { kn: 'ಕೊಡಗು (ಕೂರ್ಗ್)', en: 'Coorg (Kodagu)' },
@@ -137,7 +140,7 @@ export const TripPlannerModal: React.FC<TripPlannerModalProps> = ({
     if (currentStep === 2) {
       if (formData.destinations.length === 0 && !formData.customDestination.trim()) {
         setValidationError(
-          language === 'kn'
+          kn
             ? 'ದಯವಿಟ್ಟು ಕನಿಷ್ಠ ಒಂದು ತಾಣವನ್ನು ಆರಿಸಿ ಅಥವಾ ಹೆಸರನ್ನು ನಮೂದಿಸಿ.'
             : 'Please select at least one destination or enter your desired location.'
         );
@@ -147,13 +150,13 @@ export const TripPlannerModal: React.FC<TripPlannerModalProps> = ({
     if (currentStep === 7) {
       if (!formData.fullName.trim()) {
         setValidationError(
-          language === 'kn' ? 'ದಯವಿಟ್ಟು ನಿಮ್ಮ ಹೆಸರನ್ನು ನಮೂದಿಸಿ.' : 'Please provide your full name.'
+          kn ? 'ದಯವಿಟ್ಟು ನಿಮ್ಮ ಹೆಸರನ್ನು ನಮೂದಿಸಿ.' : 'Please provide your full name.'
         );
         return false;
       }
       if (!formData.contactNumber.trim() && !formData.email.trim()) {
         setValidationError(
-          language === 'kn'
+          kn
             ? 'ದಯವಿಟ್ಟು ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ನಮೂದಿಸಿ.'
             : 'Please provide either a phone number or email address.'
         );
@@ -165,13 +168,17 @@ export const TripPlannerModal: React.FC<TripPlannerModalProps> = ({
 
   const handleNext = () => {
     if (validateStep(step)) {
+      setDirection(1);
       setStep((prev) => Math.min(prev + 1, 8));
+      contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   const handlePrev = () => {
     setValidationError('');
+    setDirection(-1);
     setStep((prev) => Math.max(prev - 1, 1));
+    contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const generateBriefSummaryText = (): string => {
@@ -182,20 +189,20 @@ export const TripPlannerModal: React.FC<TripPlannerModalProps> = ({
       .filter(Boolean)
       .join(', ');
 
-    return `*${language === 'kn' ? 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್ ಪ್ರವಾಸ ರೂಪರೇಷೆ' : 'Inchara Holidays Travel Brief'}*
+    return `*${kn ? 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್ ಪ್ರವಾಸ ರೂಪರೇಷೆ' : 'Inchara Holidays Travel Brief'}*
 ----------------------------------------
-• ${language === 'kn' ? 'ಪ್ರಯಾಣಿಕರ ಹೆಸರು' : 'Guest'}: ${formData.fullName || (language === 'kn' ? 'ಹೆಸರು ಇಲ್ಲ' : 'Traveller')}
-• ${language === 'kn' ? 'ವ್ಯಾಪ್ತಿ' : 'Scope'}: ${formData.scope.toUpperCase()}
-• ${language === 'kn' ? 'ಆಯ್ಕೆಯ ತಾಣಗಳು' : 'Destinations'}: ${selectedDests || (language === 'kn' ? 'ಸಮಾಲೋಚನೆಗೆ ಮುಕ್ತ' : 'Open to suggestions')}
-• ${language === 'kn' ? 'ಅವಧಿ' : 'Duration'}: ${formData.durationDays} ${language === 'kn' ? 'ದಿನಗಳು' : 'Days'} (${formData.travelMonth})
-• ${language === 'kn' ? 'ಹೊಂದಾಣಿಕೆ' : 'Flexibility'}: ${formData.flexibility}
-• ${language === 'kn' ? 'ಪ್ರಯಾಣಿಕರ ಸಂಖ್ಯೆ' : 'Travellers'}: ${formData.travellersCount} (${formData.travellerType})
-• ${language === 'kn' ? 'ಬಜೆಟ್ ಹಂತ' : 'Comfort Tier'}: ${formData.budgetTier}
-• ${language === 'kn' ? 'ಆಸಕ್ತಿ ಶೈಲಿಗಳು' : 'Styles'}: ${formData.styles.join(', ')}
-• ${language === 'kn' ? 'ವಿಶೇಷ ಕೋರಿಕೆ' : 'Notes'}: ${formData.specialNotes || 'None'}
-• ${language === 'kn' ? 'ಸಂಪರ್ಕ' : 'Contact'}: ${formData.contactNumber || formData.email} (${formData.preferredChannel})
+• ${kn ? 'ಪ್ರಯಾಣಿಕರ ಹೆಸರು' : 'Guest'}: ${formData.fullName || (kn ? 'ಹೆಸರು ಇಲ್ಲ' : 'Traveller')}
+• ${kn ? 'ವ್ಯಾಪ್ತಿ' : 'Scope'}: ${formData.scope.toUpperCase()}
+• ${kn ? 'ಆಯ್ಕೆಯ ತಾಣಗಳು' : 'Destinations'}: ${selectedDests || (kn ? 'ಸಮಾಲೋಚನೆಗೆ ಮುಕ್ತ' : 'Open to suggestions')}
+• ${kn ? 'ಅವಧಿ' : 'Duration'}: ${formData.durationDays} ${kn ? 'ದಿನಗಳು' : 'Days'} (${formData.travelMonth})
+• ${kn ? 'ಹೊಂದಾಣಿಕೆ' : 'Flexibility'}: ${formData.flexibility}
+• ${kn ? 'ಪ್ರಯಾಣಿಕರ ಸಂಖ್ಯೆ' : 'Travellers'}: ${formData.travellersCount} (${formData.travellerType})
+• ${kn ? 'ಬಜೆಟ್ ಹಂತ' : 'Comfort Tier'}: ${formData.budgetTier}
+• ${kn ? 'ಆಸಕ್ತಿ ಶೈಲಿಗಳು' : 'Styles'}: ${formData.styles.join(', ')}
+• ${kn ? 'ವಿಶೇಷ ಕೋರಿಕೆ' : 'Notes'}: ${formData.specialNotes || 'None'}
+• ${kn ? 'ಸಂಪರ್ಕ' : 'Contact'}: ${formData.contactNumber || formData.email} (${formData.preferredChannel})
 ----------------------------------------
-Generated via Inchara Holidays Prototype`;
+Generated via Inchara Holidays Studio`;
   };
 
   const handleCopySummary = async () => {
@@ -211,684 +218,768 @@ Generated via Inchara Holidays Prototype`;
 
   const handleOpenWhatsAppSample = () => {
     const text = encodeURIComponent(generateBriefSummaryText());
-    // Safe placeholder URL for prototype demonstration
-    const url = `https://wa.me/?text=${text}`;
+    const url = `https://wa.me/919900000000?text=${text}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   const handleReset = () => {
     setFormData(initialForm);
+    setDirection(-1);
     setStep(1);
     setValidationError('');
+    contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const stepVariants = {
+    enter: (dir: number) => ({
+      x: dir > 0 ? 32 : -32,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.32,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+    exit: (dir: number) => ({
+      x: dir > 0 ? -32 : 32,
+      opacity: 0,
+      transition: {
+        duration: 0.22,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    }),
   };
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 overflow-hidden">
+      {isOpen && (
+        <div className="fixed inset-0 z-50 overflow-hidden font-sans">
         {/* Dark backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="fixed inset-0 bg-black/70 backdrop-blur-xs transition-opacity"
+          transition={{ duration: 0.25 }}
+          className="fixed inset-0 bg-[#07140d]/80 backdrop-blur-md transition-opacity"
           onClick={onClose}
         />
 
-        {/* Modal / Sheet Container: Fullscreen slide-up on mobile, right-aligned side-sheet on desktop */}
-        <div className="fixed inset-0 flex flex-col justify-end lg:justify-stretch lg:items-end pointer-events-none">
+        {/* Modal / Sheet Container: Square architectural drawer sliding in from right */}
+        <div className="fixed inset-0 flex justify-end pointer-events-none">
           <motion.div
-            initial={{ y: '100%', opacity: 0.9 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: '100%', opacity: 0 }}
+            initial={{ x: '100%', opacity: 0.9 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: '100%', opacity: 0 }}
             transition={{
-              type: 'spring',
-              damping: 28,
-              stiffness: 280,
+              duration: 0.4,
+              ease: [0.16, 1, 0.3, 1],
             }}
-            className="pointer-events-auto relative w-full h-[94dvh] max-h-[96dvh] lg:h-full lg:max-h-full lg:w-[620px] xl:w-[680px] bg-[#FBF8F1] rounded-t-3xl lg:rounded-none lg:rounded-l-3xl shadow-2xl overflow-hidden border-t lg:border-t-0 lg:border-l border-[#D4AF37]/35 text-[#252923] flex flex-col"
+            className="pointer-events-auto relative w-full h-full lg:w-[620px] xl:w-[680px] bg-[#fbf8f1] rounded-none shadow-2xl overflow-hidden border-l border-[#d4af37]/35 text-[#17261e] flex flex-col"
           >
             {/* Top Kasavu gold hairline */}
-            <div className="h-1 w-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#9E3D28]" />
+            <div className="h-[2px] w-full bg-gradient-to-r from-[#d4af37] via-[#f5d77f] to-[#9e3d28]" />
 
-            {/* Mobile Sheet Pull Handle Bar */}
-            <div className="lg:hidden w-full flex items-center justify-center pt-2.5 pb-1 bg-[#263F32] shrink-0">
-              <div className="w-12 h-1.5 rounded-full bg-white/25" />
-            </div>
-
-            {/* Header */}
-            <div className="px-5 sm:px-6 py-3.5 sm:py-5 bg-[#263F32] text-[#F6F3EA] flex items-center justify-between shrink-0 shadow-xs relative overflow-hidden">
-              {/* Kolam Watermark in header */}
-              <div className="absolute right-12 -bottom-6 w-28 h-28 opacity-10 pointer-events-none text-[#F5D77F]">
-                <SikkuKolamMandala className="w-full h-full" />
-              </div>
-
-              <div className="flex items-center gap-3 relative z-10">
-                <div className="w-9 h-9 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 flex items-center justify-center text-[#F5D77F]">
-                  <AmbariElephant className="w-5 h-5 text-[#F5D77F]" />
-                </div>
+            {/* Editorial Header in Deep Sacred Green */}
+            <div className="px-6 py-5 bg-[#162e22] text-white flex items-center justify-between shrink-0 border-b border-white/10 relative overflow-hidden">
+              <div className="flex items-center gap-3.5 relative z-10">
+                <Mark />
                 <div>
-                  <h3 className="font-bold font-serif-editorial text-base sm:text-xl text-[#F6F3EA] flex items-center gap-2">
-                    {t.planner.modalTitle}
-                    <LotusIcon className="w-3.5 h-3.5 text-[#F5D77F]/80 hidden sm:inline-block" />
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#f5d77f]">
+                      {kn ? 'ಇಂಚಾರಾ ಪ್ರವಾಸ ಸ್ಟುಡಿಯೋ' : 'INCHARA TRAVEL STUDIO'}
+                    </span>
+                  </div>
+                  <h3 className="font-normal font-serif text-xl sm:text-2xl text-white tracking-tight leading-tight">
+                    {kn ? 'ನಿಮ್ಮ ಪ್ರಯಾಣ ರೂಪಿಸಿ' : 'Plan Your Journey'}
                   </h3>
-                  <p className="text-[11px] sm:text-xs text-[#AAB69A]">
-                    {t.planner.step} {step} {t.planner.of} 8: {t.planner.steps[`step${step}` as keyof typeof t.planner.steps]}
-                  </p>
                 </div>
               </div>
+
               <button
                 type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onClose();
-                }}
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white/90 flex items-center justify-center transition-all cursor-pointer z-50 pointer-events-auto shadow-md"
+                onClick={onClose}
+                className="w-9 h-9 rounded-none border border-white/20 hover:border-white/50 text-white/80 hover:text-white flex items-center justify-center transition-all cursor-pointer z-50 pointer-events-auto bg-white/5 hover:bg-white/10"
                 aria-label={t.modal.close}
-                data-cursor="Close"
               >
-                <X className="w-5 h-5 pointer-events-none" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
-            {/* Progress Bar */}
-            <div className="h-1 bg-[#263F32]/10 w-full shrink-0">
-              <div
-                className="h-full bg-[#D4AF37] transition-all duration-300"
-                style={{ width: `${(step / 8) * 100}%` }}
-              />
+            {/* Editorial Progress Bar */}
+            <div className="px-6 py-4 bg-[#f6f3ea] border-b border-[#c9c5b9]/50 shrink-0">
+              <div className="planner-progress !py-0 !border-0">
+                <span className="text-[#9e3d28] font-bold">
+                  {kn ? `ಹಂತ ೦${step} / ೦೮` : `STEP 0${step} OF 08`}
+                </span>
+                <div className="h-[2px] bg-[#ddd8ca] relative overflow-hidden">
+                  <motion.i
+                    className="block h-full bg-[#9e3d28]"
+                    initial={false}
+                    animate={{ width: `${(step / 8) * 100}%` }}
+                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  />
+                </div>
+                <AnimatePresence mode="wait">
+                  <motion.b
+                    key={step}
+                    initial={{ y: -8, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 8, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="font-serif text-[#9e3d28] text-2xl font-normal block"
+                  >
+                    0{step}
+                  </motion.b>
+                </AnimatePresence>
+              </div>
             </div>
 
-            {/* Continuous Sikku Kolam ribbon */}
-            <KolamBorderRibbon className="w-full h-3 shrink-0" color="#D4AF37" />
-
-            {/* Step Form Body */}
-            <div className="p-5 sm:p-8 flex-1 overflow-y-auto flex flex-col justify-between relative bg-[#FBF9F4]">
-              {/* Subtle background Kolam watermark */}
-              <div className="absolute right-4 bottom-8 w-64 h-64 opacity-[0.035] pointer-events-none text-[#263F32]">
-                <SikkuKolamMandala className="w-full h-full" />
-              </div>
-            <div className="space-y-6">
-              {/* STEP 1: Travel Scope */}
-              {step === 1 && (
-                <div className="space-y-6">
-                  <div className="space-y-1">
-                    <h4 className="text-xl font-bold font-serif-editorial text-[#263F32]">
-                      {t.planner.scopeQuestion}
-                    </h4>
-                    <p className="text-xs text-[#252923]/70">
-                      {language === 'kn'
-                        ? 'ಕರ್ನಾಟಕದ ಸುಂದರ ಮಲೆನಾಡು, ಕರಾವಳಿ, ಭಾರತದ ಪಯಣ ಅಥವಾ ವಿದೇಶದ ಸಾಹಸ.'
-                        : 'Explore local Karnataka sanctuaries, grand Indian circuits, or global frontiers.'}
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-2">
-                    {[
-                      {
-                        key: 'domestic',
-                        titleKn: 'ಕರ್ನಾಟಕ & ಭಾರತ',
-                        titleEn: 'Karnataka & India',
-                        descKn: 'ಮಲೆನಾಡು, ಕರಾವಳಿ, ಹಂಪಿ, ರಾಜಸ್ಥಾನ, ಹಿಮಾಲಯ...',
-                        descEn: 'Coorg, Gokarna, Hampi, Kerala, Rajasthan...',
-                      },
-                      {
-                        key: 'international',
-                        titleKn: 'ಅಂತಾರಾಷ್ಟ್ರೀಯ',
-                        titleEn: 'International',
-                        descKn: 'ಜಪಾನ್, ವಿಯೆಟ್ನಾಂ, ಯುರೋಪ್, ಬಾಲೀ...',
-                        descEn: 'Japan, Vietnam, Europe, Thailand...',
-                      },
-                      {
-                        key: 'both',
-                        titleKn: 'ಎರಡೂ ಆಯ್ಕೆಗಳು',
-                        titleEn: 'Open to Both',
-                        descKn: 'ಸಲಹೆ ಮತ್ತು ಬಜೆಟ್‌ಗೆ ತಕ್ಕಂತೆ ಆಲೋಚನೆ',
-                        descEn: 'Guidance based on season and mood',
-                      },
-                    ].map((item) => (
-                      <button
-                        key={item.key}
-                        type="button"
-                        onClick={() => setFormData({ ...formData, scope: item.key as any })}
-                        className={`p-4 rounded-xl border text-left transition-all ${
-                          formData.scope === item.key
-                            ? 'bg-[#263F32] text-[#F6F3EA] border-[#263F32] shadow-sm'
-                            : 'bg-white/80 border-[#263F32]/10 hover:border-[#263F32]/30 text-[#252923]'
-                        }`}
-                      >
-                        <div className="font-bold text-sm mb-1">
-                          {language === 'kn' ? item.titleKn : item.titleEn}
-                        </div>
-                        <div
-                          className={`text-xs ${
-                            formData.scope === item.key ? 'text-[#AAB69A]' : 'text-[#252923]/60'
-                          }`}
-                        >
-                          {language === 'kn' ? item.descKn : item.descEn}
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* STEP 2: Destination Preference */}
-              {step === 2 && (
-                <div className="space-y-6">
-                  <div className="space-y-1">
-                    <h4 className="text-xl font-bold font-serif-editorial text-[#263F32]">
-                      {t.planner.destinationQuestion}
-                    </h4>
-                    <p className="text-xs text-[#252923]/70">
-                      {language === 'kn'
-                        ? 'ಒಂದಕ್ಕಿಂತ ಹೆಚ್ಚು ತಾಣಗಳನ್ನು ಆರಿಸಬಹುದು; ನಾವು ಅತ್ಯುತ್ತಮ ಮಾರ್ಗವನ್ನು ಸಂಯೋಜಿಸುತ್ತೇವೆ.'
-                        : 'Select multiple stops; we craft the smoothest scenic connections between them.'}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {popularDestinationsList.map((dest, i) => {
-                      const name = language === 'kn' ? dest.kn : dest.en;
-                      const isSelected = formData.destinations.includes(name);
-                      return (
-                        <button
-                          key={i}
-                          type="button"
-                          onClick={() => handleToggleDestination(name)}
-                          className={`px-3 py-2 rounded-lg text-xs font-medium border transition-colors ${
-                            isSelected
-                              ? 'bg-[#263F32] text-[#F6F3EA] border-[#263F32] shadow-xs'
-                              : 'bg-white/80 text-[#252923] border-[#263F32]/15 hover:border-[#263F32]/40'
-                          }`}
-                        >
-                          {isSelected && '✓ '}
-                          {name}
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  <div className="pt-2">
-                    <label className="block text-xs font-semibold text-[#263F32] mb-1.5">
-                      {t.planner.destinationCustomPlaceholder}
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.customDestination}
-                      onChange={(e) => setFormData({ ...formData, customDestination: e.target.value })}
-                      placeholder={language === 'kn' ? 'ಉದಾಹರಣೆ: ಬೇಲೂರು, ಧರ್ಮಸ್ಥಳ, ಜೋಗ, ಬಾಲೀ...' : 'e.g. Belur, Dharmasthala, Bali...'}
-                      className="w-full px-3.5 py-2.5 rounded-lg border border-[#263F32]/20 bg-white/90 text-xs text-[#252923] focus:outline-none focus:ring-1 focus:ring-[#263F32]"
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* STEP 3: Dates & Duration */}
-              {step === 3 && (
-                <div className="space-y-6">
-                  <div className="space-y-1">
-                    <h4 className="text-xl font-bold font-serif-editorial text-[#263F32]">
-                      {t.planner.travelMonthQuestion}
-                    </h4>
-                    <p className="text-xs text-[#252923]/70">
-                      {language === 'kn'
-                        ? 'ನಿಮ್ಮ ಪ್ರಯಾಣದ ಸಮಯ ಮತ್ತು ಲಭ್ಯತೆಯ ಅಂದಾಜು ತಿಳಿಸಿ.'
-                        : 'Your preferred travel window helps us recommend weather-optimized circuits.'}
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-2">
-                    {months.map((m, i) => {
-                      const mLabel = language === 'kn' ? m.kn : m.en;
-                      const isSelected = formData.travelMonth === mLabel;
-                      return (
-                        <button
-                          key={i}
-                          type="button"
-                          onClick={() => setFormData({ ...formData, travelMonth: mLabel })}
-                          className={`p-3 rounded-lg border text-xs text-center font-medium transition-colors ${
-                            isSelected
-                              ? 'bg-[#263F32] text-[#F6F3EA] border-[#263F32]'
-                              : 'bg-white/80 text-[#252923] border-[#263F32]/15 hover:border-[#263F32]/40'
-                          }`}
-                        >
-                          {mLabel}
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {/* Trip Duration Slider */}
-                  <div className="pt-4 border-t border-[#263F32]/10 space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-[#263F32]">
-                        {t.planner.durationQuestion}
-                      </span>
-                      <span className="text-sm font-bold text-[#9E3D28]">
-                        {formData.durationDays} {t.planner.daysLabel}
-                      </span>
-                    </div>
-                    <input
-                      type="range"
-                      min={2}
-                      max={14}
-                      value={formData.durationDays}
-                      onChange={(e) => setFormData({ ...formData, durationDays: Number(e.target.value) })}
-                      className="w-full accent-[#263F32] cursor-pointer"
-                    />
-                    <div className="flex justify-between text-[10px] text-[#252923]/50">
-                      <span>2 {t.planner.daysLabel} (Weekend)</span>
-                      <span>7 {t.planner.daysLabel} (Week)</span>
-                      <span>14 {t.planner.daysLabel} (Extended)</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* STEP 4: Travellers & Group */}
-              {step === 4 && (
-                <div className="space-y-6">
-                  <div className="space-y-1">
-                    <h4 className="text-xl font-bold font-serif-editorial text-[#263F32]">
-                      {t.planner.travellerTypeQuestion}
-                    </h4>
-                    <p className="text-xs text-[#252923]/70">
-                      {language === 'kn'
-                        ? 'ಪ್ರಯಾಣಿಕರ ಸ್ವರೂಪಕ್ಕೆ ತಕ್ಕಂತೆ ವಾಹನ ಮತ್ತು ವಾಸ್ತವ್ಯವನ್ನು ಸಿದ್ಧಪಡಿಸಲಾಗುತ್ತದೆ.'
-                        : 'Ensures appropriate vehicle sizing, elevator access, and tailored privacy.'}
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3 pt-2">
-                    {[
-                      { key: 'solo', label: t.planner.typeSolo, descKn: 'ಶಾಂತ ಏಕಾಂಗಿ ಅನ್ವೇಷಣೆ', descEn: 'Unhurried solo discovery' },
-                      { key: 'couple', label: t.planner.typeCouple, descKn: 'ಏಕಾಂತ & ರೊಮ್ಯಾಂಟಿಕ್', descEn: 'Intimate & picturesque' },
-                      { key: 'family', label: t.planner.typeFamily, descKn: 'ಹಿರಿಯರು & ಮಕ್ಕಳಿಗೆ ಸುಲಭ ನಡಿಗೆ', descEn: 'Spacious & senior-friendly' },
-                      { key: 'friends', label: t.planner.typeFriends, descKn: 'ಸಾಹಸ & ಉತ್ಸಾಹದ ಗುಂಪು', descEn: 'Energetic group discovery' },
-                    ].map((item) => (
-                      <button
-                        key={item.key}
-                        type="button"
-                        onClick={() => setFormData({ ...formData, travellerType: item.key as any })}
-                        className={`p-3.5 rounded-xl border text-left transition-colors ${
-                          formData.travellerType === item.key
-                            ? 'bg-[#263F32] text-[#F6F3EA] border-[#263F32]'
-                            : 'bg-white/80 text-[#252923] border-[#263F32]/15 hover:border-[#263F32]/40'
-                        }`}
-                      >
-                        <div className="text-xs font-bold mb-0.5">{item.label}</div>
-                        <div
-                          className={`text-[11px] ${
-                            formData.travellerType === item.key ? 'text-[#AAB69A]' : 'text-[#252923]/60'
-                          }`}
-                        >
-                          {language === 'kn' ? item.descKn : item.descEn}
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Traveller count counter */}
-                  <div className="pt-4 border-t border-[#263F32]/10 flex items-center justify-between">
-                    <span className="text-xs font-semibold text-[#263F32]">
-                      {t.planner.travellersQuestion}
-                    </span>
-                    <div className="flex items-center gap-3">
-                      <button
-                        type="button"
-                        onClick={() => setFormData({ ...formData, travellersCount: Math.max(1, formData.travellersCount - 1) })}
-                        className="w-8 h-8 rounded-md bg-white border border-[#263F32]/20 font-bold text-sm text-[#263F32] hover:bg-[#263F32]/5"
-                      >
-                        -
-                      </button>
-                      <span className="text-base font-bold text-[#263F32] w-6 text-center tabular-nums">
-                        {formData.travellersCount}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => setFormData({ ...formData, travellersCount: Math.min(20, formData.travellersCount + 1) })}
-                        className="w-8 h-8 rounded-md bg-white border border-[#263F32]/20 font-bold text-sm text-[#263F32] hover:bg-[#263F32]/5"
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* STEP 5: Travel Styles & Interests */}
-              {step === 5 && (
-                <div className="space-y-6">
-                  <div className="space-y-1">
-                    <h4 className="text-xl font-bold font-serif-editorial text-[#263F32]">
-                      {t.planner.stylesQuestion}
-                    </h4>
-                    <p className="text-xs text-[#252923]/70">
-                      {language === 'kn'
-                        ? 'ನಿಮ್ಮ ಆಸಕ್ತಿಗಳನ್ನು ಆರಿಸಿ; ನಾವು ಸೂಕ್ತ ಸ್ಥಳಗಳನ್ನು ಜೋಡಿಸುತ್ತೇವೆ.'
-                        : 'Select what moves your spirit so we calibrate your stops and views.'}
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
-                    {travelStylesList.map((st) => {
-                      const label = language === 'kn' ? st.kn : st.en;
-                      const isSelected = formData.styles.includes(label);
-                      return (
-                        <button
-                          key={st.id}
-                          type="button"
-                          onClick={() => handleToggleStyle(label)}
-                          className={`p-3 rounded-lg border text-left text-xs font-medium transition-colors flex items-center justify-between ${
-                            isSelected
-                              ? 'bg-[#263F32] text-[#F6F3EA] border-[#263F32]'
-                              : 'bg-white/80 text-[#252923] border-[#263F32]/15 hover:border-[#263F32]/35'
-                          }`}
-                        >
-                          <span>{label}</span>
-                          {isSelected && <Check className="w-3.5 h-3.5 text-[#9E3D28]" />}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {/* STEP 6: Budget Tier & Special Requests */}
-              {step === 6 && (
-                <div className="space-y-6">
-                  <div className="space-y-1">
-                    <h4 className="text-xl font-bold font-serif-editorial text-[#263F32]">
-                      {t.planner.budgetQuestion}
-                    </h4>
-                    <p className="text-xs text-[#252923]/70">
-                      {language === 'kn'
-                        ? 'ವಾಸ್ತವ್ಯ ಮತ್ತು ಸಾರಿಗೆಯ ಆರಾಮದಾಯಕತೆಯ ಆಯ್ಕೆ.'
-                        : 'Calibration for accommodation standard and chauffeur category.'}
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                    {[
-                      { key: 'comfort', label: t.planner.budgetComfort, descKn: 'ಸ್ವಚ್ಛ, ವಿಶ್ವಾಸಾರ್ಹ ಮತ್ತು ಮಿತವ್ಯಯದ ವಾಸ್ತವ್ಯ', descEn: 'Clean, charming homestays & comfortable cars' },
-                      { key: 'premium', label: t.planner.budgetPremium, descKn: 'ಪ್ರಾಚೀನ ಎಸ್ಟೇಟ್ ಬಂಗಲೆಗಳು & ಹೆರಿಟೇಜ್ ರೆಸಾರ್ಟ್‌ಗಳು', descEn: 'Heritage plantation villas & boutique resorts' },
-                      { key: 'curated_luxury', label: t.planner.budgetLuxury, descKn: 'ವಿಶೇಷ ಐಷಾರಾಮಿ ಸೂಟ್‌ಗಳು & ಖಾಸಗಿ ವಾಹನ ವ್ಯವಸ್ಥೆ', descEn: 'Signature luxury retreats & bespoke transfers' },
-                    ].map((item) => (
-                      <button
-                        key={item.key}
-                        type="button"
-                        onClick={() => setFormData({ ...formData, budgetTier: item.key as any })}
-                        className={`p-4 rounded-xl border text-left transition-colors ${
-                          formData.budgetTier === item.key
-                            ? 'bg-[#263F32] text-[#F6F3EA] border-[#263F32]'
-                            : 'bg-white/80 text-[#252923] border-[#263F32]/15 hover:border-[#263F32]/35'
-                        }`}
-                      >
-                        <div className="text-xs font-bold mb-1">{item.label}</div>
-                        <div
-                          className={`text-[11px] ${
-                            formData.budgetTier === item.key ? 'text-[#AAB69A]' : 'text-[#252923]/60'
-                          }`}
-                        >
-                          {language === 'kn' ? item.descKn : item.descEn}
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-
-                  <div className="pt-2">
-                    <label className="block text-xs font-semibold text-[#263F32] mb-1.5">
-                      {language === 'kn' ? 'ವಿಶೇಷ ಆಸೆಗಳು ಅಥವಾ ಆಹಾರ ಪದ್ಧತಿ:' : 'Special Dietary or Accessibility Notes:'}
-                    </label>
-                    <textarea
-                      rows={2}
-                      value={formData.specialNotes}
-                      onChange={(e) => setFormData({ ...formData, specialNotes: e.target.value })}
-                      placeholder={t.planner.specialNotesPlaceholder}
-                      className="w-full px-3.5 py-2.5 rounded-lg border border-[#263F32]/20 bg-white/90 text-xs text-[#252923] focus:outline-none focus:ring-1 focus:ring-[#263F32]"
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* STEP 7: Contact Preferences */}
-              {step === 7 && (
-                <div className="space-y-6">
-                  <div className="space-y-1">
-                    <h4 className="text-xl font-bold font-serif-editorial text-[#263F32]">
-                      {t.planner.contactDetailsTitle}
-                    </h4>
-                    <p className="text-xs text-[#252923]/70">
-                      {language === 'kn'
-                        ? 'ರೂಪಿಸಿದ ದಿನಚರಿಯನ್ನು ನಿಮ್ಮೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲು ಸಂಪರ್ಕ ವಿವರಗಳನ್ನು ನೀಡಿ.'
-                        : 'Your blueprint will be customized and sent directly via your preferred channel.'}
-                    </p>
-                  </div>
-
-                  <div className="space-y-3.5 pt-2">
-                    <div>
-                      <label className="block text-xs font-semibold text-[#263F32] mb-1">
-                        {t.planner.fullName} *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.fullName}
-                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                        placeholder={language === 'kn' ? 'ನಿಮ್ಮ ಹೆಸರು' : 'Your Full Name'}
-                        className="w-full px-3.5 py-2.5 rounded-lg border border-[#263F32]/20 bg-white/90 text-xs text-[#252923] focus:outline-none focus:ring-1 focus:ring-[#263F32]"
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-xs font-semibold text-[#263F32] mb-1">
-                          {t.planner.phone}
-                        </label>
-                        <input
-                          type="tel"
-                          value={formData.contactNumber}
-                          onChange={(e) => setFormData({ ...formData, contactNumber: e.target.value })}
-                          placeholder="+91 98765 43210"
-                          className="w-full px-3.5 py-2.5 rounded-lg border border-[#263F32]/20 bg-white/90 text-xs text-[#252923] focus:outline-none focus:ring-1 focus:ring-[#263F32]"
-                        />
+            {/* Step Form Body: Smooth Scroll Container with luxury hairline scrollbar */}
+            <div
+              ref={contentRef}
+              className="p-6 sm:p-8 flex-1 overflow-y-auto modal-scroll-pane flex flex-col justify-between relative bg-[#fbf8f1]"
+            >
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={step}
+                  custom={direction}
+                  variants={stepVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  className="space-y-6"
+                >
+                  {/* STEP 1: Travel Scope */}
+                  {step === 1 && (
+                    <div className="space-y-5">
+                      <div className="space-y-1">
+                        <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-[#9e3d28]">
+                          ✦ {kn ? 'ಹಂತ ೦೧' : 'STARTING POINT'}
+                        </p>
+                        <h4 className="text-2xl sm:text-3xl font-normal font-serif text-[#162e22] tracking-tight">
+                          {t.planner.scopeQuestion}
+                        </h4>
+                        <p className="text-xs sm:text-sm text-[#5b675f] leading-relaxed">
+                          {kn
+                            ? 'ಕರ್ನಾಟಕದ ಸುಂದರ ಮಲೆನಾಡು, ಕರಾವಳಿ, ಭಾರತದ ಪಯಣ ಅಥವಾ ವಿದೇಶದ ಸಾಹಸ.'
+                            : 'Explore local Karnataka sanctuaries, grand Indian circuits, or global frontiers.'}
+                        </p>
                       </div>
-                      <div>
-                        <label className="block text-xs font-semibold text-[#263F32] mb-1">
-                          {t.planner.email}
+
+                      <div className="grid grid-cols-1 gap-3 pt-2">
+                        {[
+                          {
+                            key: 'domestic',
+                            sub: 'ಕರ್ನಾಟಕ & ಭಾರತ',
+                            title: kn ? 'ಕರ್ನಾಟಕ & ಭಾರತ' : 'Karnataka & India',
+                            desc: kn
+                              ? 'ಮಲೆನಾಡು, ಕರಾವಳಿ, ಹಂಪಿ, ರಾಜಸ್ಥಾನ, ಹಿಮಾಲಯ...'
+                              : 'Coorg, Gokarna, Hampi, Kerala, Rajasthan...',
+                          },
+                          {
+                            key: 'international',
+                            sub: 'ಅಂತಾರಾಷ್ಟ್ರೀಯ',
+                            title: kn ? 'ಅಂತರರಾಷ್ಟ್ರೀಯ' : 'International',
+                            desc: kn
+                              ? 'ಜಪಾನ್, ವಿಯೆಟ್ನಾಂ, ಬಾಲೀ, ಯುರೋಪ್...'
+                              : 'Japan, Vietnam, Bali, Thailand, Europe...',
+                          },
+                          {
+                            key: 'both',
+                            sub: 'ಎರಡೂ ಆಯ್ಕೆಗಳು',
+                            title: kn ? 'ಎರಡೂ ಆಯ್ಕೆಗಳು' : 'Open to Both',
+                            desc: kn
+                              ? 'ಋತುಮಾನ ಮತ್ತು ಬಜೆಟ್‌ಗೆ ತಕ್ಕಂತೆ ಸೂಕ್ತ ಶಿಫಾರಸು'
+                              : 'Bespoke recommendations tailored to your season and pace',
+                          },
+                        ].map((item) => {
+                          const isSelected = formData.scope === item.key;
+                          return (
+                            <button
+                              key={item.key}
+                              type="button"
+                              onClick={() => setFormData({ ...formData, scope: item.key as any })}
+                              className={`p-4 rounded-none border text-left transition-all duration-200 cursor-pointer flex items-center justify-between ${
+                                isSelected
+                                  ? 'bg-[#263f32] !text-[#f6f3ea] border-[#263f32] shadow-md -translate-y-0.5'
+                                  : 'bg-[#fffdf7] border-[#c9c5b9] hover:border-[#263f32] hover:bg-[#faf7ee] text-[#17261e]'
+                              }`}
+                            >
+                              <div>
+                                <div className="font-serif text-lg font-medium mb-0.5">
+                                  {item.title}
+                                </div>
+                                <div
+                                  className={`text-xs ${
+                                    isSelected ? 'text-[#f5d77f]' : 'text-[#647068]'
+                                  }`}
+                                >
+                                  {item.desc}
+                                </div>
+                              </div>
+                              <span
+                                className={`w-6 h-6 rounded-none border flex items-center justify-center shrink-0 ml-3 text-xs transition-colors duration-200 ${
+                                  isSelected
+                                    ? 'border-[#f5d77f] text-[#f5d77f] bg-white/10'
+                                    : 'border-[#c9c5b9] text-transparent'
+                                }`}
+                              >
+                                ✓
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* STEP 2: Destination Preference */}
+                  {step === 2 && (
+                    <div className="space-y-5">
+                      <div className="space-y-1">
+                        <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-[#9e3d28]">
+                          ✦ {kn ? 'ಹಂತ ೦೨' : 'TARGET DESTINATIONS'}
+                        </p>
+                        <h4 className="text-2xl sm:text-3xl font-normal font-serif text-[#162e22] tracking-tight">
+                          {t.planner.destinationQuestion}
+                        </h4>
+                        <p className="text-xs sm:text-sm text-[#5b675f] leading-relaxed">
+                          {kn
+                            ? 'ಒಂದಕ್ಕಿಂತ ಹೆಚ್ಚು ತಾಣಗಳನ್ನು ಆರಿಸಬಹುದು; ನಾವು ಅತ್ಯುತ್ತಮ ಮಾರ್ಗವನ್ನು ಸಂಯೋಜಿಸುತ್ತೇವೆ.'
+                            : 'Select multiple stops; we craft the smoothest scenic connections between them.'}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2 pt-2">
+                        {popularDestinationsList.map((dest, i) => {
+                          const name = kn ? dest.kn : dest.en;
+                          const isSelected = formData.destinations.includes(name);
+                          return (
+                            <button
+                              key={i}
+                              type="button"
+                              onClick={() => handleToggleDestination(name)}
+                              className={`px-3.5 py-2.5 rounded-none text-xs font-medium border transition-all duration-200 cursor-pointer ${
+                                isSelected
+                                  ? 'bg-[#263f32] !text-[#f6f3ea] border-[#263f32] shadow-sm -translate-y-0.5'
+                                  : 'bg-[#fffdf7] text-[#17261e] border-[#c9c5b9] hover:border-[#263f32] hover:bg-[#faf7ee]'
+                              }`}
+                            >
+                              {isSelected ? '✓ ' : '+ '}
+                              {name}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <div className="pt-3">
+                        <label className="block text-xs font-semibold uppercase tracking-wider text-[#5b675f] mb-1.5">
+                          {t.planner.destinationCustomPlaceholder}
                         </label>
                         <input
-                          type="email"
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          placeholder="namaskara@example.com"
-                          className="w-full px-3.5 py-2.5 rounded-lg border border-[#263F32]/20 bg-white/90 text-xs text-[#252923] focus:outline-none focus:ring-1 focus:ring-[#263F32]"
+                          type="text"
+                          value={formData.customDestination}
+                          onChange={(e) => setFormData({ ...formData, customDestination: e.target.value })}
+                          placeholder={kn ? 'ಉದಾಹರಣೆ: ಬೇಲೂರು, ಧರ್ಮಸ್ಥಳ, ಜೋಗ, ಬಾಲೀ...' : 'e.g. Belur, Dharmasthala, Bali...'}
+                          className="w-full px-4 py-3 rounded-none border border-[#c9c5b9] bg-[#fffdf7] text-xs text-[#17261e] focus:outline-none focus:border-[#263f32] transition-colors"
                         />
                       </div>
                     </div>
+                  )}
 
-                    <div>
-                      <label className="block text-xs font-semibold text-[#263F32] mb-1">
-                        {t.planner.preferredChannel}
-                      </label>
-                      <div className="flex gap-2">
+                  {/* STEP 3: Dates & Duration */}
+                  {step === 3 && (
+                    <div className="space-y-5">
+                      <div className="space-y-1">
+                        <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-[#9e3d28]">
+                          ✦ {kn ? 'ಹಂತ ೦೩' : 'DATES & DURATION'}
+                        </p>
+                        <h4 className="text-2xl sm:text-3xl font-normal font-serif text-[#162e22] tracking-tight">
+                          {t.planner.travelMonthQuestion}
+                        </h4>
+                        <p className="text-xs sm:text-sm text-[#5b675f] leading-relaxed">
+                          {kn
+                            ? 'ನಿಮ್ಮ ಪ್ರಯಾಣದ ಸಮಯ ಮತ್ತು ಲಭ್ಯತೆಯ ಅಂದಾಜು ತಿಳಿಸಿ.'
+                            : 'Your preferred travel window helps us recommend weather-optimized circuits.'}
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-2">
+                        {months.map((m, i) => {
+                          const mLabel = kn ? m.kn : m.en;
+                          const isSelected = formData.travelMonth === mLabel;
+                          return (
+                            <button
+                              key={i}
+                              type="button"
+                              onClick={() => setFormData({ ...formData, travelMonth: mLabel })}
+                              className={`p-3.5 rounded-none border text-xs text-center font-medium transition-all duration-200 cursor-pointer ${
+                                isSelected
+                                  ? 'bg-[#263f32] !text-[#f6f3ea] border-[#263f32] shadow-sm -translate-y-0.5'
+                                  : 'bg-[#fffdf7] text-[#17261e] border-[#c9c5b9] hover:border-[#263f32] hover:bg-[#faf7ee]'
+                              }`}
+                            >
+                              {mLabel}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      {/* Trip Duration Slider */}
+                      <div className="pt-5 border-t border-[#c9c5b9]/50 space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-semibold uppercase tracking-wider text-[#5b675f]">
+                            {t.planner.durationQuestion}
+                          </span>
+                          <span className="font-serif text-xl font-normal text-[#9e3d28]">
+                            {formData.durationDays} {t.planner.daysLabel}
+                          </span>
+                        </div>
+                        <input
+                          type="range"
+                          min={2}
+                          max={14}
+                          value={formData.durationDays}
+                          onChange={(e) => setFormData({ ...formData, durationDays: Number(e.target.value) })}
+                          className="w-full accent-[#9e3d28] cursor-pointer"
+                        />
+                        <div className="flex justify-between text-[11px] text-[#647068]">
+                          <span>2 {t.planner.daysLabel} (Weekend)</span>
+                          <span>7 {t.planner.daysLabel} (Week)</span>
+                          <span>14 {t.planner.daysLabel} (Extended)</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* STEP 4: Travellers & Group */}
+                  {step === 4 && (
+                    <div className="space-y-5">
+                      <div className="space-y-1">
+                        <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-[#9e3d28]">
+                          ✦ {kn ? 'ಹಂತ ೦೪' : 'TRAVELLERS & PARTY'}
+                        </p>
+                        <h4 className="text-2xl sm:text-3xl font-normal font-serif text-[#162e22] tracking-tight">
+                          {t.planner.travellerTypeQuestion}
+                        </h4>
+                        <p className="text-xs sm:text-sm text-[#5b675f] leading-relaxed">
+                          {kn
+                            ? 'ಪ್ರಯಾಣಿಕರ ಸ್ವರೂಪಕ್ಕೆ ತಕ್ಕಂತೆ ವಾಹನ ಮತ್ತು ವಾಸ್ತವ್ಯವನ್ನು ಸಿದ್ಧಪಡಿಸಲಾಗುತ್ತದೆ.'
+                            : 'Ensures appropriate vehicle sizing, elevator access, and tailored privacy.'}
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3 pt-2">
                         {[
-                          { id: 'whatsapp', label: 'WhatsApp' },
-                          { id: 'phone', label: language === 'kn' ? 'ದೂರವಾಣಿ ಕರೆ' : 'Phone Call' },
-                          { id: 'email', label: 'Email' },
-                        ].map((ch) => (
-                          <button
-                            key={ch.id}
-                            type="button"
-                            onClick={() => setFormData({ ...formData, preferredChannel: ch.id as any })}
-                            className={`px-3 py-1.5 rounded-md text-xs font-medium border transition-colors ${
-                              formData.preferredChannel === ch.id
-                                ? 'bg-[#263F32] text-[#F6F3EA] border-[#263F32]'
-                                : 'bg-white text-[#252923] border-[#263F32]/20 hover:border-[#263F32]/40'
-                            }`}
-                          >
-                            {ch.label}
-                          </button>
-                        ))}
+                          { key: 'solo', label: t.planner.typeSolo, desc: kn ? 'ಶಾಂತ ಏಕಾಂಗಿ ಅನ್ವೇಷಣೆ' : 'Unhurried solo discovery' },
+                          { key: 'couple', label: t.planner.typeCouple, desc: kn ? 'ಏಕಾಂತ & ರೊಮ್ಯಾಂಟಿಕ್' : 'Intimate & picturesque' },
+                          { key: 'family', label: t.planner.typeFamily, desc: kn ? 'ಹಿರಿಯರು & ಮಕ್ಕಳಿಗೆ ಸುಲಭ ನಡಿಗೆ' : 'Spacious & senior-friendly' },
+                          { key: 'friends', label: t.planner.typeFriends, desc: kn ? 'ಸಾಹಸ & ಉತ್ಸಾಹದ ಗುಂಪು' : 'Energetic group discovery' },
+                        ].map((item) => {
+                          const isSelected = formData.travellerType === item.key;
+                          return (
+                            <button
+                              key={item.key}
+                              type="button"
+                              onClick={() => setFormData({ ...formData, travellerType: item.key as any })}
+                              className={`p-4 rounded-none border text-left transition-all duration-200 cursor-pointer ${
+                                isSelected
+                                  ? 'bg-[#263f32] !text-[#f6f3ea] border-[#263f32] shadow-sm -translate-y-0.5'
+                                  : 'bg-[#fffdf7] text-[#17261e] border-[#c9c5b9] hover:border-[#263f32] hover:bg-[#faf7ee]'
+                              }`}
+                            >
+                              <div className="font-serif text-base font-medium mb-1">{item.label}</div>
+                              <div
+                                className={`text-[11px] ${
+                                  isSelected ? 'text-[#f5d77f]' : 'text-[#647068]'
+                                }`}
+                              >
+                                {item.desc}
+                              </div>
+                            </button>
+                          );
+                        })}
                       </div>
-                    </div>
-                  </div>
-                </div>
-              )}
 
-              {/* STEP 8: Review & Travel Blueprint Presentation */}
-              {step === 8 && (
-                <div className="space-y-6">
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2 text-xs font-semibold text-[#9E3D28] uppercase tracking-wider">
-                      <Sparkles className="w-3.5 h-3.5" />
-                      <span>{t.planner.reviewTitle}</span>
-                    </div>
-                    <h4 className="text-xl font-bold font-serif-editorial text-[#263F32]">
-                      {formData.fullName
-                        ? `${formData.fullName} ಅವರ ಕಸ್ಟಮ್ ಪ್ರವಾಸ ನಕ್ಷೆ`
-                        : (language === 'kn' ? 'ನಿಮ್ಮ ಪ್ರವಾಸ ರೂಪರೇಷೆ ಸಿದ್ಧವಾಗಿದೆ' : 'Your Journey Blueprint')}
-                    </h4>
-                    <p className="text-xs text-[#252923]/70">{t.planner.reviewSub}</p>
-                  </div>
-
-                  {/* Blueprint Card */}
-                  <div className="p-5 rounded-xl bg-white/95 border border-[#263F32]/15 shadow-sm space-y-3.5 text-xs">
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pb-3 border-b border-[#263F32]/10">
-                      <div>
-                        <span className="block text-[#252923]/50 text-[10px]">{language === 'kn' ? 'ವ್ಯಾಪ್ತಿ' : 'Scope'}</span>
-                        <span className="font-bold text-[#263F32] uppercase">{formData.scope}</span>
-                      </div>
-                      <div>
-                        <span className="block text-[#252923]/50 text-[10px]">{language === 'kn' ? 'ಅವಧಿ' : 'Duration'}</span>
-                        <span className="font-bold text-[#263F32]">{formData.durationDays} {language === 'kn' ? 'ದಿನಗಳು' : 'Days'}</span>
-                      </div>
-                      <div>
-                        <span className="block text-[#252923]/50 text-[10px]">{language === 'kn' ? 'ಪ್ರಯಾಣಿಕರು' : 'Group'}</span>
-                        <span className="font-bold text-[#263F32]">{formData.travellersCount} ({formData.travellerType})</span>
-                      </div>
-                      <div>
-                        <span className="block text-[#252923]/50 text-[10px]">{language === 'kn' ? 'ಬಜೆಟ್' : 'Tier'}</span>
-                        <span className="font-bold text-[#263F32] capitalize">{formData.budgetTier}</span>
-                      </div>
-                    </div>
-
-                    <div>
-                      <span className="block text-[#252923]/50 text-[10px] mb-1">
-                        {language === 'kn' ? 'ಆಯ್ಕೆಯ ತಾಣಗಳು' : 'Target Destinations'}
-                      </span>
-                      <div className="flex flex-wrap gap-1.5">
-                        {[
-                          ...formData.destinations,
-                          formData.customDestination.trim() ? formData.customDestination.trim() : null,
-                        ]
-                          .filter(Boolean)
-                          .map((d, i) => (
-                            <span key={i} className="px-2 py-0.5 rounded bg-[#E4D8C5]/60 text-[#263F32] font-semibold text-[11px]">
-                              {d}
-                            </span>
-                          ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <span className="block text-[#252923]/50 text-[10px] mb-1">
-                        {language === 'kn' ? 'ಅನುಭವ ಶೈಲಿಗಳು' : 'Preferred Travel Styles'}
-                      </span>
-                      <span className="text-[#252923]/80">
-                        {formData.styles.join(' · ') || 'General Discovery'}
-                      </span>
-                    </div>
-
-                    {formData.specialNotes && (
-                      <div className="pt-2 border-t border-[#263F32]/10">
-                        <span className="block text-[#252923]/50 text-[10px]">
-                          {language === 'kn' ? 'ವಿಶೇಷ ಸೂಚನೆಗಳು' : 'Special Notes'}
+                      {/* Traveller count counter */}
+                      <div className="pt-5 border-t border-[#c9c5b9]/50 flex items-center justify-between">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-[#5b675f]">
+                          {t.planner.travellersQuestion}
                         </span>
-                        <span className="text-[#252923]/80 italic">{formData.specialNotes}</span>
+                        <div className="flex items-center gap-3">
+                          <button
+                            type="button"
+                            onClick={() => setFormData({ ...formData, travellersCount: Math.max(1, formData.travellersCount - 1) })}
+                            className="w-9 h-9 rounded-none bg-[#fffdf7] border border-[#c9c5b9] font-bold text-base text-[#162e22] hover:border-[#162e22] transition-colors cursor-pointer"
+                          >
+                            -
+                          </button>
+                          <span className="font-serif text-xl font-normal text-[#162e22] w-8 text-center tabular-nums">
+                            {formData.travellersCount}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => setFormData({ ...formData, travellersCount: Math.min(20, formData.travellersCount + 1) })}
+                            className="w-9 h-9 rounded-none bg-[#fffdf7] border border-[#c9c5b9] font-bold text-base text-[#162e22] hover:border-[#162e22] transition-colors cursor-pointer"
+                          >
+                            +
+                          </button>
+                        </div>
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
 
-                  {/* Actions on Review */}
-                  <div className="flex flex-wrap items-center gap-3 pt-2">
-                    <button
-                      type="button"
-                      onClick={handleCopySummary}
-                      className="px-4 py-2.5 rounded-md bg-[#263F32] text-[#F6F3EA] hover:bg-[#1f3328] text-xs font-semibold flex items-center gap-2 transition-colors shadow-xs"
-                    >
-                      {copied ? <CheckCheck className="w-3.5 h-3.5 text-[#AAB69A]" /> : <Copy className="w-3.5 h-3.5" />}
-                      <span>{copied ? t.planner.copied : t.planner.copySummary}</span>
-                    </button>
+                  {/* STEP 5: Travel Styles & Interests */}
+                  {step === 5 && (
+                    <div className="space-y-5">
+                      <div className="space-y-1">
+                        <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-[#9e3d28]">
+                          ✦ {kn ? 'ಹಂತ ೦೫' : 'TRAVEL STYLES'}
+                        </p>
+                        <h4 className="text-2xl sm:text-3xl font-normal font-serif text-[#162e22] tracking-tight">
+                          {t.planner.stylesQuestion}
+                        </h4>
+                        <p className="text-xs sm:text-sm text-[#5b675f] leading-relaxed">
+                          {kn
+                            ? 'ನಿಮ್ಮ ಆಸಕ್ತಿಗಳನ್ನು ಆರಿಸಿ; ನಾವು ಸೂಕ್ತ ಸ್ಥಳಗಳನ್ನು ಜೋಡಿಸುತ್ತೇವೆ.'
+                            : 'Select what moves your spirit so we calibrate your stops and views.'}
+                        </p>
+                      </div>
 
-                    <button
-                      type="button"
-                      onClick={handleOpenWhatsAppSample}
-                      className="px-4 py-2.5 rounded-md bg-[#25D366]/90 text-white hover:bg-[#25D366] text-xs font-semibold flex items-center gap-2 transition-colors shadow-xs"
-                    >
-                      <MessageCircle className="w-3.5 h-3.5" />
-                      <span>{t.planner.openWhatsapp}</span>
-                    </button>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
+                        {travelStylesList.map((st) => {
+                          const label = kn ? st.kn : st.en;
+                          const isSelected = formData.styles.includes(label);
+                          return (
+                            <button
+                              key={st.id}
+                              type="button"
+                              onClick={() => handleToggleStyle(label)}
+                              className={`p-3.5 rounded-none border text-left text-xs font-medium transition-all duration-200 flex items-center justify-between cursor-pointer ${
+                                isSelected
+                                  ? 'bg-[#263f32] !text-[#f6f3ea] border-[#263f32] shadow-sm -translate-y-0.5'
+                                  : 'bg-[#fffdf7] text-[#17261e] border-[#c9c5b9] hover:border-[#263f32] hover:bg-[#faf7ee]'
+                              }`}
+                            >
+                              <span>{label}</span>
+                              {isSelected && <Check className="w-4 h-4 text-[#f5d77f]" />}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
 
-                    <button
-                      type="button"
-                      onClick={handleReset}
-                      className="px-3 py-2.5 rounded-md border border-[#263F32]/20 text-xs font-medium text-[#252923]/70 hover:bg-[#263F32]/5 transition-colors flex items-center gap-1.5"
-                    >
-                      <RefreshCw className="w-3 h-3" />
-                      <span>{t.planner.resetForm}</span>
-                    </button>
-                  </div>
+                  {/* STEP 6: Budget Tier & Special Requests */}
+                  {step === 6 && (
+                    <div className="space-y-5">
+                      <div className="space-y-1">
+                        <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-[#9e3d28]">
+                          ✦ {kn ? 'ಹಂತ ೦೬' : 'COMFORT & REQUESTS'}
+                        </p>
+                        <h4 className="text-2xl sm:text-3xl font-normal font-serif text-[#162e22] tracking-tight">
+                          {t.planner.budgetQuestion}
+                        </h4>
+                        <p className="text-xs sm:text-sm text-[#5b675f] leading-relaxed">
+                          {kn
+                            ? 'ವಾಸ್ತವ್ಯ ಮತ್ತು ಸಾರಿಗೆಯ ಆರಾಮದಾಯಕತೆಯ ಆಯ್ಕೆ.'
+                            : 'Calibration for accommodation standard and chauffeur category.'}
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                        {[
+                          { key: 'comfort', label: t.planner.budgetComfort, desc: kn ? 'ಸ್ವಚ್ಛ, ವಿಶ್ವಾಸಾರ್ಹ ವಾಸ್ತವ್ಯ' : 'Clean, charming homestays & comfortable cars' },
+                          { key: 'premium', label: t.planner.budgetPremium, desc: kn ? 'ಎಸ್ಟೇಟ್ ಬಂಗಲೆಗಳು & ರೆಸಾರ್ಟ್‌ಗಳು' : 'Heritage plantation villas & boutique resorts' },
+                          { key: 'curated_luxury', label: t.planner.budgetLuxury, desc: kn ? 'ಐಷಾರಾಮಿ ಸೂಟ್‌ಗಳು & ಖಾಸಗಿ ವಾಹನ' : 'Signature luxury retreats & bespoke transfers' },
+                        ].map((item) => {
+                          const isSelected = formData.budgetTier === item.key;
+                          return (
+                            <button
+                              key={item.key}
+                              type="button"
+                              onClick={() => setFormData({ ...formData, budgetTier: item.key as any })}
+                              className={`p-4 rounded-none border text-left transition-all duration-200 cursor-pointer ${
+                                isSelected
+                                  ? 'bg-[#263f32] !text-[#f6f3ea] border-[#263f32] shadow-sm -translate-y-0.5'
+                                  : 'bg-[#fffdf7] text-[#17261e] border-[#c9c5b9] hover:border-[#263f32] hover:bg-[#faf7ee]'
+                              }`}
+                            >
+                              <div className="font-serif text-base font-medium mb-1">{item.label}</div>
+                              <div
+                                className={`text-[11px] ${
+                                  isSelected ? 'text-[#f5d77f]' : 'text-[#647068]'
+                                }`}
+                              >
+                                {item.desc}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <div className="pt-3">
+                        <label className="block text-xs font-semibold uppercase tracking-wider text-[#5b675f] mb-1.5">
+                          {kn ? 'ವಿಶೇಷ ಆಸೆಗಳು ಅಥವಾ ಶುದ್ಧ ಸಸ್ಯಾಹಾರಿ ಆಹಾರ ಪದ್ಧತಿ:' : 'Special Dietary (100% Pure Veg) or Accessibility Notes:'}
+                        </label>
+                        <textarea
+                          rows={2}
+                          value={formData.specialNotes}
+                          onChange={(e) => setFormData({ ...formData, specialNotes: e.target.value })}
+                          placeholder={t.planner.specialNotesPlaceholder}
+                          className="w-full px-4 py-3 rounded-none border border-[#c9c5b9] bg-[#fffdf7] text-xs text-[#17261e] focus:outline-none focus:border-[#263f32] transition-colors"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* STEP 7: Contact Preferences */}
+                  {step === 7 && (
+                    <div className="space-y-5">
+                      <div className="space-y-1">
+                        <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-[#9e3d28]">
+                          ✦ {kn ? 'ಹಂತ ೦೭' : 'CONTACT PREFERENCES'}
+                        </p>
+                        <h4 className="text-2xl sm:text-3xl font-normal font-serif text-[#162e22] tracking-tight">
+                          {t.planner.contactDetailsTitle}
+                        </h4>
+                        <p className="text-xs sm:text-sm text-[#5b675f] leading-relaxed">
+                          {kn
+                            ? 'ರೂಪಿಸಿದ ದಿನಚರಿಯನ್ನು ನಿಮ್ಮೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲು ಸಂಪರ್ಕ ವಿವರಗಳನ್ನು ನೀಡಿ.'
+                            : 'Your blueprint will be customized and sent directly via your preferred channel.'}
+                        </p>
+                      </div>
+
+                      <div className="space-y-4 pt-2">
+                        <div>
+                          <label className="block text-xs font-semibold uppercase tracking-wider text-[#5b675f] mb-1">
+                            {t.planner.fullName} *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={formData.fullName}
+                            onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                            placeholder={kn ? 'ನಿಮ್ಮ ಹೆಸರು' : 'Your Full Name'}
+                            className="w-full px-4 py-3 rounded-none border border-[#c9c5b9] bg-[#fffdf7] text-xs text-[#17261e] focus:outline-none focus:border-[#263f32] transition-colors"
+                          />
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div>
+                            <label className="block text-xs font-semibold uppercase tracking-wider text-[#5b675f] mb-1">
+                              {t.planner.phone}
+                            </label>
+                            <input
+                              type="tel"
+                              value={formData.contactNumber}
+                              onChange={(e) => setFormData({ ...formData, contactNumber: e.target.value })}
+                              placeholder="+91 98765 43210"
+                              className="w-full px-4 py-3 rounded-none border border-[#c9c5b9] bg-[#fffdf7] text-xs text-[#17261e] focus:outline-none focus:border-[#263f32] transition-colors"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-xs font-semibold uppercase tracking-wider text-[#5b675f] mb-1">
+                              {t.planner.email}
+                            </label>
+                            <input
+                              type="email"
+                              value={formData.email}
+                              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                              placeholder="namaskara@example.com"
+                              className="w-full px-4 py-3 rounded-none border border-[#c9c5b9] bg-[#fffdf7] text-xs text-[#17261e] focus:outline-none focus:border-[#263f32] transition-colors"
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-xs font-semibold uppercase tracking-wider text-[#5b675f] mb-2">
+                            {t.planner.preferredChannel}
+                          </label>
+                          <div className="flex gap-2">
+                            {[
+                              { id: 'whatsapp', label: 'WhatsApp' },
+                              { id: 'phone', label: kn ? 'ದೂರವಾಣಿ ಕರೆ' : 'Phone Call' },
+                              { id: 'email', label: 'Email' },
+                            ].map((ch) => {
+                              const isSelected = formData.preferredChannel === ch.id;
+                              return (
+                                <button
+                                  key={ch.id}
+                                  type="button"
+                                  onClick={() => setFormData({ ...formData, preferredChannel: ch.id as any })}
+                                  className={`px-4 py-2 rounded-none text-xs font-medium border transition-all duration-200 cursor-pointer ${
+                                    isSelected
+                                      ? 'bg-[#263f32] !text-[#f6f3ea] border-[#263f32] shadow-sm'
+                                      : 'bg-[#fffdf7] text-[#17261e] border-[#c9c5b9] hover:border-[#263f32] hover:bg-[#faf7ee]'
+                                  }`}
+                                >
+                                  {ch.label}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* STEP 8: Review & Travel Blueprint Presentation */}
+                  {step === 8 && (
+                    <div className="space-y-5">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2 text-xs font-bold text-[#9e3d28] uppercase tracking-wider">
+                          <span>✦</span>
+                          <span>{t.planner.reviewTitle}</span>
+                        </div>
+                        <h4 className="text-2xl sm:text-3xl font-normal font-serif text-[#162e22] tracking-tight">
+                          {formData.fullName
+                            ? `${formData.fullName} ಅವರ ಪ್ರವಾಸ ನಕ್ಷೆ`
+                            : (kn ? 'ನಿಮ್ಮ ಪ್ರವಾಸ ರೂಪರೇಷೆ ಸಿದ್ಧವಾಗಿದೆ' : 'Your Journey Blueprint')}
+                        </h4>
+                        <p className="text-xs sm:text-sm text-[#5b675f]">{t.planner.reviewSub}</p>
+                      </div>
+
+                      {/* Blueprint Card */}
+                      <div className="p-5 sm:p-6 rounded-none bg-[#fffdf7] border border-[#c9c5b9] shadow-sm space-y-4 text-xs">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pb-3 border-b border-[#c9c5b9]/50">
+                          <div>
+                            <span className="block text-[#647068] text-[10px] uppercase tracking-wider">{kn ? 'ವ್ಯಾಪ್ತಿ' : 'Scope'}</span>
+                            <span className="font-serif text-base text-[#162e22]">{formData.scope.toUpperCase()}</span>
+                          </div>
+                          <div>
+                            <span className="block text-[#647068] text-[10px] uppercase tracking-wider">{kn ? 'ಅವಧಿ' : 'Duration'}</span>
+                            <span className="font-serif text-base text-[#162e22]">{formData.durationDays} {kn ? 'ದಿನಗಳು' : 'Days'}</span>
+                          </div>
+                          <div>
+                            <span className="block text-[#647068] text-[10px] uppercase tracking-wider">{kn ? 'ಪ್ರಯಾಣಿಕರು' : 'Group'}</span>
+                            <span className="font-serif text-base text-[#162e22]">{formData.travellersCount} ({formData.travellerType})</span>
+                          </div>
+                          <div>
+                            <span className="block text-[#647068] text-[10px] uppercase tracking-wider">{kn ? 'ಬಜೆಟ್' : 'Tier'}</span>
+                            <span className="font-serif text-base text-[#162e22] capitalize">{formData.budgetTier}</span>
+                          </div>
+                        </div>
+
+                        <div>
+                          <span className="block text-[#647068] text-[10px] uppercase tracking-wider mb-1.5">
+                            {kn ? 'ಆಯ್ಕೆಯ ತಾಣಗಳು' : 'Target Destinations'}
+                          </span>
+                          <div className="flex flex-wrap gap-1.5">
+                            {[
+                              ...formData.destinations,
+                              formData.customDestination.trim() ? formData.customDestination.trim() : null,
+                            ]
+                              .filter(Boolean)
+                              .map((d, i) => (
+                                <span key={i} className="px-2.5 py-1 rounded-none bg-[#263f32]/8 text-[#162e22] font-semibold text-[11px] border border-[#263f32]/10">
+                                  {d}
+                                </span>
+                              ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <span className="block text-[#647068] text-[10px] uppercase tracking-wider mb-1">
+                            {kn ? 'ಅನುಭವ ಶೈಲಿಗಳು' : 'Preferred Travel Styles'}
+                          </span>
+                          <span className="text-[#17261e] font-serif text-sm">
+                            {formData.styles.join(' · ') || 'General Discovery'}
+                          </span>
+                        </div>
+
+                        {formData.specialNotes && (
+                          <div className="pt-3 border-t border-[#c9c5b9]/50">
+                            <span className="block text-[#647068] text-[10px] uppercase tracking-wider">
+                              {kn ? 'ವಿಶೇಷ ಸೂಚನೆಗಳು' : 'Special Notes'}
+                            </span>
+                            <span className="text-[#5b675f] italic">{formData.specialNotes}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Actions on Review */}
+                      <div className="flex flex-wrap items-center gap-3 pt-2">
+                        <button
+                          type="button"
+                          onClick={handleOpenWhatsAppSample}
+                          className="button button-gold !rounded-none !min-h-[2.75rem] !px-4"
+                        >
+                          <MessageCircle className="w-4 h-4 text-[#162e22]" />
+                          <span>{t.planner.openWhatsapp}</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={handleCopySummary}
+                          className="button button-outline !rounded-none !text-[#162e22] !border-[#c9c5b9] hover:!bg-[#162e22] hover:!text-white !min-h-[2.75rem] !px-4"
+                        >
+                          {copied ? <CheckCheck className="w-4 h-4 text-[#9e3d28]" /> : <Copy className="w-4 h-4" />}
+                          <span>{copied ? t.planner.copied : t.planner.copySummary}</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={handleReset}
+                          className="button button-text !rounded-none !text-[#5b675f] hover:!text-[#162e22] !min-h-[2.75rem] !px-2"
+                        >
+                          <RefreshCw className="w-3.5 h-3.5" />
+                          <span>{t.planner.resetForm}</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Validation Error Banner */}
+              {validationError && (
+                <div className="mt-4 p-3 rounded-none bg-[#9e3d28]/10 border border-[#9e3d28]/30 text-xs text-[#9e3d28] font-medium">
+                  {validationError}
                 </div>
               )}
-            </div>
 
-            {/* Validation Error Banner */}
-            {validationError && (
-              <div className="mt-4 p-2.5 rounded-md bg-[#9E3D28]/15 border border-[#9E3D28]/30 text-xs text-[#9E3D28] font-medium">
-                {validationError}
+              {/* Navigation Bottom Action Bar */}
+              <div className="pt-6 mt-8 border-t border-[#c9c5b9]/60 flex items-center justify-between">
+                {step > 1 ? (
+                  <button
+                    type="button"
+                    onClick={handlePrev}
+                    className="button button-outline !rounded-none !text-[#162e22] !border-[#c9c5b9] hover:!bg-[#162e22] hover:!text-white !min-h-[2.75rem] !px-4"
+                  >
+                    <span>← {t.planner.prev}</span>
+                  </button>
+                ) : (
+                  <div />
+                )}
+
+                {step < 8 ? (
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    className="button button-dark !rounded-none !min-h-[2.75rem] !px-5"
+                  >
+                    <span>{step === 7 ? t.planner.finish : t.planner.next}</span>
+                    <span aria-hidden="true">↗</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={onClose}
+                    className="button button-outline !rounded-none !text-[#162e22] !border-[#c9c5b9] hover:!bg-[#162e22] hover:!text-white !min-h-[2.75rem] !px-5"
+                  >
+                    <span>{t.modal.close}</span>
+                  </button>
+                )}
               </div>
-            )}
-
-            {/* Navigation Buttons */}
-            <div className="pt-6 mt-6 border-t border-[#263F32]/10 flex items-center justify-between">
-              {step > 1 ? (
-                <button
-                  type="button"
-                  onClick={handlePrev}
-                  className="px-4 py-2 rounded-md border border-[#263F32]/20 text-xs font-medium text-[#252923] hover:bg-[#263F32]/5 flex items-center gap-1.5 transition-colors"
-                >
-                  <ArrowLeft className="w-3.5 h-3.5" />
-                  <span>{t.planner.prev}</span>
-                </button>
-              ) : (
-                <div />
-              )}
-
-              {step < 8 ? (
-                <button
-                  type="button"
-                  onClick={handleNext}
-                  className="px-5 py-2.5 rounded-md bg-[#263F32] text-[#F6F3EA] hover:bg-[#1f3328] text-xs font-semibold flex items-center gap-2 transition-colors shadow-xs"
-                >
-                  <span>{step === 7 ? t.planner.finish : t.planner.next}</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#F5D77F]" />
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="px-5 py-2 rounded-md border border-[#263F32]/20 text-xs font-semibold text-[#263F32] hover:bg-[#263F32]/10 transition-colors"
-                >
-                  {t.modal.close}
-                </button>
-              )}
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
-    </div>
-  </AnimatePresence>
+      )}
+    </AnimatePresence>
   );
 };

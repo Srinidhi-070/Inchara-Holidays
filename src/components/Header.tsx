@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Language } from '../types';
+import { Language, Concept } from '../types';
 import { translations } from '../data/translations';
 import {
   Compass,
-  Menu,
   X,
   Globe,
-  Calendar,
-  ArrowRight,
   Building2,
   UtensilsCrossed,
   GraduationCap,
@@ -15,9 +12,39 @@ import {
   PhoneCall,
   Mail,
   Home as HomeIcon,
-  Info
+  Info,
+  ArrowRight
 } from 'lucide-react';
-import { AmbariElephant, KolamBorderRibbon } from './SouthIndianMotifs';
+
+export function Mark() {
+  return (
+    <span className="mark" aria-hidden="true">
+      <span />
+      <span />
+      <span />
+      <span />
+    </span>
+  );
+}
+
+export function Brand({ light = false }: { light?: boolean }) {
+  return (
+    <a
+      className={`brand ${light ? 'brand-light' : ''}`}
+      href="#top"
+      onClick={(e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }}
+    >
+      <Mark />
+      <span>
+        <strong lang="kn">ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್</strong>
+        <small>INCHARA HOLIDAYS</small>
+      </span>
+    </a>
+  );
+}
 
 interface HeaderProps {
   language: Language;
@@ -25,6 +52,7 @@ interface HeaderProps {
   onOpenPlanner: () => void;
   onOpenContact: () => void;
   onNavigateSection: (sectionId: string) => void;
+  concept?: Concept;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -33,9 +61,10 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenPlanner,
   onOpenContact,
   onNavigateSection,
+  concept = 'A',
 }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const t = translations[language];
   const isKn = language === 'kn';
 
@@ -47,219 +76,124 @@ export const Header: React.FC<HeaderProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    {
-      id: 'top',
-      label: t.nav.home,
-      isHome: true,
-    },
-    {
-      id: 'service-packages',
-      label: t.nav.packages,
-      icon: Compass,
-      tagKn: 'ಪಯಣ',
-      tagEn: 'Travel',
-    },
-    {
-      id: 'service-corporate',
-      label: t.nav.corporate,
-      icon: Building2,
-      tagKn: 'ಕಾರ್ಪೊರೇಟ್',
-      tagEn: 'Corporate',
-    },
-    {
-      id: 'service-catering',
-      label: t.nav.catering,
-      icon: UtensilsCrossed,
-      tagKn: 'ಆಹಾರ',
-      tagEn: 'Catering',
-    },
-    {
-      id: 'service-school',
-      label: t.nav.school,
-      icon: GraduationCap,
-      tagKn: 'ಶಾಲಾ',
-      tagEn: 'School',
-    },
-    {
-      id: 'our-story',
-      label: t.nav.ourStory,
-      icon: Info,
-    },
-    {
-      id: 'contact',
-      label: t.nav.contact,
-      isContact: true,
-      icon: Mail,
-    },
-  ];
+  const isDarkNav = concept === 'B' && !isScrolled;
 
-  const handleNavClick = (link: typeof navLinks[0]) => {
+  const handleNavClick = (sectionId: string) => {
     setMobileMenuOpen(false);
-    if (link.isHome) {
+    if (sectionId === 'top') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (link.isContact) {
+    } else if (sectionId === 'contact') {
       onOpenContact();
     } else {
-      onNavigateSection(link.id);
+      onNavigateSection(sectionId);
     }
   };
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-[#FBF8F1]/96 backdrop-blur-md shadow-xs border-b border-[#D4AF37]/25 py-2.5 sm:py-3 text-[#252923]'
-            : 'bg-gradient-to-b from-black/85 via-black/45 to-transparent py-3 sm:py-4 text-[#F6F3EA]'
-        }`}
+        className={`header ${isScrolled ? 'bg-[#162e22]/95 backdrop-blur-md shadow-lg !fixed' : ''}`}
       >
-        {/* Subtle Kasavu Gold & Terracotta Hairline with delicate Kolam Ribbon */}
-        <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37]/80 to-transparent" />
-        <div className="absolute top-[1.5px] left-0 right-0 h-1.5 opacity-20 overflow-hidden pointer-events-none">
-          <KolamBorderRibbon patternUnits={48} className="h-full" color={isScrolled ? '#D4AF37' : '#F5D77F'} dotColor={isScrolled ? '#9E3D28' : '#D4AF37'} />
-        </div>
+        <Brand light={!isDarkNav} />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-4 lg:gap-8">
-            {/* Zone 1: Brand Wordmark with South Indian Emblem */}
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="flex items-center gap-2.5 group whitespace-nowrap shrink-0"
-              aria-label="Inchara Holidays Home"
+        <nav
+          className={`nav ${mobileMenuOpen ? 'open' : ''}`}
+          aria-label="Main navigation"
+        >
+          <a
+            href="#destinations"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('destinations');
+            }}
+          >
+            {isKn ? 'ತಾಣಗಳು' : 'Destinations'}
+          </a>
+          <a
+            href="#experiences"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('experiences');
+            }}
+          >
+            {isKn ? 'ಅನುಭವಗಳು' : 'Experiences'}
+          </a>
+          <a
+            href="#services"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('services');
+            }}
+          >
+            {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಮತ್ತು ಕ್ಯಾಟರಿಂಗ್' : 'Corporate & Catering'}
+          </a>
+          <a
+            href="#services"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('services');
+            }}
+          >
+            {isKn ? 'ಶಾಲಾ ಪ್ರವಾಸಗಳು' : 'School Trips'}
+          </a>
+          <a
+            href="#difference"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('difference');
+            }}
+          >
+            {isKn ? 'ನಮ್ಮ ಕಥೆ' : 'Our Story'}
+          </a>
+        </nav>
+
+        <div className="header-actions">
+          {/* Language Toggle */}
+          <div
+            aria-label="Select language"
+            className="language-toggle"
+            role="group"
+          >
+            <button
+              aria-pressed={language === 'kn'}
+              className={language === 'kn' ? 'active' : ''}
+              lang="kn"
+              onClick={() => onLanguageChange('kn')}
+              type="button"
             >
-              <div
-                className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-xs border ${
-                  isScrolled
-                    ? 'bg-[#1E3B2B] border-[#D4AF37]/40 text-[#D4AF37]'
-                    : 'bg-[#162E22]/90 border-[#D4AF37]/60 text-[#F5D77F] backdrop-blur-md'
-                }`}
-              >
-                <AmbariElephant className="w-5 h-5 sm:w-5.5 sm:h-5.5 transition-transform group-hover:scale-105 duration-300" color={isScrolled ? '#D4AF37' : '#F5D77F'} />
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1.5">
-                  <span className="text-base sm:text-lg lg:text-xl font-bold tracking-tight font-serif-editorial">
-                    {isKn ? 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್' : 'Inchara Holidays'}
-                  </span>
-                  <span className="text-[10px] text-[#D4AF37] opacity-80">✦</span>
-                </div>
-                <span
-                  className={`text-[9px] sm:text-[9.5px] tracking-[0.14em] uppercase font-medium ${
-                    isScrolled ? 'text-[#8C5E14]' : 'text-[#E5B842]'
-                  }`}
-                >
-                  {isKn ? 'ಅತಿಥಿ ದೇವೋ ಭವ · ಪ್ರವಾಸ & ಆತಿಥ್ಯ' : 'Atithi Devo Bhava · Travel & Events'}
-                </span>
-              </div>
-            </a>
-
-            {/* Zone 2: Navigation Links (Desktop: xl screens and above) */}
-            <nav className="hidden xl:flex items-center gap-6 2xl:gap-7 text-xs 2xl:text-sm font-medium tracking-wide">
-              {navLinks.map((link) => (
-                <button
-                  key={link.id}
-                  onClick={() => handleNavClick(link)}
-                  className={`transition-colors whitespace-nowrap shrink-0 hover:text-[#D4AF37] relative py-1 cursor-pointer group ${
-                    isScrolled
-                      ? 'text-[#252923]/80 hover:text-[#263F32]'
-                      : 'text-[#F6F3EA]/90 hover:text-white'
-                  }`}
-                >
-                  <span>{link.label}</span>
-                  <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#D4AF37] transition-all duration-200 group-hover:w-full" />
-                </button>
-              ))}
-            </nav>
-
-            {/* Compact desktop nav for standard laptops (1024px - 1280px) */}
-            <nav className="hidden lg:flex xl:hidden items-center gap-4 text-xs font-medium tracking-wide">
-              {navLinks.slice(1, 6).map((link) => (
-                <button
-                  key={link.id}
-                  onClick={() => handleNavClick(link)}
-                  className={`transition-colors whitespace-nowrap shrink-0 hover:text-[#D4AF37] relative py-1 cursor-pointer group ${
-                    isScrolled
-                      ? 'text-[#252923]/80 hover:text-[#263F32]'
-                      : 'text-[#F6F3EA]/90 hover:text-white'
-                  }`}
-                >
-                  <span>{link.label}</span>
-                  <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#D4AF37] transition-all duration-200 group-hover:w-full" />
-                </button>
-              ))}
-            </nav>
-
-            {/* Zone 3: Language Switcher & Primary Action */}
-            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
-              {/* Language Switcher */}
-              <div
-                className={`flex items-center p-0.5 rounded-lg border text-xs font-medium transition-colors ${
-                  isScrolled
-                    ? 'border-[#263F32]/15 bg-[#263F32]/5 text-[#252923]'
-                    : 'border-white/20 bg-black/30 backdrop-blur-xs text-[#F6F3EA]'
-                }`}
-              >
-                <button
-                  type="button"
-                  onClick={() => onLanguageChange('kn')}
-                  aria-pressed={language === 'kn'}
-                  className={`px-2 py-1 rounded-md transition-colors whitespace-nowrap cursor-pointer ${
-                    language === 'kn'
-                      ? 'bg-[#263F32] text-[#F6F3EA] shadow-2xs font-semibold'
-                      : 'hover:text-[#D4AF37]'
-                  }`}
-                >
-                  ಕನ್ನಡ
-                </button>
-                <span className="opacity-30 px-0.5">/</span>
-                <button
-                  type="button"
-                  onClick={() => onLanguageChange('en')}
-                  aria-pressed={language === 'en'}
-                  className={`px-2 py-1 rounded-md transition-colors whitespace-nowrap cursor-pointer ${
-                    language === 'en'
-                      ? 'bg-[#263F32] text-[#F6F3EA] shadow-2xs font-semibold'
-                      : 'hover:text-[#D4AF37]'
-                  }`}
-                >
-                  ENG
-                </button>
-              </div>
-
-              {/* Primary Action Button */}
-              <button
-                type="button"
-                onClick={onOpenPlanner}
-                className={`hidden sm:inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-lg text-xs font-semibold tracking-wider uppercase transition-all duration-200 whitespace-nowrap shrink-0 shadow-xs active:scale-95 cursor-pointer border ${
-                  isScrolled
-                    ? 'bg-[#263F32] border-[#263F32] text-[#F6F3EA] hover:bg-[#1E3B2B] hover:border-[#D4AF37]/40'
-                    : 'bg-[#F6F3EA] border-[#D4AF37]/50 text-[#162E22] hover:bg-white hover:border-[#D4AF37]'
-                }`}
-              >
-                <Calendar className="w-3.5 h-3.5 text-[#D4AF37]" />
-                <span>{t.nav.planTrip}</span>
-              </button>
-
-              {/* Mobile Menu Trigger */}
-              <button
-                type="button"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`p-2 rounded-lg lg:hidden transition-colors cursor-pointer ${
-                  isScrolled
-                    ? 'text-[#252923] hover:bg-[#263F32]/10'
-                    : 'text-white hover:bg-white/10'
-                }`}
-                aria-label="Toggle navigation menu"
-              >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              </button>
-            </div>
+              ಕನ್ನಡ
+            </button>
+            <i />
+            <button
+              aria-pressed={language === 'en'}
+              className={language === 'en' ? 'active' : ''}
+              onClick={() => onLanguageChange('en')}
+              type="button"
+            >
+              EN
+            </button>
           </div>
+
+          {/* Primary Action Button */}
+          <button
+            type="button"
+            className="button button-gold hidden sm:inline-flex"
+            onClick={onOpenPlanner}
+          >
+            <span>{isKn ? 'ಪ್ರಯಾಣ ರೂಪಿಸಿ' : 'Plan your journey'}</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+
+          {/* Mobile Menu Button */}
+          <button
+            aria-label="Toggle navigation"
+            className="menu"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            type="button"
+          >
+            <span />
+            <span />
+          </button>
         </div>
       </header>
 
@@ -273,47 +207,35 @@ export const Header: React.FC<HeaderProps> = ({
           />
 
           {/* Drawer Panel */}
-          <div className="fixed inset-y-0 right-0 max-w-sm w-full bg-[#FBF9F4] shadow-2xl p-6 flex flex-col justify-between overflow-y-auto z-10 border-l border-[#263F32]/15">
+          <div className="fixed inset-y-0 right-0 max-w-sm w-full bg-[#162e22] text-[#f6f3ea] shadow-2xl p-6 flex flex-col justify-between overflow-y-auto z-10 border-l border-[#d4af37]/25">
             <div>
               {/* Top Drawer Bar */}
-              <div className="flex items-center justify-between pb-4 border-b border-[#263F32]/10">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-[#162E22] border border-[#D4AF37]/50 text-[#F5D77F] flex items-center justify-center shadow-xs">
-                    <AmbariElephant className="w-5 h-5" color="#D4AF37" />
-                  </div>
-                  <div>
-                    <span className="font-bold font-serif-editorial text-[#162E22] text-base block leading-tight">
-                      {isKn ? 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್' : 'Inchara Holidays'}
-                    </span>
-                    <span className="text-[10px] text-[#252923]/60 uppercase tracking-wider block">
-                      {isKn ? 'ಪ್ರವಾಸ · ಈವೆಂಟ್ಸ್ · ಆತಿಥ್ಯ' : 'Travel · Events · Hospitality'}
-                    </span>
-                  </div>
-                </div>
+              <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                <Brand light />
                 <button
                   type="button"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-1.5 rounded-lg hover:bg-[#263F32]/10 text-[#252923] cursor-pointer"
+                  className="p-1.5 rounded-lg hover:bg-white/10 text-white cursor-pointer"
                   aria-label="Close menu"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-5 h-5 text-[#f5d77f]" />
                 </button>
               </div>
 
               {/* Language selection in mobile menu */}
-              <div className="mt-4 p-2.5 bg-[#263F32]/5 rounded-xl flex items-center justify-between border border-[#263F32]/10">
-                <div className="flex items-center gap-2 text-xs font-medium text-[#252923]/80">
-                  <Globe className="w-3.5 h-3.5 text-[#263F32]" />
+              <div className="mt-4 p-3 bg-white/5 rounded-xl flex items-center justify-between border border-white/10">
+                <div className="flex items-center gap-2 text-xs font-medium text-[#f5d77f]">
+                  <Globe className="w-4 h-4 text-[#d4af37]" />
                   <span>{isKn ? 'ಭಾಷೆ / Language' : 'Language'}</span>
                 </div>
-                <div className="flex items-center gap-1 text-xs">
+                <div className="flex items-center gap-1.5 text-xs">
                   <button
                     type="button"
                     onClick={() => onLanguageChange('kn')}
                     className={`px-3 py-1 rounded-md transition-colors cursor-pointer ${
                       language === 'kn'
-                        ? 'bg-[#263F32] text-[#F6F3EA] font-semibold'
-                        : 'text-[#252923] hover:text-[#9E3D28]'
+                        ? 'bg-[#d4af37] text-[#162e22] font-bold'
+                        : 'text-white/70 hover:text-white'
                     }`}
                   >
                     ಕನ್ನಡ
@@ -323,8 +245,8 @@ export const Header: React.FC<HeaderProps> = ({
                     onClick={() => onLanguageChange('en')}
                     className={`px-3 py-1 rounded-md transition-colors cursor-pointer ${
                       language === 'en'
-                        ? 'bg-[#263F32] text-[#F6F3EA] font-semibold'
-                        : 'text-[#252923] hover:text-[#9E3D28]'
+                        ? 'bg-[#d4af37] text-[#162e22] font-bold'
+                        : 'text-white/70 hover:text-white'
                     }`}
                   >
                     English
@@ -332,150 +254,105 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
               </div>
 
-              {/* Section 1: Main Services with clear hierarchy */}
-              <div className="mt-6">
-                <div className="text-[11px] font-bold text-[#9E3D28] uppercase tracking-wider px-2 mb-2 flex items-center gap-1.5">
-                  <Sparkles className="w-3 h-3" />
-                  <span>{isKn ? 'ನಮ್ಮ ಪ್ರಮುಖ ಸೇವೆಗಳು' : 'Core Services'}</span>
+              {/* Core Links */}
+              <div className="mt-6 space-y-1">
+                <div className="text-[11px] font-bold text-[#f5d77f] uppercase tracking-wider px-2 mb-2 flex items-center gap-1.5">
+                  <Sparkles className="w-3 h-3 text-[#d4af37]" />
+                  <span>{isKn ? 'ಪರಿವಿಡಿ' : 'Navigation'}</span>
                 </div>
-                <nav className="flex flex-col space-y-1">
-                  <button
-                    onClick={() => handleNavClick(navLinks[0])}
-                    className="text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-[#252923] hover:bg-[#263F32]/8 hover:text-[#263F32] transition-colors flex items-center justify-between cursor-pointer"
-                  >
-                    <span className="flex items-center gap-2.5">
-                      <HomeIcon className="w-4 h-4 text-[#263F32]" />
-                      <span>{t.nav.home}</span>
-                    </span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#263F32]/30" />
-                  </button>
-
-                  <button
-                    onClick={() => handleNavClick(navLinks[1])}
-                    className="text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-[#252923] hover:bg-[#263F32]/8 hover:text-[#263F32] transition-colors flex items-center justify-between cursor-pointer"
-                  >
-                    <span className="flex items-center gap-2.5">
-                      <Compass className="w-4 h-4 text-[#9E3D28]" />
-                      <span>{t.nav.packages}</span>
-                    </span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#9E3D28]/15 text-[#9E3D28] font-medium">
-                      {isKn ? 'ಪಯಣ' : 'Travel'}
-                    </span>
-                  </button>
-
-                  <button
-                    onClick={() => handleNavClick(navLinks[2])}
-                    className="text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-[#252923] hover:bg-[#263F32]/8 hover:text-[#263F32] transition-colors flex items-center justify-between cursor-pointer"
-                  >
-                    <span className="flex items-center gap-2.5">
-                      <Building2 className="w-4 h-4 text-[#263F32]" />
-                      <span>{t.nav.corporate}</span>
-                    </span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#263F32]/10 text-[#263F32] font-medium">
-                      {isKn ? 'ಔಟಿಂಗ್' : 'Corporate'}
-                    </span>
-                  </button>
-
-                  <button
-                    onClick={() => handleNavClick(navLinks[3])}
-                    className="text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-[#252923] hover:bg-[#263F32]/8 hover:text-[#263F32] transition-colors flex items-center justify-between cursor-pointer"
-                  >
-                    <span className="flex items-center gap-2.5">
-                      <UtensilsCrossed className="w-4 h-4 text-[#9E3D28]" />
-                      <span>{t.nav.catering}</span>
-                    </span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#9E3D28]/15 text-[#9E3D28] font-medium">
-                      {isKn ? 'ಊಟೋಪಚಾರ' : 'Food'}
-                    </span>
-                  </button>
-
-                  <button
-                    onClick={() => handleNavClick(navLinks[4])}
-                    className="text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-[#252923] hover:bg-[#263F32]/8 hover:text-[#263F32] transition-colors flex items-center justify-between cursor-pointer"
-                  >
-                    <span className="flex items-center gap-2.5">
-                      <GraduationCap className="w-4 h-4 text-emerald-800" />
-                      <span>{t.nav.school}</span>
-                    </span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-medium">
-                      {isKn ? 'ಶೈಕ್ಷಣಿಕ' : 'Study'}
-                    </span>
-                  </button>
-                </nav>
-              </div>
-
-              {/* Section 2: Explore & Organization */}
-              <div className="mt-5 pt-4 border-t border-[#263F32]/10">
-                <div className="text-[11px] font-bold text-[#263F32]/60 uppercase tracking-wider px-2 mb-2">
-                  {isKn ? 'ತಾಣಗಳು & ನಮ್ಮ ಬಗ್ಗೆ' : 'Discover & About'}
-                </div>
-                <nav className="flex flex-col space-y-1">
-                  <button
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      onNavigateSection('destinations');
-                    }}
-                    className="text-left py-2 px-3 rounded-lg text-sm text-[#252923]/80 hover:bg-[#263F32]/5 hover:text-[#263F32] transition-colors flex items-center justify-between cursor-pointer"
-                  >
-                    <span>{t.nav.destinations}</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#263F32]/30" />
-                  </button>
-                  <button
-                    onClick={() => handleNavClick(navLinks[5])}
-                    className="text-left py-2 px-3 rounded-lg text-sm text-[#252923]/80 hover:bg-[#263F32]/5 hover:text-[#263F32] transition-colors flex items-center justify-between cursor-pointer"
-                  >
-                    <span>{t.nav.ourStory}</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#263F32]/30" />
-                  </button>
-                  <button
-                    onClick={() => handleNavClick(navLinks[6])}
-                    className="text-left py-2 px-3 rounded-lg text-sm text-[#252923]/80 hover:bg-[#263F32]/5 hover:text-[#263F32] transition-colors flex items-center justify-between cursor-pointer"
-                  >
-                    <span>{t.nav.contact}</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#263F32]/30" />
-                  </button>
-                </nav>
-              </div>
-            </div>
-
-            {/* Bottom Actions */}
-            <div className="pt-6 border-t border-[#263F32]/10 space-y-3">
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenPlanner();
-                }}
-                className="w-full py-3 px-4 rounded-xl bg-[#263F32] text-[#F6F3EA] text-sm font-semibold flex items-center justify-center gap-2 hover:bg-[#1f3328] transition-colors shadow-sm cursor-pointer"
-              >
-                <Calendar className="w-4 h-4" />
-                <span>{t.nav.planTrip}</span>
-              </button>
-
-              <div className="grid grid-cols-2 gap-2">
-                <a
-                  href="tel:+919448000000"
-                  className="py-2.5 px-3 rounded-lg border border-[#263F32]/20 text-[#263F32] text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-[#263F32]/5 transition-colors"
+                <button
+                  onClick={() => handleNavClick('top')}
+                  className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-medium hover:bg-white/10 transition-colors flex items-center justify-between cursor-pointer"
                 >
-                  <PhoneCall className="w-3.5 h-3.5 text-[#9E3D28]" />
-                  <span>{isKn ? 'ಕರೆ ಮಾಡಿ' : 'Direct Call'}</span>
-                </a>
+                  <span className="flex items-center gap-2.5">
+                    <HomeIcon className="w-4 h-4 text-[#d4af37]" />
+                    <span>{t.nav.home}</span>
+                  </span>
+                  <ArrowRight className="w-3.5 h-3.5 text-white/40" />
+                </button>
+                <button
+                  onClick={() => handleNavClick('destinations')}
+                  className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-medium hover:bg-white/10 transition-colors flex items-center justify-between cursor-pointer"
+                >
+                  <span className="flex items-center gap-2.5">
+                    <Compass className="w-4 h-4 text-[#d4af37]" />
+                    <span>{isKn ? 'ತಾಣಗಳು' : 'Destinations'}</span>
+                  </span>
+                  <ArrowRight className="w-3.5 h-3.5 text-white/40" />
+                </button>
+                <button
+                  onClick={() => handleNavClick('experiences')}
+                  className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-medium hover:bg-white/10 transition-colors flex items-center justify-between cursor-pointer"
+                >
+                  <span className="flex items-center gap-2.5">
+                    <Sparkles className="w-4 h-4 text-[#d4af37]" />
+                    <span>{isKn ? 'ಅನುಭವಗಳು' : 'Experiences'}</span>
+                  </span>
+                  <ArrowRight className="w-3.5 h-3.5 text-white/40" />
+                </button>
+                <button
+                  onClick={() => handleNavClick('services')}
+                  className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-medium hover:bg-white/10 transition-colors flex items-center justify-between cursor-pointer"
+                >
+                  <span className="flex items-center gap-2.5">
+                    <Building2 className="w-4 h-4 text-[#d4af37]" />
+                    <span>{isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಮತ್ತು ಕ್ಯಾಟರಿಂಗ್' : 'Corporate & Catering'}</span>
+                  </span>
+                  <ArrowRight className="w-3.5 h-3.5 text-white/40" />
+                </button>
+                <button
+                  onClick={() => handleNavClick('services')}
+                  className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-medium hover:bg-white/10 transition-colors flex items-center justify-between cursor-pointer"
+                >
+                  <span className="flex items-center gap-2.5">
+                    <GraduationCap className="w-4 h-4 text-[#d4af37]" />
+                    <span>{isKn ? 'ಶಾಲಾ ಪ್ರವಾಸಗಳು' : 'School Trips'}</span>
+                  </span>
+                  <ArrowRight className="w-3.5 h-3.5 text-white/40" />
+                </button>
+                <button
+                  onClick={() => handleNavClick('difference')}
+                  className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-medium hover:bg-white/10 transition-colors flex items-center justify-between cursor-pointer"
+                >
+                  <span className="flex items-center gap-2.5">
+                    <Info className="w-4 h-4 text-[#d4af37]" />
+                    <span>{isKn ? 'ನಮ್ಮ ಕಥೆ' : 'Our Story'}</span>
+                  </span>
+                  <ArrowRight className="w-3.5 h-3.5 text-white/40" />
+                </button>
+              </div>
+
+              {/* Action Buttons in Drawer */}
+              <div className="mt-8 space-y-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenPlanner();
+                  }}
+                  className="w-full button button-gold justify-center gap-2 text-center"
+                >
+                  <span>{isKn ? 'ಪ್ರಯಾಣ ರೂಪಿಸಿ' : 'Plan your journey'}</span>
+                  <span>↗</span>
+                </button>
                 <button
                   type="button"
                   onClick={() => {
                     setMobileMenuOpen(false);
                     onOpenContact();
                   }}
-                  className="py-2.5 px-3 rounded-lg border border-[#263F32]/20 text-[#263F32] text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-[#263F32]/5 transition-colors cursor-pointer"
+                  className="w-full button button-outline justify-center gap-2 text-center"
                 >
-                  <Mail className="w-3.5 h-3.5 text-[#263F32]" />
-                  <span>{t.nav.contact}</span>
+                  <span>{isKn ? 'ಸಂಪರ್ಕಿಸಿ' : 'Contact Us'}</span>
+                  <Mail className="w-4 h-4" />
                 </button>
               </div>
+            </div>
 
-              <div className="text-center text-[10px] text-[#252923]/60 pt-1">
-                {t.hero.trustNotice}
-              </div>
+            {/* Bottom info */}
+            <div className="pt-6 border-t border-white/10 text-center text-xs text-[#f5d77f]/70">
+              <p>ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್ · INCHARA HOLIDAYS</p>
+              <p className="mt-1 text-[11px] text-white/50">Travel slowly. Remember deeply.</p>
             </div>
           </div>
         </div>

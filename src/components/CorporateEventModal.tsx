@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Building2, CheckCircle2, Copy, Send, PhoneCall } from 'lucide-react';
 import { Language, CorporateInquiryData } from '../types';
-import { AmbariElephant, KolamBorderRibbon, SikkuKolamMandala } from './SouthIndianMotifs';
+import { Mark } from './Header';
 
 interface CorporateEventModalProps {
   isOpen: boolean;
@@ -147,11 +147,10 @@ Requirements: ${formData.additionalRequirements || 'None specified'}`;
     });
   };
 
-  if (!isOpen) return null;
-
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 overflow-hidden">
+      {isOpen && (
+        <div className="fixed inset-0 z-50 overflow-hidden">
         {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -165,74 +164,46 @@ Requirements: ${formData.additionalRequirements || 'None specified'}`;
         {/* Modal / Sheet Container: Full-screen slide-up on mobile, right-docked side-sheet on larger screens */}
         <div className="fixed inset-0 flex flex-col justify-end lg:justify-stretch lg:items-end pointer-events-none">
           <motion.div
-            initial={{ y: '100%', opacity: 0.9 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: '100%', opacity: 0 }}
+            initial={{ x: '100%', opacity: 0.9 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: '100%', opacity: 0 }}
             transition={{
-              type: 'spring',
-              damping: 28,
-              stiffness: 280,
+              duration: 0.4,
+              ease: [0.16, 1, 0.3, 1],
             }}
-            className="pointer-events-auto relative w-full h-[94dvh] max-h-[96dvh] lg:h-full lg:max-h-full lg:w-[600px] xl:w-[660px] bg-[#FBF9F4] text-left shadow-2xl rounded-t-3xl lg:rounded-none lg:rounded-l-3xl border-t lg:border-t-0 lg:border-l border-[#D4AF37]/35 flex flex-col overflow-hidden"
+            className="pointer-events-auto relative w-full h-full lg:w-[620px] xl:w-[680px] bg-[#fbf8f1] text-left shadow-2xl rounded-none border-l border-[#d4af37]/35 flex flex-col overflow-hidden text-[#17261e]"
           >
             {/* Top Kasavu gold hairline */}
-            <div className="h-1 w-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#9E3D28]" />
+            <div className="h-[2px] w-full bg-gradient-to-r from-[#d4af37] via-[#f5d77f] to-[#9e3d28]" />
 
-            {/* Mobile pull handle */}
-            <div className="lg:hidden w-full flex items-center justify-center pt-2.5 pb-1 bg-[#263F32] shrink-0">
-              <div className="w-12 h-1.5 rounded-full bg-white/25" />
-            </div>
-
-            {/* Header banner */}
-            <div className="bg-[#263F32] text-[#F6F3EA] px-6 py-4 sm:py-5 relative shrink-0 shadow-xs overflow-hidden">
-              {/* Kolam Watermark in header */}
-              <div className="absolute -right-8 -bottom-8 w-36 h-36 opacity-15 pointer-events-none text-[#F5D77F]">
-                <SikkuKolamMandala className="w-full h-full" />
+            {/* Editorial Header in Deep Sacred Green */}
+            <div className="px-6 py-5 bg-[#162e22] text-white flex items-center justify-between shrink-0 border-b border-white/10 relative overflow-hidden">
+              <div className="flex items-center gap-3.5 relative z-10">
+                <Mark />
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#f5d77f]">
+                      {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಮತ್ತು ಉದ್ಯೋಗಿ ಕೂಟಗಳು' : 'CORPORATE & EXECUTIVE RETREATS'}
+                    </span>
+                  </div>
+                  <h3 className="font-normal font-serif text-xl sm:text-2xl text-white tracking-tight leading-tight">
+                    {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಕಾರ್ಯಕ್ರಮ ಯೋಜನೆ' : 'Plan a Corporate Event'}
+                  </h3>
+                </div>
               </div>
 
-              {/* Close dialog button: high z-index, pointer-events-auto, isolated hit-area */}
               <button
                 type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onClose();
-                }}
-                className="absolute top-4 sm:top-5 right-4 sm:right-5 w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 text-[#F6F3EA] flex items-center justify-center transition-all cursor-pointer z-50 pointer-events-auto shadow-md"
+                onClick={onClose}
+                className="w-9 h-9 rounded-none border border-white/20 hover:border-white/50 text-white/80 hover:text-white flex items-center justify-center transition-all cursor-pointer z-50 pointer-events-auto bg-white/5 hover:bg-white/10"
                 aria-label="Close dialog"
-                data-cursor="Close"
               >
-                <X className="w-5 h-5 pointer-events-none" />
+                <X className="w-4 h-4" />
               </button>
-
-              <div className="pr-12 relative z-10">
-                <div className="flex items-center gap-2.5 mb-1.5">
-                  <span className="p-1.5 rounded-lg bg-[#D4AF37]/20 text-[#F5D77F] flex items-center justify-center">
-                    <AmbariElephant className="w-5 h-5 text-[#F5D77F]" />
-                  </span>
-                  <span className="text-xs tracking-wider uppercase font-semibold text-[#F5D77F]">
-                    {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಮತ್ತು ಉದ್ಯೋಗಿ ಕೂಟಗಳು' : 'Corporate Events & Executive Retreats'}
-                  </span>
-                </div>
-                <h2 className="text-xl sm:text-2xl font-bold font-serif-editorial">
-                  {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಕಾರ್ಯಕ್ರಮ ಯೋಜನೆ' : 'Plan a Corporate Event or Team Outing'}
-                </h2>
-                <p className="text-xs sm:text-sm text-[#F6F3EA]/80 mt-1">
-                  {isKn
-                    ? 'ನಿಮ್ಮ ತಂಡದ ವಿಶ್ರಾಂತಿ, ಪ್ರೇರಣೆ ಹಾಗೂ ಸಂಭ್ರಮಕ್ಕೆ ರಾಜಮನೆತನದ ಆತಿಥ್ಯದೊಂದಿಗೆ ಪರಿಪೂರ್ಣ ವಾತಾವರಣ.'
-                    : 'Tailored retreats, seamless team coordination, and regal hospitality for your company.'}
-                </p>
-              </div>
             </div>
 
-            {/* Kolam border ribbon */}
-            <KolamBorderRibbon className="w-full h-3.5 shrink-0" color="#D4AF37" />
-
             {/* Content Body */}
-            <div className="p-5 sm:p-7 flex-1 overflow-y-auto relative bg-[#FBF9F4]">
-              {/* Subtle background Kolam watermark */}
-              <div className="absolute right-4 bottom-8 w-64 h-64 opacity-[0.035] pointer-events-none text-[#263F32]">
-                <SikkuKolamMandala className="w-full h-full" />
-              </div>
+            <div className="p-6 sm:p-8 flex-1 modal-scroll-pane relative bg-[#fbf8f1]">
               {!submitted ? (
                 <form onSubmit={handleSubmit} className="space-y-4 text-sm text-[#252923]">
                   {/* Org Name & Contact Person */}
@@ -426,15 +397,15 @@ Requirements: ${formData.additionalRequirements || 'None specified'}`;
                   <div className="pt-2 flex flex-col sm:flex-row gap-3">
                     <button
                       type="submit"
-                      className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#263F32] text-[#F6F3EA] font-semibold text-sm hover:bg-[#1C2F25] transition-colors cursor-pointer shadow-sm"
+                      className="button button-dark !min-h-[2.85rem] !px-6 flex-1"
                     >
                       <Send className="w-4 h-4" />
-                      {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಪ್ರಸ್ತಾವನೆ ಪಡೆಯಿರಿ' : 'Submit Corporate Inquiry'}
+                      <span>{isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಪ್ರಸ್ತಾವನೆ ಪಡೆಯಿರಿ' : 'Submit Corporate Inquiry'}</span>
                     </button>
                     <button
                       type="button"
                       onClick={onClose}
-                      className="px-5 py-3 rounded-lg border border-[#263F32]/20 text-[#263F32] text-sm font-medium hover:bg-[#263F32]/5 transition-colors cursor-pointer"
+                      className="button button-outline !text-[#162e22] !border-[#c9c5b9] hover:!bg-[#162e22] hover:!text-white !min-h-[2.85rem] !px-5"
                     >
                       {isKn ? 'ರದ್ದುಮಾಡಿ' : 'Cancel'}
                     </button>
@@ -442,14 +413,14 @@ Requirements: ${formData.additionalRequirements || 'None specified'}`;
                 </form>
               ) : (
                 <div className="text-center py-6 space-y-4">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                  <div className="w-14 h-14 mx-auto rounded-full bg-[#263F32]/10 text-[#263F32] flex items-center justify-center">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold font-serif-editorial text-[#263F32]">
+                    <h3 className="text-xl sm:text-2xl font-normal font-serif text-[#162e22]">
                       {isKn ? 'ವಿಚಾರಣೆ ಯಶಸ್ವಿಯಾಗಿ ದಾಖಲಾಗಿದೆ!' : 'Corporate Request Received!'}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#252923]/80 mt-1 max-w-md mx-auto">
+                    <p className="text-xs sm:text-sm text-[#5b675f] mt-1 max-w-md mx-auto">
                       {isKn
                         ? `ಧನ್ಯವಾದಗಳು ${formData.contactPerson}. ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್‌ನ ಕಾರ್ಪೊರೇಟ್ ಸಂಯೋಜಕರು ತ್ವರಿತವಾಗಿ ಕಸ್ಟಮೈಸ್ಡ್ ಪ್ರಸ್ತಾವನೆಯೊಂದಿಗೆ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುತ್ತಾರೆ.`
                         : `Thank you, ${formData.contactPerson}. Our corporate events manager will review your details and connect with a tailored proposal shortly.`}
@@ -457,7 +428,7 @@ Requirements: ${formData.additionalRequirements || 'None specified'}`;
                   </div>
 
                   {/* Summary Box */}
-                  <div className="bg-[#263F32]/5 border border-[#263F32]/10 rounded-xl p-4 text-left text-xs font-mono text-[#263F32] whitespace-pre-line">
+                  <div className="bg-[#fffdf7] border border-[#c9c5b9] rounded-xl p-4 text-left text-xs font-mono text-[#162e22] whitespace-pre-line">
                     {generateSummaryText()}
                   </div>
 
@@ -465,16 +436,18 @@ Requirements: ${formData.additionalRequirements || 'None specified'}`;
                     <button
                       type="button"
                       onClick={handleCopy}
-                      className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[#263F32]/30 text-[#263F32] text-xs font-semibold hover:bg-[#263F32]/10 transition-colors cursor-pointer"
+                      className="button button-outline !text-[#162e22] !border-[#c9c5b9] hover:!bg-[#162e22] hover:!text-white !min-h-[2.6rem] !px-4 text-xs"
                     >
                       <Copy className="w-4 h-4" />
-                      {copied
-                        ? isKn
-                          ? 'ನಕಲಿಸಲಾಗಿದೆ!'
-                          : 'Copied!'
-                        : isKn
-                        ? 'ಸಾರಾಂಶ ನಕಲಿಸಿ'
-                        : 'Copy Brief'}
+                      <span>
+                        {copied
+                          ? isKn
+                            ? 'ನಕಲಿಸಲಾಗಿದೆ!'
+                            : 'Copied!'
+                          : isKn
+                          ? 'ಸಾರಾಂಶ ನಕಲಿಸಿ'
+                          : 'Copy Brief'}
+                      </span>
                     </button>
                     <a
                       href={`https://wa.me/919448000000?text=${encodeURIComponent(
@@ -482,15 +455,15 @@ Requirements: ${formData.additionalRequirements || 'None specified'}`;
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#263F32] text-[#F6F3EA] text-xs font-semibold hover:bg-[#1C2F25] transition-colors"
+                      className="button button-gold !min-h-[2.6rem] !px-4 text-xs"
                     >
                       <PhoneCall className="w-4 h-4" />
-                      {isKn ? 'ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಸಂಭಾಷಣೆ ನಡೆಸಿ' : 'Chat on WhatsApp'}
+                      <span>{isKn ? 'ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಸಂಭಾಷಣೆ ನಡೆಸಿ' : 'Chat on WhatsApp'}</span>
                     </a>
                     <button
                       type="button"
                       onClick={handleReset}
-                      className="px-4 py-2.5 rounded-lg text-xs font-medium text-[#263F32]/70 hover:text-[#263F32] transition-colors cursor-pointer"
+                      className="button button-text !text-[#5b675f] hover:!text-[#162e22] !min-h-[2.6rem] !px-3 text-xs"
                     >
                       {isKn ? 'ಮತ್ತೊಂದು ವಿಚಾರಣೆ' : 'New Inquiry'}
                     </button>
@@ -501,6 +474,7 @@ Requirements: ${formData.additionalRequirements || 'None specified'}`;
           </motion.div>
         </div>
       </div>
+      )}
     </AnimatePresence>
   );
 };
