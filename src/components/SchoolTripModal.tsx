@@ -101,7 +101,7 @@ export const SchoolTripModal: React.FC<SchoolTripModalProps> = ({
 
   const generateSummaryText = () => {
     return isKn
-      ? `[ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್ - ಶಾಲಾ ಪ್ರವಾಸ ವಿಚಾರಣೆ]
+      ? `[ಇಂಚರ ಹಾಲಿಡೇಸ್ - ಶಾಲಾ ಪ್ರವಾಸ ವಿಚಾರಣೆ]
 ಸಂಸ್ಥೆಯ ಹೆಸರು: ${formData.institutionName}
 ಸಂಯೋಜಕರು: ${formData.coordinatorName} (${formData.designation})
 ದೂರವಾಣಿ: ${formData.phone}

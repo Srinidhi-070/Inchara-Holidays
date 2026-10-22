@@ -133,7 +133,7 @@ export const CateringModal: React.FC<CateringModalProps> = ({
 
   const generateSummaryText = () => {
     return isKn
-      ? `[ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್ - ಕ್ಯಾಟರಿಂಗ್ ವಿಚಾರಣೆ]
+      ? `[ಇಂಚರ ಹಾಲಿಡೇಸ್ - ಕ್ಯಾಟರಿಂಗ್ ವಿಚಾರಣೆ]
 ಹೆಸರು: ${formData.fullName}
 ದೂರವಾಣಿ: ${formData.phone}
 ಇಮೇಲ್: ${formData.email || 'ತಿಳಿಸಿಲ್ಲ'}

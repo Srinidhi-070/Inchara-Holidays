@@ -420,7 +420,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
             {/* Cultural nuance notice */}
             <div className="p-4 rounded-none bg-[#263F32]/5 border border-[#263F32]/15 text-xs text-[#252923]/75 space-y-1">
               <span className="font-semibold text-[#263F32]">
-                {language === 'kn' ? 'ಇಂಚಾರಾ ಪ್ರವಾಸ ಸಲಹೆ:' : 'The Inchara Guidance:'}
+                {language === 'kn' ? 'ಇಂಚರ ಪ್ರವಾಸ ಸಲಹೆ:' : 'The Inchara Guidance:'}
               </span>
               <p>
                 {language === 'kn'

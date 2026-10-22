@@ -189,7 +189,7 @@ export const TripPlannerModal: React.FC<TripPlannerModalProps> = ({
       .filter(Boolean)
       .join(', ');
 
-    return `*${kn ? 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್ ಪ್ರವಾಸ ರೂಪರೇಷೆ' : 'Inchara Holidays Travel Brief'}*
+    return `*${kn ? 'ಇಂಚರ ಹಾಲಿಡೇಸ್ ಪ್ರವಾಸ ರೂಪರೇಷೆ' : 'Inchara Holidays Travel Brief'}*
 ----------------------------------------
 • ${kn ? 'ಪ್ರಯಾಣಿಕರ ಹೆಸರು' : 'Guest'}: ${formData.fullName || (kn ? 'ಹೆಸರು ಇಲ್ಲ' : 'Traveller')}
 • ${kn ? 'ವ್ಯಾಪ್ತಿ' : 'Scope'}: ${formData.scope.toUpperCase()}
@@ -289,7 +289,7 @@ Generated via Inchara Holidays Studio`;
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#f5d77f]">
-                      {kn ? 'ಇಂಚಾರಾ ಪ್ರವಾಸ ಸ್ಟುಡಿಯೋ' : 'INCHARA TRAVEL STUDIO'}
+                      {kn ? 'ಇಂಚರ ಪ್ರವಾಸ ಸ್ಟುಡಿಯೋ' : 'INCHARA TRAVEL STUDIO'}
                     </span>
                   </div>
                   <h3 className="font-normal font-serif text-xl sm:text-2xl text-white tracking-tight leading-tight">

@@ -49,7 +49,7 @@ export const TravellerStories: React.FC<TravellerStoriesProps> = ({ language }) 
         </div>
         <p>
           {kn
-            ? 'ಇಂಚಾರಾ ಪ್ರಯಾಣಿಕರ ಸಾರ್ಥಕ ನೆನಪುಗಳು—ಪ್ರಶಾಂತ ಮುಂಜಾನೆಗಳು, ಅನಿರೀಕ್ಷಿತ ಸಂಭಾಷಣೆಗಳು ಮತ್ತು ಮನೆಯಂತೆ ಭಾಸವಾದ ತಾಣಗಳು.'
+            ? 'ಇಂಚರ ಪ್ರಯಾಣಿಕರ ಸಾರ್ಥಕ ನೆನಪುಗಳು—ಪ್ರಶಾಂತ ಮುಂಜಾನೆಗಳು, ಅನಿರೀಕ್ಷಿತ ಸಂಭಾಷಣೆಗಳು ಮತ್ತು ಮನೆಯಂತೆ ಭಾಸವಾದ ತಾಣಗಳು.'
             : 'Space for real memories from Inchara travellers—unhurried mornings, unexpected conversations, and places that felt like home.'}
         </p>
       </div>

@@ -83,7 +83,7 @@ function Brand({ light = false }: { light?: boolean }) {
     <a className={`brand ${light ? "brand-light" : ""}`} href="#top">
       <Mark />
       <span>
-        <strong lang="kn">ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್</strong>
+        <strong lang="kn">ಇಂಚರ ಹಾಲಿಡೇಸ್</strong>
         <small>INCHARA HOLIDAYS</small>
       </span>
     </a>

@@ -1,6 +1,6 @@
 export const translations = {
   kn: {
-    brandName: 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್',
+    brandName: 'ಇಂಚರ ಹಾಲಿಡೇಸ್',
     brandEnglish: 'Inchara Holidays',
     tagline: 'ಆಧುನಿಕ ಪಯಣಗಳು. ಕಾಲಾತೀತ ಬೇರುಗಳು.',
     subtagline: 'ಯೋಜನೆಯಿಂದ ಹಿಂತಿರುಗಿ ಬರುವವರೆಗೆ ನಿಮ್ಮ ಆಪ್ತ ಪ್ರವಾಸ ಸಂಗಾತಿ.',
@@ -47,7 +47,7 @@ export const translations = {
     },
     howItWorks: {
       kicker: 'ಸರಳ ಪ್ರಕ್ರಿಯೆ',
-      title: 'ಇಂಚಾರಾ ಜೊತೆ ಪ್ರಯಾಣ ಹೀಗಿರುತ್ತದೆ',
+      title: 'ಇಂಚರ ಜೊತೆ ಪ್ರಯಾಣ ಹೀಗಿರುತ್ತದೆ',
       subtitle: 'ಯಾವುದೇ ಗೊಂದಲವಿಲ್ಲದೆ, ಮೂರು ಸರಳ ಹಂತಗಳಲ್ಲಿ ನಿಮ್ಮ ಕನಸಿನ ಪ್ರವಾಸವನ್ನು ನಿಜಗೊಳಿಸಿ.',
       step1Num: '01',
       step1Title: 'ಕನಸು',
@@ -124,9 +124,9 @@ export const translations = {
     ourStory: {
       kicker: 'ನಮ್ಮ ಧ್ಯೇಯ',
       title: 'ಕರ್ನಾಟಕದ ಆತ್ಮ, ಜಗತ್ತಿನ ಪಯಣ',
-      body1: 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್ ಹುಟ್ಟಿಕೊಂಡಿದ್ದು ಪ್ರಯಾಣದ ಮೇಲಿನ ಪ್ರೀತಿ ಮತ್ತು ಕನ್ನಡ ಮಣ್ಣಿನ ಆತಿಥ್ಯದ ಸಂಸ್ಕಾರದಿಂದ. ಕೇವಲ ತಾಣಗಳನ್ನು ನೋಡಿ ಬರುವುದಕ್ಕಿಂತ ಹೆಚ್ಚಾಗಿ, ಅಲ್ಲಿನ ಮಣ್ಣಿನ ವಾಸನೆ, ಜನರ ಪ್ರೀತಿ, ಸ್ಥಳೀಯ ರುಚಿ ಮತ್ತು ಪರಂಪರೆಯನ್ನು ಅನುಭವಿಸುವುದು ನಿಜವಾದ ಪ್ರಯಾಣ.',
+      body1: 'ಇಂಚರ ಹಾಲಿಡೇಸ್ ಹುಟ್ಟಿಕೊಂಡಿದ್ದು ಪ್ರಯಾಣದ ಮೇಲಿನ ಪ್ರೀತಿ ಮತ್ತು ಕನ್ನಡ ಮಣ್ಣಿನ ಆತಿಥ್ಯದ ಸಂಸ್ಕಾರದಿಂದ. ಕೇವಲ ತಾಣಗಳನ್ನು ನೋಡಿ ಬರುವುದಕ್ಕಿಂತ ಹೆಚ್ಚಾಗಿ, ಅಲ್ಲಿನ ಮಣ್ಣಿನ ವಾಸನೆ, ಜನರ ಪ್ರೀತಿ, ಸ್ಥಳೀಯ ರುಚಿ ಮತ್ತು ಪರಂಪರೆಯನ್ನು ಅನುಭವಿಸುವುದು ನಿಜವಾದ ಪ್ರಯಾಣ.',
       body2: 'ನಾವು ಭೌತಿಕ ಕಚೇರಿಯ ಆಡಂಬರಕ್ಕಿಂತ ಗ್ರಾಹಕರೊಂದಿಗೆ ನೇರ, ಆತ್ಮೀಯ ಸಂಬಂಧವನ್ನು ನಂಬುತ್ತೇವೆ. ಬೆಂಗಳೂರಿನಿಂದ ಮಲೆನಾಡಿನ ಮೂಲೆಗಾಗಲಿ, ಹಿಮಾಲಯದ ಕಣಿವೆಗಳಿಗಾಗಲಿ ಅಥವಾ ವಿದೇಶದ ಸುಂದರ ನಗರಗಳಿಗಾಗಲಿ — ಪ್ರತಿಯೊಂದು ಪ್ರಯಾಣವನ್ನೂ ನಿಮ್ಮ ಮನೆಯವರೇ ಸಿದ್ಧಪಡಿಸಿದಂತೆ ಶ್ರದ್ಧೆಯಿಂದ ರೂಪಿಸುತ್ತೇವೆ.',
-      body3: 'ನಿಮ್ಮ ಸಮಯ ಅಮೂಲ್ಯವಾದದ್ದು. ಯಾವುದೇ ಆತಂಕವಿಲ್ಲದೆ ನೆಮ್ಮದಿಯ ಕ್ಷಣಗಳನ್ನು ಸವಿಯಲು ಇಂಚಾರಾ ನಿಮ್ಮ ಕೈಹಿಡಿಯುತ್ತದೆ.',
+      body3: 'ನಿಮ್ಮ ಸಮಯ ಅಮೂಲ್ಯವಾದದ್ದು. ಯಾವುದೇ ಆತಂಕವಿಲ್ಲದೆ ನೆಮ್ಮದಿಯ ಕ್ಷಣಗಳನ್ನು ಸವಿಯಲು ಇಂಚರ ನಿಮ್ಮ ಕೈಹಿಡಿಯುತ್ತದೆ.',
     },
     ctaSection: {
       headline: 'ನಿಮ್ಮ ಮುಂದಿನ ಪ್ರಯಾಣದ ಕಥೆ ಇಲ್ಲಿಂದ ಶುರುವಾಗಲಿ.',
@@ -142,7 +142,7 @@ export const translations = {
       experiences: 'ಅನುಭವ ಶ್ರೇಣಿ',
       contactTitle: 'ಸಂಪರ್ಕ ಮತ್ತು ವಿಚಾರಣೆ',
       onlineServiceNote: 'ಆನ್‌ಲೈನ್ ಸಮನ್ವಯ ಸೇವೆ — ಕರ್ನಾಟಕದಾದ್ಯಂತ ಮತ್ತು ಜಗತ್ತಿನಾದ್ಯಂತ ಲಭ್ಯ.',
-      copyright: '© ೨೦೨೬ ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್ | Inchara Holidays. ಎಲ್ಲ ಹಕ್ಕುಗಳೂ ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ.',
+      copyright: '© ೨೦೨೬ ಇಂಚರ ಹಾಲಿಡೇಸ್ | Inchara Holidays. ಎಲ್ಲ ಹಕ್ಕುಗಳೂ ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ.',
       disclaimer: 'ಮಾದರಿ ವಿನ್ಯಾಸ ಪ್ರೊಟೋಟೈಪ್. ಪಾವತಿ ಅಥವಾ ಬ್ಯಾಕೆಂಡ್ ಸಂಯೋಜನೆಗಳಿಲ್ಲದೆ ಮುಕ್ತವಾಗಿ ಪ್ರದರ್ಶಿಸಲಾಗಿದೆ.',
     },
     planner: {
@@ -193,7 +193,7 @@ export const translations = {
       phone: 'ವಾಟ್ಸಾಪ್ / ಮೊಬೈಲ್ ಸಂಖ್ಯೆ',
       email: 'ಇಮೇಲ್ ವಿಳಾಸ',
       preferredChannel: 'ಸಂವಹನದ ಆದ್ಯತೆ:',
-      reviewTitle: 'ನಿಮ್ಮ ಇಂಚಾರಾ ಪ್ರವಾಸ ಸಾರಾಂಶ',
+      reviewTitle: 'ನಿಮ್ಮ ಇಂಚರ ಪ್ರವಾಸ ಸಾರಾಂಶ',
       reviewSub: 'ಈ ಕೆಳಗಿನ ವಿವರಗಳನ್ನು ಆಧರಿಸಿ ನಾವು ನಿಮಗಾಗಿ ಆಪ್ತ ದಿನಚರಿಯನ್ನು ರೂಪಿಸುತ್ತೇವೆ.',
       copySummary: 'ಸಾರಾಂಶ ನಕಲಿಸಿ (Copy Brief)',
       copied: 'ನಕಲಿಸಲಾಗಿದೆ!',
@@ -214,7 +214,7 @@ export const translations = {
   },
   en: {
     brandName: 'Inchara Holidays',
-    brandEnglish: 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್',
+    brandEnglish: 'ಇಂಚರ ಹಾಲಿಡೇಸ್',
     tagline: 'Modern journeys. Timeless roots.',
     subtagline: 'One trusted travel partner, from planning to the journey home.',
     nav: {
@@ -355,7 +355,7 @@ export const translations = {
       experiences: 'Travel Styles',
       contactTitle: 'Reach Out',
       onlineServiceNote: 'Online coordination service — catering to travellers across Karnataka and worldwide.',
-      copyright: '© 2026 Inchara Holidays | ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್. All rights reserved.',
+      copyright: '© 2026 Inchara Holidays | ಇಂಚರ ಹಾಲಿಡೇಸ್. All rights reserved.',
       disclaimer: 'Frontend design prototype. Built without backends or payment integrations.',
     },
     planner: {

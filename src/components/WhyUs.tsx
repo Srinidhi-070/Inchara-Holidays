@@ -73,7 +73,7 @@ export const WhyUs: React.FC<WhyUsProps> = ({ language }) => {
 
               {/* Delicate hairline bottom accent with Lotus */}
               <div className="pt-6 mt-6 border-t border-[#263F32]/8 flex items-center justify-between text-xs text-[#252923]/60 font-medium">
-                <span>{language === 'kn' ? 'ಇಂಚಾರಾ ಮಾನದಂಡ' : 'Inchara Standard'}</span>
+                <span>{language === 'kn' ? 'ಇಂಚರ ಮಾನದಂಡ' : 'Inchara Standard'}</span>
                 <LotusIcon className="w-4 h-4 text-[#D4AF37]" />
               </div>
             </motion.div>

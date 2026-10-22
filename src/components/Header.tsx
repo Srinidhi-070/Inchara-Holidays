@@ -39,7 +39,7 @@ export function Brand({ light = false }: { light?: boolean }) {
     >
       <Mark />
       <span>
-        <strong lang="kn">ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್</strong>
+        <strong lang="kn">ಇಂಚರ ಹಾಲಿಡೇಸ್</strong>
         <small>INCHARA HOLIDAYS</small>
       </span>
     </a>
@@ -351,7 +351,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* Bottom info */}
             <div className="pt-6 border-t border-white/10 text-center text-xs text-[#f5d77f]/70">
-              <p>ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್ · INCHARA HOLIDAYS</p>
+              <p>ಇಂಚರ ಹಾಲಿಡೇಸ್ · INCHARA HOLIDAYS</p>
               <p className="mt-1 text-[11px] text-white/50">Travel slowly. Remember deeply.</p>
             </div>
           </div>

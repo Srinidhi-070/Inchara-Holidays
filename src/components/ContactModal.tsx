@@ -97,7 +97,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
                       </span>
                     </div>
                     <h3 className="font-normal font-serif text-xl sm:text-2xl text-white tracking-tight leading-tight">
-                      {language === 'kn' ? 'ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್ ಸಂಪರ್ಕಿಸಿ' : 'Contact Inchara Holidays'}
+                      {language === 'kn' ? 'ಇಂಚರ ಹಾಲಿಡೇಸ್ ಸಂಪರ್ಕಿಸಿ' : 'Contact Inchara Holidays'}
                     </h3>
                   </div>
                 </div>

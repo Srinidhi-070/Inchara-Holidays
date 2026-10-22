@@ -83,7 +83,7 @@ export const Footer: React.FC<FooterProps> = ({
           >
             <Mark />
             <span>
-              <strong lang="kn">ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್</strong>
+              <strong lang="kn">ಇಂಚರ ಹಾಲಿಡೇಸ್</strong>
               <small>INCHARA HOLIDAYS</small>
             </span>
           </a>

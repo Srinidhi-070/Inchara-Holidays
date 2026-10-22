@@ -53,7 +53,7 @@ export const OurStory: React.FC<OurStoryProps> = ({ language, onOpenPlanner }) =
       <div className="difference-copy">
         <div className="section-title">
           <p className="section-label">
-            <span>✦</span> {kn ? 'ಇಂಚಾರಾ ವೈಶಿಷ್ಟ್ಯ' : 'THE INCHARA DIFFERENCE'}
+            <span>✦</span> {kn ? 'ಇಂಚರ ವೈಶಿಷ್ಟ್ಯ' : 'THE INCHARA DIFFERENCE'}
           </p>
           <h2>
             {kn ? (

@@ -101,7 +101,7 @@ export const CorporateEventModal: React.FC<CorporateEventModalProps> = ({
 
   const generateSummaryText = () => {
     return isKn
-      ? `[ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್ - ಕಾರ್ಪೊರೇಟ್ ವಿಚಾರಣೆ]
+      ? `[ಇಂಚರ ಹಾಲಿಡೇಸ್ - ಕಾರ್ಪೊರೇಟ್ ವಿಚಾರಣೆ]
 ಸಂಸ್ಥೆಯ ಹೆಸರು: ${formData.organizationName}
 ಸಂಪರ್ಕ ವ್ಯಕ್ತಿ: ${formData.contactPerson}
 ಇಮೇಲ್: ${formData.workEmail}
@@ -422,7 +422,7 @@ Requirements: ${formData.additionalRequirements || 'None specified'}`;
                     </h3>
                     <p className="text-xs sm:text-sm text-[#5b675f] mt-1 max-w-md mx-auto">
                       {isKn
-                        ? `ಧನ್ಯವಾದಗಳು ${formData.contactPerson}. ಇಂಚಾರಾ ಹಾಲಿಡೇಸ್‌ನ ಕಾರ್ಪೊರೇಟ್ ಸಂಯೋಜಕರು ತ್ವರಿತವಾಗಿ ಕಸ್ಟಮೈಸ್ಡ್ ಪ್ರಸ್ತಾವನೆಯೊಂದಿಗೆ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುತ್ತಾರೆ.`
+                        ? `ಧನ್ಯವಾದಗಳು ${formData.contactPerson}. ಇಂಚರ ಹಾಲಿಡೇಸ್‌ನ ಕಾರ್ಪೊರೇಟ್ ಸಂಯೋಜಕರು ತ್ವರಿತವಾಗಿ ಕಸ್ಟಮೈಸ್ಡ್ ಪ್ರಸ್ತಾವನೆಯೊಂದಿಗೆ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುತ್ತಾರೆ.`
                         : `Thank you, ${formData.contactPerson}. Our corporate events manager will review your details and connect with a tailored proposal shortly.`}
                     </p>
                   </div>
