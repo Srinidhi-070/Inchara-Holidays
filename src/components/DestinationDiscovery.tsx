@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Language, Destination } from '../types';
 import { destinations } from '../data/destinations';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface DestinationDiscoveryProps {
   language: Language;
@@ -14,6 +15,10 @@ export const DestinationDiscovery: React.FC<DestinationDiscoveryProps> = ({
   onOpenPlannerWithDest,
 }) => {
   const kn = language === 'kn';
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Map the 5 editorial tiles to corresponding detailed destination objects in destinations.ts
   const karnatakaDest = destinations.find((d) => d.id === 'coorg' || d.category === 'karnataka') || destinations[0];
@@ -70,12 +75,107 @@ export const DestinationDiscovery: React.FC<DestinationDiscoveryProps> = ({
     },
   ];
 
+  // Detect mobile screen ratio (<= 768px)
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Smooth programmatic scroll to target card
+  const scrollToCard = useCallback((targetIndex: number) => {
+    if (!gridRef.current) return;
+    const cards = gridRef.current.children;
+    if (cards[targetIndex]) {
+      const card = cards[targetIndex] as HTMLElement;
+      const containerLeft = gridRef.current.getBoundingClientRect().left;
+      const cardLeft = card.getBoundingClientRect().left;
+      const targetScroll = cardLeft - containerLeft + gridRef.current.scrollLeft;
+
+      gridRef.current.scrollTo({
+        left: targetScroll,
+        behavior: 'smooth',
+      });
+      setActiveIndex(targetIndex);
+    }
+  }, []);
+
+  // Automatic scrolling every 10 seconds on mobile
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const startTimer = () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+      timerRef.current = setInterval(() => {
+        setActiveIndex((prev) => {
+          const nextIndex = (prev + 1) % editorialDestinations.length;
+          scrollToCard(nextIndex);
+          return nextIndex;
+        });
+      }, 10000); // 10 seconds automatic animation
+    };
+
+    startTimer();
+
+    // Reset 10s timer on user touch/drag so it doesn't interrupt active manual swiping
+    const gridEl = gridRef.current;
+    const handleTouchStart = () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+    const handleTouchEnd = () => {
+      startTimer();
+    };
+
+    if (gridEl) {
+      gridEl.addEventListener('touchstart', handleTouchStart, { passive: true });
+      gridEl.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+      if (gridEl) {
+        gridEl.removeEventListener('touchstart', handleTouchStart);
+        gridEl.removeEventListener('touchend', handleTouchEnd);
+      }
+    };
+  }, [isMobile, editorialDestinations.length, scrollToCard]);
+
+  // Synchronize activeIndex on manual touch swipe
+  const handleGridScroll = () => {
+    if (!gridRef.current || !isMobile) return;
+    const scrollLeft = gridRef.current.scrollLeft;
+    const cards = gridRef.current.children;
+    if (!cards.length) return;
+
+    const cardWidth = (cards[0] as HTMLElement).offsetWidth || 1;
+    const gap = 14;
+    const computedIndex = Math.round(scrollLeft / (cardWidth + gap));
+    const clampedIndex = Math.max(0, Math.min(editorialDestinations.length - 1, computedIndex));
+
+    if (clampedIndex !== activeIndex) {
+      setActiveIndex(clampedIndex);
+    }
+  };
+
   const handleTileClick = (item: typeof editorialDestinations[0]) => {
     if (item.destObj) {
       onSelectDestination(item.destObj);
     } else {
       onOpenPlannerWithDest(item.name);
     }
+  };
+
+  const handlePrev = () => {
+    const prevIndex = (activeIndex - 1 + editorialDestinations.length) % editorialDestinations.length;
+    scrollToCard(prevIndex);
+  };
+
+  const handleNext = () => {
+    const nextIndex = (activeIndex + 1) % editorialDestinations.length;
+    scrollToCard(nextIndex);
   };
 
   return (
@@ -116,7 +216,11 @@ export const DestinationDiscovery: React.FC<DestinationDiscoveryProps> = ({
         </div>
       </div>
 
-      <div className="destination-grid">
+      <div
+        ref={gridRef}
+        onScroll={handleGridScroll}
+        className="destination-grid"
+      >
         {editorialDestinations.map((item, index) => (
           <div
             className={`destination ${item.className} cursor-pointer`}
@@ -150,6 +254,58 @@ export const DestinationDiscovery: React.FC<DestinationDiscoveryProps> = ({
             </b>
           </div>
         ))}
+      </div>
+
+      {/* Mobile Ratio Auto-Scroll Controls & Indicators */}
+      <div className="md:hidden mt-5 pt-3 flex items-center justify-between border-t border-[#263f32]/10 select-none">
+        {/* Animated Pills */}
+        <div className="flex items-center gap-1.5">
+          {editorialDestinations.map((dest, idx) => (
+            <button
+              key={dest.id}
+              type="button"
+              onClick={() => scrollToCard(idx)}
+              aria-label={`Go to ${dest.name}`}
+              className={`h-1.5 transition-all duration-500 rounded-full cursor-pointer border-0 p-0 ${
+                activeIndex === idx
+                  ? 'w-7 bg-[#9e3d28]'
+                  : 'w-2 bg-[#263f32]/25 hover:bg-[#263f32]/50'
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Counter & 10s Timer Indicator */}
+        <div className="flex items-center gap-3">
+          <div className="text-[11px] font-mono tracking-wider text-[#263f32]/70 flex items-center gap-1">
+            <span className="font-bold text-[#9e3d28]">0{activeIndex + 1}</span>
+            <span>/</span>
+            <span>0{editorialDestinations.length}</span>
+            <span className="text-[10px] text-[#263f32]/40 ml-1.5 uppercase tracking-normal">
+              · 10s auto
+            </span>
+          </div>
+
+          {/* Quick Prev / Next Arrows for Mobile Touch */}
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={handlePrev}
+              aria-label="Previous destination"
+              className="w-7 h-7 rounded-none border border-[#263f32]/20 flex items-center justify-center text-[#263f32]/75 hover:bg-[#263f32]/10 transition-colors"
+            >
+              <ChevronLeft className="w-3.5 h-3.5" />
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              aria-label="Next destination"
+              className="w-7 h-7 rounded-none border border-[#263f32]/20 flex items-center justify-center text-[#263f32]/75 hover:bg-[#263f32]/10 transition-colors"
+            >
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -1362,9 +1362,33 @@ button[class*="bg-[#9E3D28]"] span {
   .section-title h2, .planner-intro h2, .footer-image h2 { font-size: 3.25rem; }
   .section-copy { margin-left: 0; }
   .journey-links { margin-top: 2rem; min-width: 0; }
-  .destination-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: .75rem; margin-right: -1.25rem; padding-right: 1.25rem; }
-  .destination { min-width: 82vw; height: 28rem; scroll-snap-align: start; }
-  .destination:nth-child(even) { height: 22rem; margin-top: 3rem; }
+  .destination-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 0.85rem;
+    margin-right: -1.25rem;
+    padding-right: 1.25rem;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .destination-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .destination {
+    min-width: 84vw;
+    height: 28rem;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+  }
+  .destination:nth-child(even) {
+    height: 24rem;
+    margin-top: 2rem;
+  }
   .services-heading { padding-top: 5rem; }
   .services-heading > p { margin-top: 2rem; }
   .service-holidays { min-height: 38rem; }
