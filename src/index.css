@@ -1334,28 +1334,162 @@ button[class*="bg-[#9E3D28]"] span {
   .language-toggle { display: none; }
   .language-toggle-footer { display: inline-flex; }
   .nav { top: 5.5rem; }
-  .hero { min-height: 100vh; min-height: 100dvh; }
+  .hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 6.5rem;
+    padding-bottom: 2.5rem;
+    overflow: visible;
+  }
   .hero-rule, .location-stamp { display: none; }
-  .hero-luxury .hero-image { background: linear-gradient(0deg, rgba(6,23,14,.9), rgba(6,23,14,.12) 75%), url("https://images.unsplash.com/photo-1491497895121-1334fc14d8c9?auto=format&fit=crop&w=900&q=88") 57% center/cover; }
-  .hero-copy { left: 1.25rem; right: 1.25rem; top: auto; bottom: 3rem; transform: none; }
-  .eyebrow { font-size: .52rem; }
-  .eyebrow::before { width: 1.5rem; margin-right: .6rem; }
-  .hero h1 { font-size: 3rem; line-height: .92; }
-  .kannada { font-size: .84rem; }
-  .hero-summary { font-size: .95rem; }
-  .hero-actions { align-items: stretch; flex-direction: column; max-width: 15rem; }
+  .hero-luxury .hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(6, 23, 14, 0.94) 0%, rgba(6, 23, 14, 0.6) 50%, rgba(6, 23, 14, 0.25) 100%),
+                url("https://images.unsplash.com/photo-1491497895121-1334fc14d8c9?auto=format&fit=crop&w=900&q=88") 57% center/cover;
+  }
+  .hero-copy {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    width: 100%;
+    padding: 0 1.25rem;
+    margin-top: auto;
+    z-index: 3;
+  }
+  .eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    margin-bottom: 0.4rem;
+  }
+  .eyebrow::before {
+    width: 1.5rem;
+    margin-right: 0.5rem;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 6.8vw, 2.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0.4rem 0 0.35rem;
+  }
+  .language-kn .hero h1 {
+    font-size: clamp(1.85rem, 6.4vw, 2.35rem);
+    line-height: 1.22;
+  }
+  .kannada {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0.35rem 0 0.65rem;
+  }
+  .hero-summary {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    margin-bottom: 1.25rem;
+    max-width: 24rem;
+    opacity: 0.92;
+  }
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    width: 100%;
+    max-width: 19rem;
+  }
+  .hero-actions .button {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.75rem 1.1rem;
+    justify-content: space-between;
+  }
   .scroll-cue { display: none; }
-  .hero-journal .journal-photo { top: 5.5rem; width: 100%; height: 46%; }
-  .hero-journal .hero-copy { width: auto; top: auto; bottom: 2rem; }
-  .hero-journal .hero-copy h1 { font-size: 2.6rem; }
-  .journal-postcard { right: 1rem; bottom: 50%; width: 13rem; padding: 1rem; }
+  .hero-journal {
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 6.5rem;
+    padding-bottom: 2.5rem;
+    overflow: visible;
+  }
+  .hero-journal .journal-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.28;
+    background: url("https://images.unsplash.com/photo-1506461883276-594a12b11cf3?auto=format&fit=crop&w=1500&q=88") center/cover;
+  }
+  .hero-journal .hero-copy {
+    position: relative !important;
+    width: 100%;
+    top: auto !important;
+    bottom: auto !important;
+    padding: 0 1.25rem;
+    margin-top: auto;
+  }
+  .hero-journal .hero-copy h1 {
+    font-size: clamp(1.85rem, 6.5vw, 2.35rem);
+    line-height: 1.18;
+  }
+  .journal-postcard {
+    position: relative !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: 100%;
+    max-width: 18rem;
+    margin: 1rem 0;
+    transform: none !important;
+  }
   .hero-journal .header { color: white; }
   .hero-journal .brand-light { color: white; }
-  .hero-global .global-word { top: 8rem; font-size: 38vw; }
-  .image-one { top: 6rem; right: -2rem; width: 79%; height: 26rem; }
+  .hero-global {
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 6.5rem;
+    padding-bottom: 2.5rem;
+    overflow: visible;
+  }
+  .hero-global .global-word {
+    top: 4.5rem;
+    font-size: 30vw;
+    opacity: 0.12;
+  }
+  .image-one {
+    top: 5rem;
+    right: -1rem;
+    width: 65%;
+    height: 16rem;
+    opacity: 0.8;
+  }
   .image-two { display: none; }
-  .hero-global .hero-copy { bottom: 5rem; top: auto; }
-  .hero-global .hero-copy h1 { font-size: 5.5rem; }
+  .hero-global .hero-copy {
+    position: relative !important;
+    bottom: auto !important;
+    top: auto !important;
+    padding: 0 1.25rem;
+    margin-top: auto;
+  }
+  .hero-global .hero-copy h1 {
+    font-size: clamp(2.3rem, 8vw, 3rem);
+    line-height: 1.05;
+  }
   .global-caption { display: none; }
   .destinations, .journeys, .stories { padding-top: 5.5rem; padding-bottom: 5.5rem; }
   .title-row, .services-heading, .journey-head, .stories-heading { display: block; }
