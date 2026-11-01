@@ -17,6 +17,7 @@ import {
   Check,
 } from 'lucide-react';
 import { Mark } from './Header';
+import { SikkuKolamMandala, LotusIcon } from './SouthIndianMotifs';
 
 interface DestinationModalProps {
   destination: Destination | null;

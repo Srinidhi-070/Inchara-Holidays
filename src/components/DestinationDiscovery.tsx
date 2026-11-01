@@ -18,7 +18,7 @@ export const DestinationDiscovery: React.FC<DestinationDiscoveryProps> = ({
   const gridRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Map the 5 editorial tiles to corresponding detailed destination objects in destinations.ts
   const karnatakaDest = destinations.find((d) => d.id === 'coorg' || d.category === 'karnataka') || destinations[0];

@@ -240,7 +240,7 @@ Generated via Inchara Holidays Studio`;
       opacity: 1,
       transition: {
         duration: 0.32,
-        ease: [0.16, 1, 0.3, 1],
+        ease: [0.16, 1, 0.3, 1] as const,
       },
     },
     exit: (dir: number) => ({
@@ -248,7 +248,7 @@ Generated via Inchara Holidays Studio`;
       opacity: 0,
       transition: {
         duration: 0.22,
-        ease: [0.16, 1, 0.3, 1],
+        ease: [0.16, 1, 0.3, 1] as const,
       },
     }),
   };
