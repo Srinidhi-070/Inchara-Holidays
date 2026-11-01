@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Language, Concept } from '../types';
 import { translations } from '../data/translations';
+import { smoothScrollTo } from '../utils/smoothScroll';
 import {
   Compass,
   X,
@@ -27,14 +28,24 @@ export function Mark() {
   );
 }
 
-export function Brand({ light = false }: { light?: boolean }) {
+export function Brand({
+  light = false,
+  onNavigate,
+}: {
+  light?: boolean;
+  onNavigate?: () => void;
+}) {
   return (
     <a
       className={`brand ${light ? 'brand-light' : ''}`}
       href="#top"
       onClick={(e) => {
         e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (onNavigate) {
+          onNavigate();
+        } else {
+          smoothScrollTo('top');
+        }
       }}
     >
       <Mark />
@@ -65,18 +76,41 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('top');
   const t = translations[language];
   const isKn = language === 'kn';
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
+
+      const scrollY = window.scrollY;
+      const headerOffset = 160;
+
+      const destinationsEl = document.getElementById('destinations');
+      const journeysEl = document.getElementById('journeys');
+      const servicesEl = document.getElementById('services');
+      const differenceEl = document.getElementById('difference');
+
+      if (differenceEl && scrollY >= differenceEl.offsetTop - headerOffset) {
+        setActiveSection('difference');
+      } else if (servicesEl && scrollY >= servicesEl.offsetTop - headerOffset) {
+        setActiveSection('services');
+      } else if (journeysEl && scrollY >= journeysEl.offsetTop - headerOffset) {
+        setActiveSection('experiences');
+      } else if (destinationsEl && scrollY >= destinationsEl.offsetTop - headerOffset) {
+        setActiveSection('destinations');
+      } else {
+        setActiveSection('top');
+      }
     };
+
     const handleResize = () => {
       if (window.innerWidth > 1024) {
         setMobileMenuOpen(false);
       }
     };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize, { passive: true });
     return () => {
@@ -89,12 +123,17 @@ export const Header: React.FC<HeaderProps> = ({
 
   const handleNavClick = (sectionId: string) => {
     setMobileMenuOpen(false);
-    if (sectionId === 'top') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (sectionId === 'contact') {
+    if (sectionId === 'contact') {
       onOpenContact();
     } else {
-      onNavigateSection(sectionId);
+      setActiveSection(
+        sectionId === 'service-school' || sectionId === 'service-corporate'
+          ? 'services'
+          : sectionId === 'journeys'
+          ? 'experiences'
+          : sectionId
+      );
+      smoothScrollTo(sectionId);
     }
   };
 
@@ -103,7 +142,7 @@ export const Header: React.FC<HeaderProps> = ({
       <header
         className={`header ${isScrolled ? 'bg-[#162e22]/95 backdrop-blur-md shadow-lg !fixed' : ''}`}
       >
-        <Brand light={!isDarkNav} />
+        <Brand light={!isDarkNav} onNavigate={() => handleNavClick('top')} />
 
         <nav
           className={`nav ${mobileMenuOpen ? 'open' : ''}`}
@@ -111,48 +150,57 @@ export const Header: React.FC<HeaderProps> = ({
         >
           <a
             href="#destinations"
+            className={`nav-link ${activeSection === 'destinations' ? 'nav-link-active' : ''}`}
             onClick={(e) => {
               e.preventDefault();
               handleNavClick('destinations');
             }}
           >
             {isKn ? 'ತಾಣಗಳು' : 'Destinations'}
+            {activeSection === 'destinations' && <span className="nav-active-pill" aria-hidden="true" />}
           </a>
           <a
-            href="#experiences"
+            href="#journeys"
+            className={`nav-link ${activeSection === 'experiences' ? 'nav-link-active' : ''}`}
             onClick={(e) => {
               e.preventDefault();
-              handleNavClick('experiences');
+              handleNavClick('journeys');
             }}
           >
             {isKn ? 'ಅನುಭವಗಳು' : 'Experiences'}
+            {activeSection === 'experiences' && <span className="nav-active-pill" aria-hidden="true" />}
           </a>
           <a
             href="#services"
+            className={`nav-link ${activeSection === 'services' ? 'nav-link-active' : ''}`}
             onClick={(e) => {
               e.preventDefault();
-              handleNavClick('services');
+              handleNavClick('service-corporate');
             }}
           >
             {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಮತ್ತು ಕ್ಯಾಟರಿಂಗ್' : 'Corporate & Catering'}
+            {activeSection === 'services' && <span className="nav-active-pill" aria-hidden="true" />}
           </a>
           <a
-            href="#services"
+            href="#service-school"
+            className={`nav-link ${activeSection === 'services' ? 'nav-link-active' : ''}`}
             onClick={(e) => {
               e.preventDefault();
-              handleNavClick('services');
+              handleNavClick('service-school');
             }}
           >
             {isKn ? 'ಶಾಲಾ ಪ್ರವಾಸಗಳು' : 'School Trips'}
           </a>
           <a
             href="#difference"
+            className={`nav-link ${activeSection === 'difference' ? 'nav-link-active' : ''}`}
             onClick={(e) => {
               e.preventDefault();
               handleNavClick('difference');
             }}
           >
             {isKn ? 'ನಮ್ಮ ಕಥೆ' : 'Our Story'}
+            {activeSection === 'difference' && <span className="nav-active-pill" aria-hidden="true" />}
           </a>
         </nav>
 
@@ -290,7 +338,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <ArrowRight className="w-3.5 h-3.5 text-white/40" />
                 </button>
                 <button
-                  onClick={() => handleNavClick('experiences')}
+                  onClick={() => handleNavClick('journeys')}
                   className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-medium hover:bg-white/10 transition-colors flex items-center justify-between cursor-pointer"
                 >
                   <span className="flex items-center gap-2.5">
@@ -300,7 +348,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <ArrowRight className="w-3.5 h-3.5 text-white/40" />
                 </button>
                 <button
-                  onClick={() => handleNavClick('services')}
+                  onClick={() => handleNavClick('service-corporate')}
                   className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-medium hover:bg-white/10 transition-colors flex items-center justify-between cursor-pointer"
                 >
                   <span className="flex items-center gap-2.5">
@@ -310,7 +358,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <ArrowRight className="w-3.5 h-3.5 text-white/40" />
                 </button>
                 <button
-                  onClick={() => handleNavClick('services')}
+                  onClick={() => handleNavClick('service-school')}
                   className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-medium hover:bg-white/10 transition-colors flex items-center justify-between cursor-pointer"
                 >
                   <span className="flex items-center gap-2.5">

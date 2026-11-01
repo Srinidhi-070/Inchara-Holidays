@@ -234,19 +234,16 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: clamp(4.5rem, 8vh, 6rem);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }
 
@@ -710,6 +707,14 @@ button[class*="bg-[#9E3D28]"] span {
 }
 .nav a:hover::after {
   right: 0;
+}
+.nav a.nav-link-active {
+  color: var(--kasavu);
+  text-shadow: 0 0 10px rgba(245, 215, 127, 0.65);
+}
+.nav a.nav-link-active::after {
+  right: 0;
+  box-shadow: 0 0 8px rgba(245, 215, 127, 0.8);
 }
 .header-actions {
   display: flex;

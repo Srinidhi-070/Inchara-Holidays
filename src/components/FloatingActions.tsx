@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUp, Calendar } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 import { AmbariElephant } from './SouthIndianMotifs';
 import { Language } from '../types';
+import { smoothScrollTo } from '../utils/smoothScroll';
 
 interface FloatingActionsProps {
   language: Language;
@@ -30,10 +31,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    smoothScrollTo('top');
   };
 
   const radius = 18;

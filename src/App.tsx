@@ -24,6 +24,7 @@ import { ContactModal } from './components/ContactModal';
 import { CustomCursor } from './components/CustomCursor';
 import { ScrollProgressBar } from './components/ScrollProgressBar';
 import { FloatingActions } from './components/FloatingActions';
+import { smoothScrollTo } from './utils/smoothScroll';
 
 export default function App() {
   const [concept, setConcept] = useState<Concept>('A');
@@ -45,10 +46,7 @@ export default function App() {
   };
 
   const handleNavigateSection = (sectionId: string) => {
-    const el = document.getElementById(sectionId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+    smoothScrollTo(sectionId);
   };
 
   return (

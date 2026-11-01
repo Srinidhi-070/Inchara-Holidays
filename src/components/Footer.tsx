@@ -26,9 +26,7 @@ export const Footer: React.FC<FooterProps> = ({
   const kn = language === 'kn';
 
   const handleNavClick = (sectionId: string) => {
-    if (sectionId === 'top') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (sectionId === 'contact') {
+    if (sectionId === 'contact') {
       onOpenContact();
     } else {
       onNavigateSection(sectionId);
@@ -78,7 +76,7 @@ export const Footer: React.FC<FooterProps> = ({
             href="#top"
             onClick={(e) => {
               e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              onNavigateSection('top');
             }}
           >
             <Mark />

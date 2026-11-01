@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Language, Destination } from '../types';
 import { destinations } from '../data/destinations';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { smoothScrollTo } from '../utils/smoothScroll';
 
 interface DestinationDiscoveryProps {
   language: Language;
@@ -205,11 +206,23 @@ export const DestinationDiscovery: React.FC<DestinationDiscoveryProps> = ({
           </p>
         </div>
         <div className="journey-links">
-          <a href="#journeys">
+          <a
+            href="#journeys"
+            onClick={(e) => {
+              e.preventDefault();
+              smoothScrollTo('journeys');
+            }}
+          >
             <span>{kn ? 'ದೇಶೀಯ ಪಯಣಗಳು' : 'Domestic journeys'}</span>
             <span aria-hidden="true">↗</span>
           </a>
-          <a href="#journeys">
+          <a
+            href="#journeys"
+            onClick={(e) => {
+              e.preventDefault();
+              smoothScrollTo('journeys');
+            }}
+          >
             <span>{kn ? 'ಅಂತರರಾಷ್ಟ್ರೀಯ ಪಯಣಗಳು' : 'International escapes'}</span>
             <span aria-hidden="true">↗</span>
           </a>
