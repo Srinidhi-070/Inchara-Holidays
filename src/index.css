@@ -1187,10 +1187,10 @@ button[class*="bg-[#9E3D28]"] span {
 .services { background: var(--ivory); }
 .services-heading { padding-top: 8rem; padding-bottom: 4rem; display: flex; justify-content: space-between; align-items: end; }
 .services-heading > p { max-width: 27rem; color: #5b675f; font-size: .82rem; line-height: 1.8; }
-.service-holidays { position: relative; min-height: 42rem; overflow: hidden; color: white; }
-.service-holidays::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,28,17,.8), rgba(8,28,17,.1)); }
-.service-holidays > img { position: absolute; width: 100%; height: 100%; object-fit: cover; }
-.service-number { font-family: var(--serif); font-size: 8rem; color: rgba(255,255,255,.25); line-height: 1; }
+.service-holidays { position: relative; min-height: 42rem; overflow: hidden; color: white; background: #091b11; }
+.service-holidays::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(8,28,17,.85) 0%, rgba(8,28,17,.55) 45%, rgba(8,28,17,.2) 100%); pointer-events: none; }
+.service-holidays > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.service-number { font-family: var(--serif); font-size: 8rem; color: rgba(255,255,255,.32); line-height: 1; text-shadow: 0 4px 16px rgba(0,0,0,.45); }
 .service-holidays > .service-number { position: absolute; z-index: 2; left: 7vw; top: 3rem; }
 .service-copy { position: absolute; z-index: 2; left: 18vw; top: 50%; transform: translateY(-25%); max-width: 31rem; }
 .service-copy > span, .mini-label, .food-caption > span, .school-copy > span { color: var(--kasavu); font-size: .6rem; letter-spacing: .16em; }
@@ -1204,9 +1204,9 @@ button[class*="bg-[#9E3D28]"] span {
 .line-illustration span { position: absolute; inset: 2rem; border: 1px solid rgba(212,175,55,.22); border-radius: 50%; }
 .line-illustration span:nth-child(2) { inset: 5rem; }
 .line-illustration span:nth-child(3) { inset: 8rem; background: var(--gold); }
-.service-food { position: relative; overflow: hidden; color: white; }
-.service-food::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(19,17,6,.9), transparent 70%); }
-.service-food > img { position: absolute; width: 100%; height: 100%; object-fit: cover; }
+.service-food { position: relative; overflow: hidden; color: white; background: #111e16; }
+.service-food::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(0deg, rgba(14,20,16,.96) 0%, rgba(14,20,16,.8) 40%, rgba(14,20,16,.25) 80%); pointer-events: none; }
+.service-food > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
 .food-caption { position: absolute; z-index: 2; left: 3.5rem; right: 3.5rem; bottom: 3rem; }
 .food-caption h3 { max-width: 30rem; }
 .service-school { min-height: 42rem; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 9vw; background: var(--gold); }
@@ -1287,7 +1287,7 @@ button[class*="bg-[#9E3D28]"] span {
 .footer { background: #0f261a; color: white; }
 .footer-image { position: relative; min-height: 42rem; display: grid; place-items: center; text-align: center; overflow: hidden; }
 .footer-image::after { content: ""; position: absolute; inset: 0; background: rgba(7,27,16,.58); }
-.footer-image > img { position: absolute; height: 100%; object-fit: cover; }
+.footer-image > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .footer-image > div { position: relative; z-index: 2; max-width: 55rem; padding: 2rem; }
 .footer-image span { color: var(--kasavu); font-size: .62rem; letter-spacing: .2em; }
 .footer-image h2 { font-size: clamp(4rem, 7vw, 7rem); }
@@ -1920,28 +1920,74 @@ button[class*="bg-[#9E3D28]"] span {
   }
   .service-holidays {
     position: relative;
-    min-height: 28rem;
-    padding: 4.5rem 1.25rem 2.5rem;
+    min-height: 30rem;
+    padding: 4rem 1.25rem 2.25rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    overflow: hidden;
+    background: #091b11;
+  }
+  .service-holidays > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .service-holidays::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      180deg,
+      rgba(8, 28, 17, 0.45) 0%,
+      rgba(8, 28, 17, 0.2) 30%,
+      rgba(8, 28, 17, 0.78) 65%,
+      rgba(6, 20, 12, 0.98) 100%
+    );
+    pointer-events: none;
   }
   .service-holidays > .service-number {
     position: absolute;
     left: 1.25rem;
-    top: 1.5rem;
-    font-size: clamp(4rem, 14vw, 5.5rem);
-    opacity: 0.2;
+    top: 1.25rem;
+    font-size: clamp(3.75rem, 13vw, 5rem);
+    color: rgba(255, 255, 255, 0.45);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+    opacity: 1;
     line-height: 1;
+    z-index: 2;
   }
   .service-copy {
     position: relative !important;
+    z-index: 2 !important;
     left: auto !important;
     right: auto !important;
     bottom: auto !important;
     top: auto !important;
     transform: none !important;
     max-width: 100%;
+  }
+  .service-copy > span {
+    display: inline-block;
+    color: var(--kasavu);
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    font-weight: 500;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  }
+  .service-copy h3 {
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+  }
+  .service-copy p {
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+    color: rgba(255, 255, 255, 0.94);
+  }
+  .service-copy .button {
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
   }
   .service-copy h3,
   .service-duo h3,
@@ -1980,18 +2026,80 @@ button[class*="bg-[#9E3D28]"] span {
   }
   .service-food {
     position: relative;
-    min-height: 28rem;
-    padding: 4rem 1.25rem 2.5rem;
+    min-height: 32rem;
+    padding: 3.5rem 1.25rem 2rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    overflow: hidden;
+    background: #0d1a12;
+  }
+  .service-food > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .service-food::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      180deg,
+      rgba(10, 18, 13, 0.25) 0%,
+      rgba(10, 18, 13, 0.5) 30%,
+      rgba(7, 14, 10, 0.9) 68%,
+      rgba(5, 11, 8, 0.99) 100%
+    );
+    pointer-events: none;
   }
   .food-caption {
     position: relative !important;
+    z-index: 2 !important;
     left: auto !important;
     right: auto !important;
     bottom: auto !important;
     max-width: 100%;
+    padding: 1.25rem 1rem;
+    background: rgba(8, 20, 14, 0.72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-left: 2px solid var(--gold);
+    border-radius: 2px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+  .food-caption > span {
+    display: inline-block;
+    color: var(--kasavu);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    font-weight: 500;
+  }
+  .food-caption h3 {
+    margin: 0.4rem 0 0.65rem;
+    font-size: clamp(1.85rem, 6.5vw, 2.4rem);
+    line-height: 1.15;
+    color: #ffffff;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
+  }
+  .food-caption p {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    max-width: 26rem;
+    margin-bottom: 1.25rem;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
+  }
+  .food-caption .button {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    background: rgba(212, 175, 55, 0.16);
+    border-color: var(--gold);
+    color: var(--gold);
+    font-weight: 500;
   }
   .service-school {
     padding-top: 3.5rem;
