@@ -149,3 +149,4 @@ export interface SchoolTripInquiryData {
   safetyOrDietaryNeeds: string;
 }
 
+export * from './inquiry';

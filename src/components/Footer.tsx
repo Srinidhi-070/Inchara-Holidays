@@ -1,6 +1,9 @@
 import React from 'react';
 import { Language } from '../types';
+import { ServiceCategoryId } from '../types/inquiry';
+import { brandConfig, getWhatsAppInquiryUrl } from '../config/brand';
 import { Mark } from './Header';
+import { Shield, Phone, Mail, MessageCircle, MapPin, Clock } from 'lucide-react';
 
 interface FooterProps {
   language: Language;
@@ -8,6 +11,8 @@ interface FooterProps {
   onNavigateSection: (sectionId: string) => void;
   onOpenPlanner: () => void;
   onOpenContact: () => void;
+  onOpenCategoryEnquiry?: (category: ServiceCategoryId) => void;
+  onOpenAdmin?: () => void;
   onOpenCorporate?: () => void;
   onOpenCatering?: () => void;
   onOpenSchool?: () => void;
@@ -19,6 +24,8 @@ export const Footer: React.FC<FooterProps> = ({
   onNavigateSection,
   onOpenPlanner,
   onOpenContact,
+  onOpenCategoryEnquiry,
+  onOpenAdmin,
   onOpenCorporate,
   onOpenCatering,
   onOpenSchool,
@@ -32,6 +39,23 @@ export const Footer: React.FC<FooterProps> = ({
       onNavigateSection(sectionId);
     }
   };
+
+  const handleCategoryClick = (catId: ServiceCategoryId) => {
+    if (onOpenCategoryEnquiry) {
+      onOpenCategoryEnquiry(catId);
+    } else {
+      if (catId === 'corporate' && onOpenCorporate) onOpenCorporate();
+      else if (catId === 'catering' && onOpenCatering) onOpenCatering();
+      else if (catId === 'educational' && onOpenSchool) onOpenSchool();
+      else onOpenPlanner();
+    }
+  };
+
+  const whatsappUrl = getWhatsAppInquiryUrl(
+    kn
+      ? 'ನಮಸ್ಕಾರ ಇಂಚರ ಹಾಲಿಡೇಸ್, ನಿಮ್ಮ ಪ್ರವಾಸ ಸೇವೆಗಳ ಬಗ್ಗೆ ವಿಚಾರಿಸಲು ಬಯಸುತ್ತೇನೆ.'
+      : 'Hello Inchara Holidays, I would like to inquire about your travel services.'
+  );
 
   return (
     <footer className="footer">
@@ -55,20 +79,20 @@ export const Footer: React.FC<FooterProps> = ({
           <p lang="kn">
             {kn
               ? 'ನಿಮ್ಮ ಮುಂದಿನ ಪ್ರಯಾಣ ಇಲ್ಲಿಂದ ಆರಂಭವಾಗುತ್ತದೆ.'
-              : 'ನಿಮ್ಮ ಮುಂದಿನ ಪ್ರಯಾಣ ಇಲ್ಲಿಂದ ಆರಂಭವಾಗುತ್ತದೆ.'}
+              : 'Thoughtful journeys, genuine encounters, and hospitality from the heart.'}
           </p>
           <button
             type="button"
             className="button button-gold mx-auto mt-6"
-            onClick={onOpenPlanner}
+            onClick={() => handleCategoryClick('holidays')}
           >
-            <span>{kn ? 'ಪ್ರಯಾಣ ರೂಪಿಸಿ' : 'Plan your journey'}</span>
+            <span>{kn ? 'ಪ್ರವಾಸ ವಿಚಾರಣೆ' : 'Enquire Now'}</span>
             <span aria-hidden="true">↗</span>
           </button>
         </div>
       </div>
 
-      {/* 3-column directory */}
+      {/* Comprehensive 4-column directory */}
       <div className="footer-main section-pad">
         <div className="footer-brand">
           <a
@@ -90,11 +114,29 @@ export const Footer: React.FC<FooterProps> = ({
               ? 'ಚಿಂತನಶೀಲ ಪ್ರಯಾಣಗಳು, ನೈಜ ಅನುಭವಗಳು ಮತ್ತು ಹೃದಯಸ್ಪರ್ಶಿ ಆತಿಥ್ಯ.'
               : 'Thoughtful journeys, genuine encounters,\nand hospitality from the heart.'}
           </p>
-          <a href="mailto:hello@incharaholidays.com">hello@incharaholidays.com</a>
-          <a href="tel:+919900000000">+91 99000 00000</a>
+          
+          <div className="mt-4 space-y-2 text-xs text-[#F6F3EA]/75">
+            <div className="flex items-center gap-2">
+              <Mail className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <a href={`mailto:${brandConfig.email}`} className="hover:text-white transition-colors">
+                {brandConfig.email}
+              </a>
+            </div>
+            <div className="flex items-center gap-2">
+              <Phone className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <a href={`tel:${brandConfig.phoneRaw}`} className="hover:text-white transition-colors">
+                {brandConfig.phoneDisplay}
+              </a>
+            </div>
+            <div className="flex items-start gap-2 pt-1 text-[11px] leading-relaxed text-[#F6F3EA]/60">
+              <MapPin className="w-3.5 h-3.5 text-[#D4AF37] shrink-0 mt-0.5" />
+              <span>{kn ? brandConfig.addressKn : brandConfig.addressEn}</span>
+            </div>
+          </div>
         </div>
 
         <div className="footer-links">
+          {/* Column 1: Explore Sections */}
           <div>
             <span>{kn ? 'ತಾಣಗಳು & ವಿವರ' : 'EXPLORE'}</span>
             <a
@@ -107,87 +149,141 @@ export const Footer: React.FC<FooterProps> = ({
               {kn ? 'ತಾಣಗಳು' : 'Destinations'}
             </a>
             <a
-              href="#journeys"
+              href="#packages"
               onClick={(e) => {
                 e.preventDefault();
-                handleNavClick('journeys');
+                handleNavClick('packages');
               }}
             >
-              {kn ? 'ವಿಶೇಷ ಪಯಣಗಳು' : 'Signature journeys'}
+              {kn ? 'ವಿಶೇಷ ಪ್ಯಾಕೇಜ್‌ಗಳು' : 'Curated Packages'}
             </a>
             <a
-              href="#experiences"
+              href="#institutional-corporate"
               onClick={(e) => {
                 e.preventDefault();
-                handleNavClick('experiences');
+                handleNavClick('institutional-corporate');
               }}
             >
-              {kn ? 'ಅನುಭವಗಳು' : 'Experiences'}
+              {kn ? 'ಸಾಂಸ್ಥಿಕ & ಕಾರ್ಪೊರೇಟ್' : 'Institutions & Corporate'}
             </a>
             <a
-              href="#difference"
+              href="#transport-visa"
               onClick={(e) => {
                 e.preventDefault();
-                handleNavClick('difference');
+                handleNavClick('transport-visa');
               }}
             >
-              {kn ? 'ನಮ್ಮ ಕಥೆ' : 'About Inchara'}
+              {kn ? 'ಸಾರಿಗೆ & ವೀಸಾ ನೆರವು' : 'Transit & Visa Guidance'}
+            </a>
+            <a
+              href="#why-us"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('why-us');
+              }}
+            >
+              {kn ? 'ನಮ್ಮ ವೈಶಿಷ್ಟ್ಯ' : 'Why Inchara'}
+            </a>
+            <a
+              href="#how-it-works"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('how-it-works');
+              }}
+            >
+              {kn ? 'ಹೇಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ' : 'How It Works'}
             </a>
           </div>
 
+          {/* Column 2: All 6 Service Categories */}
           <div>
-            <span>{kn ? 'ಸೇವೆಗಳು' : 'SERVICES'}</span>
+            <span>{kn ? '೬ ಸೇವಾ ವರ್ಗಗಳು' : 'SERVICES'}</span>
             <button
               type="button"
               className="cursor-pointer hover:underline text-left"
-              onClick={onOpenCorporate || (() => handleNavClick('services'))}
+              onClick={() => handleCategoryClick('holidays')}
             >
-              {kn ? 'ಕಾರ್ಪೊರೇಟ್ ಕಾರ್ಯಕ್ರಮಗಳು' : 'Corporate events'}
+              {kn ? '೧. ರಜಾದಿನಗಳ ಪ್ರವಾಸಗಳು' : '1. Holiday Packages'}
             </button>
             <button
               type="button"
               className="cursor-pointer hover:underline text-left"
-              onClick={onOpenCatering || (() => handleNavClick('services'))}
+              onClick={() => handleCategoryClick('educational')}
             >
-              {kn ? 'ಶುದ್ಧ ಸಸ್ಯಾಹಾರಿ ಕ್ಯಾಟರಿಂಗ್' : 'Catering & Hospitality'}
+              {kn ? '೨. ಶೈಕ್ಷಣಿಕ & ಕೈಗಾರಿಕಾ ಪ್ರವಾಸ' : '2. Educational & Industrial'}
             </button>
             <button
               type="button"
               className="cursor-pointer hover:underline text-left"
-              onClick={onOpenSchool || (() => handleNavClick('services'))}
+              onClick={() => handleCategoryClick('corporate')}
             >
-              {kn ? 'ಶಾಲಾ ಶೈಕ್ಷಣಿಕ ಪ್ರವಾಸಗಳು' : 'School trips'}
+              {kn ? '೩. ಕಾರ್ಪೊರೇಟ್ & ಈವೆಂಟ್ ಪ್ರವಾಸ' : '3. Corporate & Events'}
             </button>
             <button
               type="button"
               className="cursor-pointer hover:underline text-left"
-              onClick={onOpenPlanner}
+              onClick={() => handleCategoryClick('transport')}
             >
-              {kn ? 'ಪ್ರಯಾಣ ರೂಪಿಸಿ' : 'Plan your journey'}
+              {kn ? '೪. ಸಾರಿಗೆ & ಬುಕಿಂಗ್ ನೆರವು' : '4. Transport & Bookings'}
+            </button>
+            <button
+              type="button"
+              className="cursor-pointer hover:underline text-left"
+              onClick={() => handleCategoryClick('visa_passport')}
+            >
+              {kn ? '೫. ವೀಸಾ & ಪಾಸ್‌ಪೋರ್ಟ್ ನೆರವು' : '5. Visa & Passport Help'}
+            </button>
+            <button
+              type="button"
+              className="cursor-pointer hover:underline text-left"
+              onClick={() => handleCategoryClick('catering')}
+            >
+              {kn ? '೬. ಶುದ್ಧ ಸಸ್ಯಾಹಾರಿ ಕ್ಯಾಟರಿಂಗ್' : '6. Pure Veg Catering'}
             </button>
           </div>
 
+          {/* Column 3: Contact & Direct Channels */}
           <div>
-            <span>{kn ? 'ಸಂಪರ್ಕ' : 'CONNECT'}</span>
+            <span>{kn ? 'ಸಂಪರ್ಕ & ನೆರವು' : 'CONNECT'}</span>
             <a
-              href="https://wa.me/919900000000?text=Hello%20Inchara%20Holidays%2C%20I%20would%20like%20to%20plan%20a%20trip"
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
+              className="flex items-center gap-1.5"
             >
-              WhatsApp ↗
+              <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
+              <span>WhatsApp ↗</span>
             </a>
             <button
               type="button"
               onClick={onOpenContact}
               className="cursor-pointer hover:underline text-left"
             >
-              {kn ? 'ನೇರ ಸಂಪರ್ಕ' : 'Contact Enquiry'}
+              {kn ? 'ನೇರ ವಿಚಾರಣೆ ನಮೂನೆ' : 'Direct Inquiry Form'}
             </button>
+
+            {/* Staff Portal Portal Link */}
+            {onOpenAdmin && (
+              <button
+                type="button"
+                onClick={onOpenAdmin}
+                className="inline-flex items-center gap-1.5 text-xs text-[#D4AF37] hover:text-[#F5D77F] transition-colors mt-2 font-medium"
+              >
+                <Shield className="w-3.5 h-3.5" />
+                <span>{kn ? 'ಸಿಬ್ಬಂದಿ ಲಾಗಿನ್ (Staff Portal)' : 'Staff Admin Portal'}</span>
+              </button>
+            )}
+
+            {/* Operating hours */}
+            <div className="mt-3 text-[11px] text-[#F6F3EA]/60 leading-tight">
+              <Clock className="w-3 h-3 text-[#D4AF37] inline mr-1" />
+              <span>{kn ? brandConfig.hoursKn : brandConfig.hoursEn}</span>
+            </div>
 
             {/* Footer language toggle */}
             <div
               aria-label="Select language"
-              className="language-toggle language-toggle-footer inline-flex flex-row items-center mt-3"
+              className="language-toggle language-toggle-footer inline-flex flex-row items-center mt-4"
               role="group"
             >
               <button
@@ -218,9 +314,9 @@ export const Footer: React.FC<FooterProps> = ({
       </div>
 
       <div className="footer-bottom" id="footer">
-        <span>© {new Date().getFullYear()} Inchara Holidays</span>
+        <span>© {new Date().getFullYear()} Inchara Holidays · Reg: {brandConfig.regNumber}</span>
         <span>{kn ? 'ನಿಧಾನವಾಗಿ ಪಯಣಿಸಿ. ಆಳವಾಗಿ ನೆನಪಿಸಿಕೊಳ್ಳಿ.' : 'Travel slowly. Remember deeply.'}</span>
-        <span>Privacy · Terms</span>
+        <span>Karnataka Tourism · Mindful Journeys</span>
       </div>
     </footer>
   );

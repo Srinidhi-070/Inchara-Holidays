@@ -22,6 +22,7 @@ import {
   RefreshCw,
 } from 'lucide-react';
 import { Mark } from './Header';
+import { getWhatsAppInquiryUrl } from '../config/brand';
 
 interface TripPlannerModalProps {
   isOpen: boolean;
@@ -217,8 +218,7 @@ Generated via Inchara Holidays Studio`;
   };
 
   const handleOpenWhatsAppSample = () => {
-    const text = encodeURIComponent(generateBriefSummaryText());
-    const url = `https://wa.me/919900000000?text=${text}`;
+    const url = getWhatsAppInquiryUrl(generateBriefSummaryText());
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 

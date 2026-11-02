@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, UtensilsCrossed, CheckCircle2, Copy, Send, PhoneCall } from 'lucide-react';
 import { Language, CateringInquiryData } from '../types';
 import { Mark } from './Header';
+import { getWhatsAppInquiryUrl } from '../config/brand';
 
 interface CateringModalProps {
   isOpen: boolean;
@@ -475,9 +476,7 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                       <span>{copied ? (isKn ? 'ನಕಲಿಸಲಾಗಿದೆ!' : 'Copied!') : isKn ? 'ಸಾರಾಂಶ ನಕಲಿಸಿ' : 'Copy Brief'}</span>
                     </button>
                     <a
-                      href={`https://wa.me/919448000000?text=${encodeURIComponent(
-                        generateSummaryText()
-                      )}`}
+                      href={getWhatsAppInquiryUrl(generateSummaryText())}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="button button-gold !min-h-[2.6rem] !px-4 text-xs"

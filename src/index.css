@@ -770,6 +770,16 @@ button[class*="bg-[#9E3D28]"] span {
   letter-spacing: -0.01em;
   line-height: 1.25;
 }
+.language-kn .eyebrow,
+.language-kn .section-label,
+.language-kn .mini-label,
+.language-kn .tagline,
+.language-kn .orbit,
+.language-kn [lang="kn"] {
+  letter-spacing: 0.02em !important;
+  word-spacing: 0.06em;
+  text-transform: none !important;
+}
 .language-kn .section-title h2,
 .language-kn .planner-intro h2,
 .language-kn .footer-image h2 {

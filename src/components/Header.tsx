@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Language, Concept } from '../types';
+import { ServiceCategoryId } from '../types/inquiry';
 import { translations } from '../data/translations';
 import { smoothScrollTo } from '../utils/smoothScroll';
 import {
@@ -14,7 +15,12 @@ import {
   Mail,
   Home as HomeIcon,
   Info,
-  ArrowRight
+  ArrowRight,
+  Shield,
+  Layers,
+  PackageCheck,
+  CheckCircle2,
+  HelpCircle
 } from 'lucide-react';
 
 export function Mark() {
@@ -62,6 +68,8 @@ interface HeaderProps {
   onLanguageChange: (lang: Language) => void;
   onOpenPlanner: () => void;
   onOpenContact: () => void;
+  onOpenEnquiry?: (category?: ServiceCategoryId) => void;
+  onOpenAdmin?: () => void;
   onNavigateSection: (sectionId: string) => void;
   concept?: Concept;
 }
@@ -71,6 +79,8 @@ export const Header: React.FC<HeaderProps> = ({
   onLanguageChange,
   onOpenPlanner,
   onOpenContact,
+  onOpenEnquiry,
+  onOpenAdmin,
   onNavigateSection,
   concept = 'A',
 }) => {
@@ -87,19 +97,31 @@ export const Header: React.FC<HeaderProps> = ({
       const scrollY = window.scrollY;
       const headerOffset = 160;
 
+      const howItWorksEl = document.getElementById('how-it-works');
+      const whyUsEl = document.getElementById('why-us');
+      const cateringEl = document.getElementById('catering-showcase');
+      const transportEl = document.getElementById('transport-visa');
+      const instEl = document.getElementById('institutional-corporate');
+      const packagesEl = document.getElementById('packages');
       const destinationsEl = document.getElementById('destinations');
-      const journeysEl = document.getElementById('journeys');
       const servicesEl = document.getElementById('services');
-      const differenceEl = document.getElementById('difference');
 
-      if (differenceEl && scrollY >= differenceEl.offsetTop - headerOffset) {
-        setActiveSection('difference');
-      } else if (servicesEl && scrollY >= servicesEl.offsetTop - headerOffset) {
-        setActiveSection('services');
-      } else if (journeysEl && scrollY >= journeysEl.offsetTop - headerOffset) {
-        setActiveSection('experiences');
+      if (howItWorksEl && scrollY >= howItWorksEl.offsetTop - headerOffset) {
+        setActiveSection('how-it-works');
+      } else if (whyUsEl && scrollY >= whyUsEl.offsetTop - headerOffset) {
+        setActiveSection('why-us');
+      } else if (cateringEl && scrollY >= cateringEl.offsetTop - headerOffset) {
+        setActiveSection('catering-showcase');
+      } else if (transportEl && scrollY >= transportEl.offsetTop - headerOffset) {
+        setActiveSection('transport-visa');
+      } else if (instEl && scrollY >= instEl.offsetTop - headerOffset) {
+        setActiveSection('institutional-corporate');
+      } else if (packagesEl && scrollY >= packagesEl.offsetTop - headerOffset) {
+        setActiveSection('packages');
       } else if (destinationsEl && scrollY >= destinationsEl.offsetTop - headerOffset) {
         setActiveSection('destinations');
+      } else if (servicesEl && scrollY >= servicesEl.offsetTop - headerOffset) {
+        setActiveSection('services');
       } else {
         setActiveSection('top');
       }
@@ -126,14 +148,16 @@ export const Header: React.FC<HeaderProps> = ({
     if (sectionId === 'contact') {
       onOpenContact();
     } else {
-      setActiveSection(
-        sectionId === 'service-school' || sectionId === 'service-corporate'
-          ? 'services'
-          : sectionId === 'journeys'
-          ? 'experiences'
-          : sectionId
-      );
+      setActiveSection(sectionId);
       smoothScrollTo(sectionId);
+    }
+  };
+
+  const handlePrimaryCta = () => {
+    if (onOpenEnquiry) {
+      onOpenEnquiry('holidays');
+    } else {
+      onOpenPlanner();
     }
   };
 
@@ -159,52 +183,82 @@ export const Header: React.FC<HeaderProps> = ({
             {isKn ? 'ತಾಣಗಳು' : 'Destinations'}
             {activeSection === 'destinations' && <span className="nav-active-pill" aria-hidden="true" />}
           </a>
+
           <a
-            href="#journeys"
-            className={`nav-link ${activeSection === 'experiences' ? 'nav-link-active' : ''}`}
+            href="#packages"
+            className={`nav-link ${activeSection === 'packages' ? 'nav-link-active' : ''}`}
             onClick={(e) => {
               e.preventDefault();
-              handleNavClick('journeys');
+              handleNavClick('packages');
             }}
           >
-            {isKn ? 'ಅನುಭವಗಳು' : 'Experiences'}
-            {activeSection === 'experiences' && <span className="nav-active-pill" aria-hidden="true" />}
+            {isKn ? 'ಪ್ಯಾಕೇಜ್‌ಗಳು' : 'Packages'}
+            {activeSection === 'packages' && <span className="nav-active-pill" aria-hidden="true" />}
           </a>
+
           <a
             href="#services"
             className={`nav-link ${activeSection === 'services' ? 'nav-link-active' : ''}`}
             onClick={(e) => {
               e.preventDefault();
-              handleNavClick('service-corporate');
+              handleNavClick('services');
             }}
           >
-            {isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಮತ್ತು ಕ್ಯಾಟರಿಂಗ್' : 'Corporate & Catering'}
+            {isKn ? 'ಸೇವೆಗಳು' : 'Services'}
             {activeSection === 'services' && <span className="nav-active-pill" aria-hidden="true" />}
           </a>
+
           <a
-            href="#service-school"
-            className={`nav-link ${activeSection === 'services' ? 'nav-link-active' : ''}`}
+            href="#institutional-corporate"
+            className={`nav-link ${activeSection === 'institutional-corporate' ? 'nav-link-active' : ''}`}
             onClick={(e) => {
               e.preventDefault();
-              handleNavClick('service-school');
+              handleNavClick('institutional-corporate');
             }}
           >
-            {isKn ? 'ಶಾಲಾ ಪ್ರವಾಸಗಳು' : 'School Trips'}
+            {isKn ? 'ಸಾಂಸ್ಥಿಕ & ಕಾರ್ಪೊರೇಟ್' : 'Corporate & Institutions'}
+            {activeSection === 'institutional-corporate' && <span className="nav-active-pill" aria-hidden="true" />}
           </a>
+
           <a
-            href="#difference"
-            className={`nav-link ${activeSection === 'difference' ? 'nav-link-active' : ''}`}
+            href="#why-us"
+            className={`nav-link ${activeSection === 'why-us' ? 'nav-link-active' : ''}`}
             onClick={(e) => {
               e.preventDefault();
-              handleNavClick('difference');
+              handleNavClick('why-us');
             }}
           >
-            {isKn ? 'ನಮ್ಮ ಕಥೆ' : 'Our Story'}
-            {activeSection === 'difference' && <span className="nav-active-pill" aria-hidden="true" />}
+            {isKn ? 'ನಮ್ಮ ವೈಶಿಷ್ಟ್ಯ' : 'Why Us'}
+            {activeSection === 'why-us' && <span className="nav-active-pill" aria-hidden="true" />}
+          </a>
+
+          <a
+            href="#how-it-works"
+            className={`nav-link ${activeSection === 'how-it-works' ? 'nav-link-active' : ''}`}
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('how-it-works');
+            }}
+          >
+            {isKn ? 'ಹೇಗೆ?' : 'How It Works'}
+            {activeSection === 'how-it-works' && <span className="nav-active-pill" aria-hidden="true" />}
           </a>
         </nav>
 
         <div className="header-actions">
+          {/* Staff Portal discreet icon button */}
+          {onOpenAdmin && (
+            <button
+              type="button"
+              onClick={onOpenAdmin}
+              className="inline-flex items-center justify-center p-2 rounded-full text-[#F5D77F]/75 hover:text-[#F5D77F] hover:bg-white/10 transition-colors"
+              title={isKn ? 'ಸಿಬ್ಬಂದಿ ನಿರ್ವಾಹಕ ಪೋರ್ಟಲ್' : 'Staff Admin Portal'}
+              aria-label={isKn ? 'ಸಿಬ್ಬಂದಿ ನಿರ್ವಾಹಕ ಪೋರ್ಟಲ್' : 'Staff Admin Portal'}
+            >
+              <Shield className="w-4 h-4 text-[#D4AF37]" />
+            </button>
+          )}
+
           {/* Language Toggle */}
           <div
             aria-label="Select language"
@@ -235,9 +289,9 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             type="button"
             className="button button-gold hidden sm:inline-flex"
-            onClick={onOpenPlanner}
+            onClick={handlePrimaryCta}
           >
-            <span>{isKn ? 'ಪ್ರಯಾಣ ರೂಪಿಸಿ' : 'Plan your journey'}</span>
+            <span>{isKn ? 'ಪ್ರವಾಸ ವಿಚಾರಣೆ' : 'Enquire Now'}</span>
             <span aria-hidden="true">↗</span>
           </button>
 
@@ -338,42 +392,52 @@ export const Header: React.FC<HeaderProps> = ({
                   <ArrowRight className="w-3.5 h-3.5 text-white/40" />
                 </button>
                 <button
-                  onClick={() => handleNavClick('journeys')}
+                  onClick={() => handleNavClick('packages')}
                   className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-medium hover:bg-white/10 transition-colors flex items-center justify-between cursor-pointer"
                 >
                   <span className="flex items-center gap-2.5">
-                    <Sparkles className="w-4 h-4 text-[#d4af37]" />
-                    <span>{isKn ? 'ಅನುಭವಗಳು' : 'Experiences'}</span>
+                    <PackageCheck className="w-4 h-4 text-[#d4af37]" />
+                    <span>{isKn ? 'ಪ್ಯಾಕೇಜ್‌ಗಳು' : 'Packages'}</span>
                   </span>
                   <ArrowRight className="w-3.5 h-3.5 text-white/40" />
                 </button>
                 <button
-                  onClick={() => handleNavClick('service-corporate')}
+                  onClick={() => handleNavClick('services')}
+                  className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-medium hover:bg-white/10 transition-colors flex items-center justify-between cursor-pointer"
+                >
+                  <span className="flex items-center gap-2.5">
+                    <Layers className="w-4 h-4 text-[#d4af37]" />
+                    <span>{isKn ? '೬ ಸೇವಾ ವರ್ಗಗಳು' : 'All 6 Services'}</span>
+                  </span>
+                  <ArrowRight className="w-3.5 h-3.5 text-white/40" />
+                </button>
+                <button
+                  onClick={() => handleNavClick('institutional-corporate')}
                   className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-medium hover:bg-white/10 transition-colors flex items-center justify-between cursor-pointer"
                 >
                   <span className="flex items-center gap-2.5">
                     <Building2 className="w-4 h-4 text-[#d4af37]" />
-                    <span>{isKn ? 'ಕಾರ್ಪೊರೇಟ್ ಮತ್ತು ಕ್ಯಾಟರಿಂಗ್' : 'Corporate & Catering'}</span>
+                    <span>{isKn ? 'ಸಾಂಸ್ಥಿಕ & ಕಾರ್ಪೊರೇಟ್' : 'Institutional & Corporate'}</span>
                   </span>
                   <ArrowRight className="w-3.5 h-3.5 text-white/40" />
                 </button>
                 <button
-                  onClick={() => handleNavClick('service-school')}
+                  onClick={() => handleNavClick('why-us')}
                   className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-medium hover:bg-white/10 transition-colors flex items-center justify-between cursor-pointer"
                 >
                   <span className="flex items-center gap-2.5">
-                    <GraduationCap className="w-4 h-4 text-[#d4af37]" />
-                    <span>{isKn ? 'ಶಾಲಾ ಪ್ರವಾಸಗಳು' : 'School Trips'}</span>
+                    <CheckCircle2 className="w-4 h-4 text-[#d4af37]" />
+                    <span>{isKn ? 'ನಮ್ಮ ವೈಶಿಷ್ಟ್ಯ' : 'Why Inchara'}</span>
                   </span>
                   <ArrowRight className="w-3.5 h-3.5 text-white/40" />
                 </button>
                 <button
-                  onClick={() => handleNavClick('difference')}
+                  onClick={() => handleNavClick('how-it-works')}
                   className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-medium hover:bg-white/10 transition-colors flex items-center justify-between cursor-pointer"
                 >
                   <span className="flex items-center gap-2.5">
-                    <Info className="w-4 h-4 text-[#d4af37]" />
-                    <span>{isKn ? 'ನಮ್ಮ ಕಥೆ' : 'Our Story'}</span>
+                    <HelpCircle className="w-4 h-4 text-[#d4af37]" />
+                    <span>{isKn ? 'ಹೇಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ' : 'How It Works'}</span>
                   </span>
                   <ArrowRight className="w-3.5 h-3.5 text-white/40" />
                 </button>
@@ -385,13 +449,28 @@ export const Header: React.FC<HeaderProps> = ({
                   type="button"
                   onClick={() => {
                     setMobileMenuOpen(false);
-                    onOpenPlanner();
+                    handlePrimaryCta();
                   }}
                   className="w-full button button-gold justify-center gap-2 text-center"
                 >
-                  <span>{isKn ? 'ಪ್ರಯಾಣ ರೂಪಿಸಿ' : 'Plan your journey'}</span>
+                  <span>{isKn ? 'ಪ್ರವಾಸ ವಿಚಾರಣೆ' : 'Enquire Now'}</span>
                   <span>↗</span>
                 </button>
+
+                {onOpenAdmin && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      onOpenAdmin();
+                    }}
+                    className="w-full button button-outline justify-center gap-2 text-center border-[#D4AF37]/40 text-[#F5D77F]"
+                  >
+                    <Shield className="w-4 h-4 text-[#D4AF37]" />
+                    <span>{isKn ? 'ಸಿಬ್ಬಂದಿ ಲಾಗಿನ್' : 'Staff Admin Portal'}</span>
+                  </button>
+                )}
+
                 <button
                   type="button"
                   onClick={() => {

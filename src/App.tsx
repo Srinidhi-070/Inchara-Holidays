@@ -3,32 +3,69 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { Language, Concept, Destination } from './types';
+import { ServiceCategoryId } from './types/inquiry';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
+import { AboutIntroduction } from './components/AboutIntroduction';
 import { ServicesDiscoverySection } from './components/ServicesDiscoverySection';
 import { DestinationDiscovery } from './components/DestinationDiscovery';
-import { DestinationModal } from './components/DestinationModal';
-import { SignatureJourney } from './components/SignatureJourney';
-import { OurStory } from './components/OurStory';
-import { PlannerTeaser } from './components/PlannerTeaser';
+import { PackagesSection } from './components/PackagesSection';
+import { InstitutionalCorporateHighlight } from './components/InstitutionalCorporateHighlight';
+import { TravelLogisticsAssistance } from './components/TravelLogisticsAssistance';
+import { CateringShowcase } from './components/CateringShowcase';
+import { WhyUs } from './components/WhyUs';
+import { HowItWorks } from './components/HowItWorks';
 import { TravellerStories } from './components/TravellerStories';
+import { CtaInvitation } from './components/CtaInvitation';
 import { Footer } from './components/Footer';
 import { ConceptSwitcher } from './components/ConceptSwitcher';
-import { TripPlannerModal } from './components/TripPlannerModal';
-import { CorporateEventModal } from './components/CorporateEventModal';
-import { CateringModal } from './components/CateringModal';
-import { SchoolTripModal } from './components/SchoolTripModal';
-import { ContactModal } from './components/ContactModal';
 import { CustomCursor } from './components/CustomCursor';
 import { ScrollProgressBar } from './components/ScrollProgressBar';
 import { FloatingActions } from './components/FloatingActions';
 import { smoothScrollTo } from './utils/smoothScroll';
 
+// Lazy-loaded Modals for optimal critical path and initial load speed
+const UniversalEnquiryModal = React.lazy(() =>
+  import('./components/UniversalEnquiryModal').then((m) => ({ default: m.UniversalEnquiryModal }))
+);
+const AdminDashboard = React.lazy(() =>
+  import('./components/admin/AdminDashboard').then((m) => ({ default: m.AdminDashboard }))
+);
+const DestinationModal = React.lazy(() =>
+  import('./components/DestinationModal').then((m) => ({ default: m.DestinationModal }))
+);
+const TripPlannerModal = React.lazy(() =>
+  import('./components/TripPlannerModal').then((m) => ({ default: m.TripPlannerModal }))
+);
+const CorporateEventModal = React.lazy(() =>
+  import('./components/CorporateEventModal').then((m) => ({ default: m.CorporateEventModal }))
+);
+const CateringModal = React.lazy(() =>
+  import('./components/CateringModal').then((m) => ({ default: m.CateringModal }))
+);
+const SchoolTripModal = React.lazy(() =>
+  import('./components/SchoolTripModal').then((m) => ({ default: m.SchoolTripModal }))
+);
+const ContactModal = React.lazy(() =>
+  import('./components/ContactModal').then((m) => ({ default: m.ContactModal }))
+);
+
 export default function App() {
   const [concept, setConcept] = useState<Concept>('A');
   const [language, setLanguage] = useState<Language>('kn');
+
+  // Universal Enquiry Modal State
+  const [enquiryOpen, setEnquiryOpen] = useState<boolean>(false);
+  const [enquiryCategory, setEnquiryCategory] = useState<ServiceCategoryId>('holidays');
+  const [enquiryServiceType, setEnquiryServiceType] = useState<string>('');
+  const [enquiryPayload, setEnquiryPayload] = useState<Record<string, any>>({});
+
+  // Staff Admin Portal State
+  const [adminOpen, setAdminOpen] = useState<boolean>(false);
+
+  // Legacy modals state (preserved for backward compatibility and deep links)
   const [plannerOpen, setPlannerOpen] = useState<boolean>(false);
   const [contactOpen, setContactOpen] = useState<boolean>(false);
   const [corporateOpen, setCorporateOpen] = useState<boolean>(false);
@@ -38,6 +75,17 @@ export default function App() {
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
   const [plannerInitialDest, setPlannerInitialDest] = useState<string>('');
   const [plannerInitialExp, setPlannerInitialExp] = useState<string>('');
+
+  const handleOpenEnquiry = (
+    category: ServiceCategoryId = 'holidays',
+    serviceType: string = '',
+    payload: Record<string, any> = {}
+  ) => {
+    setEnquiryCategory(category);
+    setEnquiryServiceType(serviceType);
+    setEnquiryPayload(payload);
+    setEnquiryOpen(true);
+  };
 
   const handleOpenPlanner = (initialDest = '', initialExp = '') => {
     setPlannerInitialDest(initialDest);
@@ -66,21 +114,23 @@ export default function App() {
       {/* Floating Action Button for Back to Top & Quick Planning */}
       <FloatingActions
         language={language}
-        onOpenPlanner={() => handleOpenPlanner()}
+        onOpenPlanner={() => handleOpenEnquiry('holidays')}
       />
 
-      {/* Top Hero Section with Integrated Header */}
+      {/* 1. Existing brand-led hero with strong travel positioning + integrated Header */}
       <Hero
         concept={concept}
         language={language}
-        onOpenPlanner={() => handleOpenPlanner()}
+        onOpenPlanner={() => handleOpenEnquiry('holidays')}
         onExploreDestinations={() => handleNavigateSection('destinations')}
         headerSlot={
           <Header
             concept={concept}
             language={language}
             onLanguageChange={setLanguage}
-            onOpenPlanner={() => handleOpenPlanner()}
+            onOpenPlanner={() => handleOpenEnquiry('holidays')}
+            onOpenEnquiry={handleOpenEnquiry}
+            onOpenAdmin={() => setAdminOpen(true)}
             onOpenContact={() => setContactOpen(true)}
             onNavigateSection={handleNavigateSection}
           />
@@ -88,107 +138,186 @@ export default function App() {
       />
 
       <main>
-        {/* Asymmetrical 5-Tile Editorial Destination Discovery Grid */}
-        <DestinationDiscovery
+        {/* 2. Short introduction to Inchara Holidays */}
+        <AboutIntroduction
           language={language}
-          onSelectDestination={setSelectedDestination}
-          onOpenPlannerWithDest={(destName) => handleOpenPlanner(destName)}
+          onOpenPlanner={() => handleOpenEnquiry('holidays')}
+          onExploreServices={() => handleNavigateSection('services')}
         />
 
-        {/* 4 Flagship Hospitality Modules: Curated Holidays, Corporate, 100% Pure Veg Catering, School Trips */}
+        {/* 3. Six-category service discovery section */}
         <ServicesDiscoverySection
           language={language}
-          onOpenPlanner={(dest, exp) => handleOpenPlanner(dest, exp)}
-          onOpenCorporateModal={() => setCorporateOpen(true)}
-          onOpenCateringModal={() => setCateringOpen(true)}
-          onOpenSchoolModal={() => setSchoolOpen(true)}
-        />
-
-        {/* Signature Journeys with Interactive Hover Thumbnails */}
-        <SignatureJourney
-          language={language}
-          onPlanSignatureJourney={(journeyName) =>
-            handleOpenPlanner(
-              journeyName ||
-                (language === 'kn'
-                  ? 'ಗೋಕರ್ಣ ಮತ್ತು ಮಲೆನಾಡು'
-                  : 'Gokarna & Malnad Haven')
-            )
+          onSelectCategory={(categoryId, subServiceId) =>
+            handleOpenEnquiry(categoryId, subServiceId || '')
           }
         />
 
-        {/* The Inchara Difference: Philosophy & Principles */}
-        <OurStory
+        {/* 4. Destination discovery (Asymmetrical editorial destination cards) */}
+        <DestinationDiscovery
           language={language}
-          onOpenPlanner={() => handleOpenPlanner()}
+          onSelectDestination={setSelectedDestination}
+          onOpenPlannerWithDest={(destName) =>
+            handleOpenEnquiry('holidays', 'custom', { destinationInterest: destName })
+          }
         />
 
-        {/* Inline Step 01 Trip Planner Teaser Card */}
-        <PlannerTeaser
+        {/* 5. Packages section (Curated packages with filterable tabs) */}
+        <PackagesSection
           language={language}
-          onOpenPlanner={(selectedRegion) => handleOpenPlanner(selectedRegion)}
+          onSelectPackage={(packageName) =>
+            handleOpenEnquiry('holidays', 'pre_organised', { packageInterest: packageName })
+          }
         />
 
-        {/* Traveller Reflections & Stories */}
+        {/* 6. Institutional and corporate tours highlight */}
+        <InstitutionalCorporateHighlight
+          language={language}
+          onOpenEducational={() => handleOpenEnquiry('educational')}
+          onOpenCorporate={() => handleOpenEnquiry('corporate')}
+        />
+
+        {/* 7. Transportation and documentation assistance highlight */}
+        <TravelLogisticsAssistance
+          language={language}
+          onOpenTransport={() => handleOpenEnquiry('transport')}
+          onOpenVisaPassport={() => handleOpenEnquiry('visa_passport')}
+        />
+
+        {/* 8. Pure vegetarian catering showcase (100% Pure Veg Pankti Seva) */}
+        <CateringShowcase
+          language={language}
+          onOpenCatering={() => handleOpenEnquiry('catering')}
+        />
+
+        {/* 9. Why Inchara Holidays (Core cultural differentiators) */}
+        <WhyUs language={language} />
+
+        {/* 10. How it works (3-step mindful itinerary journey) */}
+        <HowItWorks
+          language={language}
+          onOpenPlanner={() => handleOpenEnquiry('holidays')}
+        />
+
+        {/* 11. Customer testimonials / trust markers */}
         <TravellerStories language={language} />
+
+        {/* 12. Final enquiry CTA */}
+        <CtaInvitation
+          language={language}
+          onOpenPlanner={() => handleOpenEnquiry('holidays')}
+          onOpenContact={() => setContactOpen(true)}
+        />
       </main>
 
-      {/* Full-bleed Invitation & 3-Column Directory Footer */}
+      {/* 13. Comprehensive footer with all service categories linked & staff portal */}
       <Footer
         language={language}
         onLanguageChange={setLanguage}
         onNavigateSection={handleNavigateSection}
-        onOpenPlanner={() => handleOpenPlanner()}
+        onOpenPlanner={() => handleOpenEnquiry('holidays')}
+        onOpenCategoryEnquiry={handleOpenEnquiry}
+        onOpenAdmin={() => setAdminOpen(true)}
         onOpenContact={() => setContactOpen(true)}
-        onOpenCorporate={() => setCorporateOpen(true)}
-        onOpenCatering={() => setCateringOpen(true)}
-        onOpenSchool={() => setSchoolOpen(true)}
+        onOpenCorporate={() => handleOpenEnquiry('corporate')}
+        onOpenCatering={() => handleOpenEnquiry('catering')}
+        onOpenSchool={() => handleOpenEnquiry('educational')}
       />
+
+      {/* Primary Universal Dynamic Enquiry Modal (All 6 Categories) */}
+      <Suspense fallback={null}>
+        {enquiryOpen && (
+          <UniversalEnquiryModal
+            isOpen={enquiryOpen}
+            language={language}
+            initialCategory={enquiryCategory}
+            initialServiceType={enquiryServiceType}
+            initialPayload={enquiryPayload}
+            onClose={() => setEnquiryOpen(false)}
+          />
+        )}
+      </Suspense>
+
+      {/* Staff Admin Portal (Secured with credentials, metrics, search, filters & export) */}
+      <Suspense fallback={null}>
+        {adminOpen && (
+          <AdminDashboard
+            isOpen={adminOpen}
+            onClose={() => setAdminOpen(false)}
+          />
+        )}
+      </Suspense>
 
       {/* Destination Detail Modal */}
-      <DestinationModal
-        destination={selectedDestination}
-        language={language}
-        onClose={() => setSelectedDestination(null)}
-        onPlanTrip={(destName) => handleOpenPlanner(destName)}
-      />
+      <Suspense fallback={null}>
+        {selectedDestination && (
+          <DestinationModal
+            destination={selectedDestination}
+            language={language}
+            onClose={() => setSelectedDestination(null)}
+            onPlanTrip={(destName) =>
+              handleOpenEnquiry('holidays', 'custom', { destinationInterest: destName })
+            }
+          />
+        )}
+      </Suspense>
 
-      {/* Multi-Step Conversational Trip Planner Modal */}
-      <TripPlannerModal
-        isOpen={plannerOpen}
-        language={language}
-        initialDestination={plannerInitialDest}
-        initialExperience={plannerInitialExp}
-        onClose={() => setPlannerOpen(false)}
-      />
+      {/* Conversational Trip Planner Modal (Preserved legacy) */}
+      <Suspense fallback={null}>
+        {plannerOpen && (
+          <TripPlannerModal
+            isOpen={plannerOpen}
+            language={language}
+            initialDestination={plannerInitialDest}
+            initialExperience={plannerInitialExp}
+            onClose={() => setPlannerOpen(false)}
+          />
+        )}
+      </Suspense>
 
-      {/* Corporate Event & Team Outing Modal */}
-      <CorporateEventModal
-        isOpen={corporateOpen}
-        language={language}
-        onClose={() => setCorporateOpen(false)}
-      />
+      {/* Corporate Event & Team Outing Modal (Preserved legacy) */}
+      <Suspense fallback={null}>
+        {corporateOpen && (
+          <CorporateEventModal
+            isOpen={corporateOpen}
+            language={language}
+            onClose={() => setCorporateOpen(false)}
+          />
+        )}
+      </Suspense>
 
-      {/* 100% Pure Vegetarian Catering & Hospitality Request Modal */}
-      <CateringModal
-        isOpen={cateringOpen}
-        language={language}
-        onClose={() => setCateringOpen(false)}
-      />
+      {/* 100% Pure Vegetarian Catering Modal (Preserved legacy) */}
+      <Suspense fallback={null}>
+        {cateringOpen && (
+          <CateringModal
+            isOpen={cateringOpen}
+            language={language}
+            onClose={() => setCateringOpen(false)}
+          />
+        )}
+      </Suspense>
 
-      {/* School Trips & Educational Expeditions Modal */}
-      <SchoolTripModal
-        isOpen={schoolOpen}
-        language={language}
-        onClose={() => setSchoolOpen(false)}
-      />
+      {/* School Trips & Educational Expeditions Modal (Preserved legacy) */}
+      <Suspense fallback={null}>
+        {schoolOpen && (
+          <SchoolTripModal
+            isOpen={schoolOpen}
+            language={language}
+            onClose={() => setSchoolOpen(false)}
+          />
+        )}
+      </Suspense>
 
-      {/* General Contact & Enquiry Modal */}
-      <ContactModal
-        isOpen={contactOpen}
-        language={language}
-        onClose={() => setContactOpen(false)}
-      />
+      {/* General Contact & Direct Enquiry Modal (Preserved legacy) */}
+      <Suspense fallback={null}>
+        {contactOpen && (
+          <ContactModal
+            isOpen={contactOpen}
+            language={language}
+            onClose={() => setContactOpen(false)}
+          />
+        )}
+      </Suspense>
     </div>
   );
 }

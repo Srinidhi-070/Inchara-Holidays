@@ -79,6 +79,52 @@ export const WhyUs: React.FC<WhyUsProps> = ({ language }) => {
             </motion.div>
           ))}
         </div>
+
+        {/* Industry Accreditations & Associations */}
+        <div className="mt-16 sm:mt-24 pt-12 border-t border-[#263F32]/10">
+          <div className="text-center mb-8">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#9E3D28]">
+              {language === 'kn' ? 'ಮಾನ್ಯತೆ ಪಡೆದ ಪ್ರವಾಸೋದ್ಯಮ ಒಕ್ಕೂಟಗಳು & ಸದಸ್ಯತ್ವಗಳು' : 'Recognised Industry Affiliations & Accreditations'}
+            </span>
+            <p className="text-sm text-[#252923]/70 mt-1">
+              {language === 'kn' ? 'ರಾಜ್ಯ, ರಾಷ್ಟ್ರೀಯ ಮತ್ತು ಪ್ರಾದೇಶಿಕ ಪ್ರವಾಸೋದ್ಯಮ ಒಕ್ಕೂಟಗಳ ಅಧಿಕೃತ ಸದಸ್ಯತ್ವ' : 'Proud members of leading state, national & international travel trade bodies'}
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
+            {/* KTF Logo */}
+            <div className="flex flex-col items-center gap-2 group">
+              <div className="h-16 w-32 bg-white rounded-xl p-2 border border-[#263F32]/12 flex items-center justify-center shadow-xs group-hover:border-[#D4AF37] group-hover:shadow-md transition-all">
+                <img src="/images/partners/ktf_logo.jpg" alt="Karnataka Tourism Forum (KTF)" className="max-h-full max-w-full object-contain" />
+              </div>
+              <span className="text-[11px] font-semibold text-[#162E22]/80">KTF Karnataka</span>
+            </div>
+
+            {/* IATTE Logo */}
+            <div className="flex flex-col items-center gap-2 group">
+              <div className="h-16 w-32 bg-white rounded-xl p-2 border border-[#263F32]/12 flex items-center justify-center shadow-xs group-hover:border-[#D4AF37] group-hover:shadow-md transition-all">
+                <img src="/images/partners/iatte_logo.jpg" alt="IATTE - Indian Association of Travel & Tourism Experts" className="max-h-full max-w-full object-contain" />
+              </div>
+              <span className="text-[11px] font-semibold text-[#162E22]/80">IATTE India</span>
+            </div>
+
+            {/* ABTO Logo */}
+            <div className="flex flex-col items-center gap-2 group">
+              <div className="h-16 w-32 bg-white rounded-xl p-2 border border-[#263F32]/12 flex items-center justify-center shadow-xs group-hover:border-[#D4AF37] group-hover:shadow-md transition-all">
+                <img src="/images/partners/abto_logo.png" alt="Association of Buddhist Tour Operators (ABTO)" className="max-h-full max-w-full object-contain" />
+              </div>
+              <span className="text-[11px] font-semibold text-[#162E22]/80">ABTO Tourism</span>
+            </div>
+
+            {/* UTEN Logo */}
+            <div className="flex flex-col items-center gap-2 group">
+              <div className="h-16 w-32 bg-white rounded-xl p-2 border border-[#263F32]/12 flex items-center justify-center shadow-xs group-hover:border-[#D4AF37] group-hover:shadow-md transition-all">
+                <img src="/images/partners/uten_logo.png" alt="UTEN - Empowering Travel Fraternity" className="max-h-full max-w-full object-contain" />
+              </div>
+              <span className="text-[11px] font-semibold text-[#162E22]/80">UTEN Fraternity</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
