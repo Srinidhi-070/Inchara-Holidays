@@ -39,12 +39,12 @@ export const CateringShowcase: React.FC<CateringShowcaseProps> = ({
                 src="/images/pure_veg_travel_meal.jpg"
                 alt="100% Pure Vegetarian South Indian Feast"
                 loading="lazy"
-                className="w-full h-[440px] sm:h-[500px] object-cover group-hover:scale-105 transition-transform duration-700"
+                className="w-full h-[340px] sm:h-[460px] lg:h-[500px] object-cover group-hover:scale-105 transition-transform duration-700"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = '/images/south_indian_feast.jpg';
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent pointer-events-none" />
 
               {/* Top Badge */}
               <div className="absolute top-5 left-5">
@@ -149,7 +149,7 @@ export const CateringShowcase: React.FC<CateringShowcaseProps> = ({
               <button
                 type="button"
                 onClick={onOpenCatering}
-                className="w-full sm:w-auto px-7 py-4 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-[#162E22] text-xs sm:text-sm font-bold uppercase tracking-wider hover:brightness-105 active:scale-95 transition-all shadow-md flex items-center justify-center gap-2.5 cursor-pointer border border-[#D4AF37]/50"
+                className="w-full sm:w-auto px-7 py-4 min-h-[48px] rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-[#162E22] text-xs sm:text-sm font-bold uppercase tracking-wider hover:brightness-105 active:scale-95 transition-all shadow-md flex items-center justify-center gap-2.5 cursor-pointer border border-[#D4AF37]/50 focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
               >
                 <span>{kn ? 'ಕ್ಯಾಟರಿಂಗ್ ವಿಚಾರಣೆ ಸಲ್ಲಿಸಿ' : 'Request Catering Consultation'}</span>
                 <ArrowRight className="w-4 h-4 text-[#162E22]" />

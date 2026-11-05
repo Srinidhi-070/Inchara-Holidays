@@ -124,7 +124,7 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
             <button
               type="button"
               onClick={onOpenEducational}
-              className="w-full py-4 px-6 rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-sm active:scale-95 cursor-pointer border border-[#D4AF37]/50"
+              className="w-full py-4 px-6 min-h-[48px] rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-sm active:scale-95 cursor-pointer border border-[#D4AF37]/50 focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
             >
               <span>{kn ? 'ಶೈಕ್ಷಣಿಕ ಪ್ರವಾಸ ವಿಚಾರಣೆ' : 'Plan Educational Tour'}</span>
               <ArrowRight className="w-4 h-4 text-[#F5D77F]" />
@@ -194,7 +194,7 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
             <button
               type="button"
               onClick={onOpenCorporate}
-              className="w-full py-4 px-6 rounded-xl bg-[#9E3D28] hover:bg-[#853220] text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-sm active:scale-95 cursor-pointer border border-[#D4AF37]/40"
+              className="w-full py-4 px-6 min-h-[48px] rounded-xl bg-[#9E3D28] hover:bg-[#853220] text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-sm active:scale-95 cursor-pointer border border-[#D4AF37]/40 focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
             >
               <span>{kn ? 'ಕಾರ್ಪೊರೇಟ್ ಈವೆಂಟ್ ರೂಪಿಸಿ' : 'Plan Corporate Event'}</span>
               <ArrowRight className="w-4 h-4 text-white" />

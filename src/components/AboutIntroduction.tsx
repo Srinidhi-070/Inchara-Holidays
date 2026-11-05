@@ -50,7 +50,7 @@ export const AboutIntroduction: React.FC<AboutIntroductionProps> = ({
   return (
     <section id="about" className="py-20 sm:py-28 bg-[#F6F3EA] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10">
       {/* Decorative Sikku Kolam Watermark */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-80 h-80 opacity-[0.035] pointer-events-none text-[#263F32]">
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-80 h-80 max-w-[80vw] opacity-[0.035] pointer-events-none text-[#263F32] overflow-hidden">
         <SikkuKolamMandala className="w-full h-full" />
       </div>
 

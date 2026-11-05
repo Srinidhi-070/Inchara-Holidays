@@ -59,7 +59,7 @@ export const CtaInvitation: React.FC<CtaInvitationProps> = ({
           <button
             type="button"
             onClick={onOpenPlanner}
-            className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-[#12261C] hover:brightness-105 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2.5 cursor-pointer border border-[#D4AF37]/50"
+            className="w-full sm:w-auto px-8 py-4 min-h-[48px] rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-[#12261C] hover:brightness-105 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2.5 cursor-pointer border border-[#D4AF37]/50 focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
           >
             <span>{t.ctaSection.btnPlan}</span>
             <ArrowRight className="w-4 h-4 text-[#12261C]" />
@@ -68,7 +68,7 @@ export const CtaInvitation: React.FC<CtaInvitationProps> = ({
           <button
             type="button"
             onClick={onOpenContact}
-            className="w-full sm:w-auto px-7 py-4 rounded-xl border border-[#D4AF37]/40 text-[#F5D77F] hover:bg-white/5 text-xs sm:text-sm font-semibold tracking-wide transition-colors flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+            className="w-full sm:w-auto px-7 py-4 min-h-[48px] rounded-xl border border-[#D4AF37]/40 text-[#F5D77F] hover:bg-white/5 text-xs sm:text-sm font-semibold tracking-wide transition-colors flex items-center justify-center gap-2 cursor-pointer active:scale-95 focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
           >
             <MessageCircle className="w-4 h-4 text-[#D4AF37]" />
             <span>{t.ctaSection.btnWhatsapp}</span>

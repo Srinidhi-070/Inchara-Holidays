@@ -79,9 +79,10 @@ export const TravellerStories: React.FC<TravellerStoriesProps> = ({ language }) 
 
         <div className="story-controls">
           <button
-            aria-label="Previous story"
+            aria-label={kn ? 'ಹಿಂದಿನ ನೆನಪು' : 'Previous story'}
             type="button"
             onClick={handlePrev}
+            className="focus-visible:ring-2 focus-visible:ring-[#D4AF37] focus-visible:outline-none"
           >
             ←
           </button>
@@ -89,9 +90,10 @@ export const TravellerStories: React.FC<TravellerStoriesProps> = ({ language }) 
             0{currentIndex + 1} / 0{communityReflections.length}
           </span>
           <button
-            aria-label="Next story"
+            aria-label={kn ? 'ಮುಂದಿನ ನೆನಪು' : 'Next story'}
             type="button"
             onClick={handleNext}
+            className="focus-visible:ring-2 focus-visible:ring-[#D4AF37] focus-visible:outline-none"
           >
             →
           </button>

@@ -55,7 +55,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               onClick={onOpenPlanner}
-              className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-[#162E22] to-[#263F32] text-[#F5D77F] text-xs font-bold shadow-xl hover:brightness-110 transition-all border border-[#D4AF37]/50 cursor-pointer backdrop-blur-xs"
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 min-h-[44px] rounded-full bg-gradient-to-r from-[#162E22] to-[#263F32] text-[#F5D77F] text-xs font-bold shadow-xl hover:brightness-110 transition-all border border-[#D4AF37]/50 cursor-pointer backdrop-blur-xs focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
               data-cursor="Plan"
               aria-label={language === 'kn' ? 'ಪ್ರವಾಸ ರೂಪಿಸಿ' : 'Plan Trip'}
             >
@@ -69,7 +69,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
               onClick={scrollToTop}
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.92 }}
-              className="relative w-11 h-11 rounded-full bg-[#FBF8F1] text-[#162E22] flex items-center justify-center shadow-lg hover:shadow-xl transition-all border border-[#D4AF37]/40 cursor-pointer group"
+              className="relative w-11 h-11 rounded-full bg-[#FBF8F1] text-[#162E22] flex items-center justify-center shadow-lg hover:shadow-xl transition-all border border-[#D4AF37]/40 cursor-pointer group focus-visible:ring-2 focus-visible:ring-[#D4AF37] focus-visible:ring-offset-2"
               data-cursor="Top"
               aria-label={language === 'kn' ? 'ಮೇಲಕ್ಕೆ ಹೋಗಿ' : 'Back to top'}
             >

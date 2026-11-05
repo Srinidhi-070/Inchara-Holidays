@@ -50,7 +50,7 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
   return (
     <section id="services" className="py-24 sm:py-32 bg-[#FBF8F1] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10">
       {/* Background Motif */}
-      <div className="absolute right-0 top-1/3 -translate-y-1/2 w-96 h-96 opacity-[0.03] pointer-events-none text-[#263F32]">
+      <div className="absolute right-0 top-1/3 -translate-y-1/2 w-96 h-96 max-w-[70vw] opacity-[0.03] pointer-events-none text-[#263F32] overflow-hidden">
         <SikkuKolamMandala className="w-full h-full" />
       </div>
 
@@ -153,9 +153,9 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
                           key={sub.id}
                           type="button"
                           onClick={() => onSelectCategory(cat.id, sub.id)}
-                          className="px-2.5 py-1 rounded-lg bg-[#F6F3EA] hover:bg-[#D4AF37]/20 border border-[#263F32]/10 text-xs text-[#252923]/90 transition-colors text-left flex items-center gap-1 cursor-pointer"
+                          className="px-2.5 py-1.5 min-h-[34px] rounded-lg bg-[#F6F3EA] hover:bg-[#D4AF37]/20 border border-[#263F32]/10 text-xs text-[#252923]/90 transition-all text-left flex items-center gap-1.5 cursor-pointer active:scale-95 focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
                         >
-                          <span className="w-1 h-1 rounded-full bg-[#D4AF37]" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />
                           <span>{kn ? sub.titleKn.split('(')[0] : sub.titleEn.split('(')[0]}</span>
                         </button>
                       ))}
@@ -168,7 +168,7 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
                   <button
                     type="button"
                     onClick={() => onSelectCategory(cat.id)}
-                    className="button-text text-xs sm:text-sm font-bold uppercase tracking-wider text-[#162E22] hover:text-[#9E3D28] flex items-center gap-2 cursor-pointer transition-colors"
+                    className="button-text text-xs sm:text-sm font-bold uppercase tracking-wider text-[#162E22] hover:text-[#9E3D28] flex items-center gap-2 cursor-pointer transition-colors focus-visible:ring-2 focus-visible:ring-[#D4AF37] rounded-md px-1 py-1"
                   >
                     <span>{kn ? 'ವಿಚಾರಣೆ ಸಲ್ಲಿಸಿ' : 'Enquire Now'}</span>
                     <ArrowRight className="w-4 h-4 text-[#D4AF37] group-hover:translate-x-1 transition-transform" />
@@ -177,7 +177,7 @@ export const ServicesDiscoverySection: React.FC<ServicesDiscoverySectionProps> =
                   <button
                     type="button"
                     onClick={() => onSelectCategory(cat.id)}
-                    className="px-3.5 py-1.5 rounded-xl bg-[#162E22] text-[#F5D77F] hover:bg-[#263F32] text-xs font-semibold transition-all active:scale-95 cursor-pointer"
+                    className="px-4 py-2 min-h-[40px] rounded-xl bg-[#162E22] text-[#F5D77F] hover:bg-[#263F32] text-xs font-semibold transition-all active:scale-95 cursor-pointer shadow-xs focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
                   >
                     {kn ? 'ವಿವರಗಳು' : 'Details'}
                   </button>

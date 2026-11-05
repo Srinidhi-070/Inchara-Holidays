@@ -52,6 +52,20 @@ const ContactModal = React.lazy(() =>
   import('./components/ContactModal').then((m) => ({ default: m.ContactModal }))
 );
 
+// Graceful loading fallback for lazy-loaded modals
+const ModalLoadingFallback = () => (
+  <div
+    className="fixed inset-0 z-50 bg-[#0a1810]/75 backdrop-blur-xs flex items-center justify-center p-4"
+    role="status"
+    aria-label="Loading modal"
+  >
+    <div className="p-6 rounded-2xl bg-[#162e22] border border-[#D4AF37]/50 text-center shadow-2xl flex flex-col items-center gap-3">
+      <div className="w-8 h-8 border-2 border-[#D4AF37]/30 border-t-[#D4AF37] rounded-full animate-spin" />
+      <span className="text-xs text-[#F5D77F] font-serif tracking-wider uppercase">Loading Inchara Portal...</span>
+    </div>
+  </div>
+);
+
 export default function App() {
   const [concept, setConcept] = useState<Concept>('A');
   const [language, setLanguage] = useState<Language>('kn');
@@ -225,7 +239,7 @@ export default function App() {
       />
 
       {/* Primary Universal Dynamic Enquiry Modal (All 6 Categories) */}
-      <Suspense fallback={null}>
+      <Suspense fallback={<ModalLoadingFallback />}>
         {enquiryOpen && (
           <UniversalEnquiryModal
             isOpen={enquiryOpen}
@@ -239,7 +253,7 @@ export default function App() {
       </Suspense>
 
       {/* Staff Admin Portal (Secured with credentials, metrics, search, filters & export) */}
-      <Suspense fallback={null}>
+      <Suspense fallback={<ModalLoadingFallback />}>
         {adminOpen && (
           <AdminDashboard
             isOpen={adminOpen}
@@ -249,7 +263,7 @@ export default function App() {
       </Suspense>
 
       {/* Destination Detail Modal */}
-      <Suspense fallback={null}>
+      <Suspense fallback={<ModalLoadingFallback />}>
         {selectedDestination && (
           <DestinationModal
             destination={selectedDestination}
@@ -263,7 +277,7 @@ export default function App() {
       </Suspense>
 
       {/* Conversational Trip Planner Modal (Preserved legacy) */}
-      <Suspense fallback={null}>
+      <Suspense fallback={<ModalLoadingFallback />}>
         {plannerOpen && (
           <TripPlannerModal
             isOpen={plannerOpen}
@@ -276,7 +290,7 @@ export default function App() {
       </Suspense>
 
       {/* Corporate Event & Team Outing Modal (Preserved legacy) */}
-      <Suspense fallback={null}>
+      <Suspense fallback={<ModalLoadingFallback />}>
         {corporateOpen && (
           <CorporateEventModal
             isOpen={corporateOpen}
@@ -287,7 +301,7 @@ export default function App() {
       </Suspense>
 
       {/* 100% Pure Vegetarian Catering Modal (Preserved legacy) */}
-      <Suspense fallback={null}>
+      <Suspense fallback={<ModalLoadingFallback />}>
         {cateringOpen && (
           <CateringModal
             isOpen={cateringOpen}
@@ -298,7 +312,7 @@ export default function App() {
       </Suspense>
 
       {/* School Trips & Educational Expeditions Modal (Preserved legacy) */}
-      <Suspense fallback={null}>
+      <Suspense fallback={<ModalLoadingFallback />}>
         {schoolOpen && (
           <SchoolTripModal
             isOpen={schoolOpen}
@@ -309,7 +323,7 @@ export default function App() {
       </Suspense>
 
       {/* General Contact & Direct Enquiry Modal (Preserved legacy) */}
-      <Suspense fallback={null}>
+      <Suspense fallback={<ModalLoadingFallback />}>
         {contactOpen && (
           <ContactModal
             isOpen={contactOpen}

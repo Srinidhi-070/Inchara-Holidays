@@ -37,7 +37,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
   return (
     <section id="packages" className="py-24 sm:py-32 bg-[#F6F3EA] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10">
       {/* Decorative Sikku Kolam Watermark */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-80 h-80 opacity-[0.03] pointer-events-none text-[#263F32]">
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-80 h-80 max-w-[70vw] opacity-[0.03] pointer-events-none text-[#263F32] overflow-hidden">
         <SikkuKolamMandala className="w-full h-full" />
       </div>
 
@@ -85,10 +85,10 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                   key={tab.id}
                   type="button"
                   onClick={() => setSelectedFilter(tab.id as any)}
-                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer border ${
+                  className={`px-4 py-2.5 min-h-[42px] rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer border active:scale-95 focus-visible:ring-2 focus-visible:ring-[#D4AF37] ${
                     isActive
                       ? 'bg-[#162E22] text-[#F5D77F] border-[#D4AF37] shadow-sm'
-                      : 'bg-white text-[#252923]/75 border-[#263F32]/12 hover:border-[#D4AF37]/50'
+                      : 'bg-white text-[#252923]/75 border-[#263F32]/12 hover:border-[#D4AF37]/50 hover:bg-[#F6F3EA]'
                   }`}
                 >
                   {kn ? tab.labelKn : tab.labelEn}
@@ -179,7 +179,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                 <button
                   type="button"
                   onClick={() => onSelectPackage(kn ? pkg.titleKn : pkg.titleEn)}
-                  className="w-full py-3.5 px-5 rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-sm active:scale-95 cursor-pointer border border-[#D4AF37]/40"
+                  className="w-full py-3.5 px-5 min-h-[46px] rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-sm active:scale-95 cursor-pointer border border-[#D4AF37]/40 focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
                 >
                   <span>{kn ? 'ಈ ಪ್ಯಾಕೇಜ್ ವಿಚಾರಿಸಿ' : 'Request Custom Quote'}</span>
                   <ArrowRight className="w-4 h-4 text-[#F5D77F]" />

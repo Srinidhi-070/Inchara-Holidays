@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Language, Destination } from '../types';
 import { destinations } from '../data/destinations';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { smoothScrollTo } from '../utils/smoothScroll';
 
 interface DestinationDiscoveryProps {
@@ -19,6 +19,7 @@ export const DestinationDiscovery: React.FC<DestinationDiscoveryProps> = ({
   const gridRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Map the 5 editorial tiles to corresponding detailed destination objects in destinations.ts
@@ -104,9 +105,9 @@ export const DestinationDiscovery: React.FC<DestinationDiscoveryProps> = ({
     }
   }, []);
 
-  // Automatic scrolling every 10 seconds on mobile
+  // Automatic scrolling every 10 seconds on mobile (with pause/resume support)
   useEffect(() => {
-    if (!isMobile) return;
+    if (!isMobile || isPaused) return;
 
     const startTimer = () => {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -127,7 +128,7 @@ export const DestinationDiscovery: React.FC<DestinationDiscoveryProps> = ({
       if (timerRef.current) clearInterval(timerRef.current);
     };
     const handleTouchEnd = () => {
-      startTimer();
+      if (!isPaused) startTimer();
     };
 
     if (gridEl) {
@@ -142,7 +143,7 @@ export const DestinationDiscovery: React.FC<DestinationDiscoveryProps> = ({
         gridEl.removeEventListener('touchend', handleTouchEnd);
       }
     };
-  }, [isMobile, editorialDestinations.length, scrollToCard]);
+  }, [isMobile, isPaused, editorialDestinations.length, scrollToCard]);
 
   // Synchronize activeIndex on manual touch swipe
   const handleGridScroll = () => {
@@ -269,53 +270,79 @@ export const DestinationDiscovery: React.FC<DestinationDiscoveryProps> = ({
         ))}
       </div>
 
-      {/* Mobile Ratio Auto-Scroll Controls & Indicators */}
-      <div className="md:hidden mt-5 pt-3 flex items-center justify-between border-t border-[#263f32]/10 select-none">
-        {/* Animated Pills */}
-        <div className="flex items-center gap-1.5">
+      {/* Mobile Ratio Auto-Scroll Controls & Indicators (WCAG 2.2.2 Compliant) */}
+      <div className="md:hidden mt-6 pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-[#263f32]/12 select-none">
+        {/* Animated Touch-Friendly Progress Dots */}
+        <div className="flex items-center gap-1" role="tablist" aria-label="Destination slides">
           {editorialDestinations.map((dest, idx) => (
             <button
               key={dest.id}
               type="button"
+              role="tab"
+              aria-selected={activeIndex === idx}
               onClick={() => scrollToCard(idx)}
-              aria-label={`Go to ${dest.name}`}
-              className={`h-1.5 transition-all duration-500 rounded-full cursor-pointer border-0 p-0 ${
-                activeIndex === idx
-                  ? 'w-7 bg-[#9e3d28]'
-                  : 'w-2 bg-[#263f32]/25 hover:bg-[#263f32]/50'
-              }`}
-            />
+              aria-label={`Go to slide 0${idx + 1}: ${dest.name}`}
+              className="py-3 px-1.5 flex items-center justify-center cursor-pointer focus-visible:outline-none"
+            >
+              <span
+                className={`h-2 transition-all duration-300 rounded-full block ${
+                  activeIndex === idx
+                    ? 'w-7 bg-[#9E3D28] shadow-xs'
+                    : 'w-2 bg-[#263F32]/25 hover:bg-[#263F32]/50'
+                }`}
+              />
+            </button>
           ))}
         </div>
 
-        {/* Counter & 10s Timer Indicator */}
+        {/* Counter, Pause Toggle & Accessible Nav Buttons */}
         <div className="flex items-center gap-3">
-          <div className="text-[11px] font-mono tracking-wider text-[#263f32]/70 flex items-center gap-1">
-            <span className="font-bold text-[#9e3d28]">0{activeIndex + 1}</span>
+          <div className="text-xs font-mono tracking-wider text-[#263F32]/75 flex items-center gap-1">
+            <span className="font-bold text-[#9E3D28]">0{activeIndex + 1}</span>
             <span>/</span>
             <span>0{editorialDestinations.length}</span>
-            <span className="text-[10px] text-[#263f32]/40 ml-1.5 uppercase tracking-normal">
-              · 10s auto
+            <span className="text-[10px] text-[#263F32]/50 ml-1 uppercase tracking-normal">
+              {isPaused ? (kn ? '· ನಿಲ್ಲಿಸಲಾಗಿದೆ' : '· paused') : '· 10s auto'}
             </span>
           </div>
 
-          {/* Quick Prev / Next Arrows for Mobile Touch */}
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
+            {/* Pause / Play Toggle (WCAG 2.2.2 Compliant) */}
+            <button
+              type="button"
+              onClick={() => setIsPaused((prev) => !prev)}
+              aria-label={
+                isPaused
+                  ? kn
+                    ? 'ಸ್ವಯಂಚಾಲಿತ ಸ್ಲೈಡ್ ಪುನರಾರಂಭಿಸಿ'
+                    : 'Resume auto-advance'
+                  : kn
+                    ? 'ಸ್ವಯಂಚಾಲಿತ ಸ್ಲೈಡ್ ವಿರಾಮಗೊಳಿಸಿ'
+                    : 'Pause auto-advance'
+              }
+              className="w-10 h-10 rounded-xl border border-[#263F32]/20 bg-white/75 hover:bg-[#263F32]/10 active:scale-95 flex items-center justify-center text-[#263F32]/80 transition-all cursor-pointer shadow-xs focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
+            >
+              {isPaused ? <Play className="w-4 h-4 text-[#9E3D28]" /> : <Pause className="w-4 h-4 text-[#263F32]/80" />}
+            </button>
+
+            {/* Accessible Prev Button */}
             <button
               type="button"
               onClick={handlePrev}
-              aria-label="Previous destination"
-              className="w-7 h-7 rounded-none border border-[#263f32]/20 flex items-center justify-center text-[#263f32]/75 hover:bg-[#263f32]/10 transition-colors"
+              aria-label={kn ? 'ಹಿಂದಿನ ತಾಣ' : 'Previous destination'}
+              className="w-10 h-10 rounded-xl border border-[#263F32]/20 bg-white/75 hover:bg-[#263F32]/10 active:scale-95 flex items-center justify-center text-[#263F32]/80 transition-all cursor-pointer shadow-xs focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
             >
-              <ChevronLeft className="w-3.5 h-3.5" />
+              <ChevronLeft className="w-4 h-4" />
             </button>
+
+            {/* Accessible Next Button */}
             <button
               type="button"
               onClick={handleNext}
-              aria-label="Next destination"
-              className="w-7 h-7 rounded-none border border-[#263f32]/20 flex items-center justify-center text-[#263f32]/75 hover:bg-[#263f32]/10 transition-colors"
+              aria-label={kn ? 'ಮುಂದಿನ ತಾಣ' : 'Next destination'}
+              className="w-10 h-10 rounded-xl border border-[#263F32]/20 bg-white/75 hover:bg-[#263F32]/10 active:scale-95 flex items-center justify-center text-[#263F32]/80 transition-all cursor-pointer shadow-xs focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
             >
-              <ChevronRight className="w-3.5 h-3.5" />
+              <ChevronRight className="w-4 h-4" />
             </button>
           </div>
         </div>
