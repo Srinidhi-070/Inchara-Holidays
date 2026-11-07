@@ -24,7 +24,7 @@ export const TravelLogisticsAssistance: React.FC<TravelLogisticsAssistanceProps>
   const kn = language === 'kn';
 
   return (
-    <section id="transport-visa" className="py-24 sm:py-32 bg-[#F6F3EA] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10">
+    <section id="transport" className="scroll-mt-20 py-24 sm:py-32 bg-[#F6F3EA] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -118,11 +118,12 @@ export const TravelLogisticsAssistance: React.FC<TravelLogisticsAssistanceProps>
 
           {/* 2. Visa & Passport Assistance Card */}
           <motion.div
+            id="travel-assistance"
             initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="rounded-3xl bg-white border border-[#263F32]/12 p-8 sm:p-10 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all relative overflow-hidden group"
+            className="scroll-mt-28 rounded-3xl bg-white border border-[#263F32]/12 p-8 sm:p-10 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all relative overflow-hidden group"
           >
             <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-[#9E3D28] to-transparent" />
 

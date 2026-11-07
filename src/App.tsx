@@ -13,6 +13,8 @@ import {
 import { AboutIntroduction } from "./components/AboutIntroduction";
 import { DestinationDiscovery } from "./components/DestinationDiscovery";
 import { PackagesSection } from "./components/PackagesSection";
+import { InstitutionalCorporateHighlight } from "./components/InstitutionalCorporateHighlight";
+import { TravelLogisticsAssistance } from "./components/TravelLogisticsAssistance";
 import { WhyUs } from "./components/WhyUs";
 import { TravellerStories } from "./components/TravellerStories";
 import { FloatingActions } from "./components/FloatingActions";
@@ -91,10 +93,24 @@ export default function App() {
           onViewItinerary={openPackageItinerary}
         />
 
-        {/* 8. 100% Pure Vegetarian Catering Feature */}
+        {/* 8. Educational Study Tours & Corporate Offsites */}
+        <InstitutionalCorporateHighlight
+          language={locale}
+          onOpenEducational={() => openEnquiry("education")}
+          onOpenCorporate={() => openEnquiry("corporate")}
+        />
+
+        {/* 9. Audited Vehicle Fleet & Travel Assistance */}
+        <TravelLogisticsAssistance
+          language={locale}
+          onOpenTransport={() => openEnquiry("transport")}
+          onOpenVisaPassport={() => openEnquiry("visa")}
+        />
+
+        {/* 10. 100% Pure Vegetarian Catering Feature */}
         <CateringFeature locale={locale} onEnquire={openEnquiry} />
 
-        {/* 9. Why Us / Personal Warmth (Image 3 Reference) */}
+        {/* 11. Why Us / Personal Warmth (Image 3 Reference) */}
         <WhyUs locale={locale} />
 
         {/* 10. Mindful Planning Process */}

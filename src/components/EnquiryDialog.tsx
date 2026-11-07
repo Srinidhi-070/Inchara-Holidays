@@ -206,6 +206,11 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
         ? {}
         : current.details,
     }));
+    if (initialService) {
+      setStep(1);
+    } else {
+      setStep(0);
+    }
     document.body.classList.add("dialog-open");
     window.setTimeout(() => dialogRef.current?.focus(), 0);
     return () => {

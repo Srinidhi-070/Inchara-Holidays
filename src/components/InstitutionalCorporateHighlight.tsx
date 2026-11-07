@@ -24,7 +24,7 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
   const kn = language === 'kn';
 
   return (
-    <section id="institutional-corporate" className="py-24 sm:py-32 bg-[#FBF8F1] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10">
+    <section id="education" className="scroll-mt-20 py-24 sm:py-32 bg-[#FBF8F1] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -133,11 +133,12 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
 
           {/* Card 2: Corporate & Event Tours */}
           <motion.div
+            id="corporate"
             initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl bg-white border border-[#263F32]/12 p-8 sm:p-10 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all relative overflow-hidden group"
+            className="scroll-mt-28 rounded-3xl bg-white border border-[#263F32]/12 p-8 sm:p-10 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all relative overflow-hidden group"
           >
             <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#162E22] via-[#D4AF37] to-transparent" />
 

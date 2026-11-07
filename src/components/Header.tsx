@@ -44,12 +44,13 @@ export function Header({ locale, setLocale, onEnquire }: Props) {
   const navigate = () => setOpen(false);
 
   const navItems = [
-    { href: "#about", label: isKn ? "ಪರಿಚಯ" : "About" },
-    { href: "#services", label: isKn ? "ಸೇವೆಗಳು" : "Services" },
+    { href: "#packages", label: isKn ? "ಪ್ರವಾಸಗಳು" : "Holidays" },
+    { href: "#education", label: isKn ? "ಶೈಕ್ಷಣಿಕ" : "Educational" },
+    { href: "#corporate", label: isKn ? "ಕಾರ್ಪೊರೇಟ್" : "Corporate" },
+    { href: "#transport", label: isKn ? "ಸಾರಿಗೆ" : "Transport" },
+    { href: "#catering-showcase", label: isKn ? "ಸಸ್ಯಾಹಾರಿ ಅಡುಗೆ" : "Pure Veg Catering" },
     { href: "#destinations", label: isKn ? "ತಾಣಗಳು" : "Destinations" },
-    { href: "#packages", label: isKn ? "ಪ್ಯಾಕೇಜ್‌ಗಳು" : "Packages" },
-    { href: "#catering-showcase", label: isKn ? "ಸಸ್ಯಾಹಾರಿ ಅಡುಗೆ" : "Catering" },
-    { href: "#why-us", label: isKn ? "ನಮ್ಮ ತತ್ವ" : "Why Us" },
+    { href: "#about", label: isKn ? "ಪರಿಚಯ" : "About" },
   ];
 
   return (

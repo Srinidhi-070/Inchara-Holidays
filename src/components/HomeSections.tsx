@@ -182,7 +182,7 @@ export function Services({ locale, onEnquire }: Props) {
           {services.map((service, index) => (
             <article
               className="rounded-3xl bg-white border border-[#263F32]/12 hover:border-[#D4AF37] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1"
-              id={service.id}
+              id={`service-card-${service.id}`}
               key={service.id}
               data-reveal="card"
               data-delay={60 + (index % 3) * 80}
@@ -277,6 +277,34 @@ export function CateringFeature({ locale, onEnquire }: Props) {
             {String(c.cateringTitle)}
           </h2>
           <p>{String(c.cateringBody)}</p>
+
+          {/* Feast Styles Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 my-5">
+            {[
+              {
+                title: locale === "kn" ? "ಬಾಳೆ ಎಲೆ ಸಮಾರಾಧನೆ ಊಟ" : "Plantain Leaf Feasts",
+                desc: locale === "kn" ? "ಅಪ್ಪಟ ತುಪ್ಪ, ಪಾಯಸ & ೧೨+ ಸಾಂಪ್ರದಾಯಿಕ ತಿನಿಸುಗಳು" : "Traditional sit-down banquet with 12+ items",
+              },
+              {
+                title: locale === "kn" ? "ಪ್ರವಾಸದ ಮೊಬೈಲ್ ಕಿಚನ್" : "Mobile Tour Kitchens",
+                desc: locale === "kn" ? "ದೂರದ ಪ್ರವಾಸಿ ತಾಣಗಳಲ್ಲೂ ತಾಜಾ ಬಿಸಿ ಊಟೋಪಚಾರ" : "Fresh hot meals on remote Karnataka circuits",
+              },
+              {
+                title: locale === "kn" ? "ಫಿಲ್ಟರ್ ಕಾಫಿ & ಹೈ-ಟೀ" : "Hi-Tea & Local Snacks",
+                desc: locale === "kn" ? "ಮೈಸೂರು ಪಾಕ್, ಮದ್ದೂರು ವಡೆ & ಅಪ್ಪಟ ಕಾಫಿ" : "Mysore filter coffee & regional delicacies",
+              },
+              {
+                title: locale === "kn" ? "೧೦೦% ಶುದ್ಧ ಜೈನ ಆಹಾರ" : "Satvic & Jain Commitment",
+                desc: locale === "kn" ? "ಈರುಳ್ಳಿ-ಬೆಳ್ಳುಳ್ಳಿ ರಹಿತ ಪ್ರತ್ಯೇಕ ಅಡುಗೆ ಸೌಲಭ್ಯ" : "No onion/garlic preparation on request",
+              },
+            ].map((item, idx) => (
+              <div key={idx} className="p-3 rounded-xl bg-white/70 border border-[#263F32]/10 space-y-0.5">
+                <div className="text-xs font-bold text-[#162E22]">{item.title}</div>
+                <div className="text-[11px] text-[#252923]/70">{item.desc}</div>
+              </div>
+            ))}
+          </div>
+
           <div className="catering-badge">
             <span aria-hidden="true">◆</span>
             {String(c.cateringBadge)}
