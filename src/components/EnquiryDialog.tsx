@@ -2,21 +2,21 @@ import React, { useEffect, useId, useRef, useState } from "react";
 import { services } from "../content";
 import { detailFields, submitEnquiry } from "../lib/enquiry";
 import type { EnquiryPayload, Locale, ServiceId } from "../types";
-import { ArrowRight, Check, CloseIcon, ServiceIcon } from "./Icons";
 import { brandConfig } from "../config/brand";
+import { Check, X, ArrowRight, ArrowUpRight, MessageCircle } from "lucide-react";
 
 const emptyContact = {
   name: "",
   phone: "",
   email: "",
-  preferred: "" as const,
+  preferred: "whatsapp" as const,
   notes: "",
   consent: false,
 };
 
 const ui = {
   en: {
-    eyebrow: "Universal enquiry",
+    eyebrow: "UNIVERSAL ENQUIRY",
     title: "Let’s shape your journey.",
     intro: "A few thoughtful details help us understand where to begin.",
     steps: ["Service", "Details", "Contact", "Review"],
@@ -25,30 +25,31 @@ const ui = {
     contact: "How may we reach you?",
     review: "Review your enquiry",
     reviewBody: "Check your details before submitting.",
-    next: "Continue",
-    back: "Back",
-    submit: "Submit Enquiry",
+    next: "CONTINUE",
+    back: "BACK",
+    submit: "SUBMIT ENQUIRY",
     edit: "Edit",
     required: "Please complete this field.",
     chooseRequired: "Choose a service to continue.",
     contactRequired: "Add a valid phone number or email address.",
     preferredRequired: "Add the contact detail for your preferred method.",
     consentRequired: "Please confirm your details are accurate.",
-    name: "Your name",
-    phone: "Phone number",
-    email: "Email address",
-    preferred: "Preferred contact",
+    name: "Your Name",
+    phone: "Phone Number",
+    email: "Email Address",
+    preferred: "Preferred Contact Method",
     chooseMethod: "Choose a method",
-    phoneOption: "Phone",
+    whatsappOption: "WhatsApp",
+    phoneOption: "Phone Call",
     emailOption: "Email",
     notes: "Anything else we should know? (optional)",
     consent: "I confirm the contact and travel details provided are accurate.",
     demo: "Bespoke itineraries, transparent pricing, zero commercial kickbacks.",
-    selectedService: "Service",
-    yourDetails: "Journey details",
-    contactDetails: "Contact details",
+    selectedService: "Selected Service",
+    yourDetails: "Journey Details",
+    contactDetails: "Contact Details",
     sending: "Submitting…",
-    successEyebrow: "Enquiry Registered",
+    successEyebrow: "ENQUIRY REGISTERED",
     successTitle: "Thank you for sharing your plans.",
     successBody:
       "Our team will review your requirements and reach out with a personalized plan within 24 hours.",
@@ -82,37 +83,100 @@ const ui = {
     name: "ನಿಮ್ಮ ಹೆಸರು",
     phone: "ದೂರವಾಣಿ ಸಂಖ್ಯೆ",
     email: "ಇಮೇಲ್ ವಿಳಾಸ",
-    preferred: "ಆದ್ಯತೆಯ ಸಂಪರ್ಕ",
+    preferred: "ಆದ್ಯತೆಯ ಸಂಪರ್ಕ ವಿಧಾನ",
     chooseMethod: "ವಿಧಾನ ಆಯ್ಕೆಮಾಡಿ",
-    phoneOption: "ದೂರವಾಣಿ",
-    emailOption: "ಇಮೇಲ್",
+    whatsappOption: "ವಾಟ್ಸಾಪ್ (WhatsApp)",
+    phoneOption: "ದೂರವಾಣಿ ಕರೆ (Phone)",
+    emailOption: "ಇಮೇಲ್ (Email)",
     notes: "ನಾವು ತಿಳಿಯಬೇಕಾದ ಬೇರೆ ವಿಷಯ? (ಐಚ್ಛಿಕ)",
     consent: "ನಾನು ನೀಡಿದ ಸಂಪರ್ಕ ಮತ್ತು ಪ್ರಯಾಣ ವಿವರಗಳು ನಿಖರವಾಗಿವೆ ಎಂದು ದೃಢೀಕರಿಸುತ್ತೇನೆ.",
     demo: "ವೈಯಕ್ತಿಕ ಪ್ರವಾಸ ಯೋಜನೆ, ಪಾರದರ್ಶಕ ದರಗಳು ಮತ್ತು ನೈಜ ಮಲೆನಾಡು ಆತಿಥ್ಯ.",
-    selectedService: "ಸೇವೆ",
+    selectedService: "ಆಯ್ಕೆಮಾಡಿದ ಸೇವೆ",
     yourDetails: "ಪ್ರಯಾಣದ ವಿವರಗಳು",
     contactDetails: "ಸಂಪರ್ಕ ವಿವರಗಳು",
     sending: "ಸಲ್ಲಿಸಲಾಗುತ್ತಿದೆ…",
     successEyebrow: "ವಿಚಾರಣೆ ದಾಖಲಾಗಿದೆ",
     successTitle: "ನಿಮ್ಮ ಯೋಜನೆ ಹಂಚಿಕೊಂಡಿದ್ದಕ್ಕೆ ಧನ್ಯವಾದಗಳು.",
-    successBody: "ನಮ್ಮ ತಂಡವು ನಿಮ್ಮ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ 24 ಗಂಟೆಗಳ ಒಳಗೆ ಸೂಕ್ತ ಯೋಜನೆಯೊಂದಿಗೆ ಸಂಪರ್ಕಿಸುತ್ತದೆ.",
+    successBody: "ನಮ್ಮ ತಂಡವು ನಿಮ್ಮ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ ೨೪ ಗಂಟೆಗಳ ಒಳಗೆ ಸೂಕ್ತ ಯೋಜನೆಯೊಂದಿಗೆ ಸಂಪರ್ಕಿಸುತ್ತದೆ.",
     referenceLabel: "ನಿಮ್ಮ ವಿಚಾರಣೆ ಉಲ್ಲೇಖ ಸಂಖ್ಯೆ",
     whatsappBtn: "ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ತಕ್ಷಣ ಚರ್ಚಿಸಿ",
-    another: "ಮತ್ತೊಂದು ವಿಚಾರಣೆ ಆರಂಭಿಸಿ",
+    another: "ಇನ್ನೊಂದು ವಿಚಾರಣೆ ಆರಂಭಿಸಿ",
     done: "ಮುಚ್ಚಿ",
     close: "ವಿಚಾರಣೆ ಮುಚ್ಚಿ",
-    discard: "ನಮೂದಿಸಿದ ಮಾಹಿತಿಯನ್ನು ಅಳಿಸಿ ಮುಚ್ಚಬೇಕೇ?",
-    error: "ವಿಚಾರಣೆ ಸಲ್ಲಿಕೆಗೆ ಅಡ್ಡಿಯಾಯಿತು. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+    discard: "ನಮೂದಿಸಿದ ಮಾಹಿತಿಯನ್ನು ರದ್ದುಗೊಳಿಸಿ ಮುಚ್ಚಬೇಕೆ?",
+    error: "ವಿಚಾರಣೆ ಸಲ್ಲಿಸುವಲ್ಲಿ ದೋಷವಾಗಿದೆ. ದಯವಿಟ್ಟು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.",
   },
 };
 
 type Props = {
   open: boolean;
   locale: Locale;
-  initialService: ServiceId | null;
+  initialService?: ServiceId | null;
   initialDestination?: string;
   onClose: () => void;
 };
+
+// High-fidelity vector icons matching the Figma design screenshot
+export function LargeServiceArtwork({ id, className = "w-16 h-16 sm:w-20 sm:h-20" }: { id: string; className?: string }) {
+  switch (id) {
+    case "holidays":
+      return (
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <path d="M8 52 L23 20 L34 38 L43 25 L56 52" />
+          <path d="M4 56 H60" />
+        </svg>
+      );
+    case "education":
+      return (
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <path d="M8 24 L32 12 L56 24 L32 36 Z" />
+          <path d="M18 30 V44 C18 47 32 52 32 52 C32 52 46 47 46 44 V30" />
+          <path d="M56 24 V44" />
+          <circle cx="56" cy="46" r="2" fill="currentColor" />
+        </svg>
+      );
+    case "corporate":
+      return (
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <rect x="10" y="20" width="44" height="34" rx="5" />
+          <path d="M22 20 V14 C22 11.8 23.8 10 26 10 H38 C40.2 10 42 11.8 42 14 V20" />
+          <path d="M10 32 H54" />
+          <path d="M28 32 V36 H36 V32" />
+        </svg>
+      );
+    case "transport":
+      return (
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <rect x="10" y="14" width="44" height="36" rx="8" />
+          <path d="M10 28 H54" />
+          <circle cx="20" cy="40" r="3" fill="currentColor" />
+          <circle cx="44" cy="40" r="3" fill="currentColor" />
+          <path d="M18 50 V54" />
+          <path d="M46 50 V54" />
+        </svg>
+      );
+    case "visa":
+      return (
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <rect x="14" y="10" width="36" height="46" rx="6" />
+          <circle cx="32" cy="28" r="7" />
+          <path d="M24 44 H40" />
+          <path d="M27 49 H37" />
+        </svg>
+      );
+    case "catering":
+    default:
+      return (
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <path d="M12 44 C12 28 20 20 32 20 C44 20 52 28 52 44" />
+          <path d="M32 20 V14" />
+          <circle cx="32" cy="12" r="2.5" fill="currentColor" />
+          <path d="M8 50 H56" />
+          <path d="M12 44 H52" />
+        </svg>
+      );
+  }
+}
 
 export function EnquiryDialog({ open, locale, initialService, initialDestination, onClose }: Props) {
   const [step, setStep] = useState(0);
@@ -124,6 +188,7 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"form" | "submitting" | "success" | "error">("form");
   const [referenceNumber, setReferenceNumber] = useState("");
+  const [whatsappUrl, setWhatsappUrl] = useState("");
   const dialogRef = useRef<HTMLDivElement>(null);
   const previousFocus = useRef<HTMLElement | null>(null);
   const titleId = useId();
@@ -147,53 +212,32 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
       document.body.classList.remove("dialog-open");
       previousFocus.current?.focus();
     };
-  }, [open, initialService]);
+  }, [open, initialService, initialDestination]);
 
   useEffect(() => {
     if (!open) return;
     const handleKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         requestClose();
-        return;
-      }
-      if (event.key !== "Tab" || !dialogRef.current) return;
-      const items = Array.from(
-        dialogRef.current.querySelectorAll<HTMLElement>(
-          'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex="0"]',
-        ),
-      );
-      if (!items.length) return;
-      const first = items[0];
-      const last = items[items.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
       }
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  });
+  }, [open]);
 
   if (!open) return null;
 
-  const activeService = services.find((service) => service.id === payload.service);
   const activeFields = payload.service ? detailFields[payload.service] : [];
-
-  const dirty =
-    payload.service !== (initialService ?? "") ||
-    Object.values(payload.details).some(Boolean) ||
-    Object.entries(payload.contact).some(([key, value]) => key !== "consent" && Boolean(value));
+  const selectedServiceMeta = services.find((s) => s.id === payload.service);
 
   function requestClose() {
-    if (status === "success") {
+    const hasData =
+      payload.service ||
+      Object.keys(payload.details).length > 0 ||
+      payload.contact.name ||
+      payload.contact.phone;
+    if (!hasData || status === "success") {
       reset();
-      onClose();
-      return;
-    }
-    if (!dirty) {
       onClose();
       return;
     }
@@ -209,6 +253,7 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
     setStep(0);
     setStatus("form");
     setReferenceNumber("");
+    setWhatsappUrl("");
   }
 
   function validate() {
@@ -232,14 +277,7 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
       if (!payload.contact.consent) nextErrors.consent = c.consentRequired;
     }
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length) {
-      window.setTimeout(
-        () => dialogRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus(),
-        0,
-      );
-      return false;
-    }
-    return true;
+    return Object.keys(nextErrors).length === 0;
   }
 
   function next() {
@@ -251,121 +289,152 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
     try {
       const res = await submitEnquiry(payload);
       setReferenceNumber(res.referenceNumber);
+      if (res.whatsappUrl) setWhatsappUrl(res.whatsappUrl);
       setStatus("success");
     } catch {
       setStatus("error");
     }
   }
 
-  const whatsappMessage = encodeURIComponent(
-    `Namaskara Inchara Holidays! I submitted an enquiry for ${activeService?.title.en || 'travel services'}. My reference number is ${referenceNumber}. Name: ${payload.contact.name}. Looking forward to discussing details!`
-  );
-  const whatsappUrl = `https://wa.me/${(brandConfig.whatsappRaw || brandConfig.phoneRaw || "919448000000").replace(/\D/g, "")}?text=${whatsappMessage}`;
-
   return (
-    <div
-      className="dialog-backdrop"
-      onMouseDown={(event) => event.target === event.currentTarget && requestClose()}
-    >
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 lg:p-8 animate-fade-in">
       <div
-        className="enquiry-dialog"
+        className="relative w-full max-w-4xl bg-[#FBF8F1] rounded-3xl shadow-2xl border border-[#D4AF37]/40 overflow-hidden flex flex-col my-auto"
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         ref={dialogRef}
         tabIndex={-1}
       >
-        <button className="dialog-close" type="button" aria-label={c.close} onClick={requestClose}>
-          <CloseIcon />
+        {/* Top Close Button */}
+        <button
+          className="absolute top-5 right-5 z-20 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-[#162E22] flex items-center justify-center shadow-md border border-[#162E22]/15 transition-all hover:scale-105 cursor-pointer"
+          type="button"
+          aria-label={c.close}
+          onClick={requestClose}
+        >
+          <X className="w-5 h-5 text-[#162E22]" />
         </button>
 
         {status === "success" ? (
-          <div className="success-state" tabIndex={0}>
-            <div className="success-badge" aria-hidden="true">
-              <Check />
+          /* SUCCESS STATE */
+          <div className="p-8 sm:p-14 text-center max-w-2xl mx-auto flex flex-col items-center">
+            <div className="w-20 h-20 rounded-full bg-[#162E22] text-[#F5D77F] flex items-center justify-center mb-6 shadow-xl border-2 border-[#D4AF37]/50">
+              <Check className="w-10 h-10 stroke-[2.5]" />
             </div>
-            <p className="eyebrow">{c.successEyebrow}</p>
-            <h3 id={titleId} className={locale === "kn" ? "font-kannada-serif" : ""}>
+            <p className="text-xs font-bold tracking-widest text-[#9E3D28] uppercase mb-2">
+              {c.successEyebrow}
+            </p>
+            <h3 id={titleId} className="text-2xl sm:text-3xl font-serif-editorial font-bold text-[#162E22] mb-4">
               {c.successTitle}
             </h3>
-            <p className="success-body">{c.successBody}</p>
+            <p className="text-sm sm:text-base text-[#252923]/75 leading-relaxed mb-6">
+              {c.successBody}
+            </p>
 
             {referenceNumber && (
-              <div className="my-6 p-4 rounded-xl bg-[#F6F3EA] border border-[#D4AF37]/40 text-center">
+              <div className="w-full my-4 p-5 rounded-2xl bg-white border border-[#D4AF37]/50 text-center shadow-sm">
                 <span className="text-xs uppercase tracking-wider text-[#9E3D28] font-bold block mb-1">
                   {c.referenceLabel}
                 </span>
-                <span className="font-mono text-lg font-bold text-[#162E22] tracking-wider select-all">
+                <span className="font-mono text-2xl font-bold text-[#162E22] tracking-wider select-all">
                   {referenceNumber}
                 </span>
               </div>
             )}
 
-            <div className="success-actions flex flex-col gap-3">
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="gold-button w-full"
+            <div className="flex flex-col sm:flex-row gap-3 w-full mt-6">
+              {whatsappUrl && (
+                <a
+                  className="flex-1 inline-flex items-center justify-center gap-2.5 py-4 px-6 rounded-xl bg-[#25D366] hover:bg-[#1EBE5D] text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg transition-all hover:shadow-xl"
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageCircle className="w-5 h-5 fill-white" />
+                  <span>{c.whatsappBtn}</span>
+                </a>
+              )}
+              <button
+                className="py-4 px-6 rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] font-bold text-xs sm:text-sm uppercase tracking-wider transition-all cursor-pointer border border-[#D4AF37]/40"
+                type="button"
+                onClick={requestClose}
               >
-                {c.whatsappBtn}
-                <ArrowRight />
-              </a>
-              <div className="flex gap-3 justify-center mt-2">
-                <button className="quiet-button" type="button" onClick={reset}>
-                  {c.another}
-                </button>
-                <button className="outline-button !text-[#162E22] !border-[#162E22]/30 hover:!bg-[#162E22]/5" type="button" onClick={requestClose}>
-                  {c.done}
-                </button>
-              </div>
+                {c.done}
+              </button>
             </div>
           </div>
         ) : (
-          <>
-            <header className="dialog-header">
-              <p className="eyebrow">{c.eyebrow}</p>
-              <h3 id={titleId} className={locale === "kn" ? "font-kannada-serif" : ""}>
+          /* MULTI-STEP WIZARD */
+          <div className="flex flex-col flex-1">
+            {/* Header with Title and Stepper */}
+            <header className="pt-8 px-6 sm:px-12 pb-4 text-center border-b border-[#263F32]/8 bg-white/50">
+              <p className="text-xs font-bold tracking-widest text-[#9E3D28] uppercase mb-1.5">
+                {c.eyebrow}
+              </p>
+              <h2 id={titleId} className="text-2xl sm:text-3xl font-serif-editorial font-bold text-[#162E22] tracking-tight">
                 {c.title}
-              </h3>
-              <p>{c.intro}</p>
-              <ol className="stepper" aria-label="Steps">
-                {c.steps.map((label, index) => {
-                  const stateClass =
-                    index === step ? "is-current" : index < step ? "is-complete" : "";
-                  return (
-                    <li key={label} className={`step ${stateClass}`}>
-                      <button
-                        type="button"
-                        disabled={index > step && !payload.service}
-                        onClick={() => index < step && setStep(index)}
-                      >
-                        <span className="step__number">
-                          {index < step ? <Check /> : `0${index + 1}`}
+              </h2>
+              <p className="text-xs sm:text-sm text-[#252923]/70 mt-1 max-w-lg mx-auto">
+                {c.intro}
+              </p>
+
+              {/* Connected Stepper Line */}
+              <div className="flex items-center justify-center max-w-md mx-auto mt-6 relative">
+                {/* Connecting track line */}
+                <div className="absolute top-4 left-6 right-6 h-0.5 bg-[#263F32]/15 -z-0" />
+
+                <div className="flex items-center justify-between w-full relative z-10">
+                  {c.steps.map((label, index) => {
+                    const isDone = index < step;
+                    const isCurrent = index === step;
+                    return (
+                      <div key={label} className="flex flex-col items-center">
+                        <div
+                          className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all shadow-sm ${
+                            isCurrent
+                              ? "bg-[#162E22] text-[#F5D77F] ring-4 ring-[#D4AF37]/30 border border-[#D4AF37]"
+                              : isDone
+                              ? "bg-[#162E22] text-[#F5D77F]"
+                              : "bg-[#F6F3EA] text-[#263F32]/50 border border-[#263F32]/20"
+                          }`}
+                        >
+                          {isDone ? <Check className="w-4 h-4 stroke-[3]" /> : `0${index + 1}`}
+                        </div>
+                        <span className={`text-[11px] font-semibold tracking-wider uppercase mt-1.5 ${
+                          isCurrent ? "text-[#162E22] font-bold" : "text-[#252923]/50"
+                        }`}>
+                          {label}
                         </span>
-                        <span className="step__label">{label}</span>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ol>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </header>
 
-            <div className="dialog-body">
+            {/* Dialog Scrollable Body */}
+            <div className="p-6 sm:p-10 flex-1 overflow-y-auto max-h-[60vh]">
+              {/* STEP 0: What can we help you with? */}
               {step === 0 && (
-                <div className="service-choices">
-                  <h4>{c.choose}</h4>
-                  {errors.service && <p className="field-error">{errors.service}</p>}
-                  <div className="service-choices__grid" role="radiogroup" aria-label={c.choose}>
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-serif-editorial font-bold text-[#162E22] mb-2 text-center sm:text-left">
+                    {c.choose}
+                  </h3>
+                  {errors.service && (
+                    <p className="text-xs font-bold text-[#9E3D28] mb-4 p-2.5 rounded-lg bg-[#9E3D28]/10 border border-[#9E3D28]/20">
+                      {errors.service}
+                    </p>
+                  )}
+
+                  {/* 6 Large Icon Service Cards matching screenshot */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-4">
                     {services.map((service) => {
                       const selected = payload.service === service.id;
                       return (
                         <button
                           key={service.id}
                           type="button"
-                          role="radio"
-                          aria-checked={selected}
-                          className={`choice-card ${selected ? "is-selected" : ""}`}
                           onClick={() => {
                             setPayload((curr) => ({
                               ...curr,
@@ -374,14 +443,32 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
                             }));
                             setErrors((curr) => ({ ...curr, service: "" }));
                           }}
+                          className={`relative p-6 sm:p-7 rounded-2xl flex flex-col items-center text-center transition-all duration-300 cursor-pointer group text-left ${
+                            selected
+                              ? "bg-white border-2 border-[#D4AF37] shadow-xl ring-2 ring-[#D4AF37]/20 scale-[1.02]"
+                              : "bg-white/80 hover:bg-white border border-[#263F32]/12 hover:border-[#D4AF37]/50 shadow-xs hover:shadow-md"
+                          }`}
                         >
-                          <div className="choice-card__icon">
-                            <ServiceIcon id={service.id} />
+                          {/* Active Check Badge */}
+                          {selected && (
+                            <div className="absolute top-3.5 right-3.5 w-6 h-6 rounded-full bg-[#162E22] text-[#F5D77F] flex items-center justify-center shadow-md">
+                              <Check className="w-3.5 h-3.5 stroke-[3]" />
+                            </div>
+                          )}
+
+                          {/* Large Bold Artwork Icon */}
+                          <div className={`mb-5 transition-transform duration-300 group-hover:scale-105 ${
+                            selected ? "text-[#162E22]" : "text-[#162E22]/85 group-hover:text-[#162E22]"
+                          }`}>
+                            <LargeServiceArtwork id={service.id} className="w-20 h-20 sm:w-24 sm:h-24 stroke-[2.2]" />
                           </div>
-                          <div>
-                            <h5>{service.title[locale]}</h5>
-                            <p>{service.description[locale]}</p>
-                          </div>
+
+                          <h4 className="text-base sm:text-lg font-serif-editorial font-bold text-[#162E22] mb-2 leading-tight">
+                            {service.title[locale]}
+                          </h4>
+                          <p className="text-xs sm:text-[13px] text-[#252923]/75 leading-relaxed font-normal">
+                            {service.description[locale]}
+                          </p>
                         </button>
                       );
                     })}
@@ -389,31 +476,43 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
                 </div>
               )}
 
+              {/* STEP 1: Details */}
               {step === 1 && (
-                <div className="field-group">
-                  <h4>{c.details}</h4>
-                  <div className="field-grid">
+                <div className="max-w-2xl mx-auto space-y-6">
+                  <div className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-[#D4AF37]/40 shadow-xs">
+                    <LargeServiceArtwork id={payload.service} className="w-12 h-12 text-[#162E22] shrink-0" />
+                    <div>
+                      <span className="text-[11px] font-bold tracking-wider text-[#9E3D28] uppercase block">
+                        {c.selectedService}
+                      </span>
+                      <h4 className="text-lg font-bold font-serif-editorial text-[#162E22]">
+                        {selectedServiceMeta?.title[locale]}
+                      </h4>
+                    </div>
+                  </div>
+
+                  <h3 className="text-xl font-serif-editorial font-bold text-[#162E22]">
+                    {c.details}
+                  </h3>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     {activeFields.map((field) => {
                       const error = errors[field.key];
-                      const errorId = `${field.key}-error`;
                       return (
-                        <Field
-                          key={field.key}
-                          label={field.label[locale]}
-                          error={error}
-                          errorId={errorId}
-                        >
+                        <div key={field.key} className={field.key === "dietary" || field.key === "objective" ? "sm:col-span-2" : ""}>
+                          <label className="block text-xs font-bold text-[#162E22] uppercase tracking-wider mb-2">
+                            {field.label[locale]}
+                          </label>
                           {field.type === "select" ? (
                             <select
                               value={payload.details[field.key] ?? ""}
-                              aria-invalid={Boolean(error)}
-                              aria-describedby={error ? errorId : undefined}
                               onChange={(e) =>
                                 setPayload((curr) => ({
                                   ...curr,
                                   details: { ...curr.details, [field.key]: e.target.value },
                                 }))
                               }
+                              className="w-full px-4 py-3 rounded-xl bg-white border border-[#263F32]/20 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 text-sm font-medium text-[#162E22] outline-none transition-all shadow-xs"
                             >
                               <option value="">{c.chooseMethod}</option>
                               {field.options?.map((opt) => (
@@ -427,239 +526,296 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
                               type={field.type ?? "text"}
                               value={payload.details[field.key] ?? ""}
                               placeholder={field.placeholder?.[locale]}
-                              aria-invalid={Boolean(error)}
-                              aria-describedby={error ? errorId : undefined}
                               onChange={(e) =>
                                 setPayload((curr) => ({
                                   ...curr,
                                   details: { ...curr.details, [field.key]: e.target.value },
                                 }))
                               }
+                              className="w-full px-4 py-3 rounded-xl bg-white border border-[#263F32]/20 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 text-sm font-medium text-[#162E22] outline-none transition-all shadow-xs placeholder:text-[#252923]/40"
                             />
                           )}
-                        </Field>
+                          {error && (
+                            <p className="text-[11px] font-semibold text-[#9E3D28] mt-1.5">{error}</p>
+                          )}
+                        </div>
                       );
                     })}
                   </div>
                 </div>
               )}
 
+              {/* STEP 2: Contact */}
               {step === 2 && (
-                <div className="field-group">
-                  <h4>{c.contact}</h4>
-                  <div className="field-grid">
-                    <Field label={c.name} error={errors.name} errorId="name-error">
+                <div className="max-w-2xl mx-auto space-y-6">
+                  <h3 className="text-xl font-serif-editorial font-bold text-[#162E22]">
+                    {c.contact}
+                  </h3>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div className="sm:col-span-2">
+                      <label className="block text-xs font-bold text-[#162E22] uppercase tracking-wider mb-2">
+                        {c.name} *
+                      </label>
                       <input
                         type="text"
                         value={payload.contact.name}
-                        aria-invalid={Boolean(errors.name)}
-                        aria-describedby={errors.name ? "name-error" : undefined}
                         onChange={(e) =>
                           setPayload((curr) => ({
                             ...curr,
                             contact: { ...curr.contact, name: e.target.value },
                           }))
                         }
+                        placeholder="e.g. Ramesh Hegde"
+                        className="w-full px-4 py-3 rounded-xl bg-white border border-[#263F32]/20 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 text-sm font-medium text-[#162E22] outline-none shadow-xs"
                       />
-                    </Field>
-                    <Field label={c.phone} error={errors.phone || errors.contact} errorId="phone-error">
+                      {errors.name && (
+                        <p className="text-[11px] font-semibold text-[#9E3D28] mt-1.5">{errors.name}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-[#162E22] uppercase tracking-wider mb-2">
+                        {c.phone} *
+                      </label>
                       <input
                         type="tel"
                         value={payload.contact.phone}
-                        aria-invalid={Boolean(errors.phone || errors.contact)}
-                        aria-describedby={errors.phone || errors.contact ? "phone-error" : undefined}
                         onChange={(e) =>
                           setPayload((curr) => ({
                             ...curr,
                             contact: { ...curr.contact, phone: e.target.value },
                           }))
                         }
+                        placeholder="+91 98450 12345"
+                        className="w-full px-4 py-3 rounded-xl bg-white border border-[#263F32]/20 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 text-sm font-medium text-[#162E22] outline-none shadow-xs"
                       />
-                    </Field>
-                    <Field label={c.email} error={errors.email || errors.contact} errorId="email-error">
+                      {errors.phone && (
+                        <p className="text-[11px] font-semibold text-[#9E3D28] mt-1.5">{errors.phone}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-[#162E22] uppercase tracking-wider mb-2">
+                        {c.email}
+                      </label>
                       <input
                         type="email"
                         value={payload.contact.email}
-                        aria-invalid={Boolean(errors.email || errors.contact)}
-                        aria-describedby={errors.email || errors.contact ? "email-error" : undefined}
                         onChange={(e) =>
                           setPayload((curr) => ({
                             ...curr,
                             contact: { ...curr.contact, email: e.target.value },
                           }))
                         }
+                        placeholder="yourname@gmail.com"
+                        className="w-full px-4 py-3 rounded-xl bg-white border border-[#263F32]/20 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 text-sm font-medium text-[#162E22] outline-none shadow-xs"
                       />
-                    </Field>
-                    <Field label={c.preferred} error={errors.preferred} errorId="preferred-error">
-                      <select
-                        value={payload.contact.preferred}
-                        aria-invalid={Boolean(errors.preferred)}
-                        aria-describedby={errors.preferred ? "preferred-error" : undefined}
+                      {errors.email && (
+                        <p className="text-[11px] font-semibold text-[#9E3D28] mt-1.5">{errors.email}</p>
+                      )}
+                    </div>
+
+                    <div className="sm:col-span-2">
+                      <label className="block text-xs font-bold text-[#162E22] uppercase tracking-wider mb-2">
+                        {c.preferred}
+                      </label>
+                      <div className="grid grid-cols-3 gap-3">
+                        {[
+                          { id: "whatsapp", label: c.whatsappOption },
+                          { id: "phone", label: c.phoneOption },
+                          { id: "email", label: c.emailOption },
+                        ].map((opt) => (
+                          <button
+                            key={opt.id}
+                            type="button"
+                            onClick={() =>
+                              setPayload((curr) => ({
+                                ...curr,
+                                contact: { ...curr.contact, preferred: opt.id as any },
+                              }))
+                            }
+                            className={`py-2.5 px-3 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
+                              payload.contact.preferred === opt.id
+                                ? "bg-[#162E22] text-[#F5D77F] border-[#D4AF37] shadow-sm"
+                                : "bg-white text-[#162E22] border-[#263F32]/15 hover:border-[#D4AF37]"
+                            }`}
+                          >
+                            {opt.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="sm:col-span-2">
+                      <label className="block text-xs font-bold text-[#162E22] uppercase tracking-wider mb-2">
+                        {c.notes}
+                      </label>
+                      <textarea
+                        rows={3}
+                        value={payload.contact.notes}
                         onChange={(e) =>
                           setPayload((curr) => ({
                             ...curr,
-                            contact: {
-                              ...curr.contact,
-                              preferred: e.target.value as "phone" | "email" | "",
-                            },
+                            contact: { ...curr.contact, notes: e.target.value },
                           }))
                         }
-                      >
-                        <option value="">{c.chooseMethod}</option>
-                        <option value="phone">{c.phoneOption}</option>
-                        <option value="email">{c.emailOption}</option>
-                      </select>
-                    </Field>
-                    <div className="field--wide">
-                      <Field label={c.notes}>
-                        <textarea
-                          rows={3}
-                          value={payload.contact.notes}
+                        className="w-full px-4 py-3 rounded-xl bg-white border border-[#263F32]/20 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 text-sm font-medium text-[#162E22] outline-none shadow-xs resize-none"
+                      />
+                    </div>
+
+                    <div className="sm:col-span-2">
+                      <label className="flex items-start gap-3 cursor-pointer select-none">
+                        <input
+                          type="checkbox"
+                          checked={payload.contact.consent}
                           onChange={(e) =>
                             setPayload((curr) => ({
                               ...curr,
-                              contact: { ...curr.contact, notes: e.target.value },
+                              contact: { ...curr.contact, consent: e.target.checked },
                             }))
                           }
+                          className="mt-1 w-4 h-4 rounded text-[#162E22] focus:ring-[#D4AF37] border-gray-300"
                         />
-                      </Field>
+                        <span className="text-xs text-[#252923]/80 leading-relaxed font-medium">
+                          {c.consent}
+                        </span>
+                      </label>
+                      {errors.consent && (
+                        <p className="text-[11px] font-semibold text-[#9E3D28] mt-1.5">{errors.consent}</p>
+                      )}
                     </div>
                   </div>
-                  <label className="consent-checkbox">
-                    <input
-                      type="checkbox"
-                      checked={payload.contact.consent}
-                      aria-invalid={Boolean(errors.consent)}
-                      onChange={(e) =>
-                        setPayload((curr) => ({
-                          ...curr,
-                          contact: { ...curr.contact, consent: e.target.checked },
-                        }))
-                      }
-                    />
-                    <span>{c.consent}</span>
-                  </label>
-                  {errors.consent && <p className="field-error">{errors.consent}</p>}
                 </div>
               )}
 
+              {/* STEP 3: Review */}
               {step === 3 && (
-                <div className="review-step">
-                  <h4>{c.review}</h4>
-                  <p>{c.reviewBody}</p>
-                  <ReviewBlock label={c.selectedService} onEdit={() => setStep(0)} edit={c.edit}>
-                    {activeService?.title[locale]}
-                  </ReviewBlock>
-                  <ReviewBlock label={c.yourDetails} onEdit={() => setStep(1)} edit={c.edit}>
-                    <dl>
-                      {activeFields.map((field) => (
-                        <div key={field.key}>
-                          <dt>{field.label[locale]}</dt>
-                          <dd>{displayDetailValue(field, payload.details[field.key], locale)}</dd>
+                <div className="max-w-2xl mx-auto space-y-6">
+                  <h3 className="text-xl font-serif-editorial font-bold text-[#162E22]">
+                    {c.review}
+                  </h3>
+                  <p className="text-xs text-[#252923]/70">{c.reviewBody}</p>
+
+                  <div className="rounded-2xl bg-white border border-[#D4AF37]/40 p-6 space-y-5 shadow-xs">
+                    <div className="flex items-center justify-between border-b border-[#263F32]/10 pb-4">
+                      <div>
+                        <span className="text-[11px] uppercase tracking-wider text-[#9E3D28] font-bold block">
+                          {c.selectedService}
+                        </span>
+                        <h4 className="text-lg font-bold font-serif-editorial text-[#162E22]">
+                          {selectedServiceMeta?.title[locale]}
+                        </h4>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setStep(0)}
+                        className="text-xs font-bold text-[#9E3D28] hover:underline"
+                      >
+                        {c.edit}
+                      </button>
+                    </div>
+
+                    <div className="border-b border-[#263F32]/10 pb-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-[11px] uppercase tracking-wider text-[#9E3D28] font-bold">
+                          {c.yourDetails}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setStep(1)}
+                          className="text-xs font-bold text-[#9E3D28] hover:underline"
+                        >
+                          {c.edit}
+                        </button>
+                      </div>
+                      <div className="grid grid-cols-2 gap-3 text-xs">
+                        {Object.entries(payload.details).map(([k, v]) => (
+                          <div key={k}>
+                            <span className="text-[#252923]/60 block capitalize">{k}:</span>
+                            <span className="font-semibold text-[#162E22]">{String(v)}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-[11px] uppercase tracking-wider text-[#9E3D28] font-bold">
+                          {c.contactDetails}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setStep(2)}
+                          className="text-xs font-bold text-[#9E3D28] hover:underline"
+                        >
+                          {c.edit}
+                        </button>
+                      </div>
+                      <div className="grid grid-cols-2 gap-3 text-xs">
+                        <div>
+                          <span className="text-[#252923]/60 block">{c.name}:</span>
+                          <span className="font-semibold text-[#162E22]">{payload.contact.name}</span>
                         </div>
-                      ))}
-                    </dl>
-                  </ReviewBlock>
-                  <ReviewBlock label={c.contactDetails} onEdit={() => setStep(2)} edit={c.edit}>
-                    {payload.contact.name}
-                    <br />
-                    {payload.contact.phone || payload.contact.email}
-                  </ReviewBlock>
-                  <p className="demo-notice">{c.demo}</p>
-                  {status === "error" && <p className="error-banner">{c.error}</p>}
+                        <div>
+                          <span className="text-[#252923]/60 block">{c.phone}:</span>
+                          <span className="font-semibold text-[#162E22]">{payload.contact.phone}</span>
+                        </div>
+                        {payload.contact.email && (
+                          <div>
+                            <span className="text-[#252923]/60 block">{c.email}:</span>
+                            <span className="font-semibold text-[#162E22]">{payload.contact.email}</span>
+                          </div>
+                        )}
+                        <div>
+                          <span className="text-[#252923]/60 block">{c.preferred}:</span>
+                          <span className="font-semibold text-[#162E22] capitalize">{payload.contact.preferred}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
 
-            <footer className="dialog-footer">
+            {/* Bottom Action Bar with Gold Button */}
+            <footer className="p-5 sm:px-12 sm:py-6 border-t border-[#263F32]/8 bg-white/70 flex items-center justify-between">
               {step > 0 ? (
                 <button
-                  className="quiet-button"
                   type="button"
-                  onClick={() => setStep((current) => current - 1)}
+                  onClick={() => setStep((curr) => curr - 1)}
+                  className="px-6 py-3 rounded-xl border border-[#263F32]/20 hover:border-[#162E22] text-[#162E22] text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
                 >
                   {c.back}
                 </button>
               ) : (
-                <span />
+                <div />
               )}
+
               {step < 3 ? (
-                <button className="gold-button" type="button" onClick={next}>
-                  {c.next}
-                  <ArrowRight />
+                <button
+                  type="button"
+                  onClick={next}
+                  className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-[#12261C] hover:brightness-105 active:scale-95 shadow-md hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-300 font-bold text-xs uppercase tracking-wider cursor-pointer border border-[#F5D77F]/60"
+                >
+                  <span>{c.next}</span>
+                  <ArrowRight className="w-4 h-4 stroke-[2.5]" />
                 </button>
               ) : (
                 <button
-                  className="gold-button"
                   type="button"
-                  disabled={status === "submitting"}
                   onClick={submit}
+                  disabled={status === "submitting"}
+                  className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-[#12261C] hover:brightness-105 active:scale-95 shadow-md hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-300 font-bold text-xs uppercase tracking-wider cursor-pointer border border-[#F5D77F]/60 disabled:opacity-50"
                 >
-                  {status === "submitting" ? c.sending : c.submit}
-                  <ArrowRight />
+                  <span>{status === "submitting" ? c.sending : c.submit}</span>
+                  <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
                 </button>
               )}
             </footer>
-          </>
+          </div>
         )}
       </div>
     </div>
-  );
-}
-
-function Field({
-  label,
-  error,
-  errorId,
-  children,
-}: {
-  label: string;
-  error?: string;
-  errorId?: string;
-  children: React.ReactElement;
-}) {
-  return (
-    <label>
-      <span>{label}</span>
-      {children}
-      {error && (
-        <small className="field-error" id={errorId}>
-          {error}
-        </small>
-      )}
-    </label>
-  );
-}
-
-function displayDetailValue(
-  field: (typeof detailFields)[ServiceId][number],
-  value: string | undefined,
-  locale: Locale,
-) {
-  if (!value) return "—";
-  return field.options?.find((option) => option.value === value)?.label[locale] ?? value;
-}
-
-function ReviewBlock({
-  label,
-  edit,
-  onEdit,
-  children,
-}: {
-  label: string;
-  edit: string;
-  onEdit: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="review-block">
-      <header>
-        <h4>{label}</h4>
-        <button type="button" onClick={onEdit}>
-          {edit}
-        </button>
-      </header>
-      <div>{children}</div>
-    </section>
   );
 }

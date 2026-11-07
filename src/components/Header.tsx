@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { copy, services } from "../content";
+import { copy } from "../content";
 import type { Locale, ServiceId } from "../types";
-import { BrandMark } from "./BrandMark";
 import { ArrowUpRight, CloseIcon, MenuIcon } from "./Icons";
+import { BrandMark } from "./BrandMark";
 
 export const Mark = BrandMark;
 
@@ -17,6 +17,7 @@ export function Header({ locale, setLocale, onEnquire }: Props) {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const c = copy[locale];
+  const isKn = locale === "kn";
 
   useEffect(() => {
     if (!open) return;
@@ -42,11 +43,26 @@ export function Header({ locale, setLocale, onEnquire }: Props) {
 
   const navigate = () => setOpen(false);
 
+  const navItems = [
+    { href: "#about", label: isKn ? "ಪರಿಚಯ" : "About" },
+    { href: "#services", label: isKn ? "ಸೇವೆಗಳು" : "Services" },
+    { href: "#destinations", label: isKn ? "ತಾಣಗಳು" : "Destinations" },
+    { href: "#packages", label: isKn ? "ಪ್ಯಾಕೇಜ್‌ಗಳು" : "Packages" },
+    { href: "#catering-showcase", label: isKn ? "ಸಸ್ಯಾಹಾರಿ ಅಡುಗೆ" : "Catering" },
+    { href: "#why-us", label: isKn ? "ನಮ್ಮ ತತ್ವ" : "Why Us" },
+  ];
+
   return (
     <header className="site-header">
       <div className="site-header__inner shell">
-        <a className="brand" href="#top" aria-label={String(c.brand)}>
-          <BrandMark />
+        <a className="brand flex items-center gap-3" href="#top" aria-label={String(c.brand)}>
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white p-1 border border-[#D4AF37]/60 shadow-sm shrink-0 flex items-center justify-center">
+            <img
+              src="/images/brand/inchara_official_logo.png"
+              alt="Inchara Logo"
+              className="w-full h-full object-contain"
+            />
+          </div>
           <span>
             <b className={locale === "kn" ? "font-kannada" : ""}>{String(c.brand)}</b>
             <small className={locale === "en" ? "font-kannada" : ""}>
@@ -56,17 +72,11 @@ export function Header({ locale, setLocale, onEnquire }: Props) {
         </a>
 
         <nav className="desktop-nav" aria-label={String(c.navLabel)}>
-          {services.map((service) => (
-            <a key={service.id} href={`#${service.id}`}>
-              {service.shortTitle[locale]}
+          {navItems.map((item) => (
+            <a key={item.href} href={item.href}>
+              {item.label}
             </a>
           ))}
-          <a href="#packages">
-            {locale === "kn" ? "ಪ್ಯಾಕೇಜ್‌ಗಳು" : "Packages"}
-          </a>
-          <a href="#destinations">
-            {locale === "kn" ? "ತಾಣಗಳು" : "Destinations"}
-          </a>
         </nav>
 
         <div className="header-actions">
@@ -100,22 +110,14 @@ export function Header({ locale, setLocale, onEnquire }: Props) {
             <span>{String(c.language)}</span>
             <LanguageSwitch locale={locale} setLocale={setLocale} label={String(c.language)} />
           </div>
-          {services.map((service) => (
-            <a key={service.id} href={`#${service.id}`} onClick={navigate} tabIndex={open ? 0 : -1}>
-              <span>{service.number}</span>
-              {service.title[locale]}
+          {navItems.map((item, index) => (
+            <a key={item.href} href={item.href} onClick={navigate} tabIndex={open ? 0 : -1}>
+              <span>0{index + 1}</span>
+              {item.label}
             </a>
           ))}
-          <a href="#packages" onClick={navigate} tabIndex={open ? 0 : -1}>
-            <span>07</span>
-            {locale === "kn" ? "ಜನಪ್ರಿಯ ರಜಾ ಪ್ಯಾಕೇಜ್‌ಗಳು" : "Curated Tour Packages"}
-          </a>
-          <a href="#destinations" onClick={navigate} tabIndex={open ? 0 : -1}>
-            <span>08</span>
-            {locale === "kn" ? "ಕರ್ನಾಟಕ ಪ್ರವಾಸಿ ತಾಣಗಳು" : "Karnataka Destinations"}
-          </a>
           <button
-            className="gold-button"
+            className="gold-button mt-4"
             type="button"
             tabIndex={open ? 0 : -1}
             onClick={() => {

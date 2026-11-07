@@ -21,7 +21,7 @@ export type EnquiryContact = {
   name: string;
   phone: string;
   email: string;
-  preferred: "phone" | "email" | "";
+  preferred: "phone" | "email" | "whatsapp" | "";
   notes: string;
   consent: boolean;
 };

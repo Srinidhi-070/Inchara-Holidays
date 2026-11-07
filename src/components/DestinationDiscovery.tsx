@@ -1,352 +1,320 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Language, Destination } from '../types';
-import { destinations } from '../data/destinations';
-import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
-import { smoothScrollTo } from '../utils/smoothScroll';
+import React, { useState } from "react";
+import type { Locale, Destination } from "../types";
+import { destinations } from "../data/destinations";
+import { ArrowUpRight, Compass } from "lucide-react";
 
 interface DestinationDiscoveryProps {
-  language: Language;
+  locale: Locale;
   onSelectDestination: (dest: Destination) => void;
-  onOpenPlannerWithDest: (destName: string) => void;
+  onEnquire: (service?: string, destinationName?: string) => void;
 }
 
-export const DestinationDiscovery: React.FC<DestinationDiscoveryProps> = ({
-  language,
+export function DestinationDiscovery({
+  locale,
   onSelectDestination,
-  onOpenPlannerWithDest,
-}) => {
-  const kn = language === 'kn';
-  const gridRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  onEnquire,
+}: DestinationDiscoveryProps) {
+  const isKn = locale === "kn";
+  const [activeFilter, setActiveFilter] = useState<"all" | "domestic" | "international">("all");
 
-  // Map the 5 editorial tiles to corresponding detailed destination objects in destinations.ts
-  const karnatakaDest = destinations.find((d) => d.id === 'coorg' || d.category === 'karnataka') || destinations[0];
-  const keralaDest = destinations.find((d) => d.id === 'kerala' || d.nameEn.toLowerCase().includes('kerala')) || destinations[1];
-  const rajasthanDest = destinations.find((d) => d.id === 'rajasthan' || d.nameEn.toLowerCase().includes('rajasthan')) || destinations[2];
-  const himachalDest = destinations.find((d) => d.id === 'himachal' || d.nameEn.toLowerCase().includes('kashmir') || d.nameEn.toLowerCase().includes('himachal')) || destinations[3];
-  const globalDest = destinations.find((d) => d.category === 'international') || destinations[4];
+  // Map destination objects
+  const karnatakaDest = destinations.find((d) => d.id === "coorg") || destinations[0];
+  const keralaDest = destinations.find((d) => d.id === "kerala" || d.nameEn.toLowerCase().includes("kerala")) || destinations[1] || destinations[0];
+  const himachalDest = destinations.find((d) => d.id === "himachal" || d.nameEn.toLowerCase().includes("himachal") || d.nameEn.toLowerCase().includes("kashmir")) || destinations[3] || destinations[0];
+  const rajasthanDest = destinations.find((d) => d.id === "rajasthan" || d.nameEn.toLowerCase().includes("rajasthan")) || destinations[2] || destinations[0];
+  const beyondIndiaDest = destinations.find((d) => d.category === "international") || destinations[4] || destinations[0];
 
-  const editorialDestinations = [
+  const tiles = [
     {
-      id: 'karnataka',
-      name: kn ? 'ಕರ್ನಾಟಕ' : 'Karnataka',
-      note: kn ? 'ಕಾಫಿ ತೋಟಗಳು · ಜೀವಂತ ಪರಂಪರೆ · ಕಾನನಗಳು' : 'Coffee estates · living heritage · wild forests',
-      image: 'https://images.unsplash.com/photo-1455157823797-3019317cbcf0?auto=format&fit=crop&w=1400&q=85',
-      fallbackImage: '/images/coorg_misty_plantation_1791795473840.jpg',
-      className: 'destination-lead',
-      destObj: karnatakaDest,
+      id: "karnataka",
+      num: "01",
+      name: isKn ? "ಕರ್ನಾಟಕ" : "Karnataka",
+      desc: isKn ? "ಕಾಫಿ ತೋಟಗಳು · ಜೀವಂತ ಪರಂಪರೆ · ಕಾನನಗಳು" : "Coffee estates · living heritage · wild forests",
+      image: "/images/coorg_misty_plantation_1791795473840.jpg",
+      dest: karnatakaDest,
+      category: "domestic",
     },
     {
-      id: 'kerala',
-      name: kn ? 'ಕೇರಳ' : 'Kerala',
-      note: kn ? 'ತೆಂಗಿನ ಮರಗಳ ಮಡಿಲಲ್ಲಿ ಪ್ರಶಾಂತ ಹಿನ್ನೀರು' : 'Backwaters at the pace of the palms',
-      image: 'https://images.unsplash.com/photo-1506461883276-594a12b11cf3?auto=format&fit=crop&w=1400&q=85',
-      fallbackImage: '/images/kerala_backwaters.jpg',
-      className: 'destination-tall',
-      destObj: keralaDest,
+      id: "kerala",
+      num: "02",
+      name: isKn ? "ಕೇರಳ" : "Kerala",
+      desc: isKn ? "ತೆಂಗಿನ ಮರಗಳ ಮಡಿಲಲ್ಲಿ ಪ್ರಶಾಂತ ಹಿನ್ನೀರು" : "Backwaters at the pace of the palms",
+      image: "/images/kerala_backwaters.jpg",
+      dest: keralaDest,
+      category: "domestic",
     },
     {
-      id: 'rajasthan',
-      name: kn ? 'ರಾಜಸ್ಥಾನ' : 'Rajasthan',
-      note: kn ? 'ಮರಳುಗಾಡಿನ ಬೆಳಕು ಮತ್ತು ಅರಮನೆಗಳ ಕಥೆ' : 'Desert light and palace stories',
-      image: 'https://images.unsplash.com/photo-1713682995521-22ec819b50ac?auto=format&fit=crop&w=1600&q=85',
-      fallbackImage: '/images/rajasthan_heritage.jpg',
-      className: 'destination-wide',
-      destObj: rajasthanDest,
+      id: "himachal",
+      num: "03",
+      name: isKn ? "ಹಿಮಾಚಲ" : "Himachal",
+      desc: isKn ? "ಪರ್ವತದ ತಂಗಾಳಿ ಮತ್ತು ಪ್ರಶಾಂತ ಹಳ್ಳಿಗಳು" : "Mountain air and quiet villages",
+      image: "/images/himalayas_kashmir.jpg",
+      dest: himachalDest,
+      category: "domestic",
     },
     {
-      id: 'himachal',
-      name: kn ? 'ಹಿಮಾಚಲ' : 'Himachal',
-      note: kn ? 'ಪರ್ವತದ ತಂಗಾಳಿ ಮತ್ತು ಪ್ರಶಾಂತ ಹಳ್ಳಿಗಳು' : 'Mountain air and quiet villages',
-      image: 'https://images.unsplash.com/photo-1736914319111-d54ada582633?auto=format&fit=crop&w=1500&q=85',
-      fallbackImage: '/images/himalayas_kashmir.jpg',
-      className: 'destination-small',
-      destObj: himachalDest,
+      id: "rajasthan",
+      num: "04",
+      name: isKn ? "ರಾಜಸ್ಥಾನ" : "Rajasthan",
+      desc: isKn ? "ಮರಳುಗಾಡಿನ ಬೆಳಕು ಮತ್ತು ಅರಮನೆಗಳ ಕಥೆ" : "Desert light and palace stories",
+      image: "/images/rajasthan_heritage.jpg",
+      dest: rajasthanDest,
+      category: "domestic",
     },
     {
-      id: 'beyond-india',
-      name: kn ? 'ಅಂತರರಾಷ್ಟ್ರೀಯ' : 'Beyond India',
-      note: kn ? 'ವಿಶೇಷ, ಚಿಂತನೆಯಿಂದ ಆಯ್ಕೆಮಾಡಿದ ತಾಣಗಳು' : 'Distinctive places, thoughtfully chosen',
-      image: 'https://images.unsplash.com/photo-1653189382464-25302f3e7409?auto=format&fit=crop&w=1400&q=85',
-      fallbackImage: '/images/vietnam_halong.jpg',
-      className: 'destination-global',
-      destObj: globalDest,
+      id: "beyond-india",
+      num: "05",
+      name: isKn ? "ಅಂತರರಾಷ್ಟ್ರೀಯ" : "Beyond India",
+      desc: isKn ? "ವಿಶೇಷ, ಚಿಂತನೆಯಿಂದ ಆಯ್ಕೆಮಾಡಿದ ತಾಣಗಳು" : "Distinctive places, thoughtfully chosen",
+      image: "/images/bali_temple.jpg",
+      dest: beyondIndiaDest,
+      category: "international",
     },
   ];
 
-  // Detect mobile screen ratio (<= 768px)
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Smooth programmatic scroll to target card
-  const scrollToCard = useCallback((targetIndex: number) => {
-    if (!gridRef.current) return;
-    const cards = gridRef.current.children;
-    if (cards[targetIndex]) {
-      const card = cards[targetIndex] as HTMLElement;
-      const containerLeft = gridRef.current.getBoundingClientRect().left;
-      const cardLeft = card.getBoundingClientRect().left;
-      const targetScroll = cardLeft - containerLeft + gridRef.current.scrollLeft;
-
-      gridRef.current.scrollTo({
-        left: targetScroll,
-        behavior: 'smooth',
-      });
-      setActiveIndex(targetIndex);
-    }
-  }, []);
-
-  // Automatic scrolling every 10 seconds on mobile (with pause/resume support)
-  useEffect(() => {
-    if (!isMobile || isPaused) return;
-
-    const startTimer = () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-      timerRef.current = setInterval(() => {
-        setActiveIndex((prev) => {
-          const nextIndex = (prev + 1) % editorialDestinations.length;
-          scrollToCard(nextIndex);
-          return nextIndex;
-        });
-      }, 10000); // 10 seconds automatic animation
-    };
-
-    startTimer();
-
-    // Reset 10s timer on user touch/drag so it doesn't interrupt active manual swiping
-    const gridEl = gridRef.current;
-    const handleTouchStart = () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-    const handleTouchEnd = () => {
-      if (!isPaused) startTimer();
-    };
-
-    if (gridEl) {
-      gridEl.addEventListener('touchstart', handleTouchStart, { passive: true });
-      gridEl.addEventListener('touchend', handleTouchEnd, { passive: true });
-    }
-
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-      if (gridEl) {
-        gridEl.removeEventListener('touchstart', handleTouchStart);
-        gridEl.removeEventListener('touchend', handleTouchEnd);
-      }
-    };
-  }, [isMobile, isPaused, editorialDestinations.length, scrollToCard]);
-
-  // Synchronize activeIndex on manual touch swipe
-  const handleGridScroll = () => {
-    if (!gridRef.current || !isMobile) return;
-    const scrollLeft = gridRef.current.scrollLeft;
-    const cards = gridRef.current.children;
-    if (!cards.length) return;
-
-    const cardWidth = (cards[0] as HTMLElement).offsetWidth || 1;
-    const gap = 14;
-    const computedIndex = Math.round(scrollLeft / (cardWidth + gap));
-    const clampedIndex = Math.max(0, Math.min(editorialDestinations.length - 1, computedIndex));
-
-    if (clampedIndex !== activeIndex) {
-      setActiveIndex(clampedIndex);
-    }
-  };
-
-  const handleTileClick = (item: typeof editorialDestinations[0]) => {
-    if (item.destObj) {
-      onSelectDestination(item.destObj);
+  const handleTileClick = (tile: typeof tiles[0]) => {
+    if (tile.dest) {
+      onSelectDestination(tile.dest);
     } else {
-      onOpenPlannerWithDest(item.name);
+      onEnquire("holidays", tile.name);
     }
-  };
-
-  const handlePrev = () => {
-    const prevIndex = (activeIndex - 1 + editorialDestinations.length) % editorialDestinations.length;
-    scrollToCard(prevIndex);
-  };
-
-  const handleNext = () => {
-    const nextIndex = (activeIndex + 1) % editorialDestinations.length;
-    scrollToCard(nextIndex);
   };
 
   return (
-    <section className="destinations section-pad" id="destinations">
-      <div className="title-row">
-        <div className="section-title">
-          <p className="section-label">
-            <span>✦</span> {kn ? 'ತಾಣಗಳ ಅನ್ವೇಷಣೆ' : 'DESTINATION DISCOVERY'}
-          </p>
-          <h2>
-            {kn ? (
-              <>
-                ನಿಧಾನವಾಗಿ ಸಾಗಲು
-                <br /> ಯೋಗ್ಯವಾದ <em>ಜಗತ್ತು.</em>
-              </>
-            ) : (
-              <>
-                A world worth
-                <br /> travelling <em>slowly.</em>
-              </>
-            )}
-          </h2>
-          <p className="section-copy">
-            {kn
-              ? 'ದಕ್ಷಿಣ ಭಾರತದ ನಮ್ಮ ನೆಲೆಯಿಂದ ಪ್ರಪಂಚದ ವಿವಿಧ ಮೂಲೆಗಳವರೆಗೆ, ಪ್ರತಿಯೊಂದು ಮಾರ್ಗವನ್ನೂ ನೀವು ಅನುಭವಿಸುವ ಭಾವನೆಗಳ ಆಧಾರದ ಮೇಲೆ ರೂಪಿಸಲಾಗಿದೆ.'
-              : 'From our home in South India to places across the world, every route is chosen for what it lets you feel—not how much it lets you tick off.'}
-          </p>
-        </div>
-        <div className="journey-links">
-          <a
-            href="#journeys"
-            onClick={(e) => {
-              e.preventDefault();
-              smoothScrollTo('journeys');
-            }}
-          >
-            <span>{kn ? 'ದೇಶೀಯ ಪಯಣಗಳು' : 'Domestic journeys'}</span>
-            <span aria-hidden="true">↗</span>
-          </a>
-          <a
-            href="#journeys"
-            onClick={(e) => {
-              e.preventDefault();
-              smoothScrollTo('journeys');
-            }}
-          >
-            <span>{kn ? 'ಅಂತರರಾಷ್ಟ್ರೀಯ ಪಯಣಗಳು' : 'International escapes'}</span>
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-      </div>
+    <section id="destinations" className="py-20 sm:py-28 bg-[#FBF8F1] relative overflow-hidden border-b border-[#263F32]/10" aria-labelledby="dest-title">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header Row matching Image 4 */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-16">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-[#9E3D28] uppercase mb-2">
+              <span className="w-5 h-px bg-[#D4AF37]" />
+              <span>✦</span>
+              <span>{isKn ? "ತಾಣಗಳ ಅನ್ವೇಷಣೆ" : "DESTINATION DISCOVERY"}</span>
+              <span>✦</span>
+              <span className="w-5 h-px bg-[#D4AF37]" />
+            </div>
 
-      <div
-        ref={gridRef}
-        onScroll={handleGridScroll}
-        className="destination-grid"
-      >
-        {editorialDestinations.map((item, index) => (
+            <h2 id="dest-title" className={`text-3xl sm:text-4xl lg:text-5xl font-serif-editorial font-bold text-[#162E22] tracking-tight leading-[1.15] ${
+              isKn ? "font-kannada-serif" : ""
+            }`}>
+              {isKn ? "ನಿಧಾನವಾಗಿ ಸಾಗಲು ಯೋಗ್ಯವಾದ " : "A world worth travelling "}
+              <em className="text-[#9E3D28] font-normal not-italic font-serif-editorial italic">
+                {isKn ? "ಜಗತ್ತು." : "slowly."}
+              </em>
+            </h2>
+
+            <p className="mt-3.5 text-base text-[#252923]/75 leading-relaxed font-normal">
+              {isKn
+                ? "ದಕ್ಷಿಣ ಭಾರತದ ನಮ್ಮ ನೆಲೆಯಿಂದ ಪ್ರಪಂಚದ ವಿವಿಧ ಮೂಲೆಗಳವರೆಗೆ, ಪ್ರತಿಯೊಂದು ಮಾರ್ಗವನ್ನೂ ನೀವು ಅನುಭವಿಸುವ ಭಾವನೆಗಳ ಆಧಾರದ ಮೇಲೆ ರೂಪಿಸಲಾಗಿದೆ."
+                : "From our home in South India to places across the world, every route is chosen for what it lets you feel—not how much it lets you tick off."}
+            </p>
+          </div>
+
+          {/* Top Right Filter Tabs */}
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              onClick={() => setActiveFilter(activeFilter === "domestic" ? "all" : "domestic")}
+              className={`text-xs font-bold tracking-wider uppercase inline-flex items-center gap-1.5 transition-colors cursor-pointer pb-1 border-b-2 ${
+                activeFilter === "domestic"
+                  ? "text-[#9E3D28] border-[#9E3D28]"
+                  : "text-[#162E22]/70 border-transparent hover:text-[#162E22]"
+              }`}
+            >
+              <span>{isKn ? "ದೇಶೀಯ ಪಯಣಗಳು" : "DOMESTIC JOURNEYS"}</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </button>
+            <span className="text-[#263F32]/20">|</span>
+            <button
+              type="button"
+              onClick={() => setActiveFilter(activeFilter === "international" ? "all" : "international")}
+              className={`text-xs font-bold tracking-wider uppercase inline-flex items-center gap-1.5 transition-colors cursor-pointer pb-1 border-b-2 ${
+                activeFilter === "international"
+                  ? "text-[#9E3D28] border-[#9E3D28]"
+                  : "text-[#162E22]/70 border-transparent hover:text-[#162E22]"
+              }`}
+            >
+              <span>{isKn ? "ಅಂತರರಾಷ್ಟ್ರೀಯ ರಜೆಗಳು" : "INTERNATIONAL ESCAPES"}</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+
+        {/* 5-Tile Editorial Mosaic Grid matching Image 4 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:h-[620px]">
+          {/* Tile 1: Lead Tile (Karnataka) - Spans 2 Rows on Left */}
           <div
-            className={`destination ${item.className} cursor-pointer`}
-            key={item.id}
-            onClick={() => handleTileClick(item)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                handleTileClick(item);
-              }
-            }}
+            onClick={() => handleTileClick(tiles[0])}
+            className={`group relative rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-500 lg:row-span-2 min-h-[320px] lg:min-h-full ${
+              activeFilter === "international" ? "opacity-40" : "opacity-100"
+            }`}
           >
             <img
-              alt={`${item.name} travel landscape`}
-              src={item.image}
+              src={tiles[0].image}
+              alt={tiles[0].name}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               loading="lazy"
-              onError={(e) => {
-                // Fallback to local image if remote fails
-                (e.target as HTMLImageElement).src = item.fallbackImage;
-              }}
             />
-            <span className="image-wash" />
-            <div>
-              <small>0{index + 1} / {kn ? 'ಅನ್ವೇಷಿಸಿ' : 'EXPLORE'}</small>
-              <h3>{item.name}</h3>
-              <p>{item.note}</p>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
+
+            {/* Top Right Circular Explore Badge */}
+            <div className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/40 text-white flex items-center justify-center group-hover:bg-[#162E22] group-hover:text-[#F5D77F] transition-all duration-300">
+              <Compass className="w-5 h-5" />
             </div>
-            <b>
-              <span aria-hidden="true">↗</span>
-            </b>
-          </div>
-        ))}
-      </div>
 
-      {/* Mobile Ratio Auto-Scroll Controls & Indicators (WCAG 2.2.2 Compliant) */}
-      <div className="md:hidden mt-6 pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-[#263f32]/12 select-none">
-        {/* Animated Touch-Friendly Progress Dots */}
-        <div className="flex items-center gap-1" role="tablist" aria-label="Destination slides">
-          {editorialDestinations.map((dest, idx) => (
-            <button
-              key={dest.id}
-              type="button"
-              role="tab"
-              aria-selected={activeIndex === idx}
-              onClick={() => scrollToCard(idx)}
-              aria-label={`Go to slide 0${idx + 1}: ${dest.name}`}
-              className="py-3 px-1.5 flex items-center justify-center cursor-pointer focus-visible:outline-none"
-            >
-              <span
-                className={`h-2 transition-all duration-300 rounded-full block ${
-                  activeIndex === idx
-                    ? 'w-7 bg-[#9E3D28] shadow-xs'
-                    : 'w-2 bg-[#263F32]/25 hover:bg-[#263F32]/50'
-                }`}
-              />
-            </button>
-          ))}
-        </div>
-
-        {/* Counter, Pause Toggle & Accessible Nav Buttons */}
-        <div className="flex items-center gap-3">
-          <div className="text-xs font-mono tracking-wider text-[#263F32]/75 flex items-center gap-1">
-            <span className="font-bold text-[#9E3D28]">0{activeIndex + 1}</span>
-            <span>/</span>
-            <span>0{editorialDestinations.length}</span>
-            <span className="text-[10px] text-[#263F32]/50 ml-1 uppercase tracking-normal">
-              {isPaused ? (kn ? '· ನಿಲ್ಲಿಸಲಾಗಿದೆ' : '· paused') : '· 10s auto'}
-            </span>
+            {/* Bottom Content */}
+            <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
+              <span className="text-[10px] font-bold tracking-widest text-[#F5D77F] uppercase block mb-1">
+                {tiles[0].num} / {isKn ? "ಅನ್ವೇಷಿಸಿ" : "EXPLORE"}
+              </span>
+              <h3 className={`text-2xl sm:text-3xl font-serif-editorial font-bold leading-tight ${
+                isKn ? "font-kannada-serif" : ""
+              }`}>
+                {tiles[0].name}
+              </h3>
+              <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-normal">
+                {tiles[0].desc}
+              </p>
+            </div>
           </div>
 
-          <div className="flex items-center gap-1.5">
-            {/* Pause / Play Toggle (WCAG 2.2.2 Compliant) */}
-            <button
-              type="button"
-              onClick={() => setIsPaused((prev) => !prev)}
-              aria-label={
-                isPaused
-                  ? kn
-                    ? 'ಸ್ವಯಂಚಾಲಿತ ಸ್ಲೈಡ್ ಪುನರಾರಂಭಿಸಿ'
-                    : 'Resume auto-advance'
-                  : kn
-                    ? 'ಸ್ವಯಂಚಾಲಿತ ಸ್ಲೈಡ್ ವಿರಾಮಗೊಳಿಸಿ'
-                    : 'Pause auto-advance'
-              }
-              className="w-10 h-10 rounded-xl border border-[#263F32]/20 bg-white/75 hover:bg-[#263F32]/10 active:scale-95 flex items-center justify-center text-[#263F32]/80 transition-all cursor-pointer shadow-xs focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
-            >
-              {isPaused ? <Play className="w-4 h-4 text-[#9E3D28]" /> : <Pause className="w-4 h-4 text-[#263F32]/80" />}
-            </button>
+          {/* Tile 2: Kerala (Middle Top) */}
+          <div
+            onClick={() => handleTileClick(tiles[1])}
+            className={`group relative rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-500 min-h-[240px] lg:min-h-0 ${
+              activeFilter === "international" ? "opacity-40" : "opacity-100"
+            }`}
+          >
+            <img
+              src={tiles[1].image}
+              alt={tiles[1].name}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
 
-            {/* Accessible Prev Button */}
-            <button
-              type="button"
-              onClick={handlePrev}
-              aria-label={kn ? 'ಹಿಂದಿನ ತಾಣ' : 'Previous destination'}
-              className="w-10 h-10 rounded-xl border border-[#263F32]/20 bg-white/75 hover:bg-[#263F32]/10 active:scale-95 flex items-center justify-center text-[#263F32]/80 transition-all cursor-pointer shadow-xs focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
+            <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md border border-white/40 text-white flex items-center justify-center group-hover:bg-[#162E22] group-hover:text-[#F5D77F] transition-all">
+              <ArrowUpRight className="w-4 h-4" />
+            </div>
 
-            {/* Accessible Next Button */}
-            <button
-              type="button"
-              onClick={handleNext}
-              aria-label={kn ? 'ಮುಂದಿನ ತಾಣ' : 'Next destination'}
-              className="w-10 h-10 rounded-xl border border-[#263F32]/20 bg-white/75 hover:bg-[#263F32]/10 active:scale-95 flex items-center justify-center text-[#263F32]/80 transition-all cursor-pointer shadow-xs focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
+            <div className="absolute bottom-5 left-5 right-5 text-white space-y-0.5">
+              <span className="text-[10px] font-bold tracking-widest text-[#F5D77F] uppercase block">
+                {tiles[1].num} / {isKn ? "ಅನ್ವೇಷಿಸಿ" : "EXPLORE"}
+              </span>
+              <h3 className={`text-xl sm:text-2xl font-serif-editorial font-bold ${
+                isKn ? "font-kannada-serif" : ""
+              }`}>
+                {tiles[1].name}
+              </h3>
+              <p className="text-xs text-white/80 line-clamp-1">
+                {tiles[1].desc}
+              </p>
+            </div>
+          </div>
+
+          {/* Tile 4: Rajasthan (Right Top) */}
+          <div
+            onClick={() => handleTileClick(tiles[3])}
+            className={`group relative rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-500 min-h-[240px] lg:min-h-0 ${
+              activeFilter === "international" ? "opacity-40" : "opacity-100"
+            }`}
+          >
+            <img
+              src={tiles[3].image}
+              alt={tiles[3].name}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
+
+            <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md border border-white/40 text-white flex items-center justify-center group-hover:bg-[#162E22] group-hover:text-[#F5D77F] transition-all">
+              <Compass className="w-4 h-4" />
+            </div>
+
+            <div className="absolute bottom-5 left-5 right-5 text-white space-y-0.5">
+              <span className="text-[10px] font-bold tracking-widest text-[#F5D77F] uppercase block">
+                {tiles[3].num} / {isKn ? "ಅನ್ವೇಷಿಸಿ" : "EXPLORE"}
+              </span>
+              <h3 className={`text-xl sm:text-2xl font-serif-editorial font-bold ${
+                isKn ? "font-kannada-serif" : ""
+              }`}>
+                {tiles[3].name}
+              </h3>
+              <p className="text-xs text-white/80 line-clamp-1">
+                {tiles[3].desc}
+              </p>
+            </div>
+          </div>
+
+          {/* Tile 3: Himachal (Middle Bottom) */}
+          <div
+            onClick={() => handleTileClick(tiles[2])}
+            className={`group relative rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-500 min-h-[240px] lg:min-h-0 ${
+              activeFilter === "international" ? "opacity-40" : "opacity-100"
+            }`}
+          >
+            <img
+              src={tiles[2].image}
+              alt={tiles[2].name}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
+
+            <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md border border-white/40 text-white flex items-center justify-center group-hover:bg-[#162E22] group-hover:text-[#F5D77F] transition-all">
+              <ArrowUpRight className="w-4 h-4" />
+            </div>
+
+            <div className="absolute bottom-5 left-5 right-5 text-white space-y-0.5">
+              <span className="text-[10px] font-bold tracking-widest text-[#F5D77F] uppercase block">
+                {tiles[2].num} / {isKn ? "ಅನ್ವೇಷಿಸಿ" : "EXPLORE"}
+              </span>
+              <h3 className={`text-xl sm:text-2xl font-serif-editorial font-bold ${
+                isKn ? "font-kannada-serif" : ""
+              }`}>
+                {tiles[2].name}
+              </h3>
+              <p className="text-xs text-white/80 line-clamp-1">
+                {tiles[2].desc}
+              </p>
+            </div>
+          </div>
+
+          {/* Tile 5: Beyond India (Right Bottom) */}
+          <div
+            onClick={() => handleTileClick(tiles[4])}
+            className={`group relative rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-500 min-h-[240px] lg:min-h-0 ${
+              activeFilter === "domestic" ? "opacity-40" : "opacity-100"
+            }`}
+          >
+            <img
+              src={tiles[4].image}
+              alt={tiles[4].name}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
+
+            <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md border border-white/40 text-white flex items-center justify-center group-hover:bg-[#162E22] group-hover:text-[#F5D77F] transition-all">
+              <Compass className="w-4 h-4" />
+            </div>
+
+            <div className="absolute bottom-5 left-5 right-5 text-white space-y-0.5">
+              <span className="text-[10px] font-bold tracking-widest text-[#F5D77F] uppercase block">
+                {tiles[4].num} / {isKn ? "ಅನ್ವೇಷಿಸಿ" : "EXPLORE"}
+              </span>
+              <h3 className={`text-xl sm:text-2xl font-serif-editorial font-bold ${
+                isKn ? "font-kannada-serif" : ""
+              }`}>
+                {tiles[4].name}
+              </h3>
+              <p className="text-xs text-white/80 line-clamp-1">
+                {tiles[4].desc}
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
-};
+}
