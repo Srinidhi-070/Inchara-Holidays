@@ -1,104 +1,44 @@
-import React, { useState } from 'react';
-import { Language } from '../types';
-import { communityReflections } from '../data/community';
+import { communityReflections } from "../data/community";
+import type { Locale } from "../types";
 
-interface TravellerStoriesProps {
-  language: Language;
-}
+type Props = {
+  locale: Locale;
+};
 
-export const TravellerStories: React.FC<TravellerStoriesProps> = ({ language }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const kn = language === 'kn';
-
-  const storyImages = [
-    'https://images.unsplash.com/photo-1736914319111-d54ada582633?auto=format&fit=crop&w=1500&q=85',
-    'https://images.unsplash.com/photo-1455157823797-3019317cbcf0?auto=format&fit=crop&w=1400&q=85',
-    'https://images.unsplash.com/photo-1506461883276-594a12b11cf3?auto=format&fit=crop&w=1400&q=85',
-  ];
-
-  const currentStory = communityReflections[currentIndex] || communityReflections[0];
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : communityReflections.length - 1));
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev < communityReflections.length - 1 ? prev + 1 : 0));
-  };
+export function TravellerStories({ locale }: Props) {
+  const isKn = locale === "kn";
 
   return (
-    <section className="stories section-pad" id="stories">
-      <div className="stories-heading">
-        <div className="section-title">
-          <p className="section-label">
-            <span>✦</span> {kn ? 'ಪ್ರಯಾಣಿಕರ ನೆನಪುಗಳು' : 'TRAVELLER STORIES'}
-          </p>
-          <h2>
-            {kn ? (
-              <>
-                ಪಯಣದ ಹಾದಿಯ
-                <br /> ನೈಜ <em>ನೆನಪುಗಳು.</em>
-              </>
-            ) : (
-              <>
-                Notes from
-                <br /> the <em>road.</em>
-              </>
-            )}
+    <section className="stories-section section" aria-labelledby="stories-title">
+      <div className="shell">
+        <div className="section-intro" data-reveal="up">
+          <p className="eyebrow">{isKn ? "ಪ್ರಯಾಣಿಕರ ಅನುಭವಗಳು" : "Traveller Reflections"}</p>
+          <h2 id="stories-title" className={isKn ? "font-kannada-serif" : ""}>
+            {isKn ? "ಆತ್ಮೀಯ ಪಯಣದ ನೈಜ ನೆನಪುಗಳು." : "Reflections from Fellow Travellers."}
           </h2>
-        </div>
-        <p>
-          {kn
-            ? 'ಇಂಚರ ಪ್ರಯಾಣಿಕರ ಸಾರ್ಥಕ ನೆನಪುಗಳು—ಪ್ರಶಾಂತ ಮುಂಜಾನೆಗಳು, ಅನಿರೀಕ್ಷಿತ ಸಂಭಾಷಣೆಗಳು ಮತ್ತು ಮನೆಯಂತೆ ಭಾಸವಾದ ತಾಣಗಳು.'
-            : 'Space for real memories from Inchara travellers—unhurried mornings, unexpected conversations, and places that felt like home.'}
-        </p>
-      </div>
-
-      <div className="story-layout">
-        <img
-          alt="Quiet travel landscape in India"
-          src={storyImages[currentIndex % storyImages.length]}
-          loading="lazy"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = '/images/himalayas_kashmir.jpg';
-          }}
-        />
-        <blockquote>
-          <span>
-            {kn ? 'ಪ್ರಯಾಣಿಕರ ಅನುಭವ / ' : 'TRAVELLER REFLECTION / '}
-            {kn ? currentStory.noteKn : currentStory.noteEn}
-          </span>
           <p>
-            {kn ? currentStory.quoteKn : currentStory.quoteEn}
+            {isKn
+              ? "ನಮ್ಮೊಂದಿಗೆ ಪ್ರಯಾಣಿಸಿದ ಅತಿಥಿಗಳ ಮನದಾಳದ ನುಡಿಗಳು ಮತ್ತು ಮಲೆನಾಡು ಆತಿಥ್ಯದ ನೆನಪುಗಳು."
+              : "Unhurried journeys, personalized pacing, and authentic South Indian hospitality remembered with warmth."}
           </p>
-          <footer>
-            {kn ? currentStory.authorKn : currentStory.authorEn} ·{' '}
-            {kn ? currentStory.journeyKn : currentStory.journeyEn}
-          </footer>
-        </blockquote>
+        </div>
 
-        <div className="story-controls">
-          <button
-            aria-label={kn ? 'ಹಿಂದಿನ ನೆನಪು' : 'Previous story'}
-            type="button"
-            onClick={handlePrev}
-            className="focus-visible:ring-2 focus-visible:ring-[#D4AF37] focus-visible:outline-none"
-          >
-            ←
-          </button>
-          <span>
-            0{currentIndex + 1} / 0{communityReflections.length}
-          </span>
-          <button
-            aria-label={kn ? 'ಮುಂದಿನ ನೆನಪು' : 'Next story'}
-            type="button"
-            onClick={handleNext}
-            className="focus-visible:ring-2 focus-visible:ring-[#D4AF37] focus-visible:outline-none"
-          >
-            →
-          </button>
+        <div className="stories-grid">
+          {communityReflections.map((story, idx) => (
+            <article className="story-card" key={story.id} data-reveal="card" data-delay={80 + idx * 80}>
+              <blockquote className="story-card__quote">
+                {isKn ? story.quoteKn : story.quoteEn}
+              </blockquote>
+              <div className="story-card__author">
+                <div>
+                  <div className="story-card__name">{isKn ? story.authorKn : story.authorEn}</div>
+                  <div className="story-card__route">{isKn ? story.journeyKn : story.journeyEn}</div>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
   );
-};
+}
