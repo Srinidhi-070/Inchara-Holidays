@@ -4,7 +4,6 @@ import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import {
   Affiliations,
-  CateringFeature,
   Hero,
   InvitationBanner,
   JourneyProcess,
@@ -15,6 +14,7 @@ import { DestinationDiscovery } from "./components/DestinationDiscovery";
 import { PackagesSection } from "./components/PackagesSection";
 import { InstitutionalCorporateHighlight } from "./components/InstitutionalCorporateHighlight";
 import { TravelLogisticsAssistance } from "./components/TravelLogisticsAssistance";
+import { CateringShowcase } from "./components/CateringShowcase";
 import { WhyUs } from "./components/WhyUs";
 import { TravellerStories } from "./components/TravellerStories";
 import { FloatingActions } from "./components/FloatingActions";
@@ -107,8 +107,11 @@ export default function App() {
           onOpenVisaPassport={() => openEnquiry("visa")}
         />
 
-        {/* 10. 100% Pure Vegetarian Catering Feature */}
-        <CateringFeature locale={locale} onEnquire={openEnquiry} />
+        {/* 10. 100% Pure Vegetarian Catering Showcase (User Benchmark Reference) */}
+        <CateringShowcase
+          language={locale}
+          onOpenCatering={() => openEnquiry("catering")}
+        />
 
         {/* 11. Why Us / Personal Warmth (Image 3 Reference) */}
         <WhyUs locale={locale} />

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Noto+Sans+Kannada:wght@400;500;600;700&family=Noto+Serif+Kannada:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Sans+Kannada:wght@400;500;600;700&family=Noto+Serif+Kannada:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -11,8 +11,12 @@
   --color-sand: #fbf8f1;
   --color-parchment: #f6f3ea;
   --color-ink: #12261c;
-  --font-display: "Cormorant Garamond", Georgia, serif;
-  --font-sans: "Inter", sans-serif;
+  --color-deep-green: #162e22;
+  --font-serif-editorial: "Playfair Display", "Noto Serif Kannada", "Cormorant Garamond", Georgia, serif;
+  --font-serif-kannada: "Noto Serif Kannada", "Playfair Display", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", "Noto Sans Kannada", system-ui, sans-serif;
+  --font-kannada: "Noto Sans Kannada", "Plus Jakarta Sans", sans-serif;
+  --font-display: "Playfair Display", "Noto Serif Kannada", Georgia, serif;
 }
 
 @layer base {
@@ -23,10 +27,25 @@
 
   body {
     min-width: 320px;
-    background: #fbf8f1;
-    color: #19251f;
-    font-family: "Inter", sans-serif;
+    background-color: #fbf8f1;
+    color: #252923;
+    font-family: "Plus Jakarta Sans", "Noto Sans Kannada", system-ui, sans-serif;
     text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-serif-editorial {
+    font-family: "Playfair Display", "Noto Serif Kannada", Georgia, serif;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  h1 em, h2 em, h3 em, h4 em, .font-serif-editorial em {
+    font-family: "Playfair Display", "Noto Serif Kannada", Georgia, serif;
+    font-style: italic;
+    color: #9e3d28;
+    font-weight: 400;
   }
 
   button,
@@ -55,11 +74,62 @@
 
 :root {
   --shell: min(1240px, calc(100vw - 64px));
-  --display: "Cormorant Garamond", Georgia, serif;
-  --sans: "Inter", sans-serif;
+  --display: "Playfair Display", "Noto Serif Kannada", Georgia, serif;
+  --sans: "Plus Jakarta Sans", "Noto Sans Kannada", system-ui, sans-serif;
   --kn-display: "Noto Serif Kannada", serif;
   --kn-sans: "Noto Sans Kannada", sans-serif;
   --gold-gradient: linear-gradient(90deg, #d4af37 0%, #f5d77f 50%, #d4af37 100%);
+}
+
+.font-serif-editorial {
+  font-family: "Playfair Display", "Noto Serif Kannada", Georgia, serif !important;
+}
+
+.font-sans {
+  font-family: "Plus Jakarta Sans", "Noto Sans Kannada", system-ui, sans-serif !important;
+}
+
+/* Subtle South Indian Kolam watermark (from user reference) */
+.bg-kolam-subtle {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z' fill='none' stroke='%23C59B27' stroke-width='0.75' stroke-opacity='0.08'/%3E%3Ccircle cx='30' cy='30' r='10' fill='none' stroke='%23B96F50' stroke-width='0.6' stroke-opacity='0.08'/%3E%3Ccircle cx='30' cy='30' r='2' fill='%23C59B27' fill-opacity='0.1'/%3E%3C/svg%3E");
+  background-size: 60px 60px;
+}
+
+.bg-kolam-dark {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z' fill='none' stroke='%23D4AF37' stroke-width='0.75' stroke-opacity='0.12'/%3E%3Ccircle cx='30' cy='30' r='10' fill='none' stroke='%23E5B842' stroke-width='0.6' stroke-opacity='0.12'/%3E%3Ccircle cx='30' cy='2' r='2' fill='%23D4AF37' fill-opacity='0.2'/%3E%3C/svg%3E");
+  background-size: 60px 60px;
+}
+
+.bg-kannada-pattern {
+  background-image: 
+    radial-gradient(rgba(185, 111, 80, 0.08) 1px, transparent 1px),
+    radial-gradient(rgba(38, 63, 50, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: 0 0, 14px 14px;
+}
+
+.text-display-xl {
+  font-size: clamp(2.25rem, 5vw + 0.5rem, 4.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+.text-display-lg {
+  font-size: clamp(1.875rem, 4vw + 0.5rem, 3.25rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.text-display-md {
+  font-size: clamp(1.5rem, 3vw + 0.25rem, 2.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.text-display-sm {
+  font-size: clamp(1.25rem, 2vw + 0.25rem, 1.85rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
 .font-kannada,

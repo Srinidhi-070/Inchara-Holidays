@@ -23,7 +23,7 @@ export function PackagesSection({ locale, onEnquire, onViewItinerary }: Props) {
   ];
 
   return (
-    <section className="packages-section section" id="packages" aria-labelledby="packages-title">
+    <section className="packages-section section bg-[#FBF8F1] bg-kolam-subtle" id="packages" aria-labelledby="packages-title">
       <div className="shell">
         <div className="section-intro" data-reveal="up">
           <p className="eyebrow">{isKn ? "ವಿನ್ಯಾಸಗೊಳಿಸಿದ ಪ್ರವಾಸ ಯೋಜನೆಗಳು" : "Curated Holiday Blueprints"}</p>

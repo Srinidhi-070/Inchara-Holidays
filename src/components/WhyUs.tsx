@@ -90,7 +90,7 @@ export function WhyUs({ locale }: WhyUsProps) {
   const c = content[locale];
 
   return (
-    <section id="why-us" className="py-14 sm:py-20 bg-[#FBF8F1] relative overflow-hidden border-b border-[#263F32]/10" aria-labelledby="why-us-title">
+    <section id="why-us" className="py-14 sm:py-20 bg-[#FBF8F1] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10" aria-labelledby="why-us-title">
       {/* Subtle geometric dot pattern */}
       <div 
         className="absolute inset-0 opacity-[0.035] pointer-events-none" 

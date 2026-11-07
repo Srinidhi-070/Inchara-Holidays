@@ -69,4 +69,25 @@ Following targeted visual and functional testing:
 - **Kasavu Gold & Mysore Gold** (`#F5D77F` / `#D4AF37`): Primary CTA gradient buttons, active stepper rings, focus states, badge accents.
 - **Kaavi Terracotta** (`#9E3D28`): Eyebrow subtitles, numbering counters (`01`–`06`), highlights.
 - **Heritage Ivory & Warm Sand** (`#F6F3EA` / `#FBF8F1`): Warm textured section backgrounds.
-- **Bilingual Typographic Harmony**: `Cormorant Garamond` serif + `Inter` sans-serif paired with `Noto Serif Kannada` and `Noto Sans Kannada`.
+- **Bilingual Typographic System (Playfair Display & Plus Jakarta Sans)**:
+  - **Headings**: `Playfair Display` (paired with `Noto Serif Kannada`) across all `h1`-`h6`, `.font-serif-editorial`, and display elements.
+  - **Body / Interface**: `Plus Jakarta Sans` (paired with `Noto Sans Kannada`) across all body copy, paragraphs, buttons, forms, and cards.
+  - **Accents**: High-contrast italic highlights (`em`) rendered in Kaavi Terracotta (`#9E3D28`).
+  - **Watermark**: Authentic South Indian `.bg-kolam-subtle` geometric lace watermark pattern applied across light sand/ivory sections.
+
+---
+
+### 6. Cycle 3: Typography & Design System Harmonization to User Benchmark
+Following direct user feedback with the benchmark reference image (*"The Sanctity of Home Cuisine, Wherever You Travel"*):
+1. **Identified & Replaced Broken Font Stack**:
+   - Previously, `src/index.css` forced `body` to `Inter` and headings to `Cormorant Garamond`, while `.font-serif-editorial` had no CSS definition, causing elements to render in generic system fonts.
+   - Replaced with the authentic brand stack:
+     - Headings: `Playfair Display`, `Noto Serif Kannada`, Georgia, serif
+     - Body: `Plus Jakarta Sans`, `Noto Sans Kannada`, system-ui, sans-serif
+     - Editorial italic highlights: `Playfair Display Italic` in Kaavi Terracotta (`#9E3D28`)
+2. **Mounted Official `CateringShowcase`**:
+   - Replaced legacy `CateringFeature` in `src/App.tsx` with `src/components/CateringShowcase.tsx` — the exact component matching the user's reference image with layered photo card, pure vegetarian badge, plantain leaf tradition copy, and 4 feast style feature cards.
+3. **Activated `.bg-kolam-subtle` Watermark Pattern**:
+   - Added the geometric South Indian Kolam watermark lattice to `src/index.css` and applied it across `WhyUs`, `AboutIntroduction`, `Affiliations`, `DestinationDiscovery`, `PackagesSection`, `InstitutionalCorporateHighlight`, `TravelLogisticsAssistance`, and `CateringShowcase`.
+4. **Verified via Playwright**:
+   - Live verified all sections on `http://localhost:5180/` with Playwright screenshots confirming Playfair Display, Plus Jakarta Sans, terracotta italic accents, and Kolam background textures.

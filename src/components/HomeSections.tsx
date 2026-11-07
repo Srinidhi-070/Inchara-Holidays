@@ -82,7 +82,7 @@ export function Affiliations({ locale }: { locale: Locale }) {
   ];
 
   return (
-    <section className="py-12 sm:py-16 bg-[#F6F3EA] border-b border-[#263F32]/10 relative overflow-hidden" id="trust" aria-labelledby="trust-title">
+    <section className="py-12 sm:py-16 bg-[#F6F3EA] bg-kolam-subtle border-b border-[#263F32]/10 relative overflow-hidden" id="trust" aria-labelledby="trust-title">
       <div 
         className="absolute inset-0 opacity-[0.03] pointer-events-none" 
         style={{
