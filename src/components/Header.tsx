@@ -128,7 +128,7 @@ export const Header: React.FC<HeaderProps> = ({
     };
 
     const handleResize = () => {
-      if (window.innerWidth > 1024) {
+      if (window.innerWidth > 1140) {
         setMobileMenuOpen(false);
       }
     };
@@ -181,7 +181,6 @@ export const Header: React.FC<HeaderProps> = ({
             }}
           >
             {isKn ? 'ತಾಣಗಳು' : 'Destinations'}
-            {activeSection === 'destinations' && <span className="nav-active-pill" aria-hidden="true" />}
           </a>
 
           <a
@@ -193,7 +192,6 @@ export const Header: React.FC<HeaderProps> = ({
             }}
           >
             {isKn ? 'ಪ್ಯಾಕೇಜ್‌ಗಳು' : 'Packages'}
-            {activeSection === 'packages' && <span className="nav-active-pill" aria-hidden="true" />}
           </a>
 
           <a
@@ -205,7 +203,6 @@ export const Header: React.FC<HeaderProps> = ({
             }}
           >
             {isKn ? 'ಸೇವೆಗಳು' : 'Services'}
-            {activeSection === 'services' && <span className="nav-active-pill" aria-hidden="true" />}
           </a>
 
           <a
@@ -216,8 +213,7 @@ export const Header: React.FC<HeaderProps> = ({
               handleNavClick('institutional-corporate');
             }}
           >
-            {isKn ? 'ಸಾಂಸ್ಥಿಕ & ಕಾರ್ಪೊರೇಟ್' : 'Corporate & Institutions'}
-            {activeSection === 'institutional-corporate' && <span className="nav-active-pill" aria-hidden="true" />}
+            {isKn ? 'ಕಾರ್ಪೊರೇಟ್ & ಸಾಂಸ್ಥಿಕ' : 'Corporate & Institutions'}
           </a>
 
           <a
@@ -229,7 +225,6 @@ export const Header: React.FC<HeaderProps> = ({
             }}
           >
             {isKn ? 'ನಮ್ಮ ವೈಶಿಷ್ಟ್ಯ' : 'Why Us'}
-            {activeSection === 'why-us' && <span className="nav-active-pill" aria-hidden="true" />}
           </a>
 
           <a
@@ -241,7 +236,6 @@ export const Header: React.FC<HeaderProps> = ({
             }}
           >
             {isKn ? 'ಹೇಗೆ?' : 'How It Works'}
-            {activeSection === 'how-it-works' && <span className="nav-active-pill" aria-hidden="true" />}
           </a>
         </nav>
 

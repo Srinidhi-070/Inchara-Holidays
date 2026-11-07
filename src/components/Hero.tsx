@@ -1,5 +1,7 @@
 import React from 'react';
 import { Language, Concept } from '../types';
+import { LotusIcon, AmbariElephant, SikkuKolamMandala } from './SouthIndianMotifs';
+import { Globe, MapPin, Sparkles } from 'lucide-react';
 
 interface HeroProps {
   language: Language;
@@ -20,88 +22,257 @@ export const Hero: React.FC<HeroProps> = ({
 
   if (concept === 'B') {
     return (
-      <section className="hero hero-journal" id="top">
+      <section className="hero hero-journal relative min-h-screen min-h-dvh flex flex-col justify-between overflow-hidden" id="top">
         {headerSlot}
-        <div className="journal-photo photo-munnar" />
-        <div className="journal-postcard">
-          <span>FIELD NOTE / 01</span>
-          <p lang="kn">ಮಣ್ಣಿನ ಕಥೆ. ಜನರ ಆತ್ಮೀಯತೆ.</p>
-          <small>Western Ghats · 12.97° N</small>
+
+        {/* Ambient Subtle Parchment & Kolam Background */}
+        <div className="absolute inset-0 bg-[#FBF8F1] z-0" />
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[520px] h-[520px] text-[#263F32] opacity-[0.035] pointer-events-none z-0">
+          <SikkuKolamMandala className="w-full h-full" />
         </div>
-        <div className="hero-copy">
-          <p className="eyebrow">
-            {kn
-              ? 'ಸಂಸ್ಕೃತಿಯಿಂದ ರೂಪುಗೊಂಡ, ಹೃದಯದಿಂದ ಮಾರ್ಗದರ್ಶಿತ ಪ್ರಯಾಣಗಳು'
-              : 'Journeys shaped by culture, guided by heart'}
-          </p>
-          <h1>
-            {kn
-              ? 'ನಿಧಾನವಾಗಿ ಸಾಗಿದಾಗ ಪ್ರಯಾಣವೇ ಕಥೆಯಾಗುತ್ತದೆ.'
-              : 'Travel becomes a story when you slow down.'}
-          </h1>
-          <p className="kannada" lang="kn">
-            ನಿಧಾನವಾಗಿ ಸಾಗಿ. ಆಳವಾಗಿ ಅನುಭವಿಸಿ.
-          </p>
-          <div className="hero-actions">
-            <button
-              type="button"
-              className="button button-gold"
-              onClick={onOpenPlanner}
-            >
-              <span>{kn ? 'ನಿಮ್ಮ ಕಥೆ ಆರಂಭಿಸಿ' : 'Begin your story'}</span>
-              <span aria-hidden="true">↗</span>
-            </button>
-            <button
-              type="button"
-              className="button button-outline"
-              onClick={onExploreDestinations}
-            >
-              <span>{kn ? 'ಪ್ರಯಾಣ ಪತ್ರಿಕೆ ತೆರೆಯಿರಿ' : 'Open the journal'}</span>
-              <span aria-hidden="true">↗</span>
-            </button>
+        <div className="absolute left-0 bottom-0 w-96 h-96 rounded-full bg-[#D4AF37]/5 blur-3xl pointer-events-none z-0" />
+
+        {/* Main Content Grid: Seamless across 16:9, 21:9, 4:3, Tablets, & Mobile */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex items-center pt-24 sm:pt-28 pb-16 sm:pb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full">
+            
+            {/* Left Column (7 cols): Editorial Content */}
+            <div className="lg:col-span-7 space-y-4 sm:space-y-6">
+              <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-[#9E3D28] uppercase">
+                <span className="w-6 h-px bg-[#D4AF37]" />
+                <LotusIcon className="w-4 h-4 text-[#D4AF37]" />
+                <span>
+                  {kn
+                    ? 'ಸಂಸ್ಕೃತಿಯಿಂದ ರೂಪುಗೊಂಡ, ಹೃದಯದಿಂದ ಮಾರ್ಗದರ್ಶಿತ'
+                    : 'Journeys shaped by culture, guided by heart'}
+                </span>
+              </div>
+
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-serif-editorial text-[#162E22] tracking-tight leading-[1.12]">
+                {kn ? (
+                  <>
+                    ನಿಧಾನವಾಗಿ ಸಾಗಿದಾಗ{' '}
+                    <br />
+                    <em className="text-[#9E3D28] font-normal font-serif">ಪ್ರಯಾಣವೇ ಕಥೆಯಾಗುತ್ತದೆ.</em>
+                  </>
+                ) : (
+                  <>
+                    Travel becomes a story{' '}
+                    <br />
+                    <em className="text-[#9E3D28] font-normal font-serif">when you slow down.</em>
+                  </>
+                )}
+              </h1>
+
+              <p className="text-base sm:text-lg text-[#252923]/80 leading-relaxed font-normal max-w-xl">
+                {kn
+                  ? 'ಮಣ್ಣಿನ ಕಥೆ, ಜನರ ಆತ್ಮೀಯತೆ ಮತ್ತು ದಕ್ಷಿಣ ಭಾರತದ ನೈಜ ಸೊಬಗು. ಧಾವಂತವಿಲ್ಲದ ಪಯಣದ ನೈಜ ಅನುಭವಗಳು.'
+                  : 'An unhurried journal of South India’s misty hills, ancient stone corridors, and the warm, quiet dignity of authentic hospitality.'}
+              </p>
+
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
+                <button
+                  type="button"
+                  className="px-7 py-3.5 min-h-[46px] rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-md active:scale-95 cursor-pointer border border-[#D4AF37]/50"
+                  onClick={onOpenPlanner}
+                >
+                  <span>{kn ? 'ನಿಮ್ಮ ಕಥೆ ಆರಂಭಿಸಿ' : 'Begin your story'}</span>
+                  <span aria-hidden="true">↗</span>
+                </button>
+                <button
+                  type="button"
+                  className="px-7 py-3.5 min-h-[46px] rounded-xl bg-white hover:bg-[#F6F3EA] text-[#162E22] border border-[#263F32]/15 text-xs sm:text-sm font-semibold tracking-wide transition-all flex items-center justify-center gap-2 shadow-xs active:scale-95 cursor-pointer"
+                  onClick={onExploreDestinations}
+                >
+                  <span>{kn ? 'ಪ್ರಯಾಣ ಪತ್ರಿಕೆ ತೆರೆಯಿರಿ' : 'Open the journal'}</span>
+                  <span aria-hidden="true">↗</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Right Column (5 cols): Layered Visual Journal Spread */}
+            <div className="lg:col-span-5 relative mt-4 lg:mt-0">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-[#D4AF37]/40 bg-white p-3 group">
+                <div className="relative rounded-2xl overflow-hidden h-64 sm:h-80 md:h-96">
+                  <img
+                    src="https://images.unsplash.com/photo-1506461883276-594a12b11cf3?auto=format&fit=crop&w=1200&q=88"
+                    alt="Western Ghats travel journal photography"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent pointer-events-none" />
+                  
+                  {/* Photo Frame Internal Hairline */}
+                  <div className="absolute inset-3 border border-white/35 rounded-xl pointer-events-none" />
+                  
+                  {/* Bottom Location & Coordinates Pill */}
+                  <div className="absolute bottom-4 left-4 right-4 text-white text-xs flex items-center justify-between">
+                    <span className="font-semibold tracking-wider uppercase text-[#F5D77F] flex items-center gap-1.5">
+                      <LotusIcon className="w-3.5 h-3.5 text-[#D4AF37]" />
+                      <span>Western Ghats</span>
+                    </span>
+                    <span className="font-mono text-[11px] opacity-80">12.97° N · 75.78° E</span>
+                  </div>
+                </div>
+
+                {/* Tactile Field Note Card Docked Seamlessly Under the Photo */}
+                <div className="mt-3 p-3.5 rounded-xl bg-[#F6F3EA] border border-[#263F32]/10 flex items-center justify-between gap-4">
+                  <div>
+                    <div className="text-[10px] font-bold text-[#9E3D28] tracking-widest uppercase flex items-center gap-1">
+                      <span>✦ FIELD NOTE / 01</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-[#162E22] font-semibold mt-0.5">
+                      {kn ? 'ಮಣ್ಣಿನ ಕಥೆ. ಜನರ ಆತ್ಮೀಯತೆ.' : 'Stories of soil. Generosity of people.'}
+                    </p>
+                  </div>
+                  <div className="w-9 h-9 rounded-full bg-[#162E22] text-[#F5D77F] flex items-center justify-center shrink-0 border border-[#D4AF37]/40 shadow-xs">
+                    <AmbariElephant className="w-5 h-5" color="#D4AF37" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
-        <div className="thread-line" aria-hidden="true" />
+
+        {/* Bottom Scroll Cue */}
+        <button
+          type="button"
+          className="scroll-cue cursor-pointer border-0 bg-transparent text-[#162E22] pb-4"
+          onClick={onExploreDestinations}
+        >
+          <span />
+          {kn ? 'ಅನ್ವೇಷಿಸಲು ಕೆಳಗೆ ಸಾಗಿ' : 'Scroll to wander'}
+        </button>
       </section>
     );
   }
 
   if (concept === 'C') {
     return (
-      <section className="hero hero-global" id="top">
+      <section className="hero hero-global relative min-h-screen min-h-dvh flex flex-col justify-between overflow-hidden" id="top">
         {headerSlot}
-        <div className="global-word" aria-hidden="true">
+
+        {/* Cinematic Full-Bleed Background with Luxury Atmosphere */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.unsplash.com/photo-1653189382464-25302f3e7409?auto=format&fit=crop&w=2200&q=90"
+            alt="Global expedition scenic vista"
+            className="w-full h-full object-cover"
+          />
+          {/* Dual Gradient Scrim: Horizontal contrast for readability + vertical bottom vignette */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#06170E]/95 via-[#06170E]/75 to-[#06170E]/35" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#06170E] via-transparent to-transparent opacity-80" />
+        </div>
+
+        {/* Typographic "BEYOND" Watermark gracefully positioned on the right */}
+        <div className="absolute right-4 lg:right-12 top-1/2 -translate-y-1/2 text-white/[0.04] font-bold font-sans text-[clamp(6rem,18vw,20rem)] tracking-tighter leading-none pointer-events-none select-none z-0">
           BEYOND
         </div>
-        <div className="global-image image-one" />
-        <div className="global-image image-two" />
-        <div className="hero-copy">
-          <p className="eyebrow">
-            {kn
-              ? 'ಭಾರತದಿಂದ ವಿಶ್ವದವರೆಗೆ · ನಿಮಗಾಗಿ ರೂಪಿಸಿದ'
-              : 'India to the world · Curated privately'}
-          </p>
-          <h1>
-            {kn ? 'ಇನ್ನೂ' : 'GO'}
-            <br />
-            <em>{kn ? 'ಮುಂದೆ.' : 'FURTHER.'}</em>
-          </h1>
-          <p className="kannada" lang="kn">
-            ಜಗತ್ತನ್ನು ನಿಮ್ಮ ರೀತಿಯಲ್ಲಿ ಅನ್ವೇಷಿಸಿ.
-          </p>
-          <button
-            type="button"
-            className="button button-dark"
-            onClick={onOpenPlanner}
-          >
-            <span>{kn ? 'ನನ್ನ ಪ್ರವಾಸ ರೂಪಿಸಿ' : 'Design my escape'}</span>
-            <span aria-hidden="true">↗</span>
-          </button>
+
+        {/* Main Content Grid: Resilient across ALL screen ratios */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex items-center pt-24 sm:pt-28 pb-16 sm:pb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full">
+            
+            {/* Left Column (7 cols): Bold Global Explorer Typography */}
+            <div className="lg:col-span-7 space-y-4 sm:space-y-6">
+              <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-[#F5D77F] uppercase">
+                <span className="w-6 h-px bg-[#D4AF37]" />
+                <Globe className="w-4 h-4 text-[#D4AF37]" />
+                <span>
+                  {kn
+                    ? 'ಭಾರತದಿಂದ ವಿಶ್ವದವರೆಗೆ · ನಿಮಗಾಗಿ ರೂಪಿಸಿದ'
+                    : 'India to the world · Curated privately'}
+                </span>
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-sans text-white tracking-tight leading-[0.98]">
+                {kn ? (
+                  <>
+                    ಇನ್ನೂ <br />
+                    <em className="text-[#F5D77F] font-normal font-serif">ಮುಂದೆ.</em>
+                  </>
+                ) : (
+                  <>
+                    GO <br />
+                    <em className="text-[#F5D77F] font-normal font-serif">FURTHER.</em>
+                  </>
+                )}
+              </h1>
+
+              <p className="text-base sm:text-lg text-white/85 leading-relaxed font-normal max-w-xl">
+                {kn
+                  ? 'ಜಗತ್ತನ್ನು ನಿಮ್ಮ ರೀತಿಯಲ್ಲಿ ಅನ್ವೇಷಿಸಿ. ಪ್ರಮುಖ ದೇಶೀಯ ತಾಣಗಳಿಂದ ಹಿಡಿದು ಅಂತಾರಾಷ್ಟ್ರೀಯ ಪಯಣಗಳವರೆಗೆ ಎಲ್ಲವೂ ಒಂದೇ ಸೂರಿನಡಿ.'
+                  : 'One thoughtful travel studio. A world of uncommon places. Tailor-made journeys across India and distinctive international horizons.'}
+              </p>
+
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
+                <button
+                  type="button"
+                  className="px-7 py-3.5 min-h-[46px] rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] hover:brightness-105 text-[#162E22] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-lg active:scale-95 cursor-pointer border border-[#D4AF37]/50"
+                  onClick={onOpenPlanner}
+                >
+                  <span>{kn ? 'ನನ್ನ ಪ್ರವಾಸ ರೂಪಿಸಿ' : 'Design my escape'}</span>
+                  <span aria-hidden="true">↗</span>
+                </button>
+                <button
+                  type="button"
+                  className="px-7 py-3.5 min-h-[46px] rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/25 text-xs sm:text-sm font-semibold tracking-wide transition-all flex items-center justify-center gap-2 backdrop-blur-xs active:scale-95 cursor-pointer"
+                  onClick={onExploreDestinations}
+                >
+                  <span>{kn ? 'ತಾಣಗಳನ್ನು ಅನ್ವೇಷಿಸಿ' : 'Explore destinations'}</span>
+                  <span aria-hidden="true">↗</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Right Column (5 cols): Modern Explorer Preview Card */}
+            <div className="lg:col-span-5 relative mt-4 lg:mt-0">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/20 bg-white/10 backdrop-blur-md p-3 group">
+                <div className="relative rounded-2xl overflow-hidden h-64 sm:h-80 md:h-96">
+                  <img
+                    src="https://images.unsplash.com/photo-1742175257067-414cbe9033ff?auto=format&fit=crop&w=1200&q=88"
+                    alt="International travel landscape"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
+                  
+                  {/* Top Badge */}
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-[#D4AF37]/60 text-[#F5D77F] text-xs font-bold tracking-wider uppercase">
+                      Curated Horizons
+                    </span>
+                  </div>
+
+                  {/* Bottom Info Bar */}
+                  <div className="absolute bottom-4 left-4 right-4 text-white text-xs flex items-center justify-between">
+                    <span className="font-semibold tracking-wider uppercase text-white flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-[#D4AF37]" />
+                      <span>Beyond India</span>
+                    </span>
+                    <span className="font-mono text-[11px] text-[#F5D77F]">Vietnam · Bali · Europe</span>
+                  </div>
+                </div>
+
+                {/* Explorer Subtext Guarantee */}
+                <div className="mt-3 p-3 rounded-xl bg-black/30 border border-white/10 flex items-center justify-between text-xs text-white/80">
+                  <span>Custom private itineraries with end-to-end visas & transit</span>
+                  <Sparkles className="w-4 h-4 text-[#D4AF37]" />
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
-        <p className="global-caption">
-          One thoughtful travel studio.
-          <br />A world of uncommon places.
-        </p>
+
+        {/* Bottom Scroll Cue */}
+        <button
+          type="button"
+          className="scroll-cue cursor-pointer border-0 bg-transparent text-white pb-4"
+          onClick={onExploreDestinations}
+        >
+          <span />
+          {kn ? 'ಅನ್ವೇಷಿಸಲು ಕೆಳಗೆ ಸಾಗಿ' : 'Scroll to wander'}
+        </button>
       </section>
     );
   }
