@@ -8,4 +8,5 @@ coverage/
 !.env.example
 UI DESIGN/
 UI_DESIGN_REFERENCE/
+FIGMA_DESIGN_REFERENCE/
 
