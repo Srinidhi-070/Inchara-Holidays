@@ -149,7 +149,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
   return (
     <AnimatePresence>
       {destination && (
-        <div className="fixed inset-0 z-50 overflow-y-auto">
+        <div className="fixed inset-0 z-[1050] overflow-y-auto">
       {/* Backdrop */}
       <motion.div
         initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}

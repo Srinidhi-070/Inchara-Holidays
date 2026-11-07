@@ -46,8 +46,26 @@ Following direct user review and submission of 5 target reference screenshots, w
 
 ---
 
-### 4. Design Criteria & Brand Tokens Preserved
-- **Deep Forest Green** (`#162E22` / `#263F32`): Core typography, primary button states, card headers.
+### 5. Cycle 2 Refinement: Modal Z-Index Overlap, Scale Tuning & Multi-Service Activation
+Following targeted visual and functional testing:
+1. **Modal Header Collision Resolved**:
+   - `.site-header` in `src/index.css` operates at `z-index: 100`. Previously, dialog backdrops were at `z-50`, causing the fixed site header to slice through the modal title bar and obscure the close button (`X`).
+   - All modal backdrops (`EnquiryDialog`, `DestinationModal`, `ItineraryModal`, `UniversalEnquiryModal`, `SchoolTripModal`, `CorporateEventModal`, `CateringModal`) were upgraded to `z-[1050]`, guaranteeing clean overlay presentation above all fixed chrome.
+2. **Universal Enquiry Dialog Proportioning & Scroll Removal**:
+   - Re-architected Step 01 to an elegant 3×2 grid (2×3 on mobile) with compact `w-10 h-10 sm:w-11 sm:h-11` icons, `p-3.5 sm:p-4` padding, and two-line titles.
+   - Entire dialog height reduced from >850px to ~550px, ensuring all 6 service cards and the Mysore Gold `CONTINUE →` button fit within standard laptop (1366×768 / 1440×900) screens without any inner scrollbars.
+3. **Dedicated Service Deep-Linking & Action Routing**:
+   - Clicking `Plan Educational Tour` or `Corporate Offsites` in `InstitutionalCorporateHighlight.tsx` or `Transport` in `TravelLogisticsAssistance.tsx` immediately opens Step 02 Details tailored to that service (Group Size, Institution, Event Type, Route, etc.), while preserving the `BACK` button to return to Step 01.
+4. **Site-Wide Scale & Spacing Harmonization**:
+   - Compressed global `.section` vertical padding from `clamp(88px, 10vw, 154px)` to `clamp(48px, 5.5vw, 80px)`.
+   - Tuned desktop `.hero h1` from `clamp(62px, 7.2vw, 112px)` down to `clamp(40px, 4.8vw, 70px)` with `line-height: 0.98`.
+   - Tuned section `h2` headings from `clamp(48px, 5.3vw, 78px)` down to `clamp(32px, 3.8vw, 52px)`.
+   - Removed GPS coordinates and Western Ghats text from Hero, and optically aligned Kannada `ವಿಚಾರಿಸಿ ↗` header button.
+   - Refined `WhyUs`, `AboutIntroduction`, `Affiliations`, and `DestinationDiscovery` card and typography padding.
+5. **Cross-Platform Verification via Playwright**:
+   - Desktop (1440×900): Modal renders above header, 6 cards visible at once, no scrollbar.
+   - Mobile (390×844): Modal renders 2 columns × 3 rows cleanly, continue button reachable.
+   - Kannada mode: Full translation, proper font rendering, zero clipping.
 - **Kasavu Gold & Mysore Gold** (`#F5D77F` / `#D4AF37`): Primary CTA gradient buttons, active stepper rings, focus states, badge accents.
 - **Kaavi Terracotta** (`#9E3D28`): Eyebrow subtitles, numbering counters (`01`–`06`), highlights.
 - **Heritage Ivory & Warm Sand** (`#F6F3EA` / `#FBF8F1`): Warm textured section backgrounds.

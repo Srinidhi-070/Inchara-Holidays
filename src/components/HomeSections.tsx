@@ -82,7 +82,7 @@ export function Affiliations({ locale }: { locale: Locale }) {
   ];
 
   return (
-    <section className="py-16 sm:py-24 bg-[#F6F3EA] border-b border-[#263F32]/10 relative overflow-hidden" id="trust" aria-labelledby="trust-title">
+    <section className="py-12 sm:py-16 bg-[#F6F3EA] border-b border-[#263F32]/10 relative overflow-hidden" id="trust" aria-labelledby="trust-title">
       <div 
         className="absolute inset-0 opacity-[0.03] pointer-events-none" 
         style={{
@@ -118,7 +118,7 @@ export function Affiliations({ locale }: { locale: Locale }) {
               key={p.abbr}
               className="p-6 sm:p-8 rounded-3xl bg-white border border-[#263F32]/10 hover:border-[#D4AF37] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center group hover:-translate-y-1"
             >
-              <div className="w-full h-24 sm:h-28 flex items-center justify-center p-2 mb-4 bg-white rounded-2xl">
+              <div className="w-full h-16 sm:h-20 flex items-center justify-center p-2 mb-4 bg-white rounded-2xl">
                 <img
                   src={p.logo}
                   alt={p.alt}

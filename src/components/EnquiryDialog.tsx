@@ -302,9 +302,9 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
   }
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 lg:p-8 animate-fade-in">
+    <div className="fixed inset-0 z-[1050] overflow-y-auto bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5 lg:p-6 animate-fade-in">
       <div
-        className="relative w-full max-w-4xl bg-[#FBF8F1] rounded-3xl shadow-2xl border border-[#D4AF37]/40 overflow-hidden flex flex-col my-auto"
+        className="relative w-full max-w-3xl max-h-[92vh] sm:max-h-[88vh] bg-[#FBF8F1] rounded-2xl sm:rounded-3xl shadow-2xl border border-[#D4AF37]/50 overflow-hidden flex flex-col my-auto"
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
@@ -313,12 +313,12 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
       >
         {/* Top Close Button */}
         <button
-          className="absolute top-5 right-5 z-20 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-[#162E22] flex items-center justify-center shadow-md border border-[#162E22]/15 transition-all hover:scale-105 cursor-pointer"
+          className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 hover:bg-white text-[#162E22] flex items-center justify-center shadow-md border border-[#162E22]/15 transition-all hover:scale-105 cursor-pointer"
           type="button"
           aria-label={c.close}
           onClick={requestClose}
         >
-          <X className="w-5 h-5 text-[#162E22]" />
+          <X className="w-4 h-4 text-[#162E22]" />
         </button>
 
         {status === "success" ? (
@@ -373,21 +373,21 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
           /* MULTI-STEP WIZARD */
           <div className="flex flex-col flex-1">
             {/* Header with Title and Stepper */}
-            <header className="pt-8 px-6 sm:px-12 pb-4 text-center border-b border-[#263F32]/8 bg-white/50">
-              <p className="text-xs font-bold tracking-widest text-[#9E3D28] uppercase mb-1.5">
+            <header className="pt-4 sm:pt-5 px-5 sm:px-8 pb-3 text-center border-b border-[#263F32]/8 bg-white/60 shrink-0">
+              <p className="text-[10px] sm:text-xs font-bold tracking-widest text-[#9E3D28] uppercase mb-0.5">
                 {c.eyebrow}
               </p>
-              <h2 id={titleId} className="text-2xl sm:text-3xl font-serif-editorial font-bold text-[#162E22] tracking-tight">
+              <h2 id={titleId} className="text-xl sm:text-2xl font-serif-editorial font-bold text-[#162E22] tracking-tight">
                 {c.title}
               </h2>
-              <p className="text-xs sm:text-sm text-[#252923]/70 mt-1 max-w-lg mx-auto">
+              <p className="text-xs text-[#252923]/70 mt-0.5 max-w-md mx-auto hidden sm:block">
                 {c.intro}
               </p>
 
               {/* Connected Stepper Line */}
-              <div className="flex items-center justify-center max-w-md mx-auto mt-6 relative">
+              <div className="flex items-center justify-center max-w-sm mx-auto mt-3 relative">
                 {/* Connecting track line */}
-                <div className="absolute top-4 left-6 right-6 h-0.5 bg-[#263F32]/15 -z-0" />
+                <div className="absolute top-3 sm:top-3.5 left-4 right-4 h-0.5 bg-[#263F32]/15 -z-0" />
 
                 <div className="flex items-center justify-between w-full relative z-10">
                   {c.steps.map((label, index) => {
@@ -396,17 +396,17 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
                     return (
                       <div key={label} className="flex flex-col items-center">
                         <div
-                          className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all shadow-sm ${
+                          className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-bold transition-all shadow-sm ${
                             isCurrent
-                              ? "bg-[#162E22] text-[#F5D77F] ring-4 ring-[#D4AF37]/30 border border-[#D4AF37]"
+                              ? "bg-[#162E22] text-[#F5D77F] ring-3 ring-[#D4AF37]/30 border border-[#D4AF37]"
                               : isDone
                               ? "bg-[#162E22] text-[#F5D77F]"
                               : "bg-[#F6F3EA] text-[#263F32]/50 border border-[#263F32]/20"
                           }`}
                         >
-                          {isDone ? <Check className="w-4 h-4 stroke-[3]" /> : `0${index + 1}`}
+                          {isDone ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : `0${index + 1}`}
                         </div>
-                        <span className={`text-[11px] font-semibold tracking-wider uppercase mt-1.5 ${
+                        <span className={`text-[9px] sm:text-[10px] font-semibold tracking-wider uppercase mt-1 ${
                           isCurrent ? "text-[#162E22] font-bold" : "text-[#252923]/50"
                         }`}>
                           {label}
@@ -419,21 +419,21 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
             </header>
 
             {/* Dialog Scrollable Body */}
-            <div className="p-6 sm:p-10 flex-1 overflow-y-auto max-h-[60vh]">
+            <div className="p-4 sm:p-6 lg:p-7 flex-1 overflow-y-auto">
               {/* STEP 0: What can we help you with? */}
               {step === 0 && (
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-serif-editorial font-bold text-[#162E22] mb-2 text-center sm:text-left">
+                  <h3 className="text-base sm:text-lg font-serif-editorial font-bold text-[#162E22] mb-1 sm:mb-2 text-center sm:text-left">
                     {c.choose}
                   </h3>
                   {errors.service && (
-                    <p className="text-xs font-bold text-[#9E3D28] mb-4 p-2.5 rounded-lg bg-[#9E3D28]/10 border border-[#9E3D28]/20">
+                    <p className="text-xs font-bold text-[#9E3D28] mb-3 p-2 rounded-lg bg-[#9E3D28]/10 border border-[#9E3D28]/20">
                       {errors.service}
                     </p>
                   )}
 
-                  {/* 6 Large Icon Service Cards matching screenshot */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-4">
+                  {/* 6 Balanced Service Cards in 3x2 Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3.5 mt-2.5 sm:mt-3">
                     {services.map((service) => {
                       const selected = payload.service === service.id;
                       return (
@@ -448,30 +448,30 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
                             }));
                             setErrors((curr) => ({ ...curr, service: "" }));
                           }}
-                          className={`relative p-6 sm:p-7 rounded-2xl flex flex-col items-center text-center transition-all duration-300 cursor-pointer group text-left ${
+                          className={`relative p-3 sm:p-4 rounded-xl sm:rounded-2xl flex flex-col items-center text-center transition-all duration-200 cursor-pointer group ${
                             selected
-                              ? "bg-white border-2 border-[#D4AF37] shadow-xl ring-2 ring-[#D4AF37]/20 scale-[1.02]"
+                              ? "bg-white border-2 border-[#D4AF37] shadow-lg ring-2 ring-[#D4AF37]/20 scale-[1.01]"
                               : "bg-white/80 hover:bg-white border border-[#263F32]/12 hover:border-[#D4AF37]/50 shadow-xs hover:shadow-md"
                           }`}
                         >
                           {/* Active Check Badge */}
                           {selected && (
-                            <div className="absolute top-3.5 right-3.5 w-6 h-6 rounded-full bg-[#162E22] text-[#F5D77F] flex items-center justify-center shadow-md">
-                              <Check className="w-3.5 h-3.5 stroke-[3]" />
+                            <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-[#162E22] text-[#F5D77F] flex items-center justify-center shadow-xs">
+                              <Check className="w-3 h-3 stroke-[3]" />
                             </div>
                           )}
 
-                          {/* Large Bold Artwork Icon */}
-                          <div className={`mb-5 transition-transform duration-300 group-hover:scale-105 ${
+                          {/* Bold Artwork Icon */}
+                          <div className={`mb-2 sm:mb-2.5 transition-transform duration-200 group-hover:scale-105 ${
                             selected ? "text-[#162E22]" : "text-[#162E22]/85 group-hover:text-[#162E22]"
                           }`}>
-                            <LargeServiceArtwork id={service.id} className="w-20 h-20 sm:w-24 sm:h-24 stroke-[2.2]" />
+                            <LargeServiceArtwork id={service.id} className="w-9 h-9 sm:w-11 sm:h-11 stroke-[2.2]" />
                           </div>
 
-                          <h4 className="text-base sm:text-lg font-serif-editorial font-bold text-[#162E22] mb-2 leading-tight">
+                          <h4 className="text-xs sm:text-sm font-serif-editorial font-bold text-[#162E22] mb-1 leading-tight line-clamp-2 min-h-[1.75rem] sm:min-h-[2rem] flex items-center justify-center">
                             {service.title[locale]}
                           </h4>
-                          <p className="text-xs sm:text-[13px] text-[#252923]/75 leading-relaxed font-normal">
+                          <p className="text-[10px] sm:text-[11px] text-[#252923]/70 leading-snug font-normal line-clamp-2">
                             {service.description[locale]}
                           </p>
                         </button>
@@ -784,12 +784,12 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
             </div>
 
             {/* Bottom Action Bar with Gold Button */}
-            <footer className="p-5 sm:px-12 sm:py-6 border-t border-[#263F32]/8 bg-white/70 flex items-center justify-between">
+            <footer className="px-5 sm:px-8 py-3 sm:py-3.5 border-t border-[#263F32]/8 bg-white/80 flex items-center justify-between shrink-0">
               {step > 0 ? (
                 <button
                   type="button"
                   onClick={() => setStep((curr) => curr - 1)}
-                  className="px-6 py-3 rounded-xl border border-[#263F32]/20 hover:border-[#162E22] text-[#162E22] text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl border border-[#263F32]/20 hover:border-[#162E22] text-[#162E22] text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
                 >
                   {c.back}
                 </button>
@@ -801,20 +801,20 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
                 <button
                   type="button"
                   onClick={next}
-                  className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-[#12261C] hover:brightness-105 active:scale-95 shadow-md hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-300 font-bold text-xs uppercase tracking-wider cursor-pointer border border-[#F5D77F]/60"
+                  className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-[#12261C] hover:brightness-105 active:scale-95 shadow-md hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-300 font-bold text-xs uppercase tracking-wider cursor-pointer border border-[#F5D77F]/60"
                 >
                   <span>{c.next}</span>
-                  <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+                  <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
                 </button>
               ) : (
                 <button
                   type="button"
                   onClick={submit}
                   disabled={status === "submitting"}
-                  className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-[#12261C] hover:brightness-105 active:scale-95 shadow-md hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-300 font-bold text-xs uppercase tracking-wider cursor-pointer border border-[#F5D77F]/60 disabled:opacity-50"
+                  className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-[#12261C] hover:brightness-105 active:scale-95 shadow-md hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-300 font-bold text-xs uppercase tracking-wider cursor-pointer border border-[#F5D77F]/60 disabled:opacity-50"
                 >
                   <span>{status === "submitting" ? c.sending : c.submit}</span>
-                  <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+                  <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
                 </button>
               )}
             </footer>

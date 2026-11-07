@@ -90,7 +90,7 @@ export function WhyUs({ locale }: WhyUsProps) {
   const c = content[locale];
 
   return (
-    <section id="why-us" className="py-20 sm:py-28 bg-[#FBF8F1] relative overflow-hidden border-b border-[#263F32]/10" aria-labelledby="why-us-title">
+    <section id="why-us" className="py-14 sm:py-20 bg-[#FBF8F1] relative overflow-hidden border-b border-[#263F32]/10" aria-labelledby="why-us-title">
       {/* Subtle geometric dot pattern */}
       <div 
         className="absolute inset-0 opacity-[0.035] pointer-events-none" 
@@ -103,7 +103,7 @@ export function WhyUs({ locale }: WhyUsProps) {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header matching Image 3 */}
-        <div className="max-w-3xl mb-12 sm:mb-16">
+        <div className="max-w-3xl mb-8 sm:mb-10">
           <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-[#9E3D28] uppercase mb-2">
             <span className="w-5 h-px bg-[#D4AF37]" />
             <span>✦</span>
@@ -111,44 +111,44 @@ export function WhyUs({ locale }: WhyUsProps) {
             <span>✦</span>
             <span className="w-5 h-px bg-[#D4AF37]" />
           </div>
-          <h2 id="why-us-title" className={`text-3xl sm:text-4xl lg:text-5xl font-serif-editorial font-bold text-[#162E22] tracking-tight leading-[1.15] mb-4 ${
+          <h2 id="why-us-title" className={`text-2xl sm:text-3xl lg:text-4xl font-serif-editorial font-bold text-[#162E22] tracking-tight leading-[1.15] mb-4 ${
             locale === 'kn' ? 'font-kannada-serif' : ''
           }`}>
             {c.title}
           </h2>
-          <p className="text-base sm:text-lg text-[#252923]/75 leading-relaxed font-normal">
+          <p className="text-sm sm:text-base text-[#252923]/75 leading-relaxed font-normal">
             {c.subtitle}
           </p>
         </div>
 
         {/* 6-Card Grid matching Image 3 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {c.cards.map((card) => (
             <div
               key={card.num}
-              className="p-7 sm:p-8 rounded-3xl bg-white border border-[#263F32]/10 hover:border-[#D4AF37] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 relative overflow-hidden"
+              className="p-5 sm:p-6 rounded-2xl bg-white border border-[#263F32]/10 hover:border-[#D4AF37] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 relative overflow-hidden"
             >
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
               <div>
                 {/* Number in Terracotta */}
-                <span className="text-3xl sm:text-4xl font-serif-editorial font-bold text-[#9E3D28] group-hover:text-[#D4AF37] transition-colors block mb-4">
+                <span className="text-2xl sm:text-3xl font-serif-editorial font-bold text-[#9E3D28] group-hover:text-[#D4AF37] transition-colors block mb-2 sm:mb-3">
                   {card.num}
                 </span>
 
-                <h3 className={`text-xl sm:text-2xl font-serif-editorial font-bold text-[#162E22] mb-3 group-hover:text-[#9E3D28] transition-colors leading-snug ${
+                <h3 className={`text-lg sm:text-xl font-serif-editorial font-bold text-[#162E22] mb-2 group-hover:text-[#9E3D28] transition-colors leading-snug ${
                   locale === 'kn' ? 'font-kannada-serif' : ''
                 }`}>
                   {card.title}
                 </h3>
 
-                <p className="text-sm text-[#252923]/75 leading-relaxed font-normal">
+                <p className="text-xs sm:text-sm text-[#252923]/75 leading-relaxed font-normal">
                   {card.desc}
                 </p>
               </div>
 
               {/* Bottom tag: Inchara Standard + Accent */}
-              <div className="mt-8 pt-4 border-t border-[#263F32]/8 flex items-center justify-between text-xs text-[#252923]/50 font-medium">
+              <div className="mt-5 pt-3 border-t border-[#263F32]/8 flex items-center justify-between text-xs text-[#252923]/50 font-medium">
                 <span className="tracking-wider uppercase text-[11px] font-semibold text-[#252923]/60 group-hover:text-[#162E22] transition-colors">
                   {c.tag}
                 </span>

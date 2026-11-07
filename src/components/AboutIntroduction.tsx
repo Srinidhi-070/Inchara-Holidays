@@ -61,7 +61,7 @@ export function AboutIntroduction({ locale }: AboutIntroductionProps) {
   const c = copy[locale];
 
   return (
-    <section id="about" className="py-20 sm:py-28 bg-[#F6F3EA] relative overflow-hidden border-b border-[#263F32]/10" aria-labelledby="about-title">
+    <section id="about" className="py-14 sm:py-20 bg-[#F6F3EA] relative overflow-hidden border-b border-[#263F32]/10" aria-labelledby="about-title">
       {/* Subtle diamond background pattern */}
       <div 
         className="absolute inset-0 opacity-[0.035] pointer-events-none" 
@@ -73,10 +73,10 @@ export function AboutIntroduction({ locale }: AboutIntroductionProps) {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
           {/* Official Registered Emblem */}
           <div className="flex justify-center mb-6">
-            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white p-2.5 shadow-md border border-[#D4AF37]/60 flex items-center justify-center hover:scale-105 transition-transform duration-300">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white p-2 shadow-md border border-[#D4AF37]/60 flex items-center justify-center hover:scale-105 transition-transform duration-300">
               <img
                 src="/images/brand/inchara_official_logo.png"
                 alt="Inchara Holidays Official Emblem"
@@ -97,7 +97,7 @@ export function AboutIntroduction({ locale }: AboutIntroductionProps) {
             <span className="w-6 h-px bg-[#D4AF37]" />
           </div>
 
-          <h2 id="about-title" className={`text-3xl sm:text-4xl lg:text-5xl font-serif-editorial font-bold text-[#162E22] tracking-tight leading-[1.16] mb-6 ${
+          <h2 id="about-title" className={`text-2xl sm:text-3xl lg:text-4xl font-serif-editorial font-bold text-[#162E22] tracking-tight leading-[1.16] mb-6 ${
             locale === "kn" ? "font-kannada-serif" : ""
           }`}>
             {c.titleStart}
@@ -106,37 +106,37 @@ export function AboutIntroduction({ locale }: AboutIntroductionProps) {
             </em>
           </h2>
 
-          <p className="text-base sm:text-lg text-[#252923]/80 leading-relaxed font-normal">
+          <p className="text-sm sm:text-base text-[#252923]/80 leading-relaxed font-normal">
             {c.body}
           </p>
         </div>
 
         {/* 3 Pillar Cards matching Image 5 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           {c.pillars.map((pillar, idx) => {
             const Icon = pillar.icon;
             return (
               <div
                 key={idx}
-                className="p-7 sm:p-8 rounded-3xl bg-white border border-[#263F32]/12 hover:border-[#D4AF37] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 relative overflow-hidden"
+                className="p-5 sm:p-6 rounded-2xl bg-white border border-[#263F32]/12 hover:border-[#D4AF37] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 relative overflow-hidden"
               >
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-[#F6F3EA] border border-[#D4AF37]/40 text-[#9E3D28] flex items-center justify-center mb-6 group-hover:bg-[#162E22] group-hover:text-[#F5D77F] transition-colors shadow-xs">
+                  <div className="w-10 h-10 rounded-xl bg-[#F6F3EA] border border-[#D4AF37]/40 text-[#9E3D28] flex items-center justify-center mb-4 group-hover:bg-[#162E22] group-hover:text-[#F5D77F] transition-colors shadow-xs">
                     <Icon className="w-6 h-6 stroke-[2.2]" />
                   </div>
-                  <h3 className={`text-xl sm:text-2xl font-serif-editorial font-bold text-[#162E22] mb-3 group-hover:text-[#9E3D28] transition-colors ${
+                  <h3 className={`text-lg sm:text-xl font-serif-editorial font-bold text-[#162E22] mb-2 group-hover:text-[#9E3D28] transition-colors ${
                     locale === "kn" ? "font-kannada-serif" : ""
                   }`}>
                     {pillar.title}
                   </h3>
-                  <p className="text-sm text-[#252923]/75 leading-relaxed font-normal">
+                  <p className="text-xs sm:text-sm text-[#252923]/75 leading-relaxed font-normal">
                     {pillar.desc}
                   </p>
                 </div>
 
-                <div className="mt-8 pt-4 border-t border-[#263F32]/8 flex items-center justify-between text-xs text-[#252923]/60 font-medium">
+                <div className="mt-5 pt-3 border-t border-[#263F32]/8 flex items-center justify-between text-xs text-[#252923]/60 font-medium">
                   <span className="text-[11px] uppercase tracking-wider font-semibold group-hover:text-[#162E22] transition-colors">
                     {c.promise}
                   </span>

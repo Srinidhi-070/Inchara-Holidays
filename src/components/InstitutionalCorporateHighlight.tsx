@@ -24,7 +24,7 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
   const kn = language === 'kn';
 
   return (
-    <section id="education" className="scroll-mt-20 py-24 sm:py-32 bg-[#FBF8F1] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10">
+    <section id="education" className="scroll-mt-20 py-14 sm:py-20 bg-[#FBF8F1] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -32,14 +32,14 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-3xl mb-16"
+          className="max-w-3xl mb-10 sm:mb-12"
         >
           <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#9E3D28] uppercase mb-2.5">
             <span className="w-5 h-px bg-[#D4AF37]" />
             <LotusIcon className="w-4 h-4 text-[#D4AF37]" />
             <span>{kn ? 'ಸಾಂಸ್ಥಿಕ & ಕಾರ್ಪೊರೇಟ್ ಪರಿಣತಿ' : 'Institutional & Corporate Excellence'}</span>
           </div>
-          <h2 className="text-display-md font-bold font-serif-editorial text-[#162E22] tracking-tight leading-[1.18]">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-serif-editorial text-[#162E22] tracking-tight leading-[1.18]">
             {kn ? (
               <>
                 ಶೈಕ್ಷಣಿಕ ಶಿಸ್ತು ಮತ್ತು{' '}
@@ -60,14 +60,14 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
         </motion.div>
 
         {/* Dual Pillar Presentation */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
           {/* Card 1: Educational & Industrial Tours */}
           <motion.div
             initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl bg-white border border-[#263F32]/12 p-8 sm:p-10 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all relative overflow-hidden group"
+            className="rounded-2xl bg-white border border-[#263F32]/12 p-6 sm:p-7 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all relative overflow-hidden group"
           >
             <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#9E3D28] via-[#D4AF37] to-transparent" />
 
@@ -138,7 +138,7 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6 }}
-            className="scroll-mt-28 rounded-3xl bg-white border border-[#263F32]/12 p-8 sm:p-10 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all relative overflow-hidden group"
+            className="scroll-mt-28 rounded-2xl bg-white border border-[#263F32]/12 p-6 sm:p-7 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all relative overflow-hidden group"
           >
             <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#162E22] via-[#D4AF37] to-transparent" />
 

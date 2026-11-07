@@ -81,10 +81,10 @@ export function DestinationDiscovery({
   };
 
   return (
-    <section id="destinations" className="py-20 sm:py-28 bg-[#FBF8F1] relative overflow-hidden border-b border-[#263F32]/10" aria-labelledby="dest-title">
+    <section id="destinations" className="py-14 sm:py-20 bg-[#FBF8F1] relative overflow-hidden border-b border-[#263F32]/10" aria-labelledby="dest-title">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header Row matching Image 4 */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-16">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8 sm:mb-10">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-[#9E3D28] uppercase mb-2">
               <span className="w-5 h-px bg-[#D4AF37]" />
@@ -94,7 +94,7 @@ export function DestinationDiscovery({
               <span className="w-5 h-px bg-[#D4AF37]" />
             </div>
 
-            <h2 id="dest-title" className={`text-3xl sm:text-4xl lg:text-5xl font-serif-editorial font-bold text-[#162E22] tracking-tight leading-[1.15] ${
+            <h2 id="dest-title" className={`text-2xl sm:text-3xl lg:text-4xl font-serif-editorial font-bold text-[#162E22] tracking-tight leading-[1.15] ${
               isKn ? "font-kannada-serif" : ""
             }`}>
               {isKn ? "ನಿಧಾನವಾಗಿ ಸಾಗಲು ಯೋಗ್ಯವಾದ " : "A world worth travelling "}

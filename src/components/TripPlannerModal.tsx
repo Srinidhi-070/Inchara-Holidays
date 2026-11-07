@@ -256,7 +256,7 @@ Generated via Inchara Holidays Studio`;
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 overflow-hidden font-sans">
+        <div className="fixed inset-0 z-[1050] overflow-hidden font-sans">
         {/* Dark backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
