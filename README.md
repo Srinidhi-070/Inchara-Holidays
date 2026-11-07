@@ -86,9 +86,9 @@ npm run build
 
 ## ✦ Documentation & Architecture Roadmap
 
-- **[AUDIT_REPORT.md](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/AUDIT_REPORT.md)**: Comprehensive technical audit, production readiness assessment, security review, and performance analysis.
-- **[UI_INTEGRATION_PLAN.md](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/UI_INTEGRATION_PLAN.md)**: Complete architectural synthesis plan combining the approved Figma design with existing packages, itineraries, destinations, and bilingual services.
-- **[REPORT.md](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/REPORT.md)**: Real-time refactoring tracking report, milestone status, and execution audit log.
+- **[docs/analysis/AUDIT_REPORT.md](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/docs/analysis/AUDIT_REPORT.md)**: Comprehensive technical audit, production readiness assessment, security review, and performance analysis.
+- **[docs/analysis/UI_INTEGRATION_PLAN.md](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/docs/analysis/UI_INTEGRATION_PLAN.md)**: Complete architectural synthesis plan combining the approved Figma design with existing packages, itineraries, destinations, and bilingual services.
+- **[docs/analysis/REPORT.md](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/docs/analysis/REPORT.md)**: Real-time refactoring tracking report, milestone status, and execution audit log.
 - **[FIGMA_DESIGN_REFERENCE/](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/FIGMA_DESIGN_REFERENCE/)**: High-resolution screenshots, Figma design tokens (`figma_tokens.json`), and design prompt reference (`FIGMA_PROMPT_REFERENCE.md`).
 - **[docs/](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/docs/)**: Extended technical specifications and archived migration documentation.
 
