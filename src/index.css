@@ -856,11 +856,31 @@ button[class*="bg-[#9E3D28]"] span {
   transform: translateY(0) scale(0.98);
 }
 .button-gold {
-  background: var(--gold);
-  color: var(--deep);
+  background: linear-gradient(90deg, #D4AF37 0%, #F5D77F 50%, #D4AF37 100%) !important;
+  color: #12261C !important;
+  border: 1px solid rgba(245, 215, 127, 0.6) !important;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.28);
+  font-weight: 700 !important;
+  letter-spacing: 0.08em;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.button-gold span {
+  color: #12261C !important;
+  font-weight: 700 !important;
+}
+.button-gold svg {
+  color: #12261C !important;
+  stroke-width: 2.5;
 }
 .button-gold:hover {
-  background: var(--kasavu);
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(212, 175, 55, 0.45);
+}
+.button-gold:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.25);
 }
 .button-outline {
   border-color: rgba(255, 255, 255, 0.55);

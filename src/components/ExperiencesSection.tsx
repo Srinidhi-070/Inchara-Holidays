@@ -5,6 +5,7 @@ import { translations } from '../data/translations';
 import { experiences } from '../data/experiences';
 import {
   ArrowRight,
+  ArrowUpRight,
   Check,
   Compass,
   Heart,
@@ -307,14 +308,14 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
                       language === 'kn' ? selectedExp.titleKn : selectedExp.titleEn
                     )
                   }
-                  className="w-full px-5 py-3 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-[#162E22] hover:brightness-105 text-xs font-bold tracking-wide transition-all flex items-center justify-center gap-2 shadow-sm active:scale-98 cursor-pointer"
+                  className="group w-full px-5 py-3.5 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-[#12261C] border border-[#F5D77F]/60 hover:brightness-105 text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] active:scale-98 cursor-pointer"
                 >
                   <span>
                     {language === 'kn'
                       ? 'ಈ ಶೈಲಿಯಲ್ಲಿ ಪ್ರವಾಸ ರೂಪಿಸಿ'
                       : 'Plan in this travel style'}
                   </span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#162E22]" />
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#12261C] stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </button>
               </div>
             </div>
@@ -452,14 +453,14 @@ export const ExperiencesSection: React.FC<ExperiencesSectionProps> = ({
                       language === 'kn' ? selectedExp.titleKn : selectedExp.titleEn
                     )
                   }
-                  className="px-5 py-2.5 rounded-md bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-[#162E22] hover:brightness-105 text-xs font-bold tracking-wide transition-all flex items-center gap-2 shadow-sm active:scale-95 cursor-pointer"
+                  className="group px-6 py-3 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-[#12261C] border border-[#F5D77F]/60 hover:brightness-105 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] active:scale-95 cursor-pointer"
                 >
                   <span>
                     {language === 'kn'
                       ? 'ಈ ಶೈಲಿಯಲ್ಲಿ ಪ್ರವಾಸ ರೂಪಿಸಿ'
                       : 'Plan in this travel style'}
                   </span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#162E22]" />
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#12261C] stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </button>
               </div>
             </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Language } from '../types';
 import { translations } from '../data/translations';
-import { ArrowRight, MessageCircle, Compass } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, MessageCircle, Compass } from 'lucide-react';
 import { AmbariElephant, LotusIcon, KolamBorderRibbon, SikkuKolamMandala } from './SouthIndianMotifs';
 
 interface CtaInvitationProps {
@@ -59,10 +59,10 @@ export const CtaInvitation: React.FC<CtaInvitationProps> = ({
           <button
             type="button"
             onClick={onOpenPlanner}
-            className="w-full sm:w-auto px-8 py-4 min-h-[48px] rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-[#12261C] hover:brightness-105 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2.5 cursor-pointer border border-[#D4AF37]/50 focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
+            className="group w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 min-h-[48px] rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-[#12261C] hover:brightness-105 active:scale-95 shadow-xl hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] transition-all duration-300 font-bold text-xs sm:text-sm uppercase tracking-wider cursor-pointer border border-[#F5D77F]/60 flex items-center justify-center gap-2.5 focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
           >
-            <span>{t.ctaSection.btnPlan}</span>
-            <ArrowRight className="w-4 h-4 text-[#12261C]" />
+            <span className="text-[#12261C] font-bold">{t.ctaSection.btnPlan}</span>
+            <ArrowUpRight className="w-4 h-4 text-[#12261C] stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </button>
 
           <button

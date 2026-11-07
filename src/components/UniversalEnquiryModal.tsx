@@ -23,6 +23,7 @@ import {
   Phone,
   Mail,
   ArrowRight,
+  ArrowUpRight,
   ShieldAlert,
   Loader2,
   Calendar,
@@ -951,17 +952,17 @@ export const UniversalEnquiryModal: React.FC<UniversalEnquiryModalProps> = ({
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-1/2 sm:w-auto px-7 py-3 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-[#162E22] text-xs font-bold uppercase tracking-wider hover:brightness-105 active:scale-95 transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                      className="group w-1/2 sm:w-auto px-7 py-3 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-[#12261C] border border-[#F5D77F]/60 text-xs font-bold uppercase tracking-wider hover:brightness-105 active:scale-95 transition-all shadow-lg hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                     >
                       {isSubmitting ? (
                         <>
                           <Loader2 className="w-4 h-4 animate-spin text-[#162E22]" />
-                          <span>{kn ? 'ದಾಖಲಾಗುತ್ತಿದೆ...' : 'Submitting...'}</span>
+                          <span className="text-[#12261C] font-bold">{kn ? 'ದಾಖಲಾಗುತ್ತಿದೆ...' : 'Submitting...'}</span>
                         </>
                       ) : (
                         <>
-                          <span>{kn ? 'ವಿಚಾರಣೆ ಕಳುಹಿಸಿ' : 'Send Inquiry'}</span>
-                          <ArrowRight className="w-4 h-4 text-[#162E22]" />
+                          <span className="text-[#12261C] font-bold">{kn ? 'ವಿಚಾರಣೆ ಕಳುಹಿಸಿ' : 'Send Inquiry'}</span>
+                          <ArrowUpRight className="w-4 h-4 text-[#12261C] stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </>
                       )}
                     </button>

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Language } from '../types';
 import { translations } from '../data/translations';
-import { Compass, CalendarDays, ShieldCheck, HeartHandshake } from 'lucide-react';
+import { Compass, CalendarDays, ShieldCheck, HeartHandshake, ArrowUpRight } from 'lucide-react';
 import { LotusIcon, SikkuKolamMandala } from './SouthIndianMotifs';
 
 interface HowItWorksProps {
@@ -161,9 +161,10 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ language, onOpenPlanner 
           <button
             type="button"
             onClick={onOpenPlanner}
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-[#12261C] border border-[#D4AF37]/50 hover:brightness-105 text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all shrink-0 shadow-md active:scale-95 cursor-pointer"
+            className="group px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-[#12261C] border border-[#F5D77F]/60 hover:brightness-105 text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all shrink-0 shadow-lg hover:shadow-[0_0_20px_rgba(212,175,55,0.35)] active:scale-95 cursor-pointer flex items-center gap-2"
           >
-            {t.ctaSection.btnPlan}
+            <span className="text-[#12261C] font-bold">{t.ctaSection.btnPlan}</span>
+            <ArrowUpRight className="w-4 h-4 text-[#12261C] stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </button>
         </motion.div>
       </div>

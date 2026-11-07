@@ -1,7 +1,7 @@
 import React from 'react';
 import { Language, Concept } from '../types';
 import { LotusIcon, AmbariElephant, SikkuKolamMandala } from './SouthIndianMotifs';
-import { Globe, MapPin, Sparkles } from 'lucide-react';
+import { Globe, MapPin, Sparkles, ArrowUpRight } from 'lucide-react';
 
 interface HeroProps {
   language: Language;
@@ -73,11 +73,11 @@ export const Hero: React.FC<HeroProps> = ({
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
                 <button
                   type="button"
-                  className="px-7 py-3.5 min-h-[46px] rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-md active:scale-95 cursor-pointer border border-[#D4AF37]/50"
+                  className="group px-7 sm:px-8 py-3.5 sm:py-4 min-h-[48px] rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] hover:brightness-105 text-[#12261C] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-xl hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] active:scale-95 cursor-pointer border border-[#F5D77F]/60"
                   onClick={onOpenPlanner}
                 >
-                  <span>{kn ? 'ನಿಮ್ಮ ಕಥೆ ಆರಂಭಿಸಿ' : 'Begin your story'}</span>
-                  <span aria-hidden="true">↗</span>
+                  <span className="text-[#12261C] font-bold">{kn ? 'ನಿಮ್ಮ ಕಥೆ ಆರಂಭಿಸಿ' : 'Begin your story'}</span>
+                  <ArrowUpRight className="w-4 h-4 text-[#12261C] stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </button>
                 <button
                   type="button"
@@ -208,11 +208,11 @@ export const Hero: React.FC<HeroProps> = ({
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
                 <button
                   type="button"
-                  className="px-7 py-3.5 min-h-[46px] rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] hover:brightness-105 text-[#162E22] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-lg active:scale-95 cursor-pointer border border-[#D4AF37]/50"
+                  className="group px-7 sm:px-8 py-3.5 sm:py-4 min-h-[48px] rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] hover:brightness-105 text-[#12261C] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-xl hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] active:scale-95 cursor-pointer border border-[#F5D77F]/60"
                   onClick={onOpenPlanner}
                 >
-                  <span>{kn ? 'ನನ್ನ ಪ್ರವಾಸ ರೂಪಿಸಿ' : 'Design my escape'}</span>
-                  <span aria-hidden="true">↗</span>
+                  <span className="text-[#12261C] font-bold">{kn ? 'ನನ್ನ ಪ್ರವಾಸ ರೂಪಿಸಿ' : 'Design my escape'}</span>
+                  <ArrowUpRight className="w-4 h-4 text-[#12261C] stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </button>
                 <button
                   type="button"

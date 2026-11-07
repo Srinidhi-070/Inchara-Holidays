@@ -16,6 +16,7 @@ import {
   Home as HomeIcon,
   Info,
   ArrowRight,
+  ArrowUpRight,
   Shield,
   Layers,
   PackageCheck,
@@ -282,11 +283,11 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Primary Action Button */}
           <button
             type="button"
-            className="button button-gold hidden sm:inline-flex"
+            className="group hidden sm:inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-[#12261C] hover:brightness-105 active:scale-95 shadow-md hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-300 font-bold text-xs uppercase tracking-wider cursor-pointer border border-[#F5D77F]/60"
             onClick={handlePrimaryCta}
           >
-            <span>{isKn ? 'ಪ್ರವಾಸ ವಿಚಾರಣೆ' : 'Enquire Now'}</span>
-            <span aria-hidden="true">↗</span>
+            <span className="text-[#12261C] font-bold">{isKn ? 'ಪ್ರವಾಸ ವಿಚಾರಣೆ' : 'Enquire Now'}</span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-[#12261C] stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </button>
 
           {/* Mobile Menu Button */}
@@ -445,10 +446,10 @@ export const Header: React.FC<HeaderProps> = ({
                     setMobileMenuOpen(false);
                     handlePrimaryCta();
                   }}
-                  className="w-full button button-gold justify-center gap-2 text-center"
+                  className="group w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-[#12261C] hover:brightness-105 active:scale-95 shadow-lg hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-300 font-bold text-xs uppercase tracking-wider cursor-pointer border border-[#F5D77F]/60 text-center"
                 >
-                  <span>{isKn ? 'ಪ್ರವಾಸ ವಿಚಾರಣೆ' : 'Enquire Now'}</span>
-                  <span>↗</span>
+                  <span className="text-[#12261C] font-bold">{isKn ? 'ಪ್ರವಾಸ ವಿಚಾರಣೆ' : 'Enquire Now'}</span>
+                  <ArrowUpRight className="w-4 h-4 text-[#12261C] stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </button>
 
                 {onOpenAdmin && (

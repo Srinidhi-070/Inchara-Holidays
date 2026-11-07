@@ -7,7 +7,7 @@ import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Language } from '../types';
 import { LotusIcon, AmbariElephant, SikkuKolamMandala } from './SouthIndianMotifs';
-import { Utensils, Sparkles, Check, ArrowRight, Heart } from 'lucide-react';
+import { Utensils, Sparkles, Check, ArrowRight, ArrowUpRight, Heart } from 'lucide-react';
 
 interface CateringShowcaseProps {
   language: Language;
@@ -149,10 +149,10 @@ export const CateringShowcase: React.FC<CateringShowcaseProps> = ({
               <button
                 type="button"
                 onClick={onOpenCatering}
-                className="w-full sm:w-auto px-7 py-4 min-h-[48px] rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-[#162E22] text-xs sm:text-sm font-bold uppercase tracking-wider hover:brightness-105 active:scale-95 transition-all shadow-md flex items-center justify-center gap-2.5 cursor-pointer border border-[#D4AF37]/50 focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
+                className="group w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 min-h-[48px] rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-[#12261C] text-xs sm:text-sm font-bold uppercase tracking-wider hover:brightness-105 active:scale-95 shadow-xl hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer border border-[#F5D77F]/60 focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
               >
-                <span>{kn ? 'ಕ್ಯಾಟರಿಂಗ್ ವಿಚಾರಣೆ ಸಲ್ಲಿಸಿ' : 'Request Catering Consultation'}</span>
-                <ArrowRight className="w-4 h-4 text-[#162E22]" />
+                <span className="text-[#12261C] font-bold">{kn ? 'ಕ್ಯಾಟರಿಂಗ್ ವಿಚಾರಣೆ ಸಲ್ಲಿಸಿ' : 'Request Catering Consultation'}</span>
+                <ArrowUpRight className="w-4 h-4 text-[#12261C] stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
 
               <div className="text-xs text-[#252923]/60 flex items-center gap-1.5">
