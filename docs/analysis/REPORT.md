@@ -88,7 +88,11 @@ Refactor and rebuild the complete Inchara Holidays website by synthesizing:
 ---
 
 ### 6. Build and Test Results
-- `npm run build`: **Passed in 438ms** (Bundle size: `343.5 kB` JS, `120.2 kB` CSS).
+- `npm run build`: **Passed in 563ms** with optimal code-splitting:
+  - Main bundle: `342.86 kB` (104.8 kB gzip)
+  - `ItineraryModal`: `3.20 kB` (1.35 kB gzip)
+  - `DestinationModal`: `176.27 kB` (56.8 kB gzip, loaded dynamically on demand)
+  - CSS: `120.47 kB` (20.87 kB gzip)
 - `npx tsc --noEmit`: **Passed with 0 errors**.
 - Playwright Verification:
   - Desktop Viewport (1440x900): Complete page verified.
@@ -96,3 +100,5 @@ Refactor and rebuild the complete Inchara Holidays website by synthesizing:
   - Catering Feature: Banana-leaf feast, seal, and button verified.
   - Bilingual Mode: Kannada font rendering verified with zero clipped glyphs.
   - Universal Enquiry Dialog: 4-step wizard opened and verified.
+  - Package Itinerary Modal: High-contrast opaque white dialog and checklist verified.
+  - Destination Cultural Modal: Verified with Hampi narrative, best season, travel style, and etiquette tips.
