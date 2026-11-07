@@ -819,8 +819,7 @@ button[class*="bg-[#9E3D28]"] span {
   text-transform: none !important;
 }
 .language-kn .section-title h2,
-.language-kn .planner-intro h2,
-.language-kn .footer-image h2 {
+.language-kn .planner-intro h2 {
   line-height: 1.15;
 }
 .language-kn .nav a {
@@ -1085,7 +1084,7 @@ button[class*="bg-[#9E3D28]"] span {
 .section-title { max-width: 47rem; }
 .section-label { color: var(--terracotta); }
 .section-label span { color: var(--gold); margin-right: .6rem; }
-.section-title h2, .planner-intro h2, .footer-image h2 {
+.section-title h2, .planner-intro h2 {
   margin: 1.2rem 0 0; font-family: var(--serif); font-size: clamp(3.3rem, 5vw, 5.5rem); font-weight: 400; line-height: .9; letter-spacing: -.035em;
 }
 .section-title h2 em { color: var(--terracotta); font-weight: 400; }
@@ -1209,13 +1208,64 @@ button[class*="bg-[#9E3D28]"] span {
 .story-controls span { font-size: .55rem; }
 
 .footer { background: #0f261a; color: white; }
-.footer-image { position: relative; min-height: 42rem; display: grid; place-items: center; text-align: center; overflow: hidden; }
-.footer-image::after { content: ""; position: absolute; inset: 0; background: rgba(7,27,16,.58); }
-.footer-image > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.footer-image > div { position: relative; z-index: 2; max-width: 55rem; padding: 2rem; }
-.footer-image span { color: var(--kasavu); font-size: .62rem; letter-spacing: .2em; }
-.footer-image h2 { font-size: clamp(4rem, 7vw, 7rem); }
-.footer-image p { font-family: "Noto Sans Kannada"; }
+.footer-image {
+  position: relative;
+  min-height: 32rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.footer-image > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+.footer-image-eyebrow {
+  color: var(--kasavu) !important;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.footer-image-title {
+  margin: 0 auto;
+  max-width: 48rem;
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 3.8vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: #ffffff;
+}
+.language-kn .footer-image-title {
+  font-size: clamp(1.85rem, 3.2vw, 3rem);
+  line-height: 1.35;
+  max-width: 44rem;
+}
+.footer-image-copy {
+  margin: 1.25rem auto 0;
+  max-width: 34rem;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(0.92rem, 1.15vw, 1.1rem);
+  line-height: 1.6;
+}
+.language-kn .footer-image-copy {
+  font-family: "Noto Sans Kannada", sans-serif;
+  line-height: 1.7;
+}
+/* Ensure button inside footer-image retains bold dark contrast text */
+.footer-image .footer-image-cta,
+.footer-image .footer-image-cta span {
+  color: #12261c !important;
+  font-size: 0.82rem !important;
+  letter-spacing: 0.08em !important;
+  font-weight: 700 !important;
+}
 .footer-main { padding-top: 5rem; padding-bottom: 5rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; border-bottom: 1px solid rgba(255,255,255,.16); }
 .footer-brand > p { margin: 2rem 0; font-family: var(--serif); font-size: 1.2rem; color: rgba(255,255,255,.65); }
 .footer-brand > a { display: block; margin-top: .5rem; font-size: .72rem; }
@@ -1313,8 +1363,7 @@ button[class*="bg-[#9E3D28]"] span {
     padding-right: clamp(1.5rem, 4vw, 3rem);
   }
   .section-title h2,
-  .planner-intro h2,
-  .footer-image h2 {
+  .planner-intro h2 {
     font-size: clamp(2.5rem, 4.4vw, 3.8rem);
     line-height: 1.05;
   }
@@ -1682,14 +1731,12 @@ button[class*="bg-[#9E3D28]"] span {
     margin-bottom: 2rem;
   }
   .section-title h2,
-  .planner-intro h2,
-  .footer-image h2 {
+  .planner-intro h2 {
     font-size: clamp(2.1rem, 7vw, 3rem);
     line-height: 1.05;
   }
   .language-kn .section-title h2,
-  .language-kn .planner-intro h2,
-  .language-kn .footer-image h2 {
+  .language-kn .planner-intro h2 {
     font-size: clamp(1.85rem, 6vw, 2.6rem);
     line-height: 1.22;
   }
@@ -2144,8 +2191,8 @@ button[class*="bg-[#9E3D28]"] span {
 
   /* Footer Mobile */
   .footer-image {
-    min-height: 26rem;
-    padding: 3.5rem 1.25rem;
+    min-height: 24rem;
+    padding: 0;
   }
   .footer-main {
     grid-template-columns: 1fr;
