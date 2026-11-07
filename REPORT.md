@@ -91,3 +91,20 @@ Following direct user feedback with the benchmark reference image (*"The Sanctit
    - Added the geometric South Indian Kolam watermark lattice to `src/index.css` and applied it across `WhyUs`, `AboutIntroduction`, `Affiliations`, `DestinationDiscovery`, `PackagesSection`, `InstitutionalCorporateHighlight`, `TravelLogisticsAssistance`, and `CateringShowcase`.
 4. **Verified via Playwright**:
    - Live verified all sections on `http://localhost:5180/` with Playwright screenshots confirming Playfair Display, Plus Jakarta Sans, terracotta italic accents, and Kolam background textures.
+
+---
+
+### 7. Cycle 4: Viewport Unblocking & Floating WhatsApp Button Removal
+Following direct user request (`media_1794077472331_5652119f.png` showing the green `[💬 WHATSAPP]` floating pill button):
+1. **Removed Floating WhatsApp Pill**:
+   - Removed the floating green `[💬 WHATSAPP]` pill from `src/components/FloatingActions.tsx`.
+   - Prevented obstruction of bottom-right viewport content, including the Hero's `"SCROLL TO WANDER ⌵"` cue.
+   - Preserved WhatsApp routing where intended:
+     - The official 4-column directory `Footer.tsx` (`+91 94482 17345` with WhatsApp icon & direct chat link).
+     - The `EnquiryDialog.tsx` submission success screen with reference number auto-filled in the WhatsApp message.
+2. **Preserved Elegant Back-to-Top Control**:
+   - `FloatingActions.tsx` only renders when scrolled past 300px, featuring the circular button with gold radial progress ring and smooth-scroll to top.
+3. **Verification**:
+   - `npx tsc --noEmit`: 0 errors.
+   - `npm run build`: Production bundle built successfully.
+   - Playwright live screenshot verified at `http://localhost:5180/`: hero bottom-right is unobstructed; on scrolling down, only the clean back-to-top button appears.
