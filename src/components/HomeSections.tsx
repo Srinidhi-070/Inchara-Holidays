@@ -23,9 +23,6 @@ export function Hero({ locale, onEnquire }: Props) {
       <div className="hero__shade" />
       <div className="hero__ornament" aria-hidden="true" />
       <div className="shell hero__content">
-        <div className="coordinate" data-reveal="fade">
-          {String(c.coordinates)}
-        </div>
         <div className="hero__main" data-reveal="hero">
           <p className="eyebrow eyebrow--light">{String(c.heroEyebrow)}</p>
           <h1 id="hero-title" className={locale === "kn" ? "font-kannada-serif" : ""}>

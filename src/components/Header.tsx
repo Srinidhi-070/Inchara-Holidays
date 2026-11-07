@@ -82,8 +82,8 @@ export function Header({ locale, setLocale, onEnquire }: Props) {
         <div className="header-actions">
           <LanguageSwitch locale={locale} setLocale={setLocale} label={String(c.language)} />
           <button className="gold-button header-cta" type="button" onClick={() => onEnquire()}>
-            {String(c.enquire)}
-            <ArrowUpRight />
+            <span className="header-cta__label">{String(c.enquire)}</span>
+            <ArrowUpRight className="header-cta__icon" />
           </button>
           <button
             ref={menuButtonRef}
