@@ -1,13 +1,14 @@
 import { destinations } from "../data/destinations";
-import type { Locale, ServiceId } from "../types";
+import type { Locale, ServiceId, Destination } from "../types";
 import { ArrowUpRight } from "./Icons";
 
 type Props = {
   locale: Locale;
-  onEnquire: (service?: ServiceId) => void;
+  onEnquire: (service?: ServiceId, destinationName?: string) => void;
+  onSelectDestination?: (dest: Destination) => void;
 };
 
-export function DestinationsSection({ locale, onEnquire }: Props) {
+export function DestinationsSection({ locale, onEnquire, onSelectDestination }: Props) {
   const isKn = locale === "kn";
   const featured = destinations.slice(0, 6);
 
@@ -33,7 +34,13 @@ export function DestinationsSection({ locale, onEnquire }: Props) {
               key={dest.id}
               data-reveal="card"
               data-delay={60 + (idx % 3) * 70}
-              onClick={() => onEnquire("holidays")}
+              onClick={() => {
+                if (onSelectDestination) {
+                  onSelectDestination(dest);
+                } else {
+                  onEnquire("holidays", isKn ? dest.nameKn : dest.nameEn);
+                }
+              }}
             >
               <img
                 src={dest.image}
@@ -48,7 +55,7 @@ export function DestinationsSection({ locale, onEnquire }: Props) {
                 <h3 className="destination-card__name">{isKn ? dest.nameKn : dest.nameEn}</h3>
                 <p className="destination-card__sight">{isKn ? dest.tagKn : dest.tagEn}</p>
                 <div className="mt-4 flex items-center gap-1.5 text-xs text-[#f5d77f] font-semibold">
-                  <span>{isKn ? "ಪ್ರವಾಸ ವಿಚಾರಿಸಿ" : "Enquire Journey"}</span>
+                  <span>{isKn ? "ವಿವರ & ಸಂಸ್ಕೃತಿ ನೋಡಿ" : "Explore Culture & Sights"}</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </div>
               </div>

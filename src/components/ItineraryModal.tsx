@@ -61,7 +61,7 @@ export function ItineraryModal({ pkg, locale, onClose, onPlan }: Props) {
           </div>
         </div>
 
-        <div className="p-6 sm:p-8 space-y-6">
+        <div className="itinerary-dialog__body p-6 sm:p-8 space-y-6">
           <div>
             <h4 className="text-xs font-bold uppercase tracking-widest text-[#9E3D28] mb-3">
               {isKn ? "ಪಯಣದ ಪ್ರಮುಖ ಆಕರ್ಷಣೆಗಳು" : "Itinerary Highlights"}

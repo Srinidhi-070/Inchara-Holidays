@@ -110,10 +110,11 @@ type Props = {
   open: boolean;
   locale: Locale;
   initialService: ServiceId | null;
+  initialDestination?: string;
   onClose: () => void;
 };
 
-export function EnquiryDialog({ open, locale, initialService, onClose }: Props) {
+export function EnquiryDialog({ open, locale, initialService, initialDestination, onClose }: Props) {
   const [step, setStep] = useState(0);
   const [payload, setPayload] = useState<EnquiryPayload>({
     service: "",
@@ -134,7 +135,11 @@ export function EnquiryDialog({ open, locale, initialService, onClose }: Props) 
     setPayload((current) => ({
       ...current,
       service: initialService ?? current.service,
-      details: initialService && initialService !== current.service ? {} : current.details,
+      details: initialDestination
+        ? { ...current.details, destination: initialDestination }
+        : initialService && initialService !== current.service
+        ? {}
+        : current.details,
     }));
     document.body.classList.add("dialog-open");
     window.setTimeout(() => dialogRef.current?.focus(), 0);
