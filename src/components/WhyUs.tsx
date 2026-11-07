@@ -17,11 +17,13 @@ export const WhyUs: React.FC<WhyUsProps> = ({ language }) => {
     {
       id: 'ktf',
       code: 'KTF',
-      nameKn: 'ಕರ್ನಾಟಕ ಟೂರಿಸಂ ಫೋರಮ್',
-      nameEn: 'Karnataka Tourism Forum',
+      labelKn: 'ಕೆಟಿಎಫ್ ಕರ್ನಾಟಕ',
+      labelEn: 'KTF Karnataka',
+      fullNameKn: 'ಕರ್ನಾಟಕ ಟೂರಿಸಂ ಫೋರಮ್',
+      fullNameEn: 'Karnataka Tourism Forum',
       badgeKn: 'ರಾಜ್ಯ ಪ್ರವಾಸೋದ್ಯಮ ಒಕ್ಕೂಟ',
       badgeEn: 'Karnataka State Chapter',
-      logo: '/images/partners/ktf_logo.jpg',
+      logo: '/images/partners/ktf_logo_trimmed.jpg',
       alt: 'Karnataka Tourism Forum (KTF)',
       verifiedKn: 'ಮಾನ್ಯತೆ ಪಡೆದ ಸದಸ್ಯರು',
       verifiedEn: 'Verified Member',
@@ -29,11 +31,13 @@ export const WhyUs: React.FC<WhyUsProps> = ({ language }) => {
     {
       id: 'iatte',
       code: 'IATTE',
-      nameKn: 'ಐಎಟಿಟಿಇ ಇಂಡಿಯಾ',
-      nameEn: 'Indian Assoc. of Travel & Tourism Experts',
+      labelKn: 'ಐಎಟಿಟಿಇ ಇಂಡಿಯಾ',
+      labelEn: 'IATTE India',
+      fullNameKn: 'ಇಂಡಿಯನ್ ಅಸೋಸಿಯೇಷನ್ ಆಫ್ ಟ್ರಾವೆಲ್ & ಟೂರಿಸಂ ಎಕ್ಸ್‌ಪರ್ಟ್ಸ್',
+      fullNameEn: 'Indian Assoc. of Travel & Tourism Experts',
       badgeKn: 'ರಾಷ್ಟ್ರೀಯ ತಜ್ಞರ ಮಂಡಳಿ',
       badgeEn: 'National Expert Council',
-      logo: '/images/partners/iatte_logo.jpg',
+      logo: '/images/partners/iatte_logo_trimmed.jpg',
       alt: 'IATTE - Indian Association of Travel & Tourism Experts',
       verifiedKn: 'ರಾಷ್ಟ್ರೀಯ ನೋಂದಾಯಿತ',
       verifiedEn: 'National Registered',
@@ -41,11 +45,13 @@ export const WhyUs: React.FC<WhyUsProps> = ({ language }) => {
     {
       id: 'abto',
       code: 'ABTO',
-      nameKn: 'ಅಸೋಸಿಯೇಷನ್ ಆಫ್ ಬುದ್ಧಿಸ್ಟ್ ಟೂರ್ ಆಪರೇಟರ್ಸ್',
-      nameEn: 'Assoc. of Buddhist Tour Operators',
+      labelKn: 'ಎಬಿಟಿಒ ಪ್ರವಾಸೋದ್ಯಮ',
+      labelEn: 'ABTO Tourism',
+      fullNameKn: 'ಅಸೋಸಿಯೇಷನ್ ಆಫ್ ಬುದ್ಧಿಸ್ಟ್ ಟೂರ್ ಆಪರೇಟರ್ಸ್',
+      fullNameEn: 'Assoc. of Buddhist Tour Operators',
       badgeKn: 'ಅಂತಾರಾಷ್ಟ್ರೀಯ & ದೇಶೀಯ',
       badgeEn: 'International & National',
-      logo: '/images/partners/abto_logo.png',
+      logo: '/images/partners/abto_logo_trimmed.png',
       alt: 'Association of Buddhist Tour Operators (ABTO)',
       verifiedKn: 'ವಿಶ್ವವ್ಯಾಪಿ ಸದಸ್ಯತ್ವ',
       verifiedEn: 'Charter Member',
@@ -53,8 +59,10 @@ export const WhyUs: React.FC<WhyUsProps> = ({ language }) => {
     {
       id: 'uten',
       code: 'UTEN',
-      nameKn: 'ಯುಟಿಇಎನ್ ಫ್ರಾಟರ್ನಿಟಿ',
-      nameEn: 'United Travel & Educational Network',
+      labelKn: 'ಯುಟಿಇಎನ್ ಫ್ರಾಟರ್ನಿಟಿ',
+      labelEn: 'UTEN Fraternity',
+      fullNameKn: 'ಯುನೈಟೆಡ್ ಟ್ರಾವೆಲ್ & ಎಜುಕೇಷನಲ್ ನೆಟ್‌ವರ್ಕ್',
+      fullNameEn: 'United Travel & Educational Network',
       badgeKn: 'ಶೈಕ್ಷಣಿಕ ಪ್ರವಾಸೋದ್ಯಮ ಜಾಲ',
       badgeEn: 'Educational & Travel Network',
       logo: '/images/partners/uten_logo.png',
@@ -132,12 +140,12 @@ export const WhyUs: React.FC<WhyUsProps> = ({ language }) => {
           ))}
         </div>
 
-        {/* Large Prominent Industry Accreditations & Trade Affiliations */}
-        <div id="accreditations" className="mt-20 sm:mt-28 pt-16 border-t border-[#263F32]/12">
-          {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#9E3D28] uppercase mb-3">
-              <span className="w-6 h-px bg-[#D4AF37]" />
+        {/* Industry Accreditations & Trade Affiliations */}
+        <div id="accreditations" className="mt-16 sm:mt-24 pt-12 border-t border-[#263F32]/10">
+          {/* Header matching user's reference */}
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#9E3D28] inline-flex items-center gap-2">
+              <span className="w-5 h-px bg-[#D4AF37]" />
               <LotusIcon className="w-4 h-4 text-[#D4AF37]" />
               <span>
                 {language === 'kn'
@@ -145,81 +153,55 @@ export const WhyUs: React.FC<WhyUsProps> = ({ language }) => {
                   : 'Recognised Industry Affiliations & Accreditations'}
               </span>
               <LotusIcon className="w-4 h-4 text-[#D4AF37]" />
-              <span className="w-6 h-px bg-[#D4AF37]" />
-            </div>
-
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold font-serif-editorial text-[#162E22] tracking-tight leading-snug">
-              {language === 'kn' ? (
-                <>
-                  ರಾಜ್ಯ ಮತ್ತು ರಾಷ್ಟ್ರೀಯ ಒಕ್ಕೂಟಗಳ{' '}
-                  <em className="text-[#9E3D28] font-normal">ಅಧಿಕೃತ ಸದಸ್ಯತ್ವ.</em>
-                </>
-              ) : (
-                <>
-                  Accredited by Leading{' '}
-                  <em className="text-[#9E3D28] font-normal">Tourism & Travel Federations.</em>
-                </>
-              )}
-            </h3>
-
-            <p className="mt-3.5 text-sm sm:text-base text-[#252923]/75 leading-relaxed">
+              <span className="w-5 h-px bg-[#D4AF37]" />
+            </span>
+            <p className="text-sm sm:text-base text-[#252923]/75 font-normal mt-2">
               {language === 'kn'
-                ? 'ಕರ್ನಾಟಕ ಟೂರಿಸಂ ಫೋರಮ್ (KTF), ಐಎಟಿಟಿಇ (IATTE), ಎಬಿಟಿಒ (ABTO) ಮತ್ತು ಯುಟಿಇಎನ್ (UTEN) ಸೇರಿದಂತೆ ಪ್ರಮುಖ ಪ್ರವಾಸೋದ್ಯಮ ಒಕ್ಕೂಟಗಳ ಹೆಮ್ಮೆಯ ಮಾನ್ಯತೆ — ನಿಮ್ಮ ಪ್ರತಿಯೊಂದು ಪಯಣಕ್ಕೂ ಗರಿಷ್ಠ ವಿಶ್ವಾಸ ಮತ್ತು ವೃತ್ತಿಪರ ಭದ್ರತೆ.'
-                : 'Proud members of premier state, national, and international travel trade bodies — guaranteeing certified safety standards, transparent operations, and peer-reviewed hospitality.'}
+                ? 'ರಾಜ್ಯ, ರಾಷ್ಟ್ರೀಯ ಮತ್ತು ಅಂತಾರಾಷ್ಟ್ರೀಯ ಪ್ರವಾಸೋದ್ಯಮ ಒಕ್ಕೂಟಗಳ ಹೆಮ್ಮೆಯ ಸದಸ್ಯತ್ವ'
+                : 'Proud members of leading state, national & international travel trade bodies'}
             </p>
           </div>
 
-          {/* Large-Format Accreditation Plaques Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-6xl mx-auto">
+          {/* Prominent High-Visibility Logos in Balanced Pill Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-7 max-w-5xl mx-auto">
             {affiliations.map((partner, idx) => (
               <motion.div
                 key={partner.id}
-                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 24 }}
+                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{
-                  duration: 0.5,
-                  delay: shouldReduceMotion ? 0 : idx * 0.08,
+                  duration: 0.45,
+                  delay: shouldReduceMotion ? 0 : idx * 0.07,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                whileHover={shouldReduceMotion ? {} : { y: -6 }}
-                className="bg-white rounded-3xl border-2 border-[#263F32]/10 hover:border-[#D4AF37] p-6 sm:p-7 flex flex-col justify-between items-center text-center shadow-xs hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
+                whileHover={shouldReduceMotion ? {} : { y: -4 }}
+                className="flex flex-col items-center group cursor-default"
               >
-                {/* Top Gold Foil Accent Bar */}
-                <div className="absolute top-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-[#9E3D28] via-[#D4AF37] to-[#162E22] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Large White Rounded Pill Card */}
+                <div className="w-full h-32 sm:h-36 md:h-40 bg-white rounded-2xl sm:rounded-3xl border border-[#263F32]/12 group-hover:border-[#D4AF37] p-4 sm:p-6 flex items-center justify-center shadow-xs group-hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+                  {/* Subtle top gold hairline on hover */}
+                  <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#9E3D28] via-[#D4AF37] to-[#162E22] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                <div className="w-full flex flex-col items-center">
-                  {/* Large Logo Stage */}
-                  <div className="w-full h-32 sm:h-36 bg-[#FBF8F1]/90 rounded-2xl p-4 sm:p-5 flex items-center justify-center border border-[#263F32]/8 group-hover:bg-white group-hover:border-[#D4AF37]/50 shadow-inner group-hover:shadow-xs transition-all duration-300 mb-5">
-                    <img
-                      src={partner.logo}
-                      alt={partner.alt}
-                      loading="lazy"
-                      className="max-h-24 sm:max-h-28 max-w-[90%] object-contain group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-
-                  {/* Primary Acronym Code */}
-                  <div className="text-xl sm:text-2xl font-bold font-serif-editorial text-[#162E22] group-hover:text-[#9E3D28] transition-colors">
-                    {partner.code}
-                  </div>
-
-                  {/* Full Title */}
-                  <h4 className="text-xs sm:text-sm text-[#252923]/85 font-medium leading-snug mt-1.5 min-h-[2.5rem] flex items-center justify-center">
-                    {language === 'kn' ? partner.nameKn : partner.nameEn}
-                  </h4>
-
-                  {/* Association Scope Pill */}
-                  <span className="mt-3 inline-block px-3 py-1 rounded-full bg-[#F6F3EA] border border-[#D4AF37]/35 text-[11px] font-bold text-[#9E3D28] tracking-wider uppercase">
-                    {language === 'kn' ? partner.badgeKn : partner.badgeEn}
-                  </span>
+                  <img
+                    src={partner.logo}
+                    alt={partner.alt}
+                    loading="lazy"
+                    className={`max-h-24 sm:max-h-28 md:max-h-32 max-w-[88%] object-contain group-hover:scale-105 transition-transform duration-300 ${
+                      partner.id === 'uten' ? 'rounded-lg' : ''
+                    }`}
+                  />
                 </div>
 
-                {/* Bottom Verified Member Footer */}
-                <div className="mt-6 pt-3.5 border-t border-[#263F32]/8 w-full flex items-center justify-center gap-1.5 text-xs font-semibold text-[#162E22]/75">
-                  <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
-                  <span>{language === 'kn' ? partner.verifiedKn : partner.verifiedEn}</span>
-                </div>
+                {/* Primary Caption Label */}
+                <span className="mt-3 text-xs sm:text-sm font-bold text-[#162E22] tracking-wide group-hover:text-[#9E3D28] transition-colors text-center">
+                  {language === 'kn' ? partner.labelKn : partner.labelEn}
+                </span>
+
+                {/* Secondary Scope Subtitle */}
+                <span className="text-[11px] text-[#252923]/65 font-medium text-center mt-0.5">
+                  {language === 'kn' ? partner.badgeKn : partner.badgeEn}
+                </span>
               </motion.div>
             ))}
           </div>
