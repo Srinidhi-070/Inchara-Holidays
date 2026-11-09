@@ -170,3 +170,38 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
 3. **Catering Section Interactivity**: Wire `CateringModal` (occasion, banana leaf vs buffet, satvik/Jain) and provide an interactive traditional sample menu viewer.
 4. **Transport Fleet Interactivity**: Add an interactive vehicle fleet viewer modal displaying seat layouts, luggage limits, and verified chauffeur amenities.
 5. **Preserve Universal Enquiry**: The top-level `Enquire Now ↗` CTA continues to launch the 4-step Universal Enquiry Dialog.
+
+---
+
+### 10. Cycle 7: Hybrid UI Synthesis — Clutter-Free Architecture with Vercel Animations & Specialized Modals
+**Date**: November 9, 2026  
+**Objective**: Combine the best elements of the Vercel-deployed edition (spring custom cursor, scroll progress bar, specialized interactive modals, and clickable service offerings) with the refined, uncluttered layout of the new redesign.
+
+#### 1. Features Reconciled & Mounted
+1. **`<CustomCursor />` Activated**:
+   - The luxury gold spring-physics follower ring is active across fine-pointer desktop devices, expanding smoothly on hoverable elements (`[data-cursor]`, `button`, `a`).
+   - Automatically disabled on touch screens and under reduced-motion preferences.
+2. **`<ScrollProgressBar />` Activated**:
+   - Restored the smooth Mysore Gold-to-Terracotta gradient reading progress bar at the top of the viewport.
+3. **Specialized Interactive Modals Wired**:
+   - **Educational Tours**: Connected [`SchoolTripModal.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/SchoolTripModal.tsx) (institutional name, coordinator, grade levels, student count, learning circuits, and WhatsApp summary).
+   - **Corporate Offsites**: Connected [`CorporateEventModal.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/CorporateEventModal.tsx) (company, contact, event types, attendee counts, coffee estate resorts, and AV requirements).
+   - **Pure Veg Catering**: Connected [`CateringModal.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/CateringModal.tsx) (occasion, banana leaf vs modern buffet, satvik/Jain dietary preferences, and guest count).
+4. **Interactive Offering Chips on 6 Services**:
+   - Enhanced each service card with interactive offering chips (`School excursions`, `Industrial visits`, `Leadership retreats`, etc.) equipped with spring hover and `data-cursor` labels that launch the respective modal or circuit directly.
+5. **Universal 4-Step Enquiry Preserved**:
+   - The top-level `Enquire Now ↗` CTA in the header and hero continues to open the Universal [`EnquiryDialog.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/EnquiryDialog.tsx).
+6. **Clutter-Free Standards Preserved**:
+   - No floating green button blocking the viewport or the Hero's "SCROLL TO WANDER ⌵" cue.
+   - Clean Playfair Display serif + Plus Jakarta Sans typography.
+   - Modal z-index set to `z-[1050]` overlaying the fixed header cleanly.
+
+#### 2. Live Verification Results
+- **TypeScript**: `npx tsc --noEmit` exited with 0 errors.
+- **Production Build**: `npm run build` compiled cleanly in 670ms with code-split modal chunks.
+- **Playwright Live Verification**:
+  - Tested clicking `School excursions` -> `SchoolTripModal` slid in cleanly from right.
+  - Tested clicking `Team offsites` -> `CorporateEventModal` slid in cleanly.
+  - Tested clicking `Request Catering Consultation` -> `CateringModal` slid in cleanly.
+  - Tested clicking header `Enquire now` -> `EnquiryDialog` opened at `z-[1050]`.
+  - Tested `CustomCursor` and `ScrollProgressBar` -> rendered smoothly with spring physics.
