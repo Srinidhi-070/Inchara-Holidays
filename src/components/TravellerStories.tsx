@@ -11,7 +11,7 @@ export function TravellerStories({ locale }: Props) {
   return (
     <section className="stories-section section bg-[#F6F3EA] bg-kolam-subtle scroll-mt-24" aria-labelledby="stories-title">
       <div className="shell">
-        <div className="section-intro" data-reveal="up">
+        <div className="max-w-3xl mb-10 sm:mb-12 text-center mx-auto" data-reveal="up">
           <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-[#9E3D28] uppercase mb-2.5">
             <span className="w-5 h-px bg-[#D4AF37]" />
             <span>✦</span>

@@ -170,7 +170,7 @@ export function Services({ locale, onEnquire }: Props) {
   return (
     <section className="services-section section scroll-mt-24" id="services" aria-labelledby="services-title">
       <div className="shell">
-        <div className="section-intro" data-reveal="up">
+        <div className="max-w-3xl mb-10 sm:mb-12" data-reveal="up">
           <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-[#9E3D28] uppercase mb-2.5">
             <span className="w-5 h-px bg-[#D4AF37]" />
             <span>✦</span>
