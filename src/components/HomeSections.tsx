@@ -168,14 +168,34 @@ export function Services({ locale, onEnquire }: Props) {
   };
 
   return (
-    <section className="services-section section" id="services" aria-labelledby="services-title">
+    <section className="services-section section scroll-mt-24" id="services" aria-labelledby="services-title">
       <div className="shell">
         <div className="section-intro" data-reveal="up">
-          <p className="eyebrow">{String(c.servicesEyebrow)}</p>
-          <h2 id="services-title" className={locale === "kn" ? "font-kannada-serif" : ""}>
-            {String(c.servicesTitle)}
+          <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-[#9E3D28] uppercase mb-2.5">
+            <span className="w-5 h-px bg-[#D4AF37]" />
+            <span>✦</span>
+            <span>{String(c.servicesEyebrow)}</span>
+            <span>✦</span>
+            <span className="w-5 h-px bg-[#D4AF37]" />
+          </div>
+          <h2 id="services-title" className={`text-2xl sm:text-3xl lg:text-4xl font-serif-editorial font-bold text-[#162E22] tracking-tight leading-[1.18] ${locale === "kn" ? "font-kannada-serif" : ""}`}>
+            {locale === "kn" ? (
+              <>
+                ಪ್ರಯಾಣ, ಸಮಾಗಮ ಮತ್ತು ಆತಿಥ್ಯ —{" "}
+                <em className="text-[#9E3D28] font-normal font-serif-editorial italic">
+                  ಒಂದೇ ಸೂರಿನಡಿ.
+                </em>
+              </>
+            ) : (
+              <>
+                Travel, gathering & hospitality —{" "}
+                <em className="text-[#9E3D28] font-normal font-serif-editorial italic">
+                  considered as one.
+                </em>
+              </>
+            )}
           </h2>
-          <p>{String(c.servicesBody)}</p>
+          <p className="text-sm sm:text-base text-[#252923]/75 leading-relaxed font-normal mt-3">{String(c.servicesBody)}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 mt-10">
@@ -339,8 +359,22 @@ export function JourneyProcess({ locale }: { locale: Locale }) {
       <div className="shell">
         <div className="process__intro" data-reveal="up">
           <p className="eyebrow eyebrow--light">{String(c.processEyebrow)}</p>
-          <h2 id="process-title" className={locale === "kn" ? "font-kannada-serif" : ""}>
-            {String(c.processTitle)}
+          <h2 id="process-title" className={`text-2xl sm:text-3xl lg:text-4xl font-serif-editorial font-bold text-white tracking-tight leading-[1.18] ${locale === "kn" ? "font-kannada-serif" : ""}`}>
+            {locale === "kn" ? (
+              <>
+                ನಾವು ಆಲಿಸುವುದರಿಂದ{" "}
+                <em className="text-[#F5D77F] font-normal font-serif-editorial italic">
+                  ಆರಂಭಿಸುತ್ತೇವೆ.
+                </em>
+              </>
+            ) : (
+              <>
+                We begin by{" "}
+                <em className="text-[#F5D77F] font-normal font-serif-editorial italic">
+                  listening.
+                </em>
+              </>
+            )}
           </h2>
         </div>
         <ol className="process__list">
@@ -372,8 +406,22 @@ export function InvitationBanner({ locale, onEnquire }: Props) {
       <div className="invitation__shade" />
       <div className="shell invitation__content" data-reveal="up">
         <p className="eyebrow eyebrow--lined">{String(c.invitationEyebrow)}</p>
-        <h2 id="invitation-title" className={locale === "kn" ? "font-kannada-serif" : ""}>
-          {String(c.invitationTitle)}
+        <h2 id="invitation-title" className={`text-3xl sm:text-4xl lg:text-5xl font-serif-editorial font-bold text-white tracking-tight leading-[1.15] ${locale === "kn" ? "font-kannada-serif" : ""}`}>
+          {locale === "kn" ? (
+            <>
+              ನಿಮ್ಮ ಹೃದಯದ ಮುಂದಿನ{" "}
+              <em className="text-[#F5D77F] font-normal font-serif-editorial italic">
+                ಪಯಣ ಎಲ್ಲಿಗೆ?
+              </em>
+            </>
+          ) : (
+            <>
+              Where will your heart{" "}
+              <em className="text-[#F5D77F] font-normal font-serif-editorial italic">
+                take you next?
+              </em>
+            </>
+          )}
         </h2>
         <p>{String(c.invitationBody)}</p>
         <button className="gold-button" type="button" onClick={() => onEnquire()}>

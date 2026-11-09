@@ -61,7 +61,7 @@ export function AboutIntroduction({ locale }: AboutIntroductionProps) {
   const c = copy[locale];
 
   return (
-    <section id="about" className="py-14 sm:py-20 bg-[#F6F3EA] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10" aria-labelledby="about-title">
+    <section id="about" className="scroll-mt-24 py-14 sm:py-20 bg-[#F6F3EA] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10" aria-labelledby="about-title">
       {/* Subtle diamond background pattern */}
       <div 
         className="absolute inset-0 opacity-[0.035] pointer-events-none" 
@@ -101,7 +101,7 @@ export function AboutIntroduction({ locale }: AboutIntroductionProps) {
             locale === "kn" ? "font-kannada-serif" : ""
           }`}>
             {c.titleStart}
-            <em className="text-[#9E3D28] font-normal not-italic font-serif-editorial italic">
+            <em className="text-[#9E3D28] font-normal font-serif-editorial italic">
               {c.titleHighlight}
             </em>
           </h2>

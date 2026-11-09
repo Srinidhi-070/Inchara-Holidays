@@ -22,7 +22,7 @@ export const CateringShowcase: React.FC<CateringShowcaseProps> = ({
   const kn = language === 'kn';
 
   return (
-    <section id="catering-showcase" className="py-14 sm:py-20 bg-[#FBF8F1] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10">
+    <section id="catering-showcase" className="scroll-mt-24 py-14 sm:py-20 bg-[#FBF8F1] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Column: Visual Showcase */}

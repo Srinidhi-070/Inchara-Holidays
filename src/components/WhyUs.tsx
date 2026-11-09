@@ -114,7 +114,21 @@ export function WhyUs({ locale }: WhyUsProps) {
           <h2 id="why-us-title" className={`text-2xl sm:text-3xl lg:text-4xl font-serif-editorial font-bold text-[#162E22] tracking-tight leading-[1.15] mb-4 ${
             locale === 'kn' ? 'font-kannada-serif' : ''
           }`}>
-            {c.title}
+            {locale === "kn" ? (
+              <>
+                ಆತ್ಮೀಯ ಕಾಳಜಿ,{" "}
+                <em className="text-[#9E3D28] font-normal font-serif-editorial italic">
+                  ವಿಶ್ವಾಸಾರ್ಹ ಮಾರ್ಗದರ್ಶನ.
+                </em>
+              </>
+            ) : (
+              <>
+                Personal warmth,{" "}
+                <em className="text-[#9E3D28] font-normal font-serif-editorial italic">
+                  dependable guidance.
+                </em>
+              </>
+            )}
           </h2>
           <p className="text-sm sm:text-base text-[#252923]/75 leading-relaxed font-normal">
             {c.subtitle}

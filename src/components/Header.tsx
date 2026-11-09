@@ -48,6 +48,7 @@ export function Header({ locale, setLocale, onEnquire }: Props) {
     { href: "#education", label: isKn ? "ಶೈಕ್ಷಣಿಕ" : "Educational" },
     { href: "#corporate", label: isKn ? "ಕಾರ್ಪೊರೇಟ್" : "Corporate" },
     { href: "#transport", label: isKn ? "ಸಾರಿಗೆ" : "Transport" },
+    { href: "#travel-assistance", label: isKn ? "ಪ್ರಯಾಣ ನೆರವು" : "Travel Assistance" },
     { href: "#catering-showcase", label: isKn ? "ಸಸ್ಯಾಹಾರಿ ಅಡುಗೆ" : "Pure Veg Catering" },
     { href: "#destinations", label: isKn ? "ತಾಣಗಳು" : "Destinations" },
     { href: "#about", label: isKn ? "ಪರಿಚಯ" : "About" },

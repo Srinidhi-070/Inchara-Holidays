@@ -23,14 +23,34 @@ export function PackagesSection({ locale, onEnquire, onViewItinerary }: Props) {
   ];
 
   return (
-    <section className="packages-section section bg-[#FBF8F1] bg-kolam-subtle" id="packages" aria-labelledby="packages-title">
+    <section className="packages-section section bg-[#FBF8F1] bg-kolam-subtle scroll-mt-24" id="packages" aria-labelledby="packages-title">
       <div className="shell">
         <div className="section-intro" data-reveal="up">
-          <p className="eyebrow">{isKn ? "ವಿನ್ಯಾಸಗೊಳಿಸಿದ ಪ್ರವಾಸ ಯೋಜನೆಗಳು" : "Curated Holiday Blueprints"}</p>
-          <h2 id="packages-title" className={isKn ? "font-kannada-serif" : ""}>
-            {isKn ? "ಜನಪ್ರಿಯ ರಜಾದಿನಗಳ ಮಾದರಿ ಪ್ಯಾಕೇಜ್‌ಗಳು." : "Curated Journeys Ready to Experience."}
+          <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-[#9E3D28] uppercase mb-2.5">
+            <span className="w-5 h-px bg-[#D4AF37]" />
+            <span>✦</span>
+            <span>{isKn ? "ವಿನ್ಯಾಸಗೊಳಿಸಿದ ಪ್ರವಾಸ ಯೋಜನೆಗಳು" : "CURATED HOLIDAY BLUEPRINTS"}</span>
+            <span>✦</span>
+            <span className="w-5 h-px bg-[#D4AF37]" />
+          </div>
+          <h2 id="packages-title" className={`text-2xl sm:text-3xl lg:text-4xl font-serif-editorial font-bold text-[#162E22] tracking-tight leading-[1.18] ${isKn ? "font-kannada-serif" : ""}`}>
+            {isKn ? (
+              <>
+                ಜನಪ್ರಿಯ ರಜಾದಿನಗಳ{" "}
+                <em className="text-[#9E3D28] font-normal font-serif-editorial italic">
+                  ಮಾದರಿ ಪ್ಯಾಕೇಜ್‌ಗಳು.
+                </em>
+              </>
+            ) : (
+              <>
+                Curated Journeys Ready to{" "}
+                <em className="text-[#9E3D28] font-normal font-serif-editorial italic">
+                  Experience.
+                </em>
+              </>
+            )}
           </h2>
-          <p>
+          <p className="text-sm sm:text-base text-[#252923]/75 leading-relaxed font-normal mt-3">
             {isKn
               ? "ಹಂಪಿ, ಬಾದಾಮಿ, ಕೊಡಗಿನ ಕಾಫಿ ತೋಟಗಳಿಂದ ಹಿಡಿದು ರಾಜಸ್ಥಾನ ಮತ್ತು ಕೇರಳದ ಹಿನ್ನೀರವರೆಗೆ — ನಿಮ್ಮಿಷ್ಟಕ್ಕೆ ತಕ್ಕಂತೆ ಬದಲಾಯಿಸಬಹುದಾದ ಮಾದರಿ ರೂಪರೇಷೆಗಳು."
               : "From the stone monoliths of Hampi and misty coffee estates of Coorg to royal desert circuits and serene backwaters — verified journeys tailored to your rhythm."}
