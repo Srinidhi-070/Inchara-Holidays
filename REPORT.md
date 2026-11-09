@@ -205,3 +205,37 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - Tested clicking `Request Catering Consultation` -> `CateringModal` slid in cleanly.
   - Tested clicking header `Enquire now` -> `EnquiryDialog` opened at `z-[1050]`.
   - Tested `CustomCursor` and `ScrollProgressBar` -> rendered smoothly with spring physics.
+
+---
+
+### 11. Cycle 8: Visual & Architectural Harmony — Directory Junction, Unified Editorial Typography & Core Navigation
+**Date**: November 9, 2026  
+**Objective**: Address all 4 core visual and functional checkpoints highlighted by the user: (1) Local folder name availability, (2) Navigation coverage for all 6 services with proper scroll offset, (3) Universal Enquiry modal viewport sizing, and (4) Editorial typography unification (Playfair Display + Kaavi terracotta italic + Kolam subtle ground) across all sections in both English and Kannada.
+
+#### 1. Implemented Enhancements
+1. **Local Folder Name Established via NTFS Junction**:
+   - Created Windows Directory Junction: `C:\Users\nssri\OneDrive\Desktop\Folders\Inchara-Holidays <<===>> C:\Users\nssri\OneDrive\Desktop\Folders\new website design`.
+   - The folder `Inchara-Holidays` is now directly visible and accessible in Windows Explorer, terminals, and IDEs.
+2. **Complete 6-Service Navigation Coverage**:
+   - Added `Travel Assistance` (`#travel-assistance`) to `Header.tsx` nav items alongside `Transport`, `Holidays`, `Educational`, `Corporate`, and `Pure Veg Catering`.
+   - Added `scroll-mt-24` across `#packages`, `#destinations`, `#catering-showcase`, `#services`, and `#about` to guarantee that fixed header (`72px`) never obscures section titles or eyebrows.
+3. **Universal Enquiry Dialog Viewport Verification**:
+   - Verified that the 3x2 grid layout fits comfortably within compact laptop screens (`1366 × 768`) and standard desktop (`1440 × 900`).
+   - Pinned bottom action bar with Mysore Gold gradient button (`CONTINUE ➔`) remains fully accessible without clipping or overflowing.
+4. **Signature Editorial Typography Unification**:
+   - Elevated all section titles to match the canonical benchmark:
+     - Eyebrows: Terracotta uppercase with gold rule lines (`✦`) and high-tracking letter spacing.
+     - Headings: Bold Playfair Display serif paired with Kaavi terracotta italic phrase (`<em className="text-[#9E3D28] font-normal font-serif-editorial italic">`).
+     - Fixed conflicting `not-italic` utility classes in `AboutIntroduction.tsx` and `DestinationDiscovery.tsx`.
+     - Styled bilingual titles across `Services`, `PackagesSection`, `WhyUs`, `TravellerStories`, and `JourneyProcess` in English and Kannada.
+5. **Floating WhatsApp Button Audit**:
+   - Confirmed 0 floating WhatsApp buttons over the viewport, preserving clean uncluttered hero presentation.
+
+#### 2. Quality Verification
+- **TypeScript**: `npx tsc --noEmit` passed with 0 errors.
+- **Vite Production Build**: `npm run build` completed cleanly in 1.02s.
+- **Multi-Section Playwright Visual Inspection**:
+  - Header navigation: Smooth scrolling and clear target alignment.
+  - Enquiry dialog: Centered modal with 0 bottom overflow at 1366x768.
+  - Services & Packages: Canonical Playfair + Terracotta italic typography verified.
+  - Kannada Mode: Noto Serif Kannada rendering confirmed with zero clipping.
