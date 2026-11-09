@@ -110,78 +110,65 @@ export function DestinationDiscovery({
             </p>
           </div>
 
-          {/* Top Right Luxury Filter Tabs */}
-          <div className="inline-flex p-1.5 rounded-2xl bg-[#162E22]/5 border border-[#D4AF37]/35 self-start lg:self-end">
+          {/* Top Right Editorial Quick Links */}
+          <div className="flex items-center gap-3 sm:gap-4 text-xs font-bold tracking-wider uppercase text-[#162E22]/80 self-start lg:self-end">
             <button
               type="button"
-              onClick={() => setActiveFilter("all")}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
-                activeFilter === "all"
-                  ? "bg-[#162E22] text-[#F5D77F] shadow-sm"
-                  : "text-[#162E22]/70 hover:text-[#162E22]"
+              onClick={() => setActiveFilter(activeFilter === "domestic" ? "all" : "domestic")}
+              className={`inline-flex items-center gap-1 py-1.5 transition-colors cursor-pointer ${
+                activeFilter === "domestic" ? "text-[#9E3D28] underline underline-offset-4 font-bold" : "hover:text-[#162E22]"
               }`}
             >
-              {isKn ? "ಎಲ್ಲವೂ" : "All"}
+              <span>{isKn ? "ದೇಶೀಯ ಪಯಣಗಳು" : "DOMESTIC JOURNEYS"}</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
+            <span className="text-[#263F32]/25 font-light">|</span>
             <button
               type="button"
-              onClick={() => setActiveFilter("domestic")}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
-                activeFilter === "domestic"
-                  ? "bg-[#162E22] text-[#F5D77F] shadow-sm"
-                  : "text-[#162E22]/70 hover:text-[#162E22]"
+              onClick={() => setActiveFilter(activeFilter === "international" ? "all" : "international")}
+              className={`inline-flex items-center gap-1 py-1.5 transition-colors cursor-pointer ${
+                activeFilter === "international" ? "text-[#9E3D28] underline underline-offset-4 font-bold" : "hover:text-[#162E22]"
               }`}
             >
-              {isKn ? "ದೇಶೀಯ ಪಯಣಗಳು" : "Domestic"}
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveFilter("international")}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
-                activeFilter === "international"
-                  ? "bg-[#162E22] text-[#F5D77F] shadow-sm"
-                  : "text-[#162E22]/70 hover:text-[#162E22]"
-              }`}
-            >
-              {isKn ? "ಅಂತರರಾಷ್ಟ್ರೀಯ" : "Beyond India"}
+              <span>{isKn ? "ಅಂತರರಾಷ್ಟ್ರೀಯ ಪಯಣಗಳು" : "INTERNATIONAL ESCAPES"}</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
 
         {/* 5-Tile Editorial Mosaic Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:h-[620px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:h-[620px]">
           {/* Tile 1: Lead Tile (Karnataka) - Spans 2 Rows on Left */}
           <div
             onClick={() => handleTileClick(tiles[0])}
-            className={`group relative rounded-3xl overflow-hidden cursor-pointer border border-[#D4AF37]/35 hover:border-[#D4AF37] shadow-[0_8px_30px_rgba(22,46,34,0.08)] hover:shadow-[0_20px_50px_rgba(22,46,34,0.22)] transition-all duration-500 lg:row-span-2 min-h-[340px] lg:min-h-full ${
+            className={`group relative rounded-[28px] overflow-hidden cursor-pointer border border-[#162E22]/10 hover:border-[#D4AF37] shadow-[0_10px_30px_rgba(22,46,34,0.08)] hover:shadow-[0_20px_50px_rgba(22,46,34,0.2)] transition-all duration-500 lg:row-span-2 min-h-[360px] lg:min-h-full ${
               activeFilter === "international" ? "opacity-35 scale-[0.99]" : "opacity-100"
             }`}
           >
             <img
               src={tiles[0].image}
               alt={tiles[0].name}
-              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-106"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0A1810]/95 via-[#0A1810]/35 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A1810]/95 via-[#0A1810]/40 to-transparent pointer-events-none" />
 
             {/* Top Right Circular Explore Badge */}
-            <div className="absolute top-5 right-5 w-11 h-11 rounded-full bg-[#162E22]/80 backdrop-blur-md border border-[#D4AF37]/50 text-[#F5D77F] flex items-center justify-center shadow-md group-hover:bg-[#D4AF37] group-hover:text-[#162E22] group-hover:scale-110 transition-all duration-300">
-              <Compass className="w-5 h-5" />
+            <div className="absolute top-5 right-5 w-10 h-10 rounded-full bg-black/35 backdrop-blur-md border border-white/20 text-white/90 flex items-center justify-center shadow-md group-hover:bg-[#162E22] group-hover:text-[#F5D77F] group-hover:border-[#D4AF37]/60 group-hover:scale-110 transition-all duration-300">
+              <Compass className="w-4 h-4" />
             </div>
 
             {/* Bottom Content */}
             <div className="absolute bottom-6 left-6 right-6 text-white space-y-1.5">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-[#D4AF37]/40 text-[10px] font-bold tracking-widest text-[#F5D77F] uppercase">
-                <span>✦</span>
-                <span>{tiles[0].num} / {isKn ? "ಅನ್ವೇಷಿಸಿ" : "FEATURED"}</span>
-              </div>
+              <span className="text-[#F5D77F] text-xs font-bold tracking-widest uppercase block mb-1">
+                {tiles[0].num} / {isKn ? "ಅನ್ವೇಷಿಸಿ" : "EXPLORE"}
+              </span>
               <h3 className={`text-3xl sm:text-4xl font-serif-editorial font-bold text-[#F6F3EA] group-hover:text-[#F5D77F] transition-colors leading-tight ${
                 isKn ? "font-kannada-serif" : ""
               }`}>
                 {tiles[0].name}
               </h3>
-              <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-normal">
+              <p className="text-xs sm:text-sm text-white/85 leading-relaxed font-normal">
                 {tiles[0].desc}
               </p>
             </div>
@@ -190,33 +177,32 @@ export function DestinationDiscovery({
           {/* Tile 2: Kerala (Middle Top) */}
           <div
             onClick={() => handleTileClick(tiles[1])}
-            className={`group relative rounded-3xl overflow-hidden cursor-pointer border border-[#D4AF37]/35 hover:border-[#D4AF37] shadow-[0_8px_30px_rgba(22,46,34,0.08)] hover:shadow-[0_20px_50px_rgba(22,46,34,0.22)] transition-all duration-500 min-h-[250px] lg:min-h-0 ${
+            className={`group relative rounded-[28px] overflow-hidden cursor-pointer border border-[#162E22]/10 hover:border-[#D4AF37] shadow-[0_10px_30px_rgba(22,46,34,0.08)] hover:shadow-[0_20px_50px_rgba(22,46,34,0.2)] transition-all duration-500 min-h-[250px] lg:min-h-0 ${
               activeFilter === "international" ? "opacity-35 scale-[0.99]" : "opacity-100"
             }`}
           >
             <img
               src={tiles[1].image}
               alt={tiles[1].name}
-              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-106"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0A1810]/95 via-[#0A1810]/35 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A1810]/95 via-[#0A1810]/40 to-transparent pointer-events-none" />
 
-            <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-[#162E22]/80 backdrop-blur-md border border-[#D4AF37]/50 text-[#F5D77F] flex items-center justify-center shadow-md group-hover:bg-[#D4AF37] group-hover:text-[#162E22] group-hover:scale-110 transition-all duration-300">
+            <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/35 backdrop-blur-md border border-white/20 text-white/90 flex items-center justify-center shadow-md group-hover:bg-[#162E22] group-hover:text-[#F5D77F] group-hover:border-[#D4AF37]/60 group-hover:scale-110 transition-all duration-300">
               <ArrowUpRight className="w-4 h-4" />
             </div>
 
             <div className="absolute bottom-5 left-5 right-5 text-white space-y-1">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-black/40 backdrop-blur-md border border-[#D4AF37]/40 text-[10px] font-bold tracking-widest text-[#F5D77F] uppercase">
-                <span>✦</span>
-                <span>{tiles[1].num} / {isKn ? "ಅನ್ವೇಷಿಸಿ" : "EXPLORE"}</span>
-              </div>
+              <span className="text-[#F5D77F] text-xs font-bold tracking-widest uppercase block mb-0.5">
+                {tiles[1].num} / {isKn ? "ಅನ್ವೇಷಿಸಿ" : "EXPLORE"}
+              </span>
               <h3 className={`text-2xl font-serif-editorial font-bold text-[#F6F3EA] group-hover:text-[#F5D77F] transition-colors ${
                 isKn ? "font-kannada-serif" : ""
               }`}>
                 {tiles[1].name}
               </h3>
-              <p className="text-xs text-white/80 line-clamp-1 font-normal">
+              <p className="text-xs text-white/85 line-clamp-1 font-normal">
                 {tiles[1].desc}
               </p>
             </div>
@@ -225,33 +211,32 @@ export function DestinationDiscovery({
           {/* Tile 4: Rajasthan (Right Top) */}
           <div
             onClick={() => handleTileClick(tiles[3])}
-            className={`group relative rounded-3xl overflow-hidden cursor-pointer border border-[#D4AF37]/35 hover:border-[#D4AF37] shadow-[0_8px_30px_rgba(22,46,34,0.08)] hover:shadow-[0_20px_50px_rgba(22,46,34,0.22)] transition-all duration-500 min-h-[250px] lg:min-h-0 ${
+            className={`group relative rounded-[28px] overflow-hidden cursor-pointer border border-[#162E22]/10 hover:border-[#D4AF37] shadow-[0_10px_30px_rgba(22,46,34,0.08)] hover:shadow-[0_20px_50px_rgba(22,46,34,0.2)] transition-all duration-500 min-h-[250px] lg:min-h-0 ${
               activeFilter === "international" ? "opacity-35 scale-[0.99]" : "opacity-100"
             }`}
           >
             <img
               src={tiles[3].image}
               alt={tiles[3].name}
-              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-106"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0A1810]/95 via-[#0A1810]/35 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A1810]/95 via-[#0A1810]/40 to-transparent pointer-events-none" />
 
-            <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-[#162E22]/80 backdrop-blur-md border border-[#D4AF37]/50 text-[#F5D77F] flex items-center justify-center shadow-md group-hover:bg-[#D4AF37] group-hover:text-[#162E22] group-hover:scale-110 transition-all duration-300">
+            <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-[#162E22]/85 backdrop-blur-md border border-[#D4AF37]/50 text-[#F5D77F] flex items-center justify-center shadow-md group-hover:bg-[#D4AF37] group-hover:text-[#162E22] group-hover:scale-110 transition-all duration-300">
               <Compass className="w-4 h-4" />
             </div>
 
             <div className="absolute bottom-5 left-5 right-5 text-white space-y-1">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-black/40 backdrop-blur-md border border-[#D4AF37]/40 text-[10px] font-bold tracking-widest text-[#F5D77F] uppercase">
-                <span>✦</span>
-                <span>{tiles[3].num} / {isKn ? "ಅನ್ವೇಷಿಸಿ" : "EXPLORE"}</span>
-              </div>
+              <span className="text-[#F5D77F] text-xs font-bold tracking-widest uppercase block mb-0.5">
+                {tiles[3].num} / {isKn ? "ಅನ್ವೇಷಿಸಿ" : "EXPLORE"}
+              </span>
               <h3 className={`text-2xl font-serif-editorial font-bold text-[#F6F3EA] group-hover:text-[#F5D77F] transition-colors ${
                 isKn ? "font-kannada-serif" : ""
               }`}>
                 {tiles[3].name}
               </h3>
-              <p className="text-xs text-white/80 line-clamp-1 font-normal">
+              <p className="text-xs text-white/85 line-clamp-1 font-normal">
                 {tiles[3].desc}
               </p>
             </div>
@@ -260,33 +245,32 @@ export function DestinationDiscovery({
           {/* Tile 3: Himachal (Middle Bottom) */}
           <div
             onClick={() => handleTileClick(tiles[2])}
-            className={`group relative rounded-3xl overflow-hidden cursor-pointer border border-[#D4AF37]/35 hover:border-[#D4AF37] shadow-[0_8px_30px_rgba(22,46,34,0.08)] hover:shadow-[0_20px_50px_rgba(22,46,34,0.22)] transition-all duration-500 min-h-[250px] lg:min-h-0 ${
+            className={`group relative rounded-[28px] overflow-hidden cursor-pointer border border-[#162E22]/10 hover:border-[#D4AF37] shadow-[0_10px_30px_rgba(22,46,34,0.08)] hover:shadow-[0_20px_50px_rgba(22,46,34,0.2)] transition-all duration-500 min-h-[250px] lg:min-h-0 ${
               activeFilter === "international" ? "opacity-35 scale-[0.99]" : "opacity-100"
             }`}
           >
             <img
               src={tiles[2].image}
               alt={tiles[2].name}
-              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-106"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0A1810]/95 via-[#0A1810]/35 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A1810]/95 via-[#0A1810]/40 to-transparent pointer-events-none" />
 
-            <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-[#162E22]/80 backdrop-blur-md border border-[#D4AF37]/50 text-[#F5D77F] flex items-center justify-center shadow-md group-hover:bg-[#D4AF37] group-hover:text-[#162E22] group-hover:scale-110 transition-all duration-300">
+            <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/35 backdrop-blur-md border border-white/20 text-white/90 flex items-center justify-center shadow-md group-hover:bg-[#162E22] group-hover:text-[#F5D77F] group-hover:border-[#D4AF37]/60 group-hover:scale-110 transition-all duration-300">
               <ArrowUpRight className="w-4 h-4" />
             </div>
 
             <div className="absolute bottom-5 left-5 right-5 text-white space-y-1">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-black/40 backdrop-blur-md border border-[#D4AF37]/40 text-[10px] font-bold tracking-widest text-[#F5D77F] uppercase">
-                <span>✦</span>
-                <span>{tiles[2].num} / {isKn ? "ಅನ್ವೇಷಿಸಿ" : "EXPLORE"}</span>
-              </div>
+              <span className="text-[#F5D77F] text-xs font-bold tracking-widest uppercase block mb-0.5">
+                {tiles[2].num} / {isKn ? "ಅನ್ವೇಷಿಸಿ" : "EXPLORE"}
+              </span>
               <h3 className={`text-2xl font-serif-editorial font-bold text-[#F6F3EA] group-hover:text-[#F5D77F] transition-colors ${
                 isKn ? "font-kannada-serif" : ""
               }`}>
                 {tiles[2].name}
               </h3>
-              <p className="text-xs text-white/80 line-clamp-1 font-normal">
+              <p className="text-xs text-white/85 line-clamp-1 font-normal">
                 {tiles[2].desc}
               </p>
             </div>
@@ -295,33 +279,32 @@ export function DestinationDiscovery({
           {/* Tile 5: Beyond India (Right Bottom) */}
           <div
             onClick={() => handleTileClick(tiles[4])}
-            className={`group relative rounded-3xl overflow-hidden cursor-pointer border border-[#D4AF37]/35 hover:border-[#D4AF37] shadow-[0_8px_30px_rgba(22,46,34,0.08)] hover:shadow-[0_20px_50px_rgba(22,46,34,0.22)] transition-all duration-500 min-h-[250px] lg:min-h-0 ${
+            className={`group relative rounded-[28px] overflow-hidden cursor-pointer border border-[#162E22]/10 hover:border-[#D4AF37] shadow-[0_10px_30px_rgba(22,46,34,0.08)] hover:shadow-[0_20px_50px_rgba(22,46,34,0.2)] transition-all duration-500 min-h-[250px] lg:min-h-0 ${
               activeFilter === "domestic" ? "opacity-35 scale-[0.99]" : "opacity-100"
             }`}
           >
             <img
               src={tiles[4].image}
               alt={tiles[4].name}
-              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-106"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0A1810]/95 via-[#0A1810]/35 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A1810]/95 via-[#0A1810]/40 to-transparent pointer-events-none" />
 
-            <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-[#162E22]/80 backdrop-blur-md border border-[#D4AF37]/50 text-[#F5D77F] flex items-center justify-center shadow-md group-hover:bg-[#D4AF37] group-hover:text-[#162E22] group-hover:scale-110 transition-all duration-300">
+            <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/35 backdrop-blur-md border border-white/20 text-white/90 flex items-center justify-center shadow-md group-hover:bg-[#162E22] group-hover:text-[#F5D77F] group-hover:border-[#D4AF37]/60 group-hover:scale-110 transition-all duration-300">
               <Compass className="w-4 h-4" />
             </div>
 
             <div className="absolute bottom-5 left-5 right-5 text-white space-y-1">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-black/40 backdrop-blur-md border border-[#D4AF37]/40 text-[10px] font-bold tracking-widest text-[#F5D77F] uppercase">
-                <span>✦</span>
-                <span>{tiles[4].num} / {isKn ? "ಅನ್ವೇಷಿಸಿ" : "OVERSEAS"}</span>
-              </div>
+              <span className="text-[#F5D77F] text-xs font-bold tracking-widest uppercase block mb-0.5">
+                {tiles[4].num} / {isKn ? "ಅನ್ವೇಷಿಸಿ" : "EXPLORE"}
+              </span>
               <h3 className={`text-2xl font-serif-editorial font-bold text-[#F6F3EA] group-hover:text-[#F5D77F] transition-colors ${
                 isKn ? "font-kannada-serif" : ""
               }`}>
                 {tiles[4].name}
               </h3>
-              <p className="text-xs text-white/80 line-clamp-1 font-normal">
+              <p className="text-xs text-white/85 line-clamp-1 font-normal">
                 {tiles[4].desc}
               </p>
             </div>

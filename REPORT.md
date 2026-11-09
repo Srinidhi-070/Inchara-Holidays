@@ -387,3 +387,37 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - `GET /api/admin/stats`: 200 OK calculating dynamic inquiry metrics and category breakdown.
   - `PATCH /api/admin/inquiries`: 200 OK successfully advancing inquiry status to `confirmed` and saving internal staff notes.
 - **Admin Dashboard UI Live Test**: Verified with Playwright screenshot (`page-2026-11-09T15-41-13-896Z.png`) showing real-time KPI cards, Ambari Elephant header, inquiries stream, and search filters.
+
+---
+
+### Cycle 14: Milestone 8 (Documents and Operations) & Design Reconciliation Complete
+**Date**: November 9, 2026  
+**Status**: Completed & Verified  
+
+#### 1. Core Engineering & Operations Delivered
+1. **Official Itinerary Brochure Generator ([`src/components/documents/ItineraryBrochureModal.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/documents/ItineraryBrochureModal.tsx))**:
+   - Built a print-ready A4 brochure modal formatted for PDF export via native `window.print()`.
+   - Incorporates Inchara Holidays official header, Karnataka Tourism Reg Number (`Reg: KA-TO-2024-88419`), Ambari Elephant seal, key highlights grid, 3 Pillars of Trust, day-by-day itinerary timeline, transparent inclusions/exclusions, and 100% pure veg catering commitments.
+   - Wired directly into [`src/components/ItineraryModal.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/ItineraryModal.tsx) via a "Brochure PDF" action.
+2. **Quotation Builder & Formal Pricing ([`src/components/documents/QuotationModal.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/documents/QuotationModal.tsx), [`src/services/quotationService.ts`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/services/quotationService.ts))**:
+   - Enables operations staff to create and edit itemized quotations (`QTN-2026-XXXX`) with dynamic line items, per-person or group rates, and automatic 5% Tour Operator GST calculation.
+   - Includes official Canara Bank Mysore settlement details (A/C No, IFSC, Branch) and transparent cancellation/settlement terms.
+   - Integrated into the inquiry detail drawer in [`src/components/admin/AdminDashboard.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/admin/AdminDashboard.tsx).
+3. **Payment Ledger & Receipt Generator ([`src/components/documents/PaymentReceiptModal.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/documents/PaymentReceiptModal.tsx))**:
+   - Offline payment tracking for advance token, installment, and final settlement across UPI, NEFT, RTGS, IMPS, cheque, and cash.
+   - Real-time balance strip showing Total Quoted, Total Paid, and Balance Due.
+   - Generates official printable e-receipts (`RCP-2026-XXXX`) with stamp verification.
+4. **UI/UX Polishing & Legacy Cleanup**:
+   - **Destination Discovery**: Restyled 5-tile mosaic with authentic editorial typography (`01 / EXPLORE`), subtle photographic borders, and clean `DOMESTIC JOURNEYS ↗ | INTERNATIONAL ESCAPES ↗` links matching Figma art direction.
+   - **Card Outlines**: Standardized card borders on Institutional & Corporate Excellence and Transit Fleets & Document Advisory to clean architectural `border border-[#263F32]/12` on solid white, eliminating awkward gradient strips.
+   - **Pruned Dead Modals**: Removed 6 unused legacy modal files (`SchoolTripModal`, `CorporateEventModal`, `CateringModal`, `TripPlannerModal`, `ContactModal`, `UniversalEnquiryModal`), ensuring the 4-step `EnquiryDialog.tsx` remains the sole conversion channel.
+   - **Staff Portal**: Verified removal of redundant "Assigned Staff" field from the inquiry management drawer.
+
+#### 2. Verification & Build
+- `npx tsc --noEmit`: **0 errors**.
+- `npm run build`: Production bundle generated successfully in **715ms**.
+- Playwright Visual QA:
+  - Verified Itinerary Brochure PDF view.
+  - Verified Quotation Builder and finalized quote view.
+  - Verified Payment Ledger and official receipt.
+  - Verified refined Destination Discovery mosaic and card outlines.

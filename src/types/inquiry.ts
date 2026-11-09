@@ -235,3 +235,67 @@ export interface AdminDashboardStats {
   byStatus: Record<string, number>;
   recentInquiries: InquiryRecord[];
 }
+
+// =====================================================================
+// MILESTONE 8: DOCUMENTS & OPERATIONS (Quotations, Receipts, Payments)
+// =====================================================================
+
+export interface QuotationLineItem {
+  id: string;
+  description: string;
+  quantity: number;
+  unit: string;
+  unitRate: number;
+  amount: number;
+}
+
+export interface BankSettlementDetails {
+  bankName: string;
+  accountName: string;
+  accountNumber: string;
+  ifscCode: string;
+  branch: string;
+  upiId: string;
+}
+
+export interface QuotationRecord {
+  id: string;
+  quotationNumber: string; // e.g. QTN-2026-B871
+  inquiryId: string;
+  referenceNumber: string;
+  customerName: string;
+  customerPhone: string;
+  customerEmail?: string;
+  serviceCategory: string;
+  destination: string;
+  travelDates: string;
+  guestCount: number;
+  items: QuotationLineItem[];
+  subtotal: number;
+  gstRate: number; // e.g. 5%
+  gstAmount: number;
+  totalAmount: number;
+  validityDays: number;
+  paymentTerms: string;
+  bankDetails: BankSettlementDetails;
+  specialNotes?: string;
+  status: 'draft' | 'sent' | 'accepted' | 'expired';
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PaymentRecord {
+  id: string;
+  receiptNumber: string; // e.g. RCP-2026-X492
+  inquiryId: string;
+  quotationId?: string;
+  customerName: string;
+  amount: number;
+  paymentType: 'advance_token' | 'part_payment' | 'final_settlement';
+  paymentMode: 'upi' | 'neft' | 'rtgs' | 'imps' | 'cheque' | 'cash';
+  transactionRef: string; // UTR or cheque number
+  paymentDate: string;
+  verifiedBy: string;
+  notes?: string;
+  createdAt: string;
+}

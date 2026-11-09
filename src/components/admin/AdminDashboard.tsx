@@ -53,8 +53,12 @@ import {
   TrendingUp,
   AlertCircle,
   Check,
+  FileText,
+  Receipt,
 } from 'lucide-react';
 import { AmbariElephant, LotusIcon } from '../SouthIndianMotifs';
+import { QuotationModal } from '../documents/QuotationModal';
+import { PaymentReceiptModal } from '../documents/PaymentReceiptModal';
 
 interface AdminDashboardProps {
   isOpen: boolean;
@@ -94,6 +98,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
   const [editAssignedStaff, setEditAssignedStaff] = useState('');
   const [editFollowupDate, setEditFollowupDate] = useState('');
   const [updateSuccessMsg, setUpdateSuccessMsg] = useState<string | null>(null);
+  const [showQuotationModal, setShowQuotationModal] = useState(false);
+  const [showReceiptModal, setShowReceiptModal] = useState(false);
 
   // Service Management State
   const [categoriesList, setCategoriesList] = useState(serviceCategories);
@@ -914,12 +920,74 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                       Save Internal Notes
                     </button>
                   </div>
+
+                  {/* Operations & Financial Documents (Milestone 8) */}
+                  <div className="p-4 rounded-2xl bg-[#F6F3EA] border border-[#D4AF37]/35 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-bold text-[#162E22] text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <FileText className="w-4 h-4 text-[#D4AF37]" />
+                        <span>Operations & Financial Documents</span>
+                      </h4>
+                      <span className="px-2 py-0.5 rounded-full bg-[#162E22] text-[#F5D77F] text-[10px] font-bold">
+                        Milestone 8
+                      </span>
+                    </div>
+
+                    <p className="text-[11px] text-[#252923]/70">
+                      Generate itemized commercial quotations, record offline settlement transactions, and issue official e-receipts.
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => setShowQuotationModal(true)}
+                        className="p-3 rounded-xl bg-white border border-[#D4AF37]/40 hover:border-[#D4AF37] text-left hover:shadow-xs transition-all cursor-pointer group"
+                      >
+                        <div className="flex items-center gap-2 text-xs font-bold text-[#162E22] group-hover:text-[#9E3D28]">
+                          <FileSpreadsheet className="w-4 h-4 text-[#D4AF37]" />
+                          <span>Create / View Quotation</span>
+                        </div>
+                        <div className="text-[10px] text-[#252923]/60 mt-1">
+                          Itemized GST invoice & Canara bank settlement details
+                        </div>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setShowReceiptModal(true)}
+                        className="p-3 rounded-xl bg-white border border-[#D4AF37]/40 hover:border-[#D4AF37] text-left hover:shadow-xs transition-all cursor-pointer group"
+                      >
+                        <div className="flex items-center gap-2 text-xs font-bold text-[#162E22] group-hover:text-[#9E3D28]">
+                          <Receipt className="w-4 h-4 text-emerald-700" />
+                          <span>Record / View Payments</span>
+                        </div>
+                        <div className="text-[10px] text-[#252923]/60 mt-1">
+                          Track advance token, NEFT/UPI UTR & print receipts
+                        </div>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             </div>
           )}
         </AnimatePresence>
       </motion.div>
+
+      {/* Milestone 8 Document Modals */}
+      {showQuotationModal && selectedInquiry && (
+        <QuotationModal
+          inquiry={selectedInquiry}
+          onClose={() => setShowQuotationModal(false)}
+        />
+      )}
+
+      {showReceiptModal && selectedInquiry && (
+        <PaymentReceiptModal
+          inquiry={selectedInquiry}
+          onClose={() => setShowReceiptModal(false)}
+        />
+      )}
     </div>
   );
 };

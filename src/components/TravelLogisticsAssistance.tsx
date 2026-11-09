@@ -67,11 +67,9 @@ export const TravelLogisticsAssistance: React.FC<TravelLogisticsAssistanceProps>
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.5 }}
-            className="rounded-3xl bg-white/95 backdrop-blur-xs border border-[#D4AF37]/30 hover:border-[#D4AF37] p-7 sm:p-9 flex flex-col justify-between shadow-[0_6px_24px_rgba(22,46,34,0.06)] hover:shadow-[0_16px_40px_rgba(22,46,34,0.12)] transition-all duration-300 relative overflow-hidden group hover:-translate-y-1"
+            className="rounded-3xl bg-white border border-[#263F32]/12 hover:border-[#D4AF37] p-7 sm:p-9 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all duration-300 relative overflow-hidden group hover:-translate-y-1"
           >
-            <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent group-hover:via-[#D4AF37] transition-all duration-300" />
-
-            <div>
+                        <div>
               <div className="flex items-center justify-between mb-6">
                 <div className="w-14 h-14 rounded-2xl bg-[#162E22] text-[#F5D77F] border border-[#D4AF37]/40 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
                   <Bus className="w-6 h-6" />
@@ -123,11 +121,9 @@ export const TravelLogisticsAssistance: React.FC<TravelLogisticsAssistanceProps>
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="scroll-mt-28 rounded-3xl bg-white/95 backdrop-blur-xs border border-[#D4AF37]/30 hover:border-[#D4AF37] p-7 sm:p-9 flex flex-col justify-between shadow-[0_6px_24px_rgba(22,46,34,0.06)] hover:shadow-[0_16px_40px_rgba(22,46,34,0.12)] transition-all duration-300 relative overflow-hidden group hover:-translate-y-1"
+            className="scroll-mt-28 rounded-3xl bg-white border border-[#263F32]/12 hover:border-[#D4AF37] p-7 sm:p-9 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all duration-300 relative overflow-hidden group hover:-translate-y-1"
           >
-            <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent group-hover:via-[#D4AF37] transition-all duration-300" />
-
-            <div>
+                        <div>
               <div className="flex items-center justify-between mb-6">
                 <div className="w-14 h-14 rounded-2xl bg-[#162E22] text-[#F5D77F] border border-[#D4AF37]/40 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
                   <FileCheck className="w-6 h-6" />
