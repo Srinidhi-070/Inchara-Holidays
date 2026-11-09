@@ -216,11 +216,11 @@ export const Hero: React.FC<HeroProps> = ({
                 </button>
                 <button
                   type="button"
-                  className="px-7 py-3.5 min-h-[46px] rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/25 text-xs sm:text-sm font-semibold tracking-wide transition-all flex items-center justify-center gap-2 backdrop-blur-xs active:scale-95 cursor-pointer"
+                  className="px-7 py-3.5 min-h-[46px] rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/25 text-xs sm:text-sm font-semibold tracking-wide transition-all flex items-center justify-center gap-2 backdrop-blur-xs active:scale-95 cursor-pointer group"
                   onClick={onExploreDestinations}
                 >
                   <span>{kn ? 'ತಾಣಗಳನ್ನು ಅನ್ವೇಷಿಸಿ' : 'Explore destinations'}</span>
-                  <span aria-hidden="true">↗</span>
+                  <span aria-hidden="true" className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
                 </button>
               </div>
             </div>
@@ -317,11 +317,11 @@ export const Hero: React.FC<HeroProps> = ({
           </button>
           <button
             type="button"
-            className="button button-outline"
+            className="button button-outline group inline-flex items-center gap-2 cursor-pointer"
             onClick={onExploreDestinations}
           >
             <span>{kn ? 'ತಾಣಗಳನ್ನು ಅನ್ವೇಷಿಸಿ' : 'Explore destinations'}</span>
-            <span aria-hidden="true">↗</span>
+            <span aria-hidden="true" className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
           </button>
         </div>
       </div>

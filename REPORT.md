@@ -664,3 +664,25 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
 - **Playwright Visual Verification**:
   - `1440 × 900` (Desktop): Verified 100% visibility of all 15 photo cards, 3D pointer parallax, interactive postcard hover lift with gold border and caption pill, and floating action dock.
   - `390 × 844` (Mobile): Verified responsive multi-column flow, zero overflow, and clean vertical stacking.
+
+
+---
+
+### Cycle 22: "Explore Destinations" Button Arrow Hover Animation Direction Fix
+**Date**: November 9, 2026  
+**Status**: Completed & Verified  
+
+#### 1. Defect Identified
+- When hovering over the `[ EXPLORE DESTINATIONS → ]` button, the horizontal right arrow (`ArrowRight` `→`) moved diagonally upwards and to the right (`translate(3px, -3px)`) instead of translating purely to the right.
+
+#### 2. Root Cause & Solution
+- **Root Cause**: In `src/index.css` line 1787, `.outline-button:hover svg` was grouped with `.gold-button:hover svg`. While `.gold-button` uses an upward-right arrow (`ArrowUpRight` `↗`), `.outline-button` uses a horizontal arrow (`ArrowRight` `→`), causing the horizontal arrow to awkwardly jump upwards.
+- **Resolution**:
+  - Separated the button hover rules in `src/index.css`.
+  - Set `.outline-button:hover svg, .outline-button:focus-visible svg { transform: translateX(4px); }` (pure horizontal translation, 0px vertical movement).
+  - Aligned text arrows in `src/components/Hero.tsx` to `→` with `group-hover:translate-x-1`.
+
+#### 3. Verification Results
+- **Computed Style Check via Playwright**: Verified that hovering `.outline-button` results in `transform: matrix(1, 0, 0, 1, 4, 0)` (exactly 4px horizontal, 0px vertical).
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` completed cleanly in **787ms**.

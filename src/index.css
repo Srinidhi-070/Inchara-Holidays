@@ -1783,10 +1783,13 @@
 }
 
 .gold-button:hover svg,
-.gold-button:focus-visible svg,
+.gold-button:focus-visible svg {
+  transform: translate(3px, -3px);
+}
+
 .outline-button:hover svg,
 .outline-button:focus-visible svg {
-  transform: translate(3px, -3px);
+  transform: translateX(4px);
 }
 
 .invitation__image {
