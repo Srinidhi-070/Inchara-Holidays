@@ -7,9 +7,7 @@ import { validateInquiryInput } from '../src/utils/validation';
 import { InquiryRecord } from '../src/types/inquiry';
 import { getSupabase, isSupabaseConfigured } from './_shared/supabase';
 import { dispatchNotifications } from './_shared/notifications';
-
-// In-memory fallback cache for development/demo when database is not yet hooked up
-const memoryInquiriesStore: InquiryRecord[] = [];
+import { addMemoryInquiry } from './_shared/store';
 
 /**
  * Generates an authentic, professional, unique inquiry reference code.
@@ -133,7 +131,7 @@ export default async function handler(req: any, res: any) {
       if (insertError) {
         console.error('[Supabase Insert Error]:', insertError);
         // Fall back to memory so client inquiry is never discarded
-        memoryInquiriesStore.unshift(inquiryRecord);
+        addMemoryInquiry(inquiryRecord);
       } else {
         // Log creation event in audit trail
         await supabase.from('inquiry_events').insert({
@@ -146,8 +144,8 @@ export default async function handler(req: any, res: any) {
         });
       }
     } else {
-      memoryInquiriesStore.unshift(inquiryRecord);
-      console.log(`[Inquiries Store] Stored inquiry ${referenceNumber} in memory store (${memoryInquiriesStore.length} total)`);
+      addMemoryInquiry(inquiryRecord);
+      console.log(`[Inquiries Store] Stored inquiry ${referenceNumber} in memory store`);
     }
 
     // 7. Dispatch Background Notifications (Resend Email & WhatsApp)

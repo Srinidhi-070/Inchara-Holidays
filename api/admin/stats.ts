@@ -5,6 +5,7 @@
 
 import { getSupabase, isSupabaseConfigured } from '../_shared/supabase';
 import { AdminDashboardStats, InquiryRecord } from '../../src/types/inquiry';
+import { getMemoryInquiries } from '../_shared/store';
 
 export default async function handler(req: any, res: any) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -25,7 +26,6 @@ export default async function handler(req: any, res: any) {
       const todayStart = new Date();
       todayStart.setHours(0, 0, 0, 0);
 
-      // Fetch all inquiries for aggregation
       const { data: allInquiries, error } = await supabase
         .from('inquiries')
         .select('*')
@@ -34,83 +34,27 @@ export default async function handler(req: any, res: any) {
       if (error) throw error;
 
       const list = allInquiries || [];
-      const totalInquiries = list.length;
-
-      let newToday = 0;
-      let pendingFollowups = 0;
-      let convertedCount = 0;
-
-      const byCategory: Record<string, number> = {
-        holidays: 0,
-        educational: 0,
-        corporate: 0,
-        transport: 0,
-        visa_passport: 0,
-        catering: 0,
-        general: 0,
-      };
-
-      const byStatus: Record<string, number> = {
-        new: 0,
-        contacted: 0,
-        in_progress: 0,
-        proposal_sent: 0,
-        confirmed: 0,
-        closed: 0,
-        cancelled: 0,
-      };
-
-      const todayStr = new Date().toISOString().split('T')[0];
-
-      list.forEach((item: any) => {
-        const itemCreated = new Date(item.created_at);
-        if (itemCreated >= todayStart) {
-          newToday++;
-        }
-
-        if (item.next_followup_date && item.next_followup_date <= todayStr && item.status !== 'confirmed' && item.status !== 'closed' && item.status !== 'cancelled') {
-          pendingFollowups++;
-        }
-
-        if (item.status === 'confirmed') {
-          convertedCount++;
-        }
-
-        const cat = item.service_category || 'general';
-        byCategory[cat] = (byCategory[cat] || 0) + 1;
-
-        const st = item.status || 'new';
-        byStatus[st] = (byStatus[st] || 0) + 1;
-      });
-
-      const conversionRate = totalInquiries > 0 ? Math.round((convertedCount / totalInquiries) * 100) : 0;
-
-      const recentInquiries: InquiryRecord[] = list.slice(0, 8).map((row: any) => ({
-        id: row.id,
-        referenceNumber: row.reference_number,
-        customerName: row.customer_name,
-        phone: row.phone,
-        email: row.email,
-        preferredLanguage: row.preferred_language,
-        preferredContactMethod: row.preferred_contact_method,
-        serviceCategory: row.service_category,
-        serviceType: row.service_type,
-        servicePayload: row.service_payload || {},
-        status: row.status,
-        createdAt: row.created_at,
-        updatedAt: row.updated_at,
-      }));
-
-      const stats: AdminDashboardStats = {
-        totalInquiries,
-        newInquiriesToday: newToday,
-        pendingFollowups,
-        convertedCount,
-        conversionRate,
-        byCategory,
-        byStatus,
-        recentInquiries,
-      };
+      const stats = computeStatsFromList(
+        list.map((row: any) => ({
+          id: row.id,
+          referenceNumber: row.reference_number,
+          customerName: row.customer_name,
+          phone: row.phone,
+          email: row.email,
+          preferredLanguage: row.preferred_language,
+          preferredContactMethod: row.preferred_contact_method,
+          serviceCategory: row.service_category,
+          serviceType: row.service_type,
+          servicePayload: row.service_payload || {},
+          additionalRequirements: row.additional_requirements,
+          status: row.status,
+          assignedStaff: row.assigned_staff,
+          internalNotes: row.internal_notes,
+          nextFollowupDate: row.next_followup_date,
+          createdAt: row.created_at,
+          updatedAt: row.updated_at,
+        }))
+      );
 
       return res.status(200).json({ success: true, stats });
     } catch (err: any) {
@@ -118,24 +62,80 @@ export default async function handler(req: any, res: any) {
     }
   }
 
-  // Fallback demo statistics
-  const fallbackStats: AdminDashboardStats = {
-    totalInquiries: 0,
-    newInquiriesToday: 0,
-    pendingFollowups: 0,
-    convertedCount: 0,
-    conversionRate: 0,
-    byCategory: {
-      holidays: 0,
-      educational: 0,
-      corporate: 0,
-      transport: 0,
-      visa_passport: 0,
-      catering: 0,
-    },
-    byStatus: { new: 0 },
-    recentInquiries: [],
+  // Compute from shared memory store
+  const memoryList = getMemoryInquiries();
+  const stats = computeStatsFromList(memoryList);
+
+  return res.status(200).json({ success: true, stats });
+}
+
+function computeStatsFromList(list: InquiryRecord[]): AdminDashboardStats {
+  const todayStart = new Date();
+  todayStart.setHours(0, 0, 0, 0);
+  const todayStr = new Date().toISOString().split('T')[0];
+
+  const totalInquiries = list.length;
+  let newToday = 0;
+  let pendingFollowups = 0;
+  let convertedCount = 0;
+
+  const byCategory: Record<string, number> = {
+    holidays: 0,
+    educational: 0,
+    corporate: 0,
+    transport: 0,
+    visa_passport: 0,
+    catering: 0,
+    general: 0,
   };
 
-  return res.status(200).json({ success: true, stats: fallbackStats });
+  const byStatus: Record<string, number> = {
+    new: 0,
+    contacted: 0,
+    in_progress: 0,
+    proposal_sent: 0,
+    confirmed: 0,
+    closed: 0,
+    cancelled: 0,
+  };
+
+  list.forEach((item) => {
+    const itemCreated = new Date(item.createdAt);
+    if (itemCreated >= todayStart) {
+      newToday++;
+    }
+
+    if (
+      item.nextFollowupDate &&
+      item.nextFollowupDate <= todayStr &&
+      item.status !== 'confirmed' &&
+      item.status !== 'closed' &&
+      item.status !== 'cancelled'
+    ) {
+      pendingFollowups++;
+    }
+
+    if (item.status === 'confirmed') {
+      convertedCount++;
+    }
+
+    const cat = item.serviceCategory || 'general';
+    byCategory[cat] = (byCategory[cat] || 0) + 1;
+
+    const st = item.status || 'new';
+    byStatus[st] = (byStatus[st] || 0) + 1;
+  });
+
+  const conversionRate = totalInquiries > 0 ? Math.round((convertedCount / totalInquiries) * 100) : 0;
+
+  return {
+    totalInquiries,
+    newInquiriesToday: newToday,
+    pendingFollowups,
+    convertedCount,
+    conversionRate,
+    byCategory,
+    byStatus,
+    recentInquiries: list.slice(0, 8),
+  };
 }

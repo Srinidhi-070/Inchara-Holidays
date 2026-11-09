@@ -351,3 +351,39 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - Captured "We begin by listening" at `1440 × 900`: verified centered header and 3 glassmorphic step cards.
   - Captured Universal Enquiry Dialog: verified clicking "Plan Educational Tour" opens Step 2 directly with educational fields.
   - Captured Staff Portal detail drawer: verified "Assigned Staff" is absent and follow-up tools remain intact.
+
+---
+
+### 16. Cycle 13: Milestone 7 — Admin and Backend Architecture & Persistence
+**Date**: November 9, 2026  
+**Objective**: Fulfill the user's explicit mandate: *"finish the milestone 7"*. Implement full persistent data architecture, serverless API endpoints with local development runtime, Row Level Security (RLS) PostgreSQL migrations, and real-time Staff Portal operational management.
+
+#### 1. Core Engineering Delivered
+1. **Master Database Schema & Row Level Security ([`supabase/migrations/20261109000000_inchara_backend_schema.sql`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/supabase/migrations/20261109000000_inchara_backend_schema.sql))**:
+   - `inquiries` table: Complete schema with `uuid` primary keys, unique reference codes (`reference_number`), customer profile, `jsonb` service requirements, status enum (`new`, `contacted`, `in_progress`, `proposal_sent`, `confirmed`, `closed`, `cancelled`), follow-up date, and automated `updated_at` triggers.
+   - `inquiry_events` table: Audit trail tracking status transitions, timestamps, and staff actions.
+   - `admin_profiles` table: Role-based access control (`super_admin`, `operations_manager`, `travel_consultant`).
+   - `packages` table: Structured catalog for curating holiday package listings, itineraries, and inclusions.
+   - **Row Level Security (RLS)**: Enforced public anonymous insert for inquiries; authenticated staff-only access for viewing, editing, and auditing.
+2. **Serverless API Routes & Local Dev Middleware Runtime ([`vite.config.ts`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/vite.config.ts))**:
+   - Engineered native `apiDevMiddleware()` plugin in Vite that intercepts `/api/*` calls during local development (`npm run dev`) and executes the serverless TypeScript handlers live with SSR module loading.
+   - `/api/inquire`: Validates input with Zod, checks honeypots, handles idempotency, assigns reference codes (`ICH-2026-XXXX`), saves to database, and triggers notifications.
+   - `/api/admin/login`: Verifies staff credentials via Supabase Auth or secure master credentials, issuing session tokens.
+   - `/api/admin/inquiries`: Supports multi-field search (`reference_number`, `customer_name`, `phone`, `email`), category/status filtering, pagination, and `PATCH` updates for status, follow-up dates, and internal staff notes.
+   - `/api/admin/stats`: Computes live KPIs (Total inquiries, leads today, pending follow-ups, conversion rate, category distribution).
+   - `/api/services`: Provides live service metadata and category controls.
+3. **Resilient Data Store & Offline Fallback ([`api/_shared/store.ts`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/api/_shared/store.ts))**:
+   - Shared persistence adapter: when Supabase credentials are provided in `.env`, the system executes live PostgreSQL queries; when running standalone or offline, it transparently synchronizes with in-memory and client-side `localStorage`.
+4. **Environment Configuration ([`.env.example`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/.env.example))**:
+   - Complete template documenting `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `STAFF_NOTIFICATION_EMAIL`, and `RESEND_API_KEY`.
+
+#### 2. Live Verification Results
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled cleanly in **652ms**.
+- **API Pipeline Verification**:
+  - `POST /api/inquire`: 201 Created with unique reference code (`ICH-2026-KBWB`).
+  - `POST /api/admin/login`: 200 OK with authorized JWT token and `super_admin` role.
+  - `GET /api/admin/inquiries`: 200 OK retrieving live submitted inquiries.
+  - `GET /api/admin/stats`: 200 OK calculating dynamic inquiry metrics and category breakdown.
+  - `PATCH /api/admin/inquiries`: 200 OK successfully advancing inquiry status to `confirmed` and saving internal staff notes.
+- **Admin Dashboard UI Live Test**: Verified with Playwright screenshot (`page-2026-11-09T15-41-13-896Z.png`) showing real-time KPI cards, Ambari Elephant header, inquiries stream, and search filters.

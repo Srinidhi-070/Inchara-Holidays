@@ -5,6 +5,7 @@
 
 import { getSupabase, isSupabaseConfigured } from '../_shared/supabase';
 import { InquiryRecord, InquiryStatus } from '../../src/types/inquiry';
+import { getMemoryInquiries, updateMemoryInquiry } from '../_shared/store';
 
 export default async function handler(req: any, res: any) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -23,7 +24,7 @@ export default async function handler(req: any, res: any) {
 
   // 1. GET: List Inquiries with Search & Filter
   if (req.method === 'GET') {
-    const { category, status, search, limit = 50, offset = 0 } = req.query;
+    const { category, status, search, limit = 50, offset = 0 } = req.query || {};
 
     if (isSupabaseConfigured() && supabase) {
       try {
@@ -85,17 +86,37 @@ export default async function handler(req: any, res: any) {
     }
 
     // In-memory fallback
+    let list = getMemoryInquiries();
+    if (category && category !== 'all') {
+      list = list.filter((i) => i.serviceCategory === category);
+    }
+    if (status && status !== 'all') {
+      list = list.filter((i) => i.status === status);
+    }
+    if (search) {
+      const q = String(search).toLowerCase();
+      list = list.filter(
+        (i) =>
+          i.referenceNumber.toLowerCase().includes(q) ||
+          i.customerName.toLowerCase().includes(q) ||
+          i.phone.toLowerCase().includes(q) ||
+          (i.email && i.email.toLowerCase().includes(q))
+      );
+    }
+
+    const paginated = list.slice(Number(offset), Number(offset) + Number(limit));
+
     return res.status(200).json({
       success: true,
-      inquiries: [],
-      total: 0,
+      inquiries: paginated,
+      total: list.length,
       limit: Number(limit),
       offset: Number(offset),
       isFallback: true,
     });
   }
 
-  // 2. PATCH: Update Status, Notes, Followup Date, Assigned Staff
+  // 2. PATCH: Update Status, Notes, Followup Date
   if (req.method === 'PATCH') {
     try {
       const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
@@ -150,9 +171,18 @@ export default async function handler(req: any, res: any) {
         });
       }
 
+      // Memory fallback update
+      const updatePayload: Partial<InquiryRecord> = {};
+      if (status) updatePayload.status = status as InquiryStatus;
+      if (internalNotes !== undefined) updatePayload.internalNotes = internalNotes;
+      if (nextFollowupDate !== undefined) updatePayload.nextFollowupDate = nextFollowupDate;
+
+      const updatedMemory = updateMemoryInquiry(id, updatePayload);
+
       return res.status(200).json({
         success: true,
-        message: 'Inquiry updated (mock fallback)',
+        message: 'Inquiry updated successfully',
+        inquiry: updatedMemory,
       });
     } catch (err: any) {
       return res.status(500).json({ success: false, error: err.message });
