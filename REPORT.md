@@ -595,3 +595,38 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
 
 
 
+
+
+---
+
+### Cycle 20: 3D DriftWall Animation Integration & Invitation Banner Upgrade
+**Date**: November 9, 2026  
+**Status**: Completed & Verified  
+
+#### 1. Core Engineering Delivered
+- **3D DriftWall Animation Component Integration ([`src/components/DriftWall.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/DriftWall.tsx), [`src/components/DriftWall.css`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/DriftWall.css))**:
+  - Implemented the 3D perspective interactive DriftWall component using native React hooks (`useCallback`, `useLayoutEffect`, `useMemo`, `useRef`, `useState`) and standard CSS 3D matrix transforms without bulky external animation libraries.
+  - **Customized for Inchara Holidays**:
+    - **Curated Travel Tapestry**: 15 authentic destination photographs including Belur Hoysala temple, Coorg coffee plantations, Kerala backwaters, Himachal snow peaks, Hampi stone chariot, Gokarna coast, Mysuru Palace, pure veg banana-leaf feasts, and Bali/Vietnam/Kyoto international circuits.
+    - **Cultural Color Tokens**: Integrated Mysore Royal Gold (`#D4AF37`) and Kasavu Gold (`#F5D77F`) 3D lift glow rings, deep forest evergreen backdrop (`#07130C`), and radial edge masking (`-webkit-mask-image: radial-gradient(...)`).
+    - **Interactive Pointer Parallax**: Damped smooth mouse tracking adds organic 3D tilt and depth responding to visitor cursor movement.
+    - **Click-to-Enquire Routing**: Clicking any drifting tile opens the Universal Enquiry modal with the destination pre-filled.
+    - **Accessibility & Motion Preference**: Automatic `prefers-reduced-motion` compliance halts auto-drift while keeping static 3D perspective intact.
+- **Transformed Grand Invitation Banner ([`src/components/HomeSections.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/HomeSections.tsx))**:
+  - Replaced the static background photo with the dynamic 3D DriftWall backdrop.
+  - Positioned a floating frosted glassmorphic card (`#0D1F15` at 85% opacity with Kasavu gold border `#D4AF37`) in the center featuring the headline (*"Where will your heart take you next?"* / *"ನಿಮ್ಮ ಹೃದಯದ ಮುಂದಿನ ಪಯಣ ಎಲ್ಲಿಗೆ?"*), authentic bilingual typography, `ENQUIRE NOW ↗`, and `Explore Destinations →` buttons.
+
+#### 2. Verification Results
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled cleanly in **1.13s**.
+- **Playwright Visual QA**:
+  - `1440 × 900` (Desktop): Verified 3D drifting mosaic, pointer parallax, and centered glass card.
+  - `390 × 844` (Mobile): Verified responsive column layout and centered card without horizontal viewport overflow.
+  - **Bilingual Verification**: Tested language toggle to Kannada (`ಕ`); text rendered cleanly with `font-kannada-serif` without clipping.
+  - **Universal Enquiry Flow**: Verified opening modal from Invitation Banner; verified Step 1 service cards and Step 2 details form with fully visible, well-padded `CONTINUE →` and `BACK` buttons.
+
+#### 3. Files Created & Modified
+- [`src/components/DriftWall.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/DriftWall.tsx) (New)
+- [`src/components/DriftWall.css`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/DriftWall.css) (New)
+- [`src/components/HomeSections.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/HomeSections.tsx)
+- [`REPORT.md`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/REPORT.md)
