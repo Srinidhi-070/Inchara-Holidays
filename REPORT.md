@@ -630,3 +630,37 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
 - [`src/components/DriftWall.css`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/DriftWall.css) (New)
 - [`src/components/HomeSections.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/HomeSections.tsx)
 - [`REPORT.md`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/REPORT.md)
+
+
+---
+
+### Cycle 21: DriftWall Visibility & Architectural Layout Overhaul
+**Date**: November 9, 2026  
+**Status**: Completed & Verified  
+
+#### 1. Identified Defects & User Feedback
+- **Defects Reported**:
+  1. The Invitation section was dominated by a giant, opaque dark card covering 80% of the screen area.
+  2. The DriftWall 3D background animation was practically invisible (blacked out by heavy gradient shaders and dimmed tiles).
+  3. `pauseOnHover={true}` froze the entire animation whenever the visitor's cursor entered the viewport.
+
+#### 2. Root Cause Engineering Resolution
+1. **Removed Suffocating Shaders**:
+   - Completely deleted `.invitation__shade` (which cast an 80% dark green gradient overlay across the whole section).
+   - Raised tile luminosity from `dim={0.5}` to `dim={0.95}` and softened `overlayColor` to `rgba(7, 19, 12, 0.1)`.
+   - Widened radial edge mask from 40% to 80% so photos remain vibrant and distinct across the entire screen.
+2. **Smooth Continuous Drift (`pauseOnHover={false}`)**:
+   - Configured `pauseOnHover={false}` with `speed={36}`, ensuring columns drift continuously in 3D perspective without freezing on mouse movement.
+3. **Architectural Layout Restructuring ([`src/components/HomeSections.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/HomeSections.tsx))**:
+   - Eliminated the giant opaque box blocking the center.
+   - **Top**: Clean editorial headline and narrative (*"Where will your heart take you next?"* / *"ನಿಮ್ಮ ಹೃದಯದ ಮುಂದಿನ ಪಯಣ ಎಲ್ಲಿಗೆ?"*).
+   - **Middle**: 100% unobstructed, full-bleed 3D DriftWall (`h-[520px] sm:h-[600px]`), making all 15 travel destinations immediately visible and interactive.
+   - **Interactive Postcard Lift**: Focusing or hovering on any destination lifts the tile forward in 3D (`translateZ(60px)`), highlights it with a Mysore Gold (`#D4AF37`) halo, and reveals the destination name badge (e.g. `• Mysuru Royal Palace`).
+   - **Bottom**: Sleek floating glass dock housing the Mysore Gold `[ ENQUIRE NOW ↗ ]` and `[ EXPLORE DESTINATIONS → ]` CTAs.
+
+#### 3. Verification Results
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled cleanly in **726ms**.
+- **Playwright Visual Verification**:
+  - `1440 × 900` (Desktop): Verified 100% visibility of all 15 photo cards, 3D pointer parallax, interactive postcard hover lift with gold border and caption pill, and floating action dock.
+  - `390 × 844` (Mobile): Verified responsive multi-column flow, zero overflow, and clean vertical stacking.

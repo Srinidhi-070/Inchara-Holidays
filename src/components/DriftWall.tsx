@@ -78,16 +78,16 @@ export const DriftWall: React.FC<DriftWallProps> = ({
   roll = 0,
   perspective = 1200,
   depth = 120,
-  speed = 42,
+  speed = 36,
   direction = 'up',
   variance = 0.45,
   parallax = 0.6,
   pauseOnHover = false,
-  lift = 64,
-  fade = 0.6,
-  dim = 0.55,
+  lift = 60,
+  fade = 0.25,
+  dim = 0.92,
   grayscale = false,
-  overlayColor = '#060010',
+  overlayColor = 'rgba(7, 19, 12, 0.12)',
   className = '',
   style,
   onTileClick,
@@ -278,6 +278,12 @@ export const DriftWall: React.FC<DriftWallProps> = ({
       <span className="drift-wall__inner">
         <img src={item.image} alt={item.title ?? ''} loading="lazy" decoding="async" draggable={false} />
         <span className="drift-wall__overlay" aria-hidden="true" />
+        {item.title && (
+          <span className="drift-wall__caption">
+            <span className="drift-wall__caption-dot" aria-hidden="true" />
+            <span>{item.title}</span>
+          </span>
+        )}
       </span>
     );
 

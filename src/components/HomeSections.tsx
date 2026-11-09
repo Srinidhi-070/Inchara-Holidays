@@ -499,70 +499,69 @@ export function InvitationBanner({ locale, onEnquire }: Props) {
   ];
 
   return (
-    <section className="invitation relative overflow-hidden min-h-[580px] sm:min-h-[660px] flex items-center justify-center bg-[#07130C] border-t border-[#D4AF37]/25" aria-labelledby="invitation-title">
-      {/* 3D Drifting Expedition Photo Wall Backdrop */}
-      <div className="absolute inset-0 z-0 pointer-events-auto">
+    <section className="invitation relative overflow-hidden py-12 sm:py-16 bg-[#07130C] border-t border-[#D4AF37]/25" aria-labelledby="invitation-title">
+      {/* Top Editorial Headline */}
+      <div className="shell relative z-10 text-center mb-6 sm:mb-8">
+        <p className="eyebrow eyebrow--lined text-xs sm:text-sm font-bold tracking-widest text-[#F5D77F] uppercase mb-2.5">
+          {String(c.invitationEyebrow)}
+        </p>
+        <h2 id="invitation-title" className={`text-2xl sm:text-3xl lg:text-4xl font-serif-editorial font-bold text-white tracking-tight leading-[1.2] mb-3 ${locale === "kn" ? "font-kannada-serif" : ""}`}>
+          {locale === "kn" ? (
+            <>
+              ನಿಮ್ಮ ಹೃದಯದ ಮುಂದಿನ{" "}
+              <em className="text-[#F5D77F] font-normal font-serif-editorial italic">
+                ಪಯಣ ಎಲ್ಲಿಗೆ?
+              </em>
+            </>
+          ) : (
+            <>
+              Where will your heart{" "}
+              <em className="text-[#F5D77F] font-normal font-serif-editorial italic">
+                take you next?
+              </em>
+            </>
+          )}
+        </h2>
+        <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-normal max-w-xl mx-auto">
+          {String(c.invitationBody)}
+        </p>
+      </div>
+
+      {/* 3D Drifting Expedition Photo Wall (100% Unobstructed & Fully Visible) */}
+      <div className="relative w-full h-[520px] sm:h-[600px] my-2 overflow-hidden pointer-events-auto">
         <DriftWall
           items={travelMoments}
           columns={5}
-          tileWidth={210}
-          tileHeight={140}
-          gap={16}
-          radius={12}
+          tileWidth={230}
+          tileHeight={155}
+          gap={20}
+          radius={14}
           tilt={14}
           turn={-12}
           depth={130}
-          speed={22}
+          speed={36}
           variance={0.4}
-          parallax={0.5}
-          pauseOnHover={true}
-          lift={52}
-          fade={0.52}
-          dim={0.68}
-          overlayColor="#07130C"
+          parallax={0.6}
+          pauseOnHover={false}
+          lift={60}
+          fade={0.25}
+          dim={0.95}
+          overlayColor="rgba(7, 19, 12, 0.1)"
           onTileClick={(item) => onEnquire("holidays", item.title)}
         />
       </div>
 
-      {/* Evergreen Vignette Gradient Shade */}
-      <div className="invitation__shade z-1 pointer-events-none" />
-
-      {/* Floating Center Glassmorphic Invitation Card */}
-      <div className="shell relative z-10 my-10 sm:my-14" data-reveal="up">
-        <div className="max-w-3xl mx-auto p-6 sm:p-10 rounded-3xl bg-[#0D1F15]/85 backdrop-blur-2xl border border-[#D4AF37]/45 shadow-[0_24px_70px_rgba(0,0,0,0.65)] ring-1 ring-[#F5D77F]/15 text-center">
-          <p className="eyebrow eyebrow--lined text-xs sm:text-sm font-bold tracking-widest text-[#F5D77F] uppercase mb-2.5">
-            {String(c.invitationEyebrow)}
-          </p>
-          <h2 id="invitation-title" className={`text-2xl sm:text-3xl lg:text-4xl font-serif-editorial font-bold text-white tracking-tight leading-[1.18] mb-3.5 ${locale === "kn" ? "font-kannada-serif" : ""}`}>
-            {locale === "kn" ? (
-              <>
-                ನಿಮ್ಮ ಹೃದಯದ ಮುಂದಿನ{" "}
-                <em className="text-[#F5D77F] font-normal font-serif-editorial italic">
-                  ಪಯಣ ಎಲ್ಲಿಗೆ?
-                </em>
-              </>
-            ) : (
-              <>
-                Where will your heart{" "}
-                <em className="text-[#F5D77F] font-normal font-serif-editorial italic">
-                  take you next?
-                </em>
-              </>
-            )}
-          </h2>
-          <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-normal max-w-xl mx-auto mb-6">
-            {String(c.invitationBody)}
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
-            <button className="gold-button w-full sm:w-auto inline-flex items-center justify-center gap-2 cursor-pointer" type="button" onClick={() => onEnquire()}>
-              <span>{String(c.enquire)}</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </button>
-            <a href="#destinations" className="outline-button w-full sm:w-auto inline-flex items-center justify-center gap-2 text-white border-white/30 hover:border-[#F5D77F] hover:text-[#F5D77F] transition-colors py-3 px-6 rounded-xl text-xs uppercase font-bold tracking-wider">
-              <span>{locale === "kn" ? "ತಾಣಗಳನ್ನು ಅನ್ವೇಷಿಸಿ" : "Explore Destinations"}</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
+      {/* Bottom Floating Action Bar */}
+      <div className="shell relative z-10 text-center mt-6">
+        <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-3.5 p-3 px-5 rounded-2xl bg-[#0D1F15]/90 backdrop-blur-xl border border-[#D4AF37]/50 shadow-[0_16px_40px_rgba(0,0,0,0.65)] ring-1 ring-[#F5D77F]/20">
+          <button className="gold-button w-full sm:w-auto inline-flex items-center justify-center gap-2 cursor-pointer text-xs py-3 px-6" type="button" onClick={() => onEnquire()}>
+            <span>{String(c.enquire)}</span>
+            <ArrowUpRight className="w-4 h-4" />
+          </button>
+          <a href="#destinations" className="outline-button w-full sm:w-auto inline-flex items-center justify-center gap-2 text-white border-white/30 hover:border-[#F5D77F] hover:text-[#F5D77F] transition-colors py-3 px-6 rounded-xl text-xs uppercase font-bold tracking-wider">
+            <span>{locale === "kn" ? "ತಾಣಗಳನ್ನು ಅನ್ವೇಷಿಸಿ" : "Explore Destinations"}</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
       </div>
     </section>
