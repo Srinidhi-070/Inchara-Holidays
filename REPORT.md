@@ -108,3 +108,42 @@ Following direct user request (`media_1794077472331_5652119f.png` showing the gr
    - `npx tsc --noEmit`: 0 errors.
    - `npm run build`: Production bundle built successfully.
    - Playwright live screenshot verified at `http://localhost:5180/`: hero bottom-right is unobstructed; on scrolling down, only the clean back-to-top button appears.
+
+---
+
+### 8. Cycle 5: Agent Skills Setup & Engineering Governance
+**Date**: November 9, 2026  
+**Objective**: Establish a comprehensive, native Antigravity AI engineering skill environment tailored to Inchara Holidays without altering any website code.
+
+#### 1. Skills Established (10 New Custom Skills + 1 Reused)
+1. **`inchara-project-guardrails`** (`.agents/skills/inchara-project-guardrails/SKILL.md`): Five-tier source-of-truth precedence, milestone change control, destructive change protection, and `REPORT.md` governance.
+2. **`design-system`** (`.agents/skills/design-system/SKILL.md`): Canonical color tokens (Forest Evergreen, Mysore Gold, Kasavu Gold, Kaavi Terracotta), bilingual typography (Playfair Display, Plus Jakarta Sans, Noto Kannada), and Kolam watermarks.
+3. **`ux-information-architecture`** (`.agents/skills/ux-information-architecture/SKILL.md`): Content structure across all 6 core services, anti-clutter / anti-minimalism balance, and customer enquiry journeys.
+4. **`inchara-content-reconciliation`** (`.agents/skills/inchara-content-reconciliation/SKILL.md`): 6-status classification matrix (PC/PI/MC/II/RN/ROC) comparing legacy website, Figma designs, and live code to ensure 0% data loss.
+5. **`responsive-frontend`** (`.agents/skills/responsive-frontend/SKILL.md`): React 19 + TypeScript + Tailwind CSS v4 conventions, viewport breakpoints (360px to 1440px), modal stacking (`z-[1050]`), and bundle splitting.
+6. **`visual-qa`** (`.agents/skills/visual-qa/SKILL.md`): Multi-viewport screenshot auditing runbook across 360×800, 390×844, 768×1024, and 1440×900 with P0–P3 defect severity tracking.
+7. **`browser-testing`** (`.agents/skills/browser-testing/SKILL.md`): Automated E2E testing runbooks using Playwright MCP for navigation, filters, 4-step enquiry validation, and persistence.
+8. **`react-architecture`** (`.agents/skills/react-architecture/SKILL.md`): Component boundaries, state management, TypeScript data models, and separation of presentation from domain data.
+9. **`backend-engineering`** (`.agents/skills/backend-engineering/SKILL.md`): Architecture blueprints for future Supabase PostgreSQL, RLS, staff auth, and WhatsApp Cloud API. **Includes a strict gate prohibiting implementation without explicit owner approval.**
+10. **`security-privacy`** (`.agents/skills/security-privacy/SKILL.md`): Secret hygiene, client/server trust boundaries, spam mitigation, and strict prohibition on public passport collection.
+11. **`ui-ux-pro-max`** (`.agents/skills/ui-ux-pro-max/SKILL.md`): Pre-existing local skill with 79 styles, 192 product palettes, and 119 UX guidelines preserved and active.
+
+#### 2. Project Instruction Files & Documentation Created
+- `.agents/AGENTS.md`: Canonical master project instructions and governance.
+- `AGENTS.md`: Workspace root rules file pointing to canonical instructions.
+- `docs/engineering/AGENT_SKILLS_CATALOG.md`: Complete skill inventory, scope, relationships, and third-party assessments.
+- `docs/engineering/AGENT_SKILLS_SETUP.md`: Setup, discovery mechanics, progressive disclosure, and operation guide.
+- `docs/engineering/AGENT_SKILLS_VERIFICATION.md`: Ten-point validation audit and lifecycle tier status.
+
+#### 3. Ecosystem Discovery & Installations
+- **Playwright MCP**: Native browser automation server reused directly for E2E testing and screenshot audits. No extra test frameworks installed.
+- **Supabase Marketplace Plugin**: Discovered in partner marketplace, but **deferred/not installed** to enforce the milestone boundary preventing premature backend work.
+- **Generic Third-Party Claude/Cursor Skills**: Evaluated and rejected due to missing Antigravity frontmatter compatibility and supply-chain risk.
+
+#### 4. Strict Non-Destructive Validation
+- **Website Implementation Untouched**: Confirmed zero modifications to `src/`, `public/`, `index.html`, `vite.config.ts`, or Tailwind CSS configurations.
+- **TypeScript & Build Check**: `npx tsc --noEmit` passed with 0 errors; `npm run build` compiled cleanly in 777ms.
+- **Frontmatter Validation**: All 11 skills passed automated YAML frontmatter, naming, and size audits (< 24 KB cap).
+
+#### 5. Exact Next Step
+Wait for user authorization on the tooling setup before proceeding to the UI Recovery & Content Reconciliation audit.
