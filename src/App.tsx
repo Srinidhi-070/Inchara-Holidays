@@ -18,6 +18,8 @@ import { CateringShowcase } from "./components/CateringShowcase";
 import { WhyUs } from "./components/WhyUs";
 import { TravellerStories } from "./components/TravellerStories";
 import { FloatingActions } from "./components/FloatingActions";
+import { CustomCursor } from "./components/CustomCursor";
+import { ScrollProgressBar } from "./components/ScrollProgressBar";
 import { useLocale } from "./hooks/useLocale";
 import { useScrollReveal } from "./hooks/useScrollReveal";
 import type { ServiceId, SamplePackage, Destination } from "./types";
@@ -31,6 +33,15 @@ const DestinationModal = React.lazy(() =>
 const AdminDashboard = React.lazy(() =>
   import("./components/admin/AdminDashboard").then((m) => ({ default: m.AdminDashboard }))
 );
+const SchoolTripModal = React.lazy(() =>
+  import("./components/SchoolTripModal").then((m) => ({ default: m.SchoolTripModal }))
+);
+const CorporateEventModal = React.lazy(() =>
+  import("./components/CorporateEventModal").then((m) => ({ default: m.CorporateEventModal }))
+);
+const CateringModal = React.lazy(() =>
+  import("./components/CateringModal").then((m) => ({ default: m.CateringModal }))
+);
 
 export default function App() {
   const { locale, setLocale } = useLocale();
@@ -42,11 +53,35 @@ export default function App() {
   const [selectedPackage, setSelectedPackage] = useState<SamplePackage | null>(null);
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
   const [adminOpen, setAdminOpen] = useState(false);
+  const [schoolTripOpen, setSchoolTripOpen] = useState(false);
+  const [corporateModalOpen, setCorporateModalOpen] = useState(false);
+  const [cateringModalOpen, setCateringModalOpen] = useState(false);
 
   function openEnquiry(service?: ServiceId | string, destName?: string) {
     setInitialService((service as ServiceId) ?? null);
     setInitialDestination(destName ?? "");
     setDialogOpen(true);
+  }
+
+  function handleServiceAction(serviceId?: ServiceId | string) {
+    if (serviceId === "education" || serviceId === "educational") {
+      setSchoolTripOpen(true);
+    } else if (serviceId === "corporate") {
+      setCorporateModalOpen(true);
+    } else if (serviceId === "catering") {
+      setCateringModalOpen(true);
+    } else if (serviceId === "holidays") {
+      const el = document.getElementById("packages");
+      el?.scrollIntoView({ behavior: "smooth" });
+    } else if (serviceId === "transport") {
+      const el = document.getElementById("transport");
+      el?.scrollIntoView({ behavior: "smooth" });
+    } else if (serviceId === "visa") {
+      const el = document.getElementById("travel-assistance");
+      el?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      openEnquiry(serviceId);
+    }
   }
 
   function openPackageItinerary(pkg: SamplePackage) {
@@ -59,6 +94,10 @@ export default function App() {
 
   return (
     <div className={locale === "kn" ? "app font-kannada" : "app"}>
+      {/* Luxury Interactive Elements from Vercel Edition */}
+      <ScrollProgressBar />
+      <CustomCursor />
+
       <a className="skip-link" href="#main">
         {locale === "en" ? "Skip to main content" : "ಮುಖ್ಯ ವಿಷಯಕ್ಕೆ ಹೋಗಿ"}
       </a>
@@ -77,7 +116,7 @@ export default function App() {
         <Affiliations locale={locale} />
 
         {/* 5. All 6 Service Categories with Balanced Cards */}
-        <Services locale={locale} onEnquire={openEnquiry} />
+        <Services locale={locale} onEnquire={handleServiceAction} />
 
         {/* 6. Destination Discovery (Image 4 Reference - 5-Tile Mosaic) */}
         <DestinationDiscovery
@@ -96,8 +135,8 @@ export default function App() {
         {/* 8. Educational Study Tours & Corporate Offsites */}
         <InstitutionalCorporateHighlight
           language={locale}
-          onOpenEducational={() => openEnquiry("education")}
-          onOpenCorporate={() => openEnquiry("corporate")}
+          onOpenEducational={() => setSchoolTripOpen(true)}
+          onOpenCorporate={() => setCorporateModalOpen(true)}
         />
 
         {/* 9. Audited Vehicle Fleet & Travel Assistance */}
@@ -110,7 +149,7 @@ export default function App() {
         {/* 10. 100% Pure Vegetarian Catering Showcase (User Benchmark Reference) */}
         <CateringShowcase
           language={locale}
-          onOpenCatering={() => openEnquiry("catering")}
+          onOpenCatering={() => setCateringModalOpen(true)}
         />
 
         {/* 11. Why Us / Personal Warmth (Image 3 Reference) */}
@@ -134,7 +173,7 @@ export default function App() {
         onOpenAdmin={() => setAdminOpen(true)}
       />
 
-      {/* 14. Floating WhatsApp & Scroll-to-Top Dock */}
+      {/* 14. Floating Scroll-to-Top Dock */}
       <FloatingActions locale={locale} onOpenEnquiry={() => openEnquiry()} />
 
       {/* 15. Universal Enquiry Dialog (Image 2 Reference - Large Bold Icon Stepper) */}
@@ -148,6 +187,37 @@ export default function App() {
           setInitialDestination("");
         }}
       />
+
+      {/* Specialized Interactive Modals (Preserved from Vercel Edition) */}
+      <Suspense fallback={null}>
+        {schoolTripOpen && (
+          <SchoolTripModal
+            isOpen={schoolTripOpen}
+            language={locale}
+            onClose={() => setSchoolTripOpen(false)}
+          />
+        )}
+      </Suspense>
+
+      <Suspense fallback={null}>
+        {corporateModalOpen && (
+          <CorporateEventModal
+            isOpen={corporateModalOpen}
+            language={locale}
+            onClose={() => setCorporateModalOpen(false)}
+          />
+        )}
+      </Suspense>
+
+      <Suspense fallback={null}>
+        {cateringModalOpen && (
+          <CateringModal
+            isOpen={cateringModalOpen}
+            language={locale}
+            onClose={() => setCateringModalOpen(false)}
+          />
+        )}
+      </Suspense>
 
       {/* Lazy Modals */}
       <Suspense fallback={null}>

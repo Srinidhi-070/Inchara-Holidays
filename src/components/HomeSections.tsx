@@ -223,25 +223,38 @@ export function Services({ locale, onEnquire }: Props) {
                   <p className="text-xs sm:text-sm text-[#252923]/75 leading-relaxed mb-4">
                     {service.description[locale]}
                   </p>
-                  <ul className="space-y-2 border-t border-[#263F32]/8 pt-3 text-xs text-[#252923]/80">
-                    {service.features[locale].map((feature) => (
-                      <li key={feature} className="flex items-center gap-2">
-                        <span className="text-[#D4AF37] font-bold">✦</span>
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  {/* Interactive Offering Chips with Spring Hover */}
+                  <div className="border-t border-[#263F32]/8 pt-3 space-y-2">
+                    <div className="text-[11px] font-bold text-[#162E22] uppercase tracking-wider">
+                      {locale === "kn" ? "ಲಭ್ಯವಿರುವ ಕೊಡುಗೆಗಳು:" : "Featured Offerings:"}
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {service.features[locale].map((feature) => (
+                        <button
+                          key={feature}
+                          type="button"
+                          onClick={() => onEnquire(service.id)}
+                          className="px-2.5 py-1 rounded-lg bg-[#F6F3EA] hover:bg-[#D4AF37]/25 border border-[#263F32]/10 text-xs text-[#162E22] transition-all flex items-center gap-1.5 cursor-pointer active:scale-95 group/chip"
+                          data-cursor="Explore"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] group-hover/chip:scale-125 transition-transform" />
+                          <span>{feature}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <div className="p-6 sm:p-7 pt-0 border-t border-transparent">
                 <button
-                  className="w-full py-3 px-4 rounded-xl bg-[#F6F3EA] hover:bg-[#162E22] text-[#162E22] hover:text-[#F5D77F] text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer border border-[#263F32]/10 hover:border-[#D4AF37]"
+                  className="w-full py-3 px-4 rounded-xl bg-[#F6F3EA] hover:bg-[#162E22] text-[#162E22] hover:text-[#F5D77F] text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer border border-[#263F32]/10 hover:border-[#D4AF37] active:scale-95 group/btn"
                   type="button"
                   onClick={() => onEnquire(service.id)}
+                  data-cursor="Open"
                 >
-                  <span>{String(c.discover)}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
+                  <span>{locale === "kn" ? "ವಿವರಗಳು & ಯೋಜನೆ" : "Explore & Plan"}</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                 </button>
               </div>
             </article>
