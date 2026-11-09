@@ -270,3 +270,26 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
 - **Playwright Live Verification**:
   - Tested opening `CustomSelect`: verified Mysore Gold outline, rounded-2xl menu, and Forest Evergreen active state.
   - Tested opening `CustomDatePicker`: verified Playfair Display header, terracotta weekday labels, and theme-matched day cells with zero Windows system blue.
+
+---
+
+### 13. Cycle 10: Mobile Layering & Aspect Ratio Rectification — Language Toggle & Staff Portal Header
+**Date**: November 9, 2026  
+**Objective**: Fix the two visual regression defects identified in mobile screenshots: (1) The footer language toggle stretching into a 92px circular bubble due to flex-direction column conflicts, and (2) The fixed site header (`z-100`) sitting on top of the Staff Portal modal and obscuring the executive top bar.
+
+#### 1. Implemented Enhancements
+1. **Language Toggle Aspect Ratio Rectification ([`src/index.css`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/index.css))**:
+   - In `.language-toggle`, replaced `flex: 0 0 92px;` with `flex: 0 0 auto;` and enforced `max-height: 44px`.
+   - On mobile viewports where the footer parent switches to `flex-col`, the button previously interpreted `flex-basis: 92px` on the cross-axis as a 92px height, distorting the pill into a giant 92px round ball.
+   - Now maintains strict 92px × 44px pill dimensions across all viewports and flex directions.
+2. **Staff Portal Modal Z-Index Elevation ([`AdminDashboard.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/admin/AdminDashboard.tsx))**:
+   - Elevated modal backdrop z-index from `z-50` to `z-[1050]` (and detail drawer to `z-[1060]`).
+   - The fixed site header (`z-100`) now rests cleanly beneath the modal backdrop.
+   - The modal's top bar ("Ambari Elephant" emblem, "Inchara Holidays Operations", and Close `X` button) is completely visible and accessible on mobile.
+
+#### 2. Quality Verification
+- **TypeScript**: `npx tsc --noEmit` passed with 0 errors.
+- **Production Build**: `npm run build` compiled cleanly in 626ms.
+- **Playwright Live Verification**:
+  - Captured mobile footer at `390 × 844`: verified language toggle renders as an oval pill (`92px × 44px`).
+  - Captured Staff Portal login at `390 × 844`: verified site header is under the backdrop and the executive top bar is fully visible.
