@@ -18,14 +18,14 @@ export const ConceptSwitcher: React.FC<ConceptSwitcherProps> = ({
   onChange,
   locale = 'en',
 }) => {
-  const [dismissed, setDismissed] = useState(false);
+  const [dismissed, setDismissed] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
   const [scrolledPast, setScrolledPast] = useState(false);
   const isKn = locale === 'kn';
 
   useEffect(() => {
     const handleScroll = () => {
-      // Auto-hide when scrolled past hero (past 600px)
-      if (window.scrollY > 600) {
+      // Auto-hide when scrolled past hero (past 650px)
+      if (window.scrollY > 650) {
         setScrolledPast(true);
       } else {
         setScrolledPast(false);
@@ -87,7 +87,7 @@ export const ConceptSwitcher: React.FC<ConceptSwitcherProps> = ({
         <button
           type="button"
           onClick={() => setDismissed(false)}
-          className="group flex items-center gap-2.5 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-[#0A1810]/92 hover:bg-[#12261C] text-white border border-[#D4AF37]/50 hover:border-[#F5D77F] shadow-[0_12px_32px_rgba(10,24,16,0.45)] backdrop-blur-xl text-xs font-medium transition-all duration-300 cursor-pointer hover:scale-105 active:scale-95 ring-1 ring-[#F5D77F]/20"
+          className="group flex items-center gap-2.5 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-[#0D1F15]/95 hover:bg-[#142A1D] text-white border border-[#D4AF37]/60 hover:border-[#F5D77F] shadow-[0_12px_32px_rgba(10,24,16,0.55)] backdrop-blur-xl text-xs font-medium transition-all duration-300 cursor-pointer hover:scale-105 active:scale-95 ring-1 ring-[#F5D77F]/20"
           title="Reopen Art Directions Switcher"
         >
           <div className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
@@ -98,7 +98,7 @@ export const ConceptSwitcher: React.FC<ConceptSwitcherProps> = ({
               {isKn ? activeConceptData.nameKn : activeConceptData.nameEn}
             </strong>
           </span>
-          <span className="inline-flex items-center gap-1 text-[10px] text-[#F5D77F]/90 uppercase font-bold tracking-wider pl-1 border-l border-[#D4AF37]/30">
+          <span className="inline-flex items-center gap-1 text-[10px] text-[#F5D77F]/90 uppercase font-bold tracking-wider pl-1.5 border-l border-[#D4AF37]/30">
             <span>{isKn ? 'ತೆರೆಯಿರಿ' : 'Open'}</span>
             <ChevronUp className="w-3 h-3 group-hover:-translate-y-0.5 transition-transform" />
           </span>
@@ -107,22 +107,22 @@ export const ConceptSwitcher: React.FC<ConceptSwitcherProps> = ({
     );
   }
 
-  // Full Floating Art Direction Dock matching current Heritage-Modern theme
+  // Full Architectural Heritage-Modern Art Direction Bar
   return (
     <aside
-      className={`fixed z-40 inset-x-3 sm:inset-x-6 md:left-1/2 md:-translate-x-1/2 md:max-w-5xl bottom-3 sm:bottom-6 transition-all duration-500 ${
+      className={`fixed z-40 left-1/2 -translate-x-1/2 bottom-3 sm:bottom-5 w-[calc(100%-1.25rem)] sm:w-[calc(100%-2.5rem)] max-w-6xl transition-all duration-500 ${
         scrolledPast ? 'opacity-0 translate-y-8 pointer-events-none' : 'opacity-100 translate-y-0'
       }`}
       aria-label="Explore three homepage art directions"
     >
-      <div className="relative rounded-2xl sm:rounded-3xl bg-[#0A1810]/92 backdrop-blur-2xl border border-[#D4AF37]/40 shadow-[0_20px_50px_rgba(10,24,16,0.55)] ring-1 ring-[#F5D77F]/15 p-2 sm:p-2.5 overflow-hidden">
-        {/* Subtle decorative gold sheen */}
-        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#F5D77F]/60 to-transparent pointer-events-none" />
+      <div className="relative rounded-2xl bg-[#0D1F15]/96 backdrop-blur-2xl border border-[#D4AF37]/45 shadow-[0_20px_50px_rgba(10,24,16,0.65)] ring-1 ring-[#F5D77F]/20 overflow-hidden">
+        {/* Subtle decorative Kasavu gold sheen on top border */}
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#F5D77F]/80 to-transparent pointer-events-none z-10" />
 
-        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-2.5 sm:gap-3">
+        <div className="flex flex-col lg:flex-row items-stretch">
           
-          {/* Left Eyebrow & Intro Column */}
-          <div className="flex items-center justify-between lg:justify-start gap-3 px-3 py-1.5 sm:py-2 border-b lg:border-b-0 lg:border-r border-[#D4AF37]/25 shrink-0">
+          {/* 1. Left Eyebrow & Intro Section */}
+          <div className="flex items-center justify-between lg:justify-center px-4 py-2.5 sm:px-5 sm:py-3.5 border-b lg:border-b-0 lg:border-r border-[#D4AF37]/25 shrink-0 lg:w-[220px] bg-black/15">
             <div>
               <div className="inline-flex items-center gap-1.5 text-[9px] sm:text-[10px] font-bold tracking-widest text-[#F5D77F] uppercase">
                 <span className="w-3 h-px bg-[#D4AF37]" />
@@ -137,7 +137,7 @@ export const ConceptSwitcher: React.FC<ConceptSwitcherProps> = ({
             <button
               type="button"
               onClick={() => setDismissed(true)}
-              className="lg:hidden w-7 h-7 rounded-full bg-white/5 hover:bg-white/15 text-white/70 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="lg:hidden w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
               title="Minimize art direction dock"
               aria-label="Minimize"
             >
@@ -145,69 +145,71 @@ export const ConceptSwitcher: React.FC<ConceptSwitcherProps> = ({
             </button>
           </div>
 
-          {/* 3 Concept Cards / Tabs */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 sm:gap-2 flex-1">
+          {/* 2. Three Seamless Architectural Segment Tabs */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 flex-1 divide-y sm:divide-y-0 sm:divide-x divide-[#D4AF37]/25">
             {concepts.map((item) => {
               const isActive = concept === item.id;
-              const Icon = item.icon;
               return (
                 <button
                   key={item.id}
                   type="button"
                   onClick={() => onChange(item.id)}
-                  className={`group relative text-left p-2.5 sm:p-3 rounded-xl sm:rounded-2xl transition-all duration-300 cursor-pointer overflow-hidden ${
+                  className={`group relative text-left px-4 py-2.5 sm:px-5 sm:py-3.5 transition-all duration-300 cursor-pointer flex items-center gap-3.5 ${
                     isActive
-                      ? 'bg-gradient-to-b from-[#1E3A2B] to-[#12261C] border border-[#D4AF37]/75 shadow-md shadow-black/30'
-                      : 'bg-white/4 hover:bg-white/8 border border-transparent hover:border-[#D4AF37]/25'
+                      ? 'bg-[#183525] text-white shadow-inner'
+                      : 'bg-transparent hover:bg-white/5 text-[#F6F3EA]/90'
                   }`}
                 >
-                  {/* Active glowing accent indicator strip on top */}
+                  {/* Top Glowing Gold Indicator Line when Active */}
                   {isActive && (
-                    <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-[#F5D77F] to-transparent" />
+                    <div className="absolute top-0 inset-x-0 h-[2.5px] bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37]" />
                   )}
 
-                  <div className="flex items-start gap-2.5">
-                    <span
-                      className={`font-serif-editorial text-sm sm:text-base font-bold shrink-0 transition-colors ${
-                        isActive ? 'text-[#F5D77F]' : 'text-[#D4AF37]/70 group-hover:text-[#F5D77F]'
+                  {/* Concept Number */}
+                  <span
+                    className={`font-serif-editorial text-base sm:text-lg font-bold shrink-0 transition-colors ${
+                      isActive ? 'text-[#F5D77F]' : 'text-[#D4AF37]/80 group-hover:text-[#F5D77F]'
+                    }`}
+                  >
+                    {item.num}
+                  </span>
+
+                  {/* Concept Title & Subtitle (NEVER TRUNCATED) */}
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-1.5">
+                      <span
+                        className={`text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap transition-colors ${
+                          isActive ? 'text-[#F5D77F]' : 'text-[#F6F3EA] group-hover:text-white'
+                        }`}
+                      >
+                        {isKn ? item.nameKn : item.nameEn}
+                      </span>
+                      {isActive && (
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#F5D77F] shrink-0" />
+                      )}
+                    </div>
+                    <p
+                      className={`text-[10px] sm:text-[11px] whitespace-nowrap font-normal mt-0.5 transition-colors ${
+                        isActive ? 'text-white/80' : 'text-white/50 group-hover:text-white/70'
                       }`}
                     >
-                      {item.num}
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-1.5">
-                        <span
-                          className={`text-xs sm:text-sm font-semibold truncate transition-colors ${
-                            isActive ? 'text-[#F5D77F]' : 'text-[#F6F3EA] group-hover:text-white'
-                          }`}
-                        >
-                          {isKn ? item.nameKn : item.nameEn}
-                        </span>
-                        {isActive && (
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] shrink-0" />
-                        )}
-                      </div>
-                      <p className="text-[10px] sm:text-[11px] text-white/60 line-clamp-1 font-normal mt-0.5">
-                        {isKn ? item.detailKn : item.detailEn}
-                      </p>
-                    </div>
+                      {isKn ? item.detailKn : item.detailEn}
+                    </p>
                   </div>
                 </button>
               );
             })}
           </div>
 
-          {/* Right Status Indicator & Desktop Close Button */}
-          <div className="hidden lg:flex items-center gap-3 pl-3 border-l border-[#D4AF37]/25 shrink-0">
-            <div className="text-right">
-              <span className="inline-block px-2.5 py-1 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/40 text-[#F5D77F] text-[9px] font-bold uppercase tracking-wider">
-                {concept === 'A' ? 'SELECTED DIRECTION' : 'PREVIEWING'}
-              </span>
-            </div>
+          {/* 3. Right Status Indicator & Close Button */}
+          <div className="hidden lg:flex items-center justify-between gap-3 px-4 py-2.5 border-l border-[#D4AF37]/25 shrink-0 lg:w-[200px] bg-black/15">
+            <span className="inline-block px-3 py-1 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/45 text-[#F5D77F] text-[9px] font-bold uppercase tracking-wider whitespace-nowrap">
+              {concept === 'A' ? 'SELECTED DIRECTION' : 'PREVIEWING'}
+            </span>
             <button
               type="button"
               onClick={() => setDismissed(true)}
-              className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 text-white/70 hover:text-white flex items-center justify-center transition-colors cursor-pointer border border-white/10"
+              className="w-7 h-7 rounded-full bg-white/5 hover:bg-white/15 text-white/70 hover:text-white flex items-center justify-center transition-colors cursor-pointer border border-white/10"
               title="Minimize art direction dock"
               aria-label="Minimize"
             >

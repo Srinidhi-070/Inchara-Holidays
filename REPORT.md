@@ -531,3 +531,29 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
 - [`src/components/EnquiryDialog.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/EnquiryDialog.tsx)
 - [`REPORT.md`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/REPORT.md)
 
+---
+
+### Cycle 18: Art Direction Switcher Architectural Redesign & Zero-Truncation Fix
+**Date**: November 9, 2026  
+**Status**: Completed & Verified  
+
+#### 1. Core Engineering Delivered
+- **Fixed Truncated Tabs ("01 In... •", "02 Livi...", "03 Glo..." resolved) ([`src/components/ConceptSwitcher.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/ConceptSwitcher.tsx))**:
+  - **Root Cause**: The dock container had `md:left-1/2 md:-translate-x-1/2 md:max-w-5xl` without an explicit width (`w-[calc(100%-2.5rem)]`), causing flexbox with `min-w-0` and `truncate` to collapse the tab buttons down to ~100px stubs with ellipses.
+  - **Architectural Segmented Redesign**:
+    - Replaced rounded bubble buttons with a wide, continuous architectural bar (`w-[calc(100%-1.25rem)] sm:w-[calc(100%-2.5rem)] max-w-6xl`) structured as 5 connected segments divided by hairline borders (`border-r border-[#D4AF37]/25`).
+    - Completely removed `truncate` and `line-clamp-1` from titles and subtitles: "Indian Luxury Edit", "Living Travel Journal", and "Global Explorer" are now 100% visible with full subtitles ("Quiet, cinematic, refined", "Layered, tactile, storied", "Bold, modern, expansive").
+    - Active tab features a glowing Kasavu gold top line (`h-[2.5px] bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37]`) and deep forest evergreen ground (`bg-[#183525]`).
+    - Mobile default: Displays an unobtrusive floating gold pill button (`✦ Art Direction: ... | OPEN ▴`) so mobile viewports (< 768px) are never obstructed, expanding into full options on user tap.
+
+#### 2. Verification Results
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled cleanly in **700ms**.
+- **Playwright Visual QA across Viewports**:
+  - `1440 × 900` (Desktop): Verified wide, commanding architectural bar with zero text truncation.
+  - `1280 × 800` (Standard Laptop): Verified full text visibility with crisp vertical divider lines.
+  - `1024 × 768` (Small Desktop / iPad Landscape): Verified all 3 concepts render cleanly without ellipses.
+  - `768 × 1024` (Tablet Portrait): Verified header and 3-tab layout.
+  - `390 × 844` (Mobile): Verified compact floating pill button with tap-to-expand drawer.
+
+
