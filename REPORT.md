@@ -239,3 +239,34 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - Enquiry dialog: Centered modal with 0 bottom overflow at 1366x768.
   - Services & Packages: Canonical Playfair + Terracotta italic typography verified.
   - Kannada Mode: Noto Serif Kannada rendering confirmed with zero clipping.
+
+---
+
+### 12. Cycle 9: Heritage-Modern Form Controls — Custom Select & Custom DatePicker
+**Date**: November 9, 2026  
+**Objective**: Eliminate raw OS/browser native controls (`<select>` with Windows system blue `#0066cc` and `<input type="date">` with Chromium system calendar) that violated the visual language. Replace them with custom, accessible, theme-integrated controls crafted from scratch with zero additional external packages.
+
+#### 1. Implemented Enhancements
+1. **`<CustomSelect />` Component ([`CustomSelect.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/CustomSelect.tsx))**:
+   - Replaced native HTML `<select>` elements.
+   - Built with Heritage Ivory (`#FBF8F1`) popover backdrop, Mysore Royal Gold (`#D4AF37`) borders, and 2xl rounded corners.
+   - Selection state: Deep Forest Evergreen (`#162E22`) background with Kasavu Gold (`#F5D77F`) text and gold checkmark.
+   - Smooth chevron rotation animation, keyboard accessibility (Escape to dismiss, Arrow navigation), and click-outside dismissal.
+2. **`<CustomDatePicker />` Component ([`CustomDatePicker.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/CustomDatePicker.tsx))**:
+   - Replaced native HTML `<input type="date">` elements.
+   - Header with Playfair Display (`font-serif-editorial`) Month & Year display alongside custom previous/next navigation buttons.
+   - Kaavi Terracotta (`#9E3D28`) uppercase weekday labels (`SU, MO, TU...` or `ರವಿ, ಸೋಮ, ಮಂಗಳ...`).
+   - Selected date styled in Forest Evergreen (`#162E22`) with Mysore Gold ring and shadow; today highlighted with gold accent.
+   - Footer actions for "Today" and "Clear", with full bilingual Kannada & English month/weekday localization.
+3. **Comprehensive Modal Integration**:
+   - Upgraded [`EnquiryDialog.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/EnquiryDialog.tsx) (Universal 4-step wizard).
+   - Upgraded [`SchoolTripModal.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/SchoolTripModal.tsx) (student headcount, grade levels, duration, learning focus, and travel dates).
+   - Upgraded [`CorporateEventModal.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/CorporateEventModal.tsx) (event types, attendee count, location preference, budget, and event dates).
+   - Upgraded [`CateringModal.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/CateringModal.tsx) (occasion, guest count, dietary preferences, service style, and event dates).
+
+#### 2. Quality Verification
+- **TypeScript**: `npx tsc --noEmit` passed with 0 errors.
+- **Production Build**: `npm run build` compiled cleanly in 650ms.
+- **Playwright Live Verification**:
+  - Tested opening `CustomSelect`: verified Mysore Gold outline, rounded-2xl menu, and Forest Evergreen active state.
+  - Tested opening `CustomDatePicker`: verified Playfair Display header, terracotta weekday labels, and theme-matched day cells with zero Windows system blue.
