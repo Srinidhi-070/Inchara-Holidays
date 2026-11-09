@@ -451,3 +451,27 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - Minimized state: Verified smooth collapse into floating reopen pill button.
   - Bilingual verification: Tested English and Kannada (`ಕ`) font rendering without clipping.
   - Mobile 390 × 844: Verified compact touch-friendly dock and smooth scroll auto-hide behavior.
+
+---
+
+### Cycle 16: Universal Enquiry Modal Sticky Action Bar & Submerged Button Fix
+**Date**: November 9, 2026  
+**Status**: Completed & Verified  
+
+#### 1. Core Engineering Delivered
+- **Fixed Submerged & Missing Action Buttons ([`src/components/EnquiryDialog.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/EnquiryDialog.tsx))**:
+  - **Root Cause**: The wizard container was missing `min-h-0 overflow-hidden` in its flex column hierarchy, allowing the content body to expand beyond the modal's `max-h-[88vh]`, pushing the `footer` action bar below the overflow-clipped container on all steps (partially submerged in Step 0, and completely cut off out of view in Step 1 Details, Step 2 Contact, and Step 3 Review).
+  - **Flexbox Layout Correction**:
+    - Constrained outer dialog: `max-h-[90vh] sm:max-h-[86vh] flex flex-col overflow-hidden`.
+    - Added `min-h-0 overflow-hidden` to the wizard flex wrapper.
+    - Set `flex-1 min-h-0 overflow-y-auto overscroll-contain` on the form body to isolate scrolling exclusively to the content.
+    - Upgraded the action footer to `shrink-0 bg-white/95 backdrop-blur-md shadow-[0_-4px_20px_rgba(22,46,34,0.06)] z-20` with generous `py-3.5 sm:py-4` padding.
+  - **Persistent Visibility**: The "BACK" and "CONTINUE →" / "SUBMIT ENQUIRY ↗" buttons are now permanently docked, firmly visible, and accessible across every single step on both desktop and mobile viewports.
+
+#### 2. Verification Results
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled in **627ms**.
+- **Playwright Visual QA across Viewports**:
+  - `1000 × 700`: Verified Step 0 (Service), Step 1 (Details), Step 2 (Contact), and Step 3 (Review) with 100% visible Continue button.
+  - `1440 × 900`: Verified desktop layout with anchored bottom action bar.
+  - `390 × 844`: Verified compact mobile layout across all 4 steps without clipping or submerging.

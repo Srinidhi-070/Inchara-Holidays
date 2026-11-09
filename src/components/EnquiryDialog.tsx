@@ -306,7 +306,7 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
   return (
     <div className="fixed inset-0 z-[1050] overflow-y-auto bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5 lg:p-6 animate-fade-in">
       <div
-        className="relative w-full max-w-3xl max-h-[92vh] sm:max-h-[88vh] bg-[#FBF8F1] rounded-2xl sm:rounded-3xl shadow-2xl border border-[#D4AF37]/50 overflow-hidden flex flex-col my-auto"
+        className="relative w-full max-w-3xl max-h-[90vh] sm:max-h-[86vh] bg-[#FBF8F1] rounded-2xl sm:rounded-3xl shadow-2xl border border-[#D4AF37]/50 overflow-hidden flex flex-col my-auto"
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
@@ -373,7 +373,7 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
           </div>
         ) : (
           /* MULTI-STEP WIZARD */
-          <div className="flex flex-col flex-1">
+          <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
             {/* Header with Title and Stepper */}
             <header className="pt-4 sm:pt-5 px-5 sm:px-8 pb-3 text-center border-b border-[#263F32]/8 bg-white/60 shrink-0">
               <p className="text-[10px] sm:text-xs font-bold tracking-widest text-[#9E3D28] uppercase mb-0.5">
@@ -421,7 +421,7 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
             </header>
 
             {/* Dialog Scrollable Body */}
-            <div className="p-4 sm:p-6 lg:p-7 flex-1 overflow-y-auto">
+            <div className="p-4 sm:p-6 lg:p-7 flex-1 min-h-0 overflow-y-auto overscroll-contain">
               {/* STEP 0: What can we help you with? */}
               {step === 0 && (
                 <div>
@@ -802,7 +802,7 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
             </div>
 
             {/* Bottom Action Bar with Gold Button */}
-            <footer className="px-5 sm:px-8 py-3 sm:py-3.5 border-t border-[#263F32]/8 bg-white/80 flex items-center justify-between shrink-0">
+            <footer className="px-5 sm:px-8 py-3.5 sm:py-4 border-t border-[#263F32]/12 bg-white/95 backdrop-blur-md flex items-center justify-between shrink-0 shadow-[0_-4px_20px_rgba(22,46,34,0.06)] z-20">
               {step > 0 ? (
                 <button
                   type="button"
