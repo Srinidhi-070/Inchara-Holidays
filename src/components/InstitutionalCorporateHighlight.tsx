@@ -67,16 +67,16 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6 }}
-            className="rounded-2xl bg-white border border-[#263F32]/12 p-6 sm:p-7 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all relative overflow-hidden group"
+            className="rounded-3xl bg-white/95 backdrop-blur-xs border border-[#D4AF37]/30 hover:border-[#D4AF37] p-7 sm:p-9 flex flex-col justify-between shadow-[0_6px_24px_rgba(22,46,34,0.06)] hover:shadow-[0_16px_40px_rgba(22,46,34,0.12)] transition-all duration-300 relative overflow-hidden group hover:-translate-y-1"
           >
-            <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#9E3D28] via-[#D4AF37] to-transparent" />
+            <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent group-hover:via-[#D4AF37] transition-all duration-300" />
 
             <div>
               <div className="flex items-center justify-between mb-6">
-                <div className="w-14 h-14 rounded-2xl bg-[#162E22] text-[#F5D77F] flex items-center justify-center shadow-md">
+                <div className="w-14 h-14 rounded-2xl bg-[#162E22] text-[#F5D77F] border border-[#D4AF37]/40 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
                   <GraduationCap className="w-7 h-7" />
                 </div>
-                <span className="px-3.5 py-1 rounded-full bg-[#9E3D28]/10 text-[#9E3D28] text-xs font-bold uppercase tracking-wider border border-[#9E3D28]/30">
+                <span className="px-3.5 py-1.5 rounded-full bg-[#162E22]/5 text-[#162E22] text-xs font-bold uppercase tracking-wider border border-[#D4AF37]/40">
                   {kn ? 'ಶೈಕ್ಷಣಿಕ & ಕೈಗಾರಿಕಾ' : 'Schools & Colleges'}
                 </span>
               </div>
@@ -124,7 +124,7 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
             <button
               type="button"
               onClick={onOpenEducational}
-              className="w-full py-4 px-6 min-h-[48px] rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-sm active:scale-95 cursor-pointer border border-[#D4AF37]/50 focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
+              className="w-full py-4 px-6 min-h-[48px] rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-md active:scale-95 cursor-pointer border border-[#D4AF37]/60 hover:border-[#D4AF37] focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
             >
               <span>{kn ? 'ಶೈಕ್ಷಣಿಕ ಪ್ರವಾಸ ವಿಚಾರಣೆ' : 'Plan Educational Tour'}</span>
               <ArrowRight className="w-4 h-4 text-[#F5D77F]" />
@@ -138,16 +138,16 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6 }}
-            className="scroll-mt-28 rounded-2xl bg-white border border-[#263F32]/12 p-6 sm:p-7 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all relative overflow-hidden group"
+            className="scroll-mt-28 rounded-3xl bg-white/95 backdrop-blur-xs border border-[#D4AF37]/30 hover:border-[#D4AF37] p-7 sm:p-9 flex flex-col justify-between shadow-[0_6px_24px_rgba(22,46,34,0.06)] hover:shadow-[0_16px_40px_rgba(22,46,34,0.12)] transition-all duration-300 relative overflow-hidden group hover:-translate-y-1"
           >
-            <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#162E22] via-[#D4AF37] to-transparent" />
+            <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent group-hover:via-[#D4AF37] transition-all duration-300" />
 
             <div>
               <div className="flex items-center justify-between mb-6">
-                <div className="w-14 h-14 rounded-2xl bg-[#9E3D28] text-[#F5D77F] flex items-center justify-center shadow-md">
+                <div className="w-14 h-14 rounded-2xl bg-[#162E22] text-[#F5D77F] border border-[#D4AF37]/40 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
                   <Briefcase className="w-7 h-7" />
                 </div>
-                <span className="px-3.5 py-1 rounded-full bg-[#162E22]/10 text-[#162E22] text-xs font-bold uppercase tracking-wider border border-[#162E22]/30">
+                <span className="px-3.5 py-1.5 rounded-full bg-[#162E22]/5 text-[#162E22] text-xs font-bold uppercase tracking-wider border border-[#D4AF37]/40">
                   {kn ? 'ಕಾರ್ಪೊರೇಟ್ & ಈವೆಂಟ್ಸ್' : 'Offsites & Retreats'}
                 </span>
               </div>
@@ -195,10 +195,10 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
             <button
               type="button"
               onClick={onOpenCorporate}
-              className="w-full py-4 px-6 min-h-[48px] rounded-xl bg-[#9E3D28] hover:bg-[#853220] text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-sm active:scale-95 cursor-pointer border border-[#D4AF37]/40 focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
+              className="w-full py-4 px-6 min-h-[48px] rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-md active:scale-95 cursor-pointer border border-[#D4AF37]/60 hover:border-[#D4AF37] focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
             >
               <span>{kn ? 'ಕಾರ್ಪೊರೇಟ್ ಈವೆಂಟ್ ರೂಪಿಸಿ' : 'Plan Corporate Event'}</span>
-              <ArrowRight className="w-4 h-4 text-white" />
+              <ArrowRight className="w-4 h-4 text-[#F5D77F]" />
             </button>
           </motion.div>
         </div>

@@ -1,7 +1,7 @@
 import { affiliations, copy, services } from "../content";
 import type { Locale, ServiceId } from "../types";
 import { ArrowRight, ArrowUpRight, ChevronDown, ServiceIcon } from "./Icons";
-import { Check, ShieldCheck } from "lucide-react";
+import { Check, ShieldCheck, MessageSquareHeart, Compass, HeartHandshake } from "lucide-react";
 
 type Props = {
   locale: Locale;
@@ -354,12 +354,25 @@ export function CateringFeature({ locale, onEnquire }: Props) {
 
 export function JourneyProcess({ locale }: { locale: Locale }) {
   const c = copy[locale];
+  const stepIcons = [MessageSquareHeart, Compass, HeartHandshake];
+  const stepTags = {
+    en: ["Personal Discovery", "Bespoke Curation", "End-to-End Care"],
+    kn: ["ವೈಯಕ್ತಿಕ ಸಮಾಲೋಚನೆ", "ಕಸ್ಟಮ್ ರೂಪರೇಷೆ", "ಪೂರ್ಣ ಜವಾಬ್ದಾರಿ"],
+  };
+
   return (
-    <section className="process section" aria-labelledby="process-title">
-      <div className="shell">
-        <div className="process__intro" data-reveal="up">
-          <p className="eyebrow eyebrow--light">{String(c.processEyebrow)}</p>
-          <h2 id="process-title" className={`text-2xl sm:text-3xl lg:text-4xl font-serif-editorial font-bold text-white tracking-tight leading-[1.18] ${locale === "kn" ? "font-kannada-serif" : ""}`}>
+    <section className="py-16 sm:py-24 bg-[#162E22] text-white relative overflow-hidden border-b border-[#D4AF37]/20" id="process" aria-labelledby="process-title">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(212,175,55,0.08),transparent_60%)] pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16" data-reveal="up">
+          <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold tracking-widest text-[#F5D77F] uppercase mb-3">
+            <span className="w-6 h-px bg-[#D4AF37]" />
+            <span>✦</span>
+            <span>{String(c.processEyebrow)}</span>
+            <span>✦</span>
+            <span className="w-6 h-px bg-[#D4AF37]" />
+          </div>
+          <h2 id="process-title" className={`text-3xl sm:text-4xl lg:text-5xl font-serif-editorial font-bold text-[#F6F3EA] tracking-tight leading-[1.15] ${locale === "kn" ? "font-kannada-serif" : ""}`}>
             {locale === "kn" ? (
               <>
                 ನಾವು ಆಲಿಸುವುದರಿಂದ{" "}
@@ -376,16 +389,54 @@ export function JourneyProcess({ locale }: { locale: Locale }) {
               </>
             )}
           </h2>
+          <p className="mt-4 text-sm sm:text-base text-white/75 leading-relaxed max-w-2xl mx-auto font-normal">
+            {locale === "kn"
+              ? "ನಿಮ್ಮ ಪ್ರಯಾಣದ ಪ್ರತಿಯೊಂದು ಹೆಜ್ಜೆಯಲ್ಲೂ ನಮ್ಮ ಮಾರ್ಗದರ್ಶನ, ಪರಿಶೀಲಿಸಿದ ವಾಹನಗಳು ಮತ್ತು ಅಪ್ಪಟ ಆತಿಥ್ಯದ ಜವಾಬ್ದಾರಿ ಇರುತ್ತದೆ."
+              : "From quiet conversations to custom routes and complete on-ground guardianship, travel at ease without rushed checklists."}
+          </p>
         </div>
-        <ol className="process__list">
-          {(c.process as string[][]).map(([title, body], index) => (
-            <li key={title} data-reveal="up" data-delay={index * 100}>
-              <span>0{index + 1}</span>
-              <h3>{title}</h3>
-              <p>{body}</p>
-            </li>
-          ))}
-        </ol>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          {(c.process as string[][]).map(([title, body], index) => {
+            const Icon = stepIcons[index] || Compass;
+            return (
+              <div
+                key={title}
+                data-reveal="up"
+                data-delay={index * 120}
+                className="relative rounded-3xl bg-[#1E3A2B]/80 backdrop-blur-md border border-[#D4AF37]/25 hover:border-[#D4AF37] p-8 sm:p-9 shadow-lg hover:shadow-2xl transition-all duration-300 group hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 w-32 h-32 bg-radial from-[#D4AF37]/10 to-transparent rounded-bl-full pointer-events-none" />
+
+                <div>
+                  <div className="flex items-center justify-between mb-8">
+                    <span className="font-serif-editorial text-2xl font-bold text-[#D4AF37] tracking-wider">
+                      0{index + 1}
+                    </span>
+                    <div className="w-12 h-12 rounded-2xl bg-[#162E22] border border-[#D4AF37]/35 text-[#F5D77F] flex items-center justify-center shadow-md group-hover:scale-110 group-hover:border-[#D4AF37] transition-all">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                  </div>
+
+                  <h3 className={`text-2xl sm:text-3xl font-bold font-serif-editorial text-[#F6F3EA] group-hover:text-[#F5D77F] transition-colors mb-3.5 ${
+                    locale === "kn" ? "font-kannada-serif" : ""
+                  }`}>
+                    {title}
+                  </h3>
+
+                  <p className="text-sm text-white/75 leading-relaxed font-normal">
+                    {body}
+                  </p>
+                </div>
+
+                <div className="mt-8 pt-4 border-t border-[#D4AF37]/15 flex items-center justify-between text-xs font-semibold text-[#F5D77F]/90 uppercase tracking-wider">
+                  <span>{stepTags[locale][index] || "Inchara Standard"}</span>
+                  <span className="w-2 h-2 rounded-full bg-[#D4AF37]" />
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

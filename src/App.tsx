@@ -33,15 +33,6 @@ const DestinationModal = React.lazy(() =>
 const AdminDashboard = React.lazy(() =>
   import("./components/admin/AdminDashboard").then((m) => ({ default: m.AdminDashboard }))
 );
-const SchoolTripModal = React.lazy(() =>
-  import("./components/SchoolTripModal").then((m) => ({ default: m.SchoolTripModal }))
-);
-const CorporateEventModal = React.lazy(() =>
-  import("./components/CorporateEventModal").then((m) => ({ default: m.CorporateEventModal }))
-);
-const CateringModal = React.lazy(() =>
-  import("./components/CateringModal").then((m) => ({ default: m.CateringModal }))
-);
 
 export default function App() {
   const { locale, setLocale } = useLocale();
@@ -53,24 +44,25 @@ export default function App() {
   const [selectedPackage, setSelectedPackage] = useState<SamplePackage | null>(null);
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
   const [adminOpen, setAdminOpen] = useState(false);
-  const [schoolTripOpen, setSchoolTripOpen] = useState(false);
-  const [corporateModalOpen, setCorporateModalOpen] = useState(false);
-  const [cateringModalOpen, setCateringModalOpen] = useState(false);
 
   function openEnquiry(service?: ServiceId | string, destName?: string) {
-    setInitialService((service as ServiceId) ?? null);
+    // Normalize service names to canonical ServiceId
+    let canonicalService: ServiceId | null = null;
+    if (service === "education" || service === "educational") canonicalService = "education";
+    else if (service === "corporate") canonicalService = "corporate";
+    else if (service === "catering") canonicalService = "catering";
+    else if (service === "transport") canonicalService = "transport";
+    else if (service === "visa") canonicalService = "visa";
+    else if (service === "holidays") canonicalService = "holidays";
+    else if (service) canonicalService = service as ServiceId;
+
+    setInitialService(canonicalService);
     setInitialDestination(destName ?? "");
     setDialogOpen(true);
   }
 
   function handleServiceAction(serviceId?: ServiceId | string) {
-    if (serviceId === "education" || serviceId === "educational") {
-      setSchoolTripOpen(true);
-    } else if (serviceId === "corporate") {
-      setCorporateModalOpen(true);
-    } else if (serviceId === "catering") {
-      setCateringModalOpen(true);
-    } else if (serviceId === "holidays") {
+    if (serviceId === "holidays") {
       const el = document.getElementById("packages");
       el?.scrollIntoView({ behavior: "smooth" });
     } else if (serviceId === "transport") {
@@ -135,8 +127,8 @@ export default function App() {
         {/* 8. Educational Study Tours & Corporate Offsites */}
         <InstitutionalCorporateHighlight
           language={locale}
-          onOpenEducational={() => setSchoolTripOpen(true)}
-          onOpenCorporate={() => setCorporateModalOpen(true)}
+          onOpenEducational={() => openEnquiry("education")}
+          onOpenCorporate={() => openEnquiry("corporate")}
         />
 
         {/* 9. Audited Vehicle Fleet & Travel Assistance */}
@@ -149,7 +141,7 @@ export default function App() {
         {/* 10. 100% Pure Vegetarian Catering Showcase (User Benchmark Reference) */}
         <CateringShowcase
           language={locale}
-          onOpenCatering={() => setCateringModalOpen(true)}
+          onOpenCatering={() => openEnquiry("catering")}
         />
 
         {/* 11. Why Us / Personal Warmth (Image 3 Reference) */}
@@ -176,7 +168,7 @@ export default function App() {
       {/* 14. Floating Scroll-to-Top Dock */}
       <FloatingActions locale={locale} onOpenEnquiry={() => openEnquiry()} />
 
-      {/* 15. Universal Enquiry Dialog (Image 2 Reference - Large Bold Icon Stepper) */}
+      {/* 15. Universal Enquiry Dialog (Unified 4-Step Flow for All Services) */}
       <EnquiryDialog
         open={dialogOpen}
         locale={locale}
@@ -187,37 +179,6 @@ export default function App() {
           setInitialDestination("");
         }}
       />
-
-      {/* Specialized Interactive Modals (Preserved from Vercel Edition) */}
-      <Suspense fallback={null}>
-        {schoolTripOpen && (
-          <SchoolTripModal
-            isOpen={schoolTripOpen}
-            language={locale}
-            onClose={() => setSchoolTripOpen(false)}
-          />
-        )}
-      </Suspense>
-
-      <Suspense fallback={null}>
-        {corporateModalOpen && (
-          <CorporateEventModal
-            isOpen={corporateModalOpen}
-            language={locale}
-            onClose={() => setCorporateModalOpen(false)}
-          />
-        )}
-      </Suspense>
-
-      <Suspense fallback={null}>
-        {cateringModalOpen && (
-          <CateringModal
-            isOpen={cateringModalOpen}
-            language={locale}
-            onClose={() => setCateringModalOpen(false)}
-          />
-        )}
-      </Suspense>
 
       {/* Lazy Modals */}
       <Suspense fallback={null}>

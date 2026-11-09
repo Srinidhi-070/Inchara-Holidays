@@ -313,3 +313,41 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
 - **Playwright Live Verification**:
   - Captured Services section at `1440 × 900`: Verified clean, unified left-aligned hierarchy (`✦ ONE NAME, MANY JOURNEYS ✦` ➔ `Travel, gathering & hospitality — considered as one.` ➔ body copy).
   - Captured Packages & Stories sections: Verified centered, cohesive editorial headers.
+
+---
+
+### 15. Cycle 12: Architectural Simplification & Visual Luxury Elevation
+**Date**: November 9, 2026  
+**Objective**: Address five specific user UI/UX critiques: (1) Consolidate all service inquiries into the single 4-step Universal Enquiry modal instead of opening disparate drawer windows for every service, (2) Elevate the Destination Discovery 5-tile mosaic styling, (3) Upgrade card outlines for Institutional & Corporate Excellence and Transit Fleets & Document Advisory, (4) Redesign the "We begin by listening" section into a balanced, luxury 3-step heritage flow, and (5) Remove the "Assigned Staff" field from the Staff Portal inquiry detail drawer.
+
+#### 1. Key Changes Executed
+1. **Universal Enquiry Flow Consolidation ([`src/App.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/App.tsx))**:
+   - Replaced all ad-hoc service drawers (`SchoolTripModal`, `CorporateEventModal`, `CateringModal`) with direct routing into the canonical 4-step [`EnquiryDialog`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/EnquiryDialog.tsx).
+   - Clicking any service action button ("Plan Educational Tour", "Plan Corporate Event", "Book Chauffeur Fleet", "Visa Advisory", "Request Catering Quote") now automatically opens `EnquiryDialog` at Step 2 with the relevant service and tailored detail fields pre-selected.
+   - Removed duplicate modal states and dead code from `App.tsx`.
+2. **Refined Destination Discovery Mosaic ([`src/DestinationDiscovery.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/DestinationDiscovery.tsx))**:
+   - Upgraded all 5 tiles with delicate Kasavu gold borders (`border-[#D4AF37]/35 hover:border-[#D4AF37]`) and soft elevation shadows (`shadow-[0_8px_30px_rgba(22,46,34,0.08)]`).
+   - Enhanced image gradient overlays (`from-[#0A1810]/95 via-[#0A1810]/35 to-transparent`) and smooth zoom (`scale-108`).
+   - Integrated top-right glassmorphic compass/arrow badges with hover expansion and gold inversion.
+   - Replaced raw text filters with a luxury pill-tab switcher (`All`, `Domestic`, `Beyond India`).
+3. **Heritage Card Outlines ([`InstitutionalCorporateHighlight.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/InstitutionalCorporateHighlight.tsx) & [`TravelLogisticsAssistance.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/TravelLogisticsAssistance.tsx))**:
+   - Removed harsh wireframe outlines (`border-[#263F32]/12`) and arbitrary saturated 3px top gradient stripes.
+   - Styled cards as rounded-3xl luxury surfaces (`rounded-3xl bg-white/95 border border-[#D4AF37]/30 hover:border-[#D4AF37] shadow-[0_6px_24px_rgba(22,46,34,0.06)] hover:shadow-[0_16px_40px_rgba(22,46,34,0.12)]`).
+   - Unified all CTA buttons to the canonical Forest Evergreen + Mysore Gold aesthetic with gold borders and active micro-interactions.
+4. **"We Begin by Listening" Process Redesign ([`src/HomeSections.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/HomeSections.tsx))**:
+   - Fixed the unbalanced 2-column header into a centered, elegant typographic layout with gold star ornaments and bilingual support.
+   - Replaced the bare list with 3 dark Forest Evergreen glassmorphic cards (`01 / Listen`, `02 / Shape`, `03 / Host`), featuring bespoke iconography (`MessageSquareHeart`, `Compass`, `HeartHandshake`), Mysore Gold numerals, and Kasavu gold bottom milestone tags.
+5. **Staff Portal Drawer Simplification ([`src/components/admin/AdminDashboard.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/admin/AdminDashboard.tsx))**:
+   - Removed the "Assigned Staff" input field from the inquiry detail drawer.
+   - Retained "Next Follow-up Date" and "Internal Staff Notes & Log" under a cleaner "Follow-up & Notes" section.
+
+#### 2. Verification
+- **Compilation Check**: `npx tsc --noEmit` passed with 0 errors.
+- **Production Build**: `npm run build` completed successfully in 653ms.
+- **Playwright Visual Verification**:
+  - Captured Destination Discovery at `1440 × 900`: verified gold-framed tiles, glass badges, and pill filters.
+  - Captured Institutional & Corporate Excellence: verified rounded-3xl cards with subtle Kasavu gold borders and unified CTAs.
+  - Captured Transit & Document Advisory: verified matching luxury card outlines.
+  - Captured "We begin by listening" at `1440 × 900`: verified centered header and 3 glassmorphic step cards.
+  - Captured Universal Enquiry Dialog: verified clicking "Plan Educational Tour" opens Step 2 directly with educational fields.
+  - Captured Staff Portal detail drawer: verified "Assigned Staff" is absent and follow-up tools remain intact.

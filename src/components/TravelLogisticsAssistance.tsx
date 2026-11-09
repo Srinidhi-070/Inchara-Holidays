@@ -67,16 +67,16 @@ export const TravelLogisticsAssistance: React.FC<TravelLogisticsAssistanceProps>
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.5 }}
-            className="rounded-2xl bg-white border border-[#263F32]/12 p-6 sm:p-7 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all relative overflow-hidden group"
+            className="rounded-3xl bg-white/95 backdrop-blur-xs border border-[#D4AF37]/30 hover:border-[#D4AF37] p-7 sm:p-9 flex flex-col justify-between shadow-[0_6px_24px_rgba(22,46,34,0.06)] hover:shadow-[0_16px_40px_rgba(22,46,34,0.12)] transition-all duration-300 relative overflow-hidden group hover:-translate-y-1"
           >
-            <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
+            <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent group-hover:via-[#D4AF37] transition-all duration-300" />
 
             <div>
               <div className="flex items-center justify-between mb-6">
-                <div className="w-12 h-12 rounded-2xl bg-[#162E22] text-[#F5D77F] flex items-center justify-center shadow-md">
+                <div className="w-14 h-14 rounded-2xl bg-[#162E22] text-[#F5D77F] border border-[#D4AF37]/40 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
                   <Bus className="w-6 h-6" />
                 </div>
-                <span className="px-3 py-1 rounded-full bg-[#162E22]/10 text-[#162E22] text-xs font-bold uppercase tracking-wider">
+                <span className="px-3.5 py-1.5 rounded-full bg-[#162E22]/5 text-[#162E22] text-xs font-bold uppercase tracking-wider border border-[#D4AF37]/40">
                   {kn ? 'ಸಾರಿಗೆ ಬಾಡಿಗೆ & ಟಿಕೆಟ್ ನೆರವು' : 'Fleets & Transit'}
                 </span>
               </div>
@@ -98,7 +98,7 @@ export const TravelLogisticsAssistance: React.FC<TravelLogisticsAssistanceProps>
                   { titleKn: 'ಲಕ್ಸುರಿ ಟೂರಿಸ್ಟ್ ಕೋಚ್', titleEn: 'Luxury Coaches', subKn: '೩೦-೫೦ ಸೀಟುಗಳು · ಎಸಿ ಪುಷ್-ಬ್ಯಾಕ್', subEn: '30-50 Seater Push-back' },
                   { titleKn: 'ರೈಲು & ಬಸ್ಸು ನೆರವು', titleEn: 'Train & Bus Guidance', subKn: 'ಸೀಟು ಮಾಹಿತಿ & ನಿಲ್ದಾಣ ಸಾರಿಗೆ', subEn: 'Route & Schedule Advisory' },
                 ].map((item, idx) => (
-                  <div key={idx} className="p-3 rounded-xl bg-[#F6F3EA] border border-[#263F32]/8 space-y-1">
+                  <div key={idx} className="p-3.5 rounded-2xl bg-[#F6F3EA] border border-[#D4AF37]/25 space-y-1">
                     <div className="text-xs font-bold text-[#162E22]">{kn ? item.titleKn : item.titleEn}</div>
                     <div className="text-[11px] text-[#252923]/65">{kn ? item.subKn : item.subEn}</div>
                   </div>
@@ -109,7 +109,7 @@ export const TravelLogisticsAssistance: React.FC<TravelLogisticsAssistanceProps>
             <button
               type="button"
               onClick={onOpenTransport}
-              className="w-full py-4 px-6 min-h-[48px] rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-sm active:scale-95 cursor-pointer border border-[#D4AF37]/50 focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
+              className="w-full py-4 px-6 min-h-[48px] rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-md active:scale-95 cursor-pointer border border-[#D4AF37]/60 hover:border-[#D4AF37] focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
             >
               <span>{kn ? 'ವಾಹನ ಬಾಡಿಗೆ ವಿಚಾರಿಸಿ' : 'Book Vehicle or Transit'}</span>
               <ArrowRight className="w-4 h-4 text-[#F5D77F]" />
@@ -123,16 +123,16 @@ export const TravelLogisticsAssistance: React.FC<TravelLogisticsAssistanceProps>
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="scroll-mt-28 rounded-2xl bg-white border border-[#263F32]/12 p-6 sm:p-7 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all relative overflow-hidden group"
+            className="scroll-mt-28 rounded-3xl bg-white/95 backdrop-blur-xs border border-[#D4AF37]/30 hover:border-[#D4AF37] p-7 sm:p-9 flex flex-col justify-between shadow-[0_6px_24px_rgba(22,46,34,0.06)] hover:shadow-[0_16px_40px_rgba(22,46,34,0.12)] transition-all duration-300 relative overflow-hidden group hover:-translate-y-1"
           >
-            <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-[#9E3D28] to-transparent" />
+            <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent group-hover:via-[#D4AF37] transition-all duration-300" />
 
             <div>
               <div className="flex items-center justify-between mb-6">
-                <div className="w-12 h-12 rounded-2xl bg-[#9E3D28] text-white flex items-center justify-center shadow-md">
+                <div className="w-14 h-14 rounded-2xl bg-[#162E22] text-[#F5D77F] border border-[#D4AF37]/40 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
                   <FileCheck className="w-6 h-6" />
                 </div>
-                <span className="px-3 py-1 rounded-full bg-[#9E3D28]/10 text-[#9E3D28] text-xs font-bold uppercase tracking-wider">
+                <span className="px-3.5 py-1.5 rounded-full bg-[#162E22]/5 text-[#162E22] text-xs font-bold uppercase tracking-wider border border-[#D4AF37]/40">
                   {kn ? 'ದಾಖಲೆ ಸಮಾಲೋಚನೆ' : 'Document Advisory'}
                 </span>
               </div>
@@ -147,7 +147,7 @@ export const TravelLogisticsAssistance: React.FC<TravelLogisticsAssistanceProps>
               </p>
 
               {/* Security Banner */}
-              <div className="p-3.5 rounded-2xl bg-[#FBF8F1] border border-[#263F32]/12 space-y-2 mb-6">
+              <div className="p-4 rounded-2xl bg-[#FBF8F1] border border-[#D4AF37]/25 space-y-2 mb-6">
                 <div className="flex items-center gap-2 text-xs font-bold text-[#9E3D28]">
                   <ShieldAlert className="w-4 h-4 shrink-0" />
                   <span>{kn ? 'ಸಂಪೂರ್ಣ ಪಾರದರ್ಶಕತೆ & ಗೌಪ್ಯತೆ' : 'Privacy & Security Standards'}</span>
@@ -176,10 +176,10 @@ export const TravelLogisticsAssistance: React.FC<TravelLogisticsAssistanceProps>
             <button
               type="button"
               onClick={onOpenVisaPassport}
-              className="w-full py-4 px-6 min-h-[48px] rounded-xl bg-[#9E3D28] hover:bg-[#853220] text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-sm active:scale-95 cursor-pointer border border-[#D4AF37]/40 focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
+              className="w-full py-4 px-6 min-h-[48px] rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-md active:scale-95 cursor-pointer border border-[#D4AF37]/60 hover:border-[#D4AF37] focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
             >
               <span>{kn ? 'ವೀಸಾ / ಪಾಸ್‌ಪೋರ್ಟ್ ನೆರವು ವಿಚಾರಿಸಿ' : 'Request Visa & Passport Guidance'}</span>
-              <ArrowRight className="w-4 h-4 text-white" />
+              <ArrowRight className="w-4 h-4 text-[#F5D77F]" />
             </button>
           </motion.div>
         </div>
