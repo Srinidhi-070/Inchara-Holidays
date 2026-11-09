@@ -110,7 +110,7 @@ export const samplePackages: SamplePackage[] = [
     ],
     samplePriceDisclaimerKn: 'ಮಾದರಿ ವಿವರಣೆ · ಪ್ರಯಾಣದ ತಿಂಗಳು ಹಾಗೂ ಸೌಕರ್ಯದ ಆಯ್ಕೆಗೆ ತಕ್ಕಂತೆ ಅಂತಿಮ ದರ ರೂಪಿಸಲಾಗುತ್ತದೆ',
     samplePriceDisclaimerEn: 'Sample Itinerary · Exact inclusions and customized quote shared upon request',
-    image: '/images/kerala_backwaters.jpg',
+    image: '/images/kerala_backwaters_luxury.jpg',
     imageAlt: 'Alleppey houseboat Kerala',
     badgeKn: 'ಆಲ್-ಇಂಡಿಯಾ ಪಯಣ',
     badgeEn: 'Pan-India Classic',

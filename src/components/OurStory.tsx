@@ -41,7 +41,7 @@ export const OurStory: React.FC<OurStoryProps> = ({ language, onOpenPlanner }) =
           src="https://images.unsplash.com/photo-1593417033942-bcdf26b74700?auto=format&fit=crop&w=1400&q=85"
           loading="lazy"
           onError={(e) => {
-            (e.target as HTMLImageElement).src = '/images/kerala_backwaters.jpg';
+            (e.target as HTMLImageElement).src = '/images/kerala_backwaters_luxury.jpg';
           }}
         />
         <div className="photo-note">

@@ -39,7 +39,7 @@ export const SignatureJourney: React.FC<SignatureJourneyProps> = ({
       name: kn ? 'ಹಿಮಾಲಯದ ಶಾಂತಿ' : 'Himalayan Quietude',
       meta: kn ? '೭ ದಿನಗಳು · ಪರ್ವತಗಳ ಮಡಿಲಲ್ಲಿ' : '7 days · Mountain retreat',
       image: 'https://images.unsplash.com/photo-1736914319111-d54ada582633?auto=format&fit=crop&w=1500&q=85',
-      fallbackImage: '/images/himalayas_kashmir.jpg',
+      fallbackImage: '/images/himachal_alpine_peaks.jpg',
     },
   ];
 
