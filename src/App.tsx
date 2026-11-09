@@ -22,7 +22,8 @@ import { CustomCursor } from "./components/CustomCursor";
 import { ScrollProgressBar } from "./components/ScrollProgressBar";
 import { useLocale } from "./hooks/useLocale";
 import { useScrollReveal } from "./hooks/useScrollReveal";
-import type { ServiceId, SamplePackage, Destination } from "./types";
+import type { ServiceId, SamplePackage, Destination, Concept } from "./types";
+import { ConceptSwitcher } from "./components/ConceptSwitcher";
 
 const ItineraryModal = React.lazy(() =>
   import("./components/ItineraryModal").then((m) => ({ default: m.ItineraryModal }))
@@ -44,6 +45,7 @@ export default function App() {
   const [selectedPackage, setSelectedPackage] = useState<SamplePackage | null>(null);
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
   const [adminOpen, setAdminOpen] = useState(false);
+  const [concept, setConcept] = useState<Concept>("A");
 
   function openEnquiry(service?: ServiceId | string, destName?: string) {
     // Normalize service names to canonical ServiceId
@@ -99,7 +101,7 @@ export default function App() {
 
       <main id="main">
         {/* 2. Hero Section */}
-        <Hero locale={locale} onEnquire={openEnquiry} />
+        <Hero locale={locale} onEnquire={openEnquiry} concept={concept} />
 
         {/* 3. About Section (Image 5 Reference) */}
         <AboutIntroduction locale={locale} />

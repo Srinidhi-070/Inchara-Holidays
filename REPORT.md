@@ -421,3 +421,33 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - Verified Quotation Builder and finalized quote view.
   - Verified Payment Ledger and official receipt.
   - Verified refined Destination Discovery mosaic and card outlines.
+
+---
+
+### Cycle 15: Art Direction Concept Switcher Redesign & Live Transformation Complete
+**Date**: November 9, 2026  
+**Status**: Completed & Verified  
+
+#### 1. Core Engineering & Visual Craftsmanship Delivered
+1. **Redesigned Art Direction Concept Switcher ([`src/components/ConceptSwitcher.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/ConceptSwitcher.tsx))**:
+   - Replaced the legacy rectangular boxy bar with a floating luxury glassmorphic capsule dock (`bg-[#0A1810]/92 backdrop-blur-2xl border border-[#D4AF37]/40 ring-1 ring-[#F5D77F]/15 rounded-2xl sm:rounded-3xl shadow-[0_20px_50px_rgba(10,24,16,0.55)]`).
+   - Features three curated art directions matching the Heritage-Modern South Indian design system:
+     - **01: Indian Luxury Edit** (`Quiet, cinematic, refined` / `ಶಾಂತ, ಸಿನಿಮೀಯ, ಭವ್ಯ ಅನುಭವ`)
+     - **02: Living Travel Journal** (`Layered, tactile, storied` / `ಕಥೆಗಳ ಮಡಿಲು, ಪರಂಪರೆ ನಾದ`)
+     - **03: Global Explorer** (`Bold, modern, expansive` / `ವಿಸ್ತಾರ, ಆಧುನಿಕ, ಹೊಸ ದಿಗಂತ`)
+   - Interactive gold aura highlight, top Kasavu gold glowing line indicator, and `SELECTED DIRECTION` / `PREVIEWING` status badge.
+   - Smooth dismiss action (`✕`) collapsing into an unobtrusive floating reopen pill (`✦ Art Direction: ... ▾`) with pulsating amber indicator, ensuring zero obstruction of page content.
+   - Auto-hides gracefully when scrolled past the hero section (`> 600px`).
+2. **Dynamic Live Hero Transformation ([`src/components/HomeSections.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/HomeSections.tsx))**:
+   - Switching concepts transforms the Hero section in real time with distinct photographic backdrops, storytelling headlines, custom Kannada/English translations, and tailored CTA buttons.
+3. **App Integration ([`src/App.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/App.tsx))**:
+   - Wired live `concept` state (`Concept = 'A' | 'B' | 'C'`) into `Hero` and `ConceptSwitcher`.
+
+#### 2. Verification Results
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled in **632ms**.
+- **Multi-Device & Interaction Visual QA**:
+  - Desktop 1440 × 900: Verified Concept A (Indian Luxury Edit), Concept B (Living Travel Journal), and Concept C (Global Explorer).
+  - Minimized state: Verified smooth collapse into floating reopen pill button.
+  - Bilingual verification: Tested English and Kannada (`ಕ`) font rendering without clipping.
+  - Mobile 390 × 844: Verified compact touch-friendly dock and smooth scroll auto-hide behavior.

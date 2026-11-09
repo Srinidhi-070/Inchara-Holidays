@@ -1,21 +1,55 @@
 import { affiliations, copy, services } from "../content";
-import type { Locale, ServiceId } from "../types";
+import type { Locale, ServiceId, Concept } from "../types";
 import { ArrowRight, ArrowUpRight, ChevronDown, ServiceIcon } from "./Icons";
 import { Check, ShieldCheck, MessageSquareHeart, Compass, HeartHandshake } from "lucide-react";
 
 type Props = {
   locale: Locale;
   onEnquire: (service?: ServiceId) => void;
+  concept?: Concept;
 };
 
-export function Hero({ locale, onEnquire }: Props) {
+export function Hero({ locale, onEnquire, concept = "A" }: Props) {
   const c = copy[locale];
+
+  // Concept-specific dynamic imagery & storytelling tone
+  let heroImage = "/images/western-ghats-hero.jpg";
+  let eyebrow = String(c.heroEyebrow);
+  let titleA = String(c.heroTitleA);
+  let titleB = String(c.heroTitleB);
+  let body = String(c.heroBody);
+  let primaryBtn = String(c.heroPrimary);
+  let secondaryBtn = String(c.heroSecondary);
+
+  if (concept === "B") {
+    heroImage = "/images/coorg_misty_plantation_1791795473840.jpg";
+    eyebrow = locale === "kn" ? "ಜೀವಂತ ದಿನಚರಿ · ಸಾಂಸ್ಕೃತಿಕ ಪಯಣ" : "A story written in motion · Living journal";
+    titleA = locale === "kn" ? "ನಿಧಾನವಾಗಿ ಸಾಗಿದಾಗ " : "Travel becomes a story, ";
+    titleB = locale === "kn" ? "ಪ್ರಯಾಣವೇ ಕಥೆಯಾಗುತ್ತದೆ." : "when you move slowly.";
+    body = locale === "kn"
+      ? "ಪಶ್ಚಿಮ ಘಟ್ಟಗಳ ಪ್ರಶಾಂತ ಪ್ಲಾಂಟೇಶನ್‌ಗಳಿಂದ ಪಾರಂಪರಿಕ ದೇಗುಲಗಳವರೆಗೆ, ಪ್ರತಿಯೊಂದು ಪಯಣವೂ ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ಡೈರಿಯ ಒಂದು ಅಧ್ಯಾಯದಂತೆ."
+      : "From misty coffee plantations to living stone heritage, unhurried journeys crafted like personal chapters in a treasured journal.";
+    primaryBtn = locale === "kn" ? "ಕಥೆಯನ್ನು ಆರಂಭಿಸಿ" : "Start your story";
+    secondaryBtn = locale === "kn" ? "ದಿನಚರಿಯ ಮಾರ್ಗಗಳು" : "Browse journal routes";
+  } else if (concept === "C") {
+    heroImage = "/images/bali_temple.jpg";
+    eyebrow = locale === "kn" ? "ಭಾರತದಿಂದ ವಿಶ್ವದವರೆಗೆ · ಕಸ್ಟಮ್ ಎಕ್ಸ್‌ಪೆಡಿಶನ್" : "India to the world · Curated expeditions";
+    titleA = locale === "kn" ? "ಇನ್ನೂ ಮುಂದೆ, " : "Go further, ";
+    titleB = locale === "kn" ? "ಹೊಸ ದಿಗಂತಗಳೆಡೆಗೆ." : "with unhurried grace.";
+    body = locale === "kn"
+      ? "ಕರ್ನಾಟಕದ ಆತ್ಮೀಯ ಆತಿಥ್ಯದೊಂದಿಗೆ ಭಾರತದ ರಮಣೀಯ ತಾಣಗಳು ಹಾಗೂ ವಿಯೆಟ್ನಾಂ, ಬಾಲಿ, ದುಬೈ, ಯೂರೋಪ್ ಪಯಣಗಳು — ಸಂಪೂರ್ಣ ವೀಸಾ ಮತ್ತು ಚಾಲಕ ಬೆಂಬಲದೊಂದಿಗೆ."
+      : "One thoughtful travel studio. Distinctive domestic circuits and tailor-made international horizons across Southeast Asia, the Middle East, and beyond.";
+    primaryBtn = locale === "kn" ? "ನನ್ನ ಪ್ರವಾಸ ರೂಪಿಸಿ" : "Design my escape";
+    secondaryBtn = locale === "kn" ? "ಗ್ಲೋಬಲ್ ಸರ್ಕ್ಯೂಟ್‌ಗಳು" : "Explore global circuits";
+  }
+
   return (
     <section className="hero" id="top" aria-labelledby="hero-title">
       <img
-        className="hero__image"
-        src="/images/western-ghats-hero.jpg"
-        alt="Misty landscape of Western Ghats in Karnataka"
+        key={heroImage}
+        className="hero__image transition-opacity duration-700"
+        src={heroImage}
+        alt="Scenic landscape of Karnataka and beyond"
         width="2200"
         height="1467"
         fetchPriority="high"
@@ -24,19 +58,19 @@ export function Hero({ locale, onEnquire }: Props) {
       <div className="hero__ornament" aria-hidden="true" />
       <div className="shell hero__content">
         <div className="hero__main" data-reveal="hero">
-          <p className="eyebrow eyebrow--light">{String(c.heroEyebrow)}</p>
+          <p className="eyebrow eyebrow--light">{eyebrow}</p>
           <h1 id="hero-title" className={locale === "kn" ? "font-kannada-serif" : ""}>
-            {String(c.heroTitleA)}
-            <em>{String(c.heroTitleB)}</em>
+            {titleA}
+            <em>{titleB}</em>
           </h1>
-          <p className="hero__body">{String(c.heroBody)}</p>
+          <p className="hero__body">{body}</p>
           <div className="hero__actions">
             <button className="gold-button" type="button" onClick={() => onEnquire()}>
-              {String(c.heroPrimary)}
+              {primaryBtn}
               <ArrowUpRight />
             </button>
             <a className="outline-button" href="#services">
-              {String(c.heroSecondary)}
+              {secondaryBtn}
               <ArrowRight />
             </a>
           </div>
