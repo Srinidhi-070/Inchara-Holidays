@@ -236,7 +236,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 overflow-hidden bg-[#0A1810]/85 backdrop-blur-md">
+    <div className="fixed inset-0 z-[1050] flex items-center justify-center p-0 sm:p-4 overflow-hidden bg-[#0A1810]/85 backdrop-blur-md">
       <motion.div
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -749,7 +749,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
         {/* SLIDING DETAIL DRAWER FOR SELECTED INQUIRY */}
         <AnimatePresence>
           {selectedInquiry && (
-            <div className="fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-xs">
+            <div className="fixed inset-0 z-[1060] flex justify-end bg-black/50 backdrop-blur-xs">
               <motion.div
                 initial={{ x: '100%' }}
                 animate={{ x: 0 }}

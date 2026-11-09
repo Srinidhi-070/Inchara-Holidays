@@ -463,7 +463,8 @@
   display: grid;
   width: 92px;
   height: 44px;
-  flex: 0 0 92px;
+  flex: 0 0 auto;
+  max-height: 44px;
   grid-template-columns: 1fr 1fr;
   align-items: center;
   overflow: hidden;
