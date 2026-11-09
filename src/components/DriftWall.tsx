@@ -68,26 +68,26 @@ export interface DriftWallProps {
 
 export const DriftWall: React.FC<DriftWallProps> = ({
   items = DEFAULT_ITEMS,
-  columns = 5,
-  tileWidth = 200,
-  tileHeight = 132,
+  columns = 7,
+  tileWidth = 220,
+  tileHeight = 150,
   gap = 18,
   radius = 14,
-  tilt = 16,
-  turn = -14,
+  tilt = 12,
+  turn = -10,
   roll = 0,
   perspective = 1200,
-  depth = 120,
-  speed = 36,
+  depth = 110,
+  speed = 46,
   direction = 'up',
   variance = 0.45,
   parallax = 0.6,
   pauseOnHover = false,
   lift = 60,
-  fade = 0.25,
-  dim = 0.92,
+  fade = 0.2,
+  dim = 0.95,
   grayscale = false,
-  overlayColor = 'rgba(7, 19, 12, 0.12)',
+  overlayColor = 'rgba(7, 19, 12, 0.1)',
   className = '',
   style,
   onTileClick,
@@ -159,7 +159,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
       const plane = planeRef.current;
       if (!plane) return;
       plane.style.transform =
-        `translate(-50%, -50%) scale(1.18) ` +
+        `translate(-50%, -50%) scale(1.36) ` +
         `rotateX(${tilt + py}deg) rotateY(${turn + px}deg) rotateZ(${roll}deg) ` +
         `translateZ(${-depth}px)`;
     },
@@ -172,7 +172,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
       const dt = Math.min(0.05, Math.max(0, ts - lastTsRef.current) / 1000);
       lastTsRef.current = ts;
 
-      const maxTilt = parallax * 8;
+      const maxTilt = parallax * 7;
       const targetX = pointerRef.current.x * maxTilt;
       const targetY = -pointerRef.current.y * maxTilt;
       const damp = 1 - Math.exp(-dt / 0.12);
@@ -180,27 +180,15 @@ export const DriftWall: React.FC<DriftWallProps> = ({
       pointerDampedRef.current.y += (targetY - pointerDampedRef.current.y) * damp;
       applyPlaneTransform(pointerDampedRef.current.x, pointerDampedRef.current.y);
 
-      if (!reduced) {
-        for (let c = 0; c < trackRefs.current.length; c++) {
-          const meta = columnMeta[c];
-          if (!meta) continue;
-          const paused = wallHoveredRef.current && pauseOnHover;
-          const factor = paused || hoveredColRef.current === c ? 0 : 1;
-          const target = baseVelocities[c] * factor;
-          const ease = 1 - Math.exp(-dt / (target === 0 ? 0.16 : 0.28));
-          velocitiesRef.current[c] += (target - velocitiesRef.current[c]) * ease;
-          let next = (offsetsRef.current[c] ?? 0) + velocitiesRef.current[c] * dt;
-          next = ((next % meta.copyHeight) + meta.copyHeight) % meta.copyHeight;
-          offsetsRef.current[c] = next;
-          const el = trackRefs.current[c];
-          if (el) el.style.transform = `translate3d(0, ${-next}px, 0)`;
-        }
-      } else {
-        for (let c = 0; c < trackRefs.current.length; c++) {
-          const el = trackRefs.current[c];
-          const meta = columnMeta[c];
-          if (el && meta) el.style.transform = `translate3d(0, ${-(offsetsRef.current[c] ?? 0)}px, 0)`;
-        }
+      for (let c = 0; c < trackRefs.current.length; c++) {
+        const meta = columnMeta[c];
+        if (!meta) continue;
+        const v = baseVelocities[c] ?? 46;
+        let next = (offsetsRef.current[c] ?? 0) + v * dt;
+        next = ((next % meta.copyHeight) + meta.copyHeight) % meta.copyHeight;
+        offsetsRef.current[c] = next;
+        const el = trackRefs.current[c];
+        if (el) el.style.transform = `translate3d(0, ${-next}px, 0)`;
       }
 
       rafRef.current = requestAnimationFrame(animate);
@@ -212,7 +200,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
       rafRef.current = null;
       lastTsRef.current = null;
     };
-  }, [baseVelocities, columnMeta, pauseOnHover, parallax, reduced, applyPlaneTransform]);
+  }, [baseVelocities, columnMeta, parallax, applyPlaneTransform]);
 
   const activate = useCallback((id: string, index: number) => {
     activeIdRef.current = id;
