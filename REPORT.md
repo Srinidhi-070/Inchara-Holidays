@@ -475,3 +475,59 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - `1000 × 700`: Verified Step 0 (Service), Step 1 (Details), Step 2 (Contact), and Step 3 (Review) with 100% visible Continue button.
   - `1440 × 900`: Verified desktop layout with anchored bottom action bar.
   - `390 × 844`: Verified compact mobile layout across all 4 steps without clipping or submerging.
+
+---
+
+### Cycle 17: Global Proportional Scaling, Modal Height Hard-Lock & Pinned Footer Verification
+**Date**: November 9, 2026  
+**Status**: Completed & Verified  
+
+#### 1. Core Engineering & Visual Craftsmanship Delivered
+1. **Global Proportional Refinement ("Everything feels too big" resolved)**:
+   - **Header Height**: Scaled from 78px to 64px (`.site-header__inner`).
+   - **Typography Scales**: Scaled down `.text-display-xl` (max 4.25rem ➔ 2.75rem), `.text-display-lg` (max 3.25rem ➔ 2.25rem), `.text-display-md` (max 2.5rem ➔ 1.75rem).
+   - **Hero Section**: Reduced H1 clamp from `clamp(40px, 4.8vw, 70px)` to `clamp(28px, 3.2vw, 46px)`, min-height to `min(700px, 86svh)`, top padding from 110px to 80px.
+   - **Section Paddings**: Tightened global `.section` padding clamp from `clamp(48px, 5.5vw, 80px)` to `clamp(36px, 4vw, 56px)`.
+   - **About Section (`AboutIntroduction.tsx`)**: Scaled circular emblem seal from 80px to 56px, heading to `text-xl sm:text-2xl lg:text-3xl`, cards to `p-4 sm:p-5`, and icons to `w-8 h-8`.
+   - **Services Section (`HomeSections.tsx`)**: Reduced card image height from 192px (`h-48`) to 160px (`h-36 sm:h-40`), card padding to `p-4 sm:p-5`, title to `text-base sm:text-lg`, and buttons to `min-h-[38px] text-xs`. Left-aligned header text unified.
+   - **Destination Discovery (`DestinationDiscovery.tsx`)**: Reduced mosaic container height from 620px to 480px, lead tile min-height from 360px to 280px, secondary tiles from 250px to 190px, allowing the entire 5-tile mosaic to fit in a single viewport.
+   - **Curated Packages (`PackagesSection.tsx` & `src/index.css`)**: Reduced card media height from 220px to 175px, content padding from 24px to 16px 18px, and card title from 22px to 18px.
+   - **Institutional & Corporate Excellence (`InstitutionalCorporateHighlight.tsx`, `TravelLogisticsAssistance.tsx`)**: Scaled section padding to `py-10 sm:py-14`, card padding to `p-5 sm:p-6`, icons to `w-11 h-11`, and titles to `text-lg sm:text-xl`.
+   - **Catering & Why Us (`CateringShowcase.tsx`, `WhyUs.tsx`)**: Scaled paddings to `py-10 sm:py-14` and cards to `p-4 sm:p-5`.
+
+2. **Universal Enquiry Modal Height Hard-Lock & Action Bar Pinning (`EnquiryDialog.tsx`)**:
+   - Hard-locked dialog container height: `h-[min(620px,calc(100svh-1.5rem))] sm:h-[min(650px,calc(100svh-2.5rem))]`.
+   - Removed overlay page scrolling (`overflow-hidden` on outer backdrop) so the backdrop never scrolls, eliminating flex centering clipping.
+   - Pinned header and footer (`shrink-0 z-20`) with body set to `flex-1 min-h-0 overflow-y-auto overscroll-contain`.
+   - Verified that "CONTINUE →" and "BACK" buttons are permanently visible and accessible across all 4 steps (Service, Details, Contact, Review) on all viewports down to 600px height.
+
+3. **Live Art Direction Concept Switcher (`App.tsx` & `ConceptSwitcher.tsx`)**:
+   - Mounted `<ConceptSwitcher concept={concept} onChange={setConcept} locale={locale} />` in `App.tsx`.
+   - Floating luxury glassmorphic capsule dock matching the Heritage-Modern South Indian theme with options 01 (Indian Luxury Edit), 02 (Living Travel Journal), and 03 (Global Explorer).
+   - Dismissible into a minimal floating reopen pill.
+
+#### 2. Verification Results
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled cleanly in **1.40s**.
+- **Playwright Visual QA across Viewports**:
+  - `1440 × 900` (Desktop): Verified compact, luxury proportions across Hero, About, Services, Destinations, Packages, and Institutional cards.
+  - `1100 × 620` (Short Laptop Window): Verified EnquiryDialog fits completely on screen with 100% visible pinned footer and zero submerging across all 4 steps.
+  - `768 × 1024` (Tablet Portrait): Verified fluid, uncluttered layout and typography.
+  - `390 × 844` (Standard Mobile): Verified 2-column service selection and pinned modal footer.
+  - `360 × 800` (Compact Mobile): Verified zero horizontal overflow and clean touch targets.
+  - Bilingual (`EN` & `ಕ`): Verified Noto Kannada rendering with zero font clipping across all updated sections.
+
+#### 3. Files Modified
+- [`src/index.css`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/index.css)
+- [`src/App.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/App.tsx)
+- [`src/components/AboutIntroduction.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/AboutIntroduction.tsx)
+- [`src/components/HomeSections.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/HomeSections.tsx)
+- [`src/components/DestinationDiscovery.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/DestinationDiscovery.tsx)
+- [`src/components/PackagesSection.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/PackagesSection.tsx)
+- [`src/components/InstitutionalCorporateHighlight.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/InstitutionalCorporateHighlight.tsx)
+- [`src/components/TravelLogisticsAssistance.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/TravelLogisticsAssistance.tsx)
+- [`src/components/CateringShowcase.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/CateringShowcase.tsx)
+- [`src/components/WhyUs.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/WhyUs.tsx)
+- [`src/components/EnquiryDialog.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/EnquiryDialog.tsx)
+- [`REPORT.md`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/REPORT.md)
+

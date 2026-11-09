@@ -24,7 +24,7 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
   const kn = language === 'kn';
 
   return (
-    <section id="education" className="scroll-mt-20 py-14 sm:py-20 bg-[#FBF8F1] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10">
+    <section id="education" className="scroll-mt-20 py-10 sm:py-14 bg-[#FBF8F1] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -32,14 +32,14 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-3xl mb-10 sm:mb-12"
+          className="max-w-3xl mb-7 sm:mb-9"
         >
           <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#9E3D28] uppercase mb-2.5">
             <span className="w-5 h-px bg-[#D4AF37]" />
             <LotusIcon className="w-4 h-4 text-[#D4AF37]" />
             <span>{kn ? 'ಸಾಂಸ್ಥಿಕ & ಕಾರ್ಪೊರೇಟ್ ಪರಿಣತಿ' : 'Institutional & Corporate Excellence'}</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-serif-editorial text-[#162E22] tracking-tight leading-[1.18]">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold font-serif-editorial text-[#162E22] tracking-tight leading-[1.18]">
             {kn ? (
               <>
                 ಶೈಕ್ಷಣಿಕ ಶಿಸ್ತು ಮತ್ತು{' '}
@@ -52,7 +52,7 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
               </>
             )}
           </h2>
-          <p className="mt-3.5 text-base sm:text-lg text-[#252923]/75 leading-relaxed font-normal">
+          <p className="mt-3.5 text-xs sm:text-sm text-[#252923]/75 leading-relaxed font-normal">
             {kn
               ? 'ಶಾಲೆಗಳ ಶೈಕ್ಷಣಿಕ ಪಯಣಗಳು, ಎಂಜಿನಿಯರಿಂಗ್-ಮ್ಯಾನೇಜ್‌ಮೆಂಟ್ ಕಾಲೇಜುಗಳ ಕೈಗಾರಿಕಾ ಭೇಟಿಗಳು (IV) ಹಾಗೂ ಪ್ರಮುಖ ಕಂಪನಿಗಳ ಲೀಡರ್‌ಶಿಪ್ ಆಫ್‌ಸೈಟ್‌ಗಳು — ನಿಖರ ಸುರಕ್ಷತಾ ಮಾನದಂಡಗಳೊಂದಿಗೆ.'
               : 'School learning expeditions, verified industrial visits (IV) for higher education, and rejuvenating leadership offsites for corporate teams — executed with uncompromising safety.'}
@@ -67,11 +67,11 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl bg-white border border-[#263F32]/12 hover:border-[#D4AF37] p-7 sm:p-9 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all duration-300 relative overflow-hidden group hover:-translate-y-1"
+            className="rounded-3xl bg-white border border-[#263F32]/12 hover:border-[#D4AF37] p-5 sm:p-6 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all duration-300 relative overflow-hidden group hover:-translate-y-1"
           >
                         <div>
               <div className="flex items-center justify-between mb-6">
-                <div className="w-14 h-14 rounded-2xl bg-[#162E22] text-[#F5D77F] border border-[#D4AF37]/40 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+                <div className="w-11 h-11 rounded-xl bg-[#162E22] text-[#F5D77F] border border-[#D4AF37]/40 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
                   <GraduationCap className="w-7 h-7" />
                 </div>
                 <span className="px-3.5 py-1.5 rounded-full bg-[#162E22]/5 text-[#162E22] text-xs font-bold uppercase tracking-wider border border-[#D4AF37]/40">
@@ -79,10 +79,10 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
                 </span>
               </div>
 
-              <h3 className="text-2xl font-bold font-serif-editorial text-[#162E22] mb-3">
+              <h3 className="text-lg sm:text-xl font-bold font-serif-editorial text-[#162E22] mb-2">
                 {kn ? 'ಶಾಲಾ-ಕಾಲೇಜು ಪ್ರವಾಸಗಳು & ಕೈಗಾರಿಕಾ ಭೇಟಿಗಳು (IV)' : 'Educational Study Tours & Industrial Visits'}
               </h3>
-              <p className="text-sm text-[#252923]/75 leading-relaxed font-normal mb-6">
+              <p className="text-xs text-[#252923]/75 leading-relaxed font-normal mb-4">
                 {kn
                   ? 'ಪಠ್ಯಕ್ರಮಕ್ಕೆ ಪೂರಕವಾದ ತಾಣಗಳು, ಅಧಿಕೃತ ಕೈಗಾರಿಕಾ ಪ್ರವೇಶ ಅನುಮತಿಗಳು, ಜಿಪಿಎಸ್ ಆಧಾರಿತ ಸುರಕ್ಷಿತ ಕೋಚ್‌ಗಳು ಮತ್ತು ಪೌಷ್ಟಿಕ ಶುದ್ಧ ಸಸ್ಯಾಹಾರಿ ಊಟ.'
                   : 'Syllabus-aligned field destinations, verified plant permissions, speed-governed GPS coaches, and dedicated teacher chaperone accommodations.'}
@@ -122,7 +122,7 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
             <button
               type="button"
               onClick={onOpenEducational}
-              className="w-full py-4 px-6 min-h-[48px] rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-md active:scale-95 cursor-pointer border border-[#D4AF37]/60 hover:border-[#D4AF37] focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
+              className="w-full py-3 px-5 min-h-[40px] rounded-xl text-xs bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-md active:scale-95 cursor-pointer border border-[#D4AF37]/60 hover:border-[#D4AF37] focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
             >
               <span>{kn ? 'ಶೈಕ್ಷಣಿಕ ಪ್ರವಾಸ ವಿಚಾರಣೆ' : 'Plan Educational Tour'}</span>
               <ArrowRight className="w-4 h-4 text-[#F5D77F]" />

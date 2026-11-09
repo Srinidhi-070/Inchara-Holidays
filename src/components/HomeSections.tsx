@@ -116,7 +116,7 @@ export function Affiliations({ locale }: { locale: Locale }) {
   ];
 
   return (
-    <section className="py-12 sm:py-16 bg-[#F6F3EA] bg-kolam-subtle border-b border-[#263F32]/10 relative overflow-hidden" id="trust" aria-labelledby="trust-title">
+    <section className="py-8 sm:py-12 bg-[#F6F3EA] bg-kolam-subtle border-b border-[#263F32]/10 relative overflow-hidden" id="trust" aria-labelledby="trust-title">
       <div 
         className="absolute inset-0 opacity-[0.03] pointer-events-none" 
         style={{
@@ -128,7 +128,7 @@ export function Affiliations({ locale }: { locale: Locale }) {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header matching Image 1 */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
           <div className="inline-flex items-center gap-2.5 text-xs sm:text-sm font-bold tracking-widest text-[#9E3D28] uppercase mb-2">
             <span className="w-6 h-px bg-[#D4AF37]" />
             <span>✦</span>
@@ -212,7 +212,7 @@ export function Services({ locale, onEnquire }: Props) {
             <span>✦</span>
             <span className="w-5 h-px bg-[#D4AF37]" />
           </div>
-          <h2 id="services-title" className={`text-2xl sm:text-3xl lg:text-4xl font-serif-editorial font-bold text-[#162E22] tracking-tight leading-[1.18] ${locale === "kn" ? "font-kannada-serif" : ""}`}>
+          <h2 id="services-title" className={`text-xl sm:text-2xl lg:text-3xl font-serif-editorial font-bold text-[#162E22] tracking-tight leading-[1.18] ${locale === "kn" ? "font-kannada-serif" : ""}`}>
             {locale === "kn" ? (
               <>
                 ಪ್ರಯಾಣ, ಸಮಾಗಮ ಮತ್ತು ಆತಿಥ್ಯ —{" "}
@@ -229,10 +229,10 @@ export function Services({ locale, onEnquire }: Props) {
               </>
             )}
           </h2>
-          <p className="text-sm sm:text-base text-[#252923]/75 leading-relaxed font-normal mt-3">{String(c.servicesBody)}</p>
+          <p className="text-xs sm:text-sm text-[#252923]/75 leading-relaxed font-normal mt-2">{String(c.servicesBody)}</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mt-7">
           {services.map((service, index) => (
             <article
               className="rounded-3xl bg-white border border-[#263F32]/12 hover:border-[#D4AF37] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1"
@@ -243,7 +243,7 @@ export function Services({ locale, onEnquire }: Props) {
             >
               <div>
                 {/* Photo header on all cards for visual symmetry */}
-                <div className="relative h-48 overflow-hidden bg-[#162E22]">
+                <div className="relative h-36 sm:h-40 overflow-hidden bg-[#162E22]">
                   <img
                     src={serviceImages[service.id] || "/images/karnataka-heritage.jpg"}
                     alt={service.title[locale]}
@@ -268,13 +268,13 @@ export function Services({ locale, onEnquire }: Props) {
                   </div>
                 </div>
 
-                <div className="p-6 sm:p-7">
-                  <h3 className={`text-xl font-bold font-serif-editorial text-[#162E22] mb-2.5 group-hover:text-[#9E3D28] transition-colors leading-snug ${
+                <div className="p-4 sm:p-5">
+                  <h3 className={`text-base sm:text-lg font-bold font-serif-editorial text-[#162E22] mb-1.5 group-hover:text-[#9E3D28] transition-colors leading-snug ${
                     locale === "kn" ? "font-kannada-serif" : ""
                   }`}>
                     {service.title[locale]}
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#252923]/75 leading-relaxed mb-4">
+                  <p className="text-xs text-[#252923]/75 leading-relaxed mb-3 line-clamp-2">
                     {service.description[locale]}
                   </p>
                   {/* Interactive Offering Chips with Spring Hover */}
@@ -395,7 +395,7 @@ export function JourneyProcess({ locale }: { locale: Locale }) {
   };
 
   return (
-    <section className="py-16 sm:py-24 bg-[#162E22] text-white relative overflow-hidden border-b border-[#D4AF37]/20" id="process" aria-labelledby="process-title">
+    <section className="py-12 sm:py-16 bg-[#162E22] text-white relative overflow-hidden border-b border-[#D4AF37]/20" id="process" aria-labelledby="process-title">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(212,175,55,0.08),transparent_60%)] pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16" data-reveal="up">
@@ -406,7 +406,7 @@ export function JourneyProcess({ locale }: { locale: Locale }) {
             <span>✦</span>
             <span className="w-6 h-px bg-[#D4AF37]" />
           </div>
-          <h2 id="process-title" className={`text-3xl sm:text-4xl lg:text-5xl font-serif-editorial font-bold text-[#F6F3EA] tracking-tight leading-[1.15] ${locale === "kn" ? "font-kannada-serif" : ""}`}>
+          <h2 id="process-title" className={`text-2xl sm:text-3xl lg:text-4xl font-serif-editorial font-bold text-[#F6F3EA] tracking-tight leading-[1.15] ${locale === "kn" ? "font-kannada-serif" : ""}`}>
             {locale === "kn" ? (
               <>
                 ನಾವು ಆಲಿಸುವುದರಿಂದ{" "}
@@ -423,7 +423,7 @@ export function JourneyProcess({ locale }: { locale: Locale }) {
               </>
             )}
           </h2>
-          <p className="mt-4 text-sm sm:text-base text-white/75 leading-relaxed max-w-2xl mx-auto font-normal">
+          <p className="mt-4 text-xs sm:text-sm text-white/75 leading-relaxed max-w-xl mx-auto font-normal">
             {locale === "kn"
               ? "ನಿಮ್ಮ ಪ್ರಯಾಣದ ಪ್ರತಿಯೊಂದು ಹೆಜ್ಜೆಯಲ್ಲೂ ನಮ್ಮ ಮಾರ್ಗದರ್ಶನ, ಪರಿಶೀಲಿಸಿದ ವಾಹನಗಳು ಮತ್ತು ಅಪ್ಪಟ ಆತಿಥ್ಯದ ಜವಾಬ್ದಾರಿ ಇರುತ್ತದೆ."
               : "From quiet conversations to custom routes and complete on-ground guardianship, travel at ease without rushed checklists."}
@@ -438,7 +438,7 @@ export function JourneyProcess({ locale }: { locale: Locale }) {
                 key={title}
                 data-reveal="up"
                 data-delay={index * 120}
-                className="relative rounded-3xl bg-[#1E3A2B]/80 backdrop-blur-md border border-[#D4AF37]/25 hover:border-[#D4AF37] p-8 sm:p-9 shadow-lg hover:shadow-2xl transition-all duration-300 group hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden"
+                className="relative rounded-3xl bg-[#1E3A2B]/80 backdrop-blur-md border border-[#D4AF37]/25 hover:border-[#D4AF37] p-5 sm:p-6 shadow-md hover:shadow-2xl transition-all duration-300 group hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden"
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-radial from-[#D4AF37]/10 to-transparent rounded-bl-full pointer-events-none" />
 
@@ -447,12 +447,12 @@ export function JourneyProcess({ locale }: { locale: Locale }) {
                     <span className="font-serif-editorial text-2xl font-bold text-[#D4AF37] tracking-wider">
                       0{index + 1}
                     </span>
-                    <div className="w-12 h-12 rounded-2xl bg-[#162E22] border border-[#D4AF37]/35 text-[#F5D77F] flex items-center justify-center shadow-md group-hover:scale-110 group-hover:border-[#D4AF37] transition-all">
-                      <Icon className="w-6 h-6" />
+                    <div className="w-9 h-9 rounded-xl bg-[#162E22] border border-[#D4AF37]/35 text-[#F5D77F] flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:border-[#D4AF37] transition-all">
+                      <Icon className="w-4.5 h-4.5" />
                     </div>
                   </div>
 
-                  <h3 className={`text-2xl sm:text-3xl font-bold font-serif-editorial text-[#F6F3EA] group-hover:text-[#F5D77F] transition-colors mb-3.5 ${
+                  <h3 className={`text-xl sm:text-2xl font-bold font-serif-editorial text-[#F6F3EA] group-hover:text-[#F5D77F] transition-colors mb-3.5 ${
                     locale === "kn" ? "font-kannada-serif" : ""
                   }`}>
                     {title}

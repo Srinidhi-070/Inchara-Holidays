@@ -90,7 +90,7 @@ export function WhyUs({ locale }: WhyUsProps) {
   const c = content[locale];
 
   return (
-    <section id="why-us" className="py-14 sm:py-20 bg-[#FBF8F1] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10" aria-labelledby="why-us-title">
+    <section id="why-us" className="py-10 sm:py-14 bg-[#FBF8F1] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10" aria-labelledby="why-us-title">
       {/* Subtle geometric dot pattern */}
       <div 
         className="absolute inset-0 opacity-[0.035] pointer-events-none" 
@@ -130,7 +130,7 @@ export function WhyUs({ locale }: WhyUsProps) {
               </>
             )}
           </h2>
-          <p className="text-sm sm:text-base text-[#252923]/75 leading-relaxed font-normal">
+          <p className="text-xs sm:text-sm text-[#252923]/75 leading-relaxed font-normal">
             {c.subtitle}
           </p>
         </div>
@@ -140,7 +140,7 @@ export function WhyUs({ locale }: WhyUsProps) {
           {c.cards.map((card) => (
             <div
               key={card.num}
-              className="p-5 sm:p-6 rounded-2xl bg-white border border-[#263F32]/10 hover:border-[#D4AF37] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 relative overflow-hidden"
+              className="p-5 sm:p-4 sm:p-5 rounded-xl bg-white border border-[#263F32]/10 hover:border-[#D4AF37] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 relative overflow-hidden"
             >
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 

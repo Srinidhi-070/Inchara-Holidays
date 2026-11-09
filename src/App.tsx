@@ -221,6 +221,13 @@ export default function App() {
           />
         )}
       </Suspense>
+
+      {/* Floating Heritage Art Direction Switcher Dock */}
+      <ConceptSwitcher
+        concept={concept}
+        onChange={setConcept}
+        locale={locale}
+      />
     </div>
   );
 }

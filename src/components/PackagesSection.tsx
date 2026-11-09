@@ -25,7 +25,7 @@ export function PackagesSection({ locale, onEnquire, onViewItinerary }: Props) {
   return (
     <section className="packages-section section bg-[#FBF8F1] bg-kolam-subtle scroll-mt-24" id="packages" aria-labelledby="packages-title">
       <div className="shell">
-        <div className="max-w-3xl mb-10 sm:mb-12 text-center mx-auto" data-reveal="up">
+        <div className="max-w-3xl mb-7 sm:mb-9 text-center mx-auto" data-reveal="up">
           <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-[#9E3D28] uppercase mb-2.5">
             <span className="w-5 h-px bg-[#D4AF37]" />
             <span>✦</span>
@@ -33,7 +33,7 @@ export function PackagesSection({ locale, onEnquire, onViewItinerary }: Props) {
             <span>✦</span>
             <span className="w-5 h-px bg-[#D4AF37]" />
           </div>
-          <h2 id="packages-title" className={`text-2xl sm:text-3xl lg:text-4xl font-serif-editorial font-bold text-[#162E22] tracking-tight leading-[1.18] ${isKn ? "font-kannada-serif" : ""}`}>
+          <h2 id="packages-title" className={`text-xl sm:text-2xl lg:text-3xl font-serif-editorial font-bold text-[#162E22] tracking-tight leading-[1.18] ${isKn ? "font-kannada-serif" : ""}`}>
             {isKn ? (
               <>
                 ಜನಪ್ರಿಯ ರಜಾದಿನಗಳ{" "}
@@ -50,7 +50,7 @@ export function PackagesSection({ locale, onEnquire, onViewItinerary }: Props) {
               </>
             )}
           </h2>
-          <p className="text-sm sm:text-base text-[#252923]/75 leading-relaxed font-normal mt-3">
+          <p className="text-xs sm:text-sm text-[#252923]/75 leading-relaxed font-normal mt-2">
             {isKn
               ? "ಹಂಪಿ, ಬಾದಾಮಿ, ಕೊಡಗಿನ ಕಾಫಿ ತೋಟಗಳಿಂದ ಹಿಡಿದು ರಾಜಸ್ಥಾನ ಮತ್ತು ಕೇರಳದ ಹಿನ್ನೀರವರೆಗೆ — ನಿಮ್ಮಿಷ್ಟಕ್ಕೆ ತಕ್ಕಂತೆ ಬದಲಾಯಿಸಬಹುದಾದ ಮಾದರಿ ರೂಪರೇಷೆಗಳು."
               : "From the stone monoliths of Hampi and misty coffee estates of Coorg to royal desert circuits and serene backwaters — verified journeys tailored to your rhythm."}
@@ -60,7 +60,7 @@ export function PackagesSection({ locale, onEnquire, onViewItinerary }: Props) {
               <button
                 key={cat.id}
                 type="button"
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer border ${
                   filter === cat.id
                     ? "bg-[#162E22] text-[#F5D77F] border-[#D4AF37] shadow-sm"
                     : "bg-white text-[#162E22] border-[#162E22]/15 hover:border-[#D4AF37] hover:bg-[#F6F3EA]"

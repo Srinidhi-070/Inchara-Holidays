@@ -81,7 +81,7 @@ export function DestinationDiscovery({
   };
 
   return (
-    <section id="destinations" className="scroll-mt-24 py-16 sm:py-24 bg-[#FBF8F1] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10" aria-labelledby="dest-title">
+    <section id="destinations" className="scroll-mt-24 py-10 sm:py-14 bg-[#FBF8F1] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10" aria-labelledby="dest-title">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header Row */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 sm:mb-12">
@@ -94,7 +94,7 @@ export function DestinationDiscovery({
               <span className="w-5 h-px bg-[#D4AF37]" />
             </div>
 
-            <h2 id="dest-title" className={`text-2xl sm:text-3xl lg:text-4xl font-serif-editorial font-bold text-[#162E22] tracking-tight leading-[1.15] ${
+            <h2 id="dest-title" className={`text-xl sm:text-2xl lg:text-3xl font-serif-editorial font-bold text-[#162E22] tracking-tight leading-[1.15] ${
               isKn ? "font-kannada-serif" : ""
             }`}>
               {isKn ? "ನಿಧಾನವಾಗಿ ಸಾಗಲು ಯೋಗ್ಯವಾದ " : "A world worth travelling "}
@@ -103,7 +103,7 @@ export function DestinationDiscovery({
               </em>
             </h2>
 
-            <p className="mt-3.5 text-base sm:text-lg text-[#252923]/75 leading-relaxed font-normal">
+            <p className="mt-3.5 text-xs sm:text-sm text-[#252923]/75 leading-relaxed font-normal">
               {isKn
                 ? "ದಕ್ಷಿಣ ಭಾರತದ ನಮ್ಮ ನೆಲೆಯಿಂದ ಪ್ರಪಂಚದ ವಿವಿಧ ಮೂಲೆಗಳವರೆಗೆ, ಪ್ರತಿಯೊಂದು ಮಾರ್ಗವನ್ನೂ ನೀವು ಅನುಭವಿಸುವ ಭಾವನೆಗಳ ಆಧಾರದ ಮೇಲೆ ರೂಪಿಸಲಾಗಿದೆ."
                 : "From our home in South India to places across the world, every route is chosen for what it lets you feel—not how much it lets you tick off."}
@@ -137,11 +137,11 @@ export function DestinationDiscovery({
         </div>
 
         {/* 5-Tile Editorial Mosaic Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:h-[620px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:h-[480px]">
           {/* Tile 1: Lead Tile (Karnataka) - Spans 2 Rows on Left */}
           <div
             onClick={() => handleTileClick(tiles[0])}
-            className={`group relative rounded-[28px] overflow-hidden cursor-pointer border border-[#162E22]/10 hover:border-[#D4AF37] shadow-[0_10px_30px_rgba(22,46,34,0.08)] hover:shadow-[0_20px_50px_rgba(22,46,34,0.2)] transition-all duration-500 lg:row-span-2 min-h-[360px] lg:min-h-full ${
+            className={`group relative rounded-[28px] overflow-hidden cursor-pointer border border-[#162E22]/10 hover:border-[#D4AF37] shadow-[0_10px_30px_rgba(22,46,34,0.08)] hover:shadow-[0_20px_50px_rgba(22,46,34,0.2)] transition-all duration-500 lg:row-span-2 min-h-[280px] lg:min-h-full ${
               activeFilter === "international" ? "opacity-35 scale-[0.99]" : "opacity-100"
             }`}
           >
@@ -154,7 +154,7 @@ export function DestinationDiscovery({
             <div className="absolute inset-0 bg-gradient-to-t from-[#0A1810]/95 via-[#0A1810]/40 to-transparent pointer-events-none" />
 
             {/* Top Right Circular Explore Badge */}
-            <div className="absolute top-5 right-5 w-10 h-10 rounded-full bg-black/35 backdrop-blur-md border border-white/20 text-white/90 flex items-center justify-center shadow-md group-hover:bg-[#162E22] group-hover:text-[#F5D77F] group-hover:border-[#D4AF37]/60 group-hover:scale-110 transition-all duration-300">
+            <div className="absolute top-5 right-5 w-8 h-8 rounded-full bg-black/35 backdrop-blur-md border border-white/20 text-white/90 flex items-center justify-center shadow-md group-hover:bg-[#162E22] group-hover:text-[#F5D77F] group-hover:border-[#D4AF37]/60 group-hover:scale-110 transition-all duration-300">
               <Compass className="w-4 h-4" />
             </div>
 
@@ -163,7 +163,7 @@ export function DestinationDiscovery({
               <span className="text-[#F5D77F] text-xs font-bold tracking-widest uppercase block mb-1">
                 {tiles[0].num} / {isKn ? "ಅನ್ವೇಷಿಸಿ" : "EXPLORE"}
               </span>
-              <h3 className={`text-3xl sm:text-4xl font-serif-editorial font-bold text-[#F6F3EA] group-hover:text-[#F5D77F] transition-colors leading-tight ${
+              <h3 className={`text-2xl sm:text-3xl font-serif-editorial font-bold text-[#F6F3EA] group-hover:text-[#F5D77F] transition-colors leading-tight ${
                 isKn ? "font-kannada-serif" : ""
               }`}>
                 {tiles[0].name}
@@ -177,7 +177,7 @@ export function DestinationDiscovery({
           {/* Tile 2: Kerala (Middle Top) */}
           <div
             onClick={() => handleTileClick(tiles[1])}
-            className={`group relative rounded-[28px] overflow-hidden cursor-pointer border border-[#162E22]/10 hover:border-[#D4AF37] shadow-[0_10px_30px_rgba(22,46,34,0.08)] hover:shadow-[0_20px_50px_rgba(22,46,34,0.2)] transition-all duration-500 min-h-[250px] lg:min-h-0 ${
+            className={`group relative rounded-[28px] overflow-hidden cursor-pointer border border-[#162E22]/10 hover:border-[#D4AF37] shadow-[0_10px_30px_rgba(22,46,34,0.08)] hover:shadow-[0_20px_50px_rgba(22,46,34,0.2)] transition-all duration-500 min-h-[190px] lg:min-h-0 ${
               activeFilter === "international" ? "opacity-35 scale-[0.99]" : "opacity-100"
             }`}
           >

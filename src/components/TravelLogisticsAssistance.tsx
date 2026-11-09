@@ -24,7 +24,7 @@ export const TravelLogisticsAssistance: React.FC<TravelLogisticsAssistanceProps>
   const kn = language === 'kn';
 
   return (
-    <section id="transport" className="scroll-mt-20 py-14 sm:py-20 bg-[#F6F3EA] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10">
+    <section id="transport" className="scroll-mt-20 py-10 sm:py-14 bg-[#F6F3EA] bg-kolam-subtle relative overflow-hidden border-b border-[#263F32]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -32,14 +32,14 @@ export const TravelLogisticsAssistance: React.FC<TravelLogisticsAssistanceProps>
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-3xl mb-10 sm:mb-12"
+          className="max-w-3xl mb-7 sm:mb-9"
         >
           <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#9E3D28] uppercase mb-2.5">
             <span className="w-5 h-px bg-[#D4AF37]" />
             <LotusIcon className="w-4 h-4 text-[#D4AF37]" />
             <span>{kn ? 'ಸಾರಿಗೆ & ದಾಖಲೆಗಳ ನೆರವು' : 'Transit Fleets & Document Advisory'}</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-serif-editorial text-[#162E22] tracking-tight leading-[1.18]">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold font-serif-editorial text-[#162E22] tracking-tight leading-[1.18]">
             {kn ? (
               <>
                 ಸುರಕ್ಷಿತ ವಾಹನಗಳು &{' '}
@@ -52,7 +52,7 @@ export const TravelLogisticsAssistance: React.FC<TravelLogisticsAssistanceProps>
               </>
             )}
           </h2>
-          <p className="mt-3.5 text-base sm:text-lg text-[#252923]/75 leading-relaxed font-normal">
+          <p className="mt-3.5 text-xs sm:text-sm text-[#252923]/75 leading-relaxed font-normal">
             {kn
               ? 'ಹವಾನಿಯಂತ್ರಿತ ಕಾರುಗಳು, ಟೆಂಪೋ ಟ್ರಾವೆಲರ್‌ಗಳು, ದೊಡ್ಡ ಕೋಚ್‌ಗಳ ಬಾಡಿಗೆ, ರೈಲು/ಬಸ್ಸು ಟಿಕೆಟ್ ಮಾಹಿತಿ ಹಾಗೂ ಅಂತಾರಾಷ್ಟ್ರೀಯ ಪ್ರವಾಸಿ ವೀಸಾ ಮತ್ತು ಪಾಸ್‌ಪೋರ್ಟ್ ಅರ್ಜಿ ಸಮಾಲೋಚನೆ.'
               : 'Sanitized chauffeur-driven sedans, Innova fleets, Tempo Travellers, intercity coach rentals, alongside authorized guidance for visas, passports, and travel documentation.'}
@@ -67,11 +67,11 @@ export const TravelLogisticsAssistance: React.FC<TravelLogisticsAssistanceProps>
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.5 }}
-            className="rounded-3xl bg-white border border-[#263F32]/12 hover:border-[#D4AF37] p-7 sm:p-9 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all duration-300 relative overflow-hidden group hover:-translate-y-1"
+            className="rounded-3xl bg-white border border-[#263F32]/12 hover:border-[#D4AF37] p-5 sm:p-6 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all duration-300 relative overflow-hidden group hover:-translate-y-1"
           >
                         <div>
               <div className="flex items-center justify-between mb-6">
-                <div className="w-14 h-14 rounded-2xl bg-[#162E22] text-[#F5D77F] border border-[#D4AF37]/40 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+                <div className="w-11 h-11 rounded-xl bg-[#162E22] text-[#F5D77F] border border-[#D4AF37]/40 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
                   <Bus className="w-6 h-6" />
                 </div>
                 <span className="px-3.5 py-1.5 rounded-full bg-[#162E22]/5 text-[#162E22] text-xs font-bold uppercase tracking-wider border border-[#D4AF37]/40">
@@ -79,10 +79,10 @@ export const TravelLogisticsAssistance: React.FC<TravelLogisticsAssistanceProps>
                 </span>
               </div>
 
-              <h3 className="text-2xl font-bold font-serif-editorial text-[#162E22] mb-3">
+              <h3 className="text-lg sm:text-xl font-bold font-serif-editorial text-[#162E22] mb-2">
                 {kn ? 'ವಾಹನ ಬಾಡಿಗೆ & ಟಿಕೆಟ್ ಬುಕಿಂಗ್ ನೆರವು' : 'Chauffeur Fleet & Ticket Assistance'}
               </h3>
-              <p className="text-sm text-[#252923]/75 leading-relaxed font-normal mb-6">
+              <p className="text-xs text-[#252923]/75 leading-relaxed font-normal mb-4">
                 {kn
                   ? 'ಸೆಡಾನ್, ಇನೋವಾ ಕ್ರಿಸ್ಟಾ, ೧೨ ರಿಂದ ೨೬ ಸೀಟುಗಳ ಟೆಂಪೋ ಟ್ರಾವೆಲರ್, ಮಿನಿ ಬಸ್ಸುಗಳು ಹಾಗೂ ರೈಲು/ಬಸ್ಸು ಟಿಕೆಟ್ ಕಾಯ್ದಿರಿಸುವಿಕೆಯ ವಿಶ್ವಾಸಾರ್ಹ ನೆರವು.'
                   : 'Well-maintained fleet for airport transfers, outstation pilgrimages, and family events, coupled with ticketing consultation.'}
@@ -107,7 +107,7 @@ export const TravelLogisticsAssistance: React.FC<TravelLogisticsAssistanceProps>
             <button
               type="button"
               onClick={onOpenTransport}
-              className="w-full py-4 px-6 min-h-[48px] rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-md active:scale-95 cursor-pointer border border-[#D4AF37]/60 hover:border-[#D4AF37] focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
+              className="w-full py-3 px-5 min-h-[40px] rounded-xl text-xs bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-md active:scale-95 cursor-pointer border border-[#D4AF37]/60 hover:border-[#D4AF37] focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
             >
               <span>{kn ? 'ವಾಹನ ಬಾಡಿಗೆ ವಿಚಾರಿಸಿ' : 'Book Vehicle or Transit'}</span>
               <ArrowRight className="w-4 h-4 text-[#F5D77F]" />

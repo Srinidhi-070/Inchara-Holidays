@@ -304,9 +304,9 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
   }
 
   return (
-    <div className="fixed inset-0 z-[1050] overflow-y-auto bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5 lg:p-6 animate-fade-in">
+    <div className="fixed inset-0 z-[1050] overflow-hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-2.5 sm:p-4 md:p-6 animate-fade-in">
       <div
-        className="relative w-full max-w-3xl max-h-[90vh] sm:max-h-[86vh] bg-[#FBF8F1] rounded-2xl sm:rounded-3xl shadow-2xl border border-[#D4AF37]/50 overflow-hidden flex flex-col my-auto"
+        className="relative w-full max-w-3xl h-[min(620px,calc(100svh-1.5rem))] sm:h-[min(650px,calc(100svh-2.5rem))] bg-[#FBF8F1] rounded-2xl sm:rounded-3xl shadow-2xl border border-[#D4AF37]/50 overflow-hidden flex flex-col my-auto"
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
@@ -375,7 +375,7 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
           /* MULTI-STEP WIZARD */
           <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
             {/* Header with Title and Stepper */}
-            <header className="pt-4 sm:pt-5 px-5 sm:px-8 pb-3 text-center border-b border-[#263F32]/8 bg-white/60 shrink-0">
+            <header className="pt-3 sm:pt-4 px-4 sm:px-6 pb-2.5 text-center border-b border-[#263F32]/8 bg-white/60 shrink-0">
               <p className="text-[10px] sm:text-xs font-bold tracking-widest text-[#9E3D28] uppercase mb-0.5">
                 {c.eyebrow}
               </p>
@@ -421,7 +421,7 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
             </header>
 
             {/* Dialog Scrollable Body */}
-            <div className="p-4 sm:p-6 lg:p-7 flex-1 min-h-0 overflow-y-auto overscroll-contain">
+            <div className="p-3.5 sm:p-5 lg:p-6 flex-1 min-h-0 overflow-y-auto overscroll-contain">
               {/* STEP 0: What can we help you with? */}
               {step === 0 && (
                 <div>
@@ -485,8 +485,8 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
 
               {/* STEP 1: Details */}
               {step === 1 && (
-                <div className="max-w-2xl mx-auto space-y-6">
-                  <div className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-[#D4AF37]/40 shadow-xs">
+                <div className="max-w-2xl mx-auto space-y-4">
+                  <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-[#D4AF37]/40 shadow-xs">
                     <LargeServiceArtwork id={payload.service} className="w-12 h-12 text-[#162E22] shrink-0" />
                     <div>
                       <span className="text-[11px] font-bold tracking-wider text-[#9E3D28] uppercase block">
@@ -502,7 +502,7 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
                     {c.details}
                   </h3>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     {activeFields.map((field) => {
                       const error = errors[field.key];
                       return (
@@ -720,7 +720,7 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
                   </h3>
                   <p className="text-xs text-[#252923]/70">{c.reviewBody}</p>
 
-                  <div className="rounded-2xl bg-white border border-[#D4AF37]/40 p-6 space-y-5 shadow-xs">
+                  <div className="rounded-2xl bg-white border border-[#D4AF37]/40 p-4 sm:p-5 space-y-4 shadow-xs">
                     <div className="flex items-center justify-between border-b border-[#263F32]/10 pb-4">
                       <div>
                         <span className="text-[11px] uppercase tracking-wider text-[#9E3D28] font-bold block">
@@ -802,7 +802,7 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
             </div>
 
             {/* Bottom Action Bar with Gold Button */}
-            <footer className="px-5 sm:px-8 py-3.5 sm:py-4 border-t border-[#263F32]/12 bg-white/95 backdrop-blur-md flex items-center justify-between shrink-0 shadow-[0_-4px_20px_rgba(22,46,34,0.06)] z-20">
+            <footer className="px-4 sm:px-6 py-2.5 sm:py-3 border-t border-[#263F32]/12 bg-white/95 backdrop-blur-md flex items-center justify-between shrink-0 shadow-[0_-4px_20px_rgba(22,46,34,0.06)] z-20">
               {step > 0 ? (
                 <button
                   type="button"
