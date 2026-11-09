@@ -4,6 +4,8 @@ import { X, Building2, CheckCircle2, Copy, Send, PhoneCall } from 'lucide-react'
 import { Language, CorporateInquiryData } from '../types';
 import { Mark } from './Header';
 import { getWhatsAppInquiryUrl } from '../config/brand';
+import { CustomSelect } from './CustomSelect';
+import { CustomDatePicker } from './CustomDatePicker';
 
 interface CorporateEventModalProps {
   isOpen: boolean;
@@ -281,31 +283,29 @@ Requirements: ${formData.additionalRequirements || 'None specified'}`;
                       <label className="block text-xs font-semibold text-[#263F32] mb-1">
                         {isKn ? 'ಕಾರ್ಯಕ್ರಮದ ಸ್ವರೂಪ' : 'Event Type'}
                       </label>
-                      <select
+                      <CustomSelect
                         value={formData.eventType}
-                        onChange={(e) =>
-                          setFormData({ ...formData, eventType: e.target.value })
+                        onChange={(val) =>
+                          setFormData({ ...formData, eventType: val })
                         }
-                        className="w-full px-3 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#263F32]/20"
-                      >
-                        {(isKn ? eventTypesKn : eventTypesEn).map((t) => (
-                          <option key={t} value={t}>
-                            {t}
-                          </option>
-                        ))}
-                      </select>
+                        placeholder={isKn ? "ಸ್ವರೂಪ ಆಯ್ಕೆಮಾಡಿ" : "Select event type"}
+                        options={(isKn ? eventTypesKn : eventTypesEn).map((t) => ({
+                          value: t,
+                          label: t,
+                        }))}
+                      />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-[#263F32] mb-1">
                         {isKn ? 'ಅಂದಾಜು ದಿನಾಂಕ / ತಿಂಗಳು' : 'Preferred Date / Month'}
                       </label>
-                      <input
-                        type="date"
+                      <CustomDatePicker
                         value={formData.preferredDate}
-                        onChange={(e) =>
-                          setFormData({ ...formData, preferredDate: e.target.value })
+                        onChange={(val) =>
+                          setFormData({ ...formData, preferredDate: val })
                         }
-                        className="w-full px-3.5 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#263F32]/20"
+                        locale={language}
+                        placeholder={isKn ? "ದಿನಾಂಕ ಆಯ್ಕೆಮಾಡಿ" : "Select event date"}
                       />
                     </div>
                   </div>
@@ -316,37 +316,33 @@ Requirements: ${formData.additionalRequirements || 'None specified'}`;
                       <label className="block text-xs font-semibold text-[#263F32] mb-1">
                         {isKn ? 'ಭಾಗವಹಿಸುವವರ ಸಂಖ್ಯೆ' : 'Approximate Attendee Count'}
                       </label>
-                      <select
+                      <CustomSelect
                         value={formData.attendeeCount}
-                        onChange={(e) =>
-                          setFormData({ ...formData, attendeeCount: e.target.value })
+                        onChange={(val) =>
+                          setFormData({ ...formData, attendeeCount: val })
                         }
-                        className="w-full px-3 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#263F32]/20"
-                      >
-                        {attendeeCounts.map((count) => (
-                          <option key={count} value={count}>
-                            {count} {isKn ? 'ಸದಸ್ಯರು' : 'People'}
-                          </option>
-                        ))}
-                      </select>
+                        placeholder={isKn ? "ಸಂಖ್ಯೆ ಆಯ್ಕೆಮಾಡಿ" : "Select count"}
+                        options={attendeeCounts.map((count) => ({
+                          value: count,
+                          label: `${count} ${isKn ? 'ಸದಸ್ಯರು' : 'People'}`,
+                        }))}
+                      />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-[#263F32] mb-1">
                         {isKn ? 'ಆದ್ಯತೆಯ ಸ್ಥಳ / ತಾಣ' : 'Location Preference'}
                       </label>
-                      <select
+                      <CustomSelect
                         value={formData.locationPreference}
-                        onChange={(e) =>
-                          setFormData({ ...formData, locationPreference: e.target.value })
+                        onChange={(val) =>
+                          setFormData({ ...formData, locationPreference: val })
                         }
-                        className="w-full px-3 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#263F32]/20"
-                      >
-                        {(isKn ? locationsKn : locationsEn).map((loc) => (
-                          <option key={loc} value={loc}>
-                            {loc}
-                          </option>
-                        ))}
-                      </select>
+                        placeholder={isKn ? "ಸ್ಥಳ ಆಯ್ಕೆಮಾಡಿ" : "Select location"}
+                        options={(isKn ? locationsKn : locationsEn).map((loc) => ({
+                          value: loc,
+                          label: loc,
+                        }))}
+                      />
                     </div>
                   </div>
 
@@ -355,19 +351,17 @@ Requirements: ${formData.additionalRequirements || 'None specified'}`;
                     <label className="block text-xs font-semibold text-[#263F32] mb-1">
                       {isKn ? 'ಅಂದಾಜು ಬಜೆಟ್ ಶ್ರೇಣಿ' : 'Approximate Budget Range'}
                     </label>
-                    <select
+                    <CustomSelect
                       value={formData.budgetRange}
-                      onChange={(e) =>
-                        setFormData({ ...formData, budgetRange: e.target.value })
+                      onChange={(val) =>
+                        setFormData({ ...formData, budgetRange: val })
                       }
-                      className="w-full px-3 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#263F32]/20"
-                    >
-                      {(isKn ? budgetRangesKn : budgetRangesEn).map((b) => (
-                        <option key={b} value={b}>
-                          {b}
-                        </option>
-                      ))}
-                    </select>
+                      placeholder={isKn ? "ಬಜೆಟ್ ಆಯ್ಕೆಮಾಡಿ" : "Select budget"}
+                      options={(isKn ? budgetRangesKn : budgetRangesEn).map((b) => ({
+                        value: b,
+                        label: b,
+                      }))}
+                    />
                   </div>
 
                   {/* Additional Requirements */}

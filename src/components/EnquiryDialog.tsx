@@ -4,6 +4,8 @@ import { detailFields, submitEnquiry } from "../lib/enquiry";
 import type { EnquiryPayload, Locale, ServiceId } from "../types";
 import { brandConfig } from "../config/brand";
 import { Check, X, ArrowRight, ArrowUpRight, MessageCircle } from "lucide-react";
+import { CustomSelect } from "./CustomSelect";
+import { CustomDatePicker } from "./CustomDatePicker";
 
 const emptyContact = {
   name: "",
@@ -509,23 +511,39 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
                             {field.label[locale]}
                           </label>
                           {field.type === "select" ? (
-                            <select
+                            <CustomSelect
                               value={payload.details[field.key] ?? ""}
-                              onChange={(e) =>
+                              onChange={(val) =>
                                 setPayload((curr) => ({
                                   ...curr,
-                                  details: { ...curr.details, [field.key]: e.target.value },
+                                  details: { ...curr.details, [field.key]: val },
                                 }))
                               }
-                              className="w-full px-4 py-3 rounded-xl bg-white border border-[#263F32]/20 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 text-sm font-medium text-[#162E22] outline-none transition-all shadow-xs"
-                            >
-                              <option value="">{c.chooseMethod}</option>
-                              {field.options?.map((opt) => (
-                                <option key={opt.value} value={opt.value}>
-                                  {opt.label[locale]}
-                                </option>
-                              ))}
-                            </select>
+                              placeholder={c.chooseMethod}
+                              error={error}
+                              options={
+                                field.options?.map((opt) => ({
+                                  value: opt.value,
+                                  label: opt.label[locale],
+                                })) ?? []
+                              }
+                            />
+                          ) : field.type === "date" ? (
+                            <CustomDatePicker
+                              value={payload.details[field.key] ?? ""}
+                              onChange={(val) =>
+                                setPayload((curr) => ({
+                                  ...curr,
+                                  details: { ...curr.details, [field.key]: val },
+                                }))
+                              }
+                              placeholder={
+                                field.placeholder?.[locale] ??
+                                (locale === "kn" ? "ದಿನಾಂಕ ಆಯ್ಕೆಮಾಡಿ" : "Select travel date")
+                              }
+                              error={error}
+                              locale={locale}
+                            />
                           ) : (
                             <input
                               type={field.type ?? "text"}

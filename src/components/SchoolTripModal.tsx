@@ -4,6 +4,8 @@ import { X, GraduationCap, CheckCircle2, Copy, Send, PhoneCall } from 'lucide-re
 import { Language, SchoolTripInquiryData } from '../types';
 import { Mark } from './Header';
 import { getWhatsAppInquiryUrl } from '../config/brand';
+import { CustomSelect } from './CustomSelect';
+import { CustomDatePicker } from './CustomDatePicker';
 
 interface SchoolTripModalProps {
   isOpen: boolean;
@@ -301,37 +303,33 @@ Safety & Dietary Needs: ${formData.safetyOrDietaryNeeds || 'Standard safety requ
                       <label className="block text-xs font-semibold text-[#263F32] mb-1">
                         {isKn ? 'ಅಂದಾಜು ವಿದ್ಯಾರ್ಥಿಗಳ ಸಂಖ್ಯೆ' : 'Approximate Student Count'}
                       </label>
-                      <select
+                      <CustomSelect
                         value={formData.studentCount}
-                        onChange={(e) =>
-                          setFormData({ ...formData, studentCount: e.target.value })
+                        onChange={(val) =>
+                          setFormData({ ...formData, studentCount: val })
                         }
-                        className="w-full px-3 py-2.5 rounded-none border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#1D4E3A]/30"
-                      >
-                        {studentCountOptions.map((c) => (
-                          <option key={c} value={c}>
-                            {c} {isKn ? 'ವಿದ್ಯಾರ್ಥಿಗಳು' : 'Students'}
-                          </option>
-                        ))}
-                      </select>
+                        placeholder={isKn ? "ಸಂಖ್ಯೆ ಆಯ್ಕೆಮಾಡಿ" : "Select count"}
+                        options={studentCountOptions.map((c) => ({
+                          value: c,
+                          label: `${c} ${isKn ? 'ವಿದ್ಯಾರ್ಥಿಗಳು' : 'Students'}`,
+                        }))}
+                      />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-[#263F32] mb-1">
                         {isKn ? 'ವಿದ್ಯಾರ್ಥಿಗಳ ತರಗತಿ / ವಯೋಮಾನ' : 'Grade Levels / Age Group'}
                       </label>
-                      <select
+                      <CustomSelect
                         value={formData.gradeLevels}
-                        onChange={(e) =>
-                          setFormData({ ...formData, gradeLevels: e.target.value })
+                        onChange={(val) =>
+                          setFormData({ ...formData, gradeLevels: val })
                         }
-                        className="w-full px-3 py-2.5 rounded-none border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#1D4E3A]/30"
-                      >
-                        {(isKn ? gradeLevelOptionsKn : gradeLevelOptionsEn).map((g) => (
-                          <option key={g} value={g}>
-                            {g}
-                          </option>
-                        ))}
-                      </select>
+                        placeholder={isKn ? "ತರಗತಿ ಆಯ್ಕೆಮಾಡಿ" : "Select grade"}
+                        options={(isKn ? gradeLevelOptionsKn : gradeLevelOptionsEn).map((g) => ({
+                          value: g,
+                          label: g,
+                        }))}
+                      />
                     </div>
                   </div>
 
@@ -355,19 +353,17 @@ Safety & Dietary Needs: ${formData.safetyOrDietaryNeeds || 'Standard safety requ
                       <label className="block text-xs font-semibold text-[#263F32] mb-1">
                         {isKn ? 'ಪ್ರವಾಸದ ಸಮಯಾವಧಿ' : 'Tour Duration'}
                       </label>
-                      <select
+                      <CustomSelect
                         value={formData.durationDays}
-                        onChange={(e) =>
-                          setFormData({ ...formData, durationDays: e.target.value })
+                        onChange={(val) =>
+                          setFormData({ ...formData, durationDays: val })
                         }
-                        className="w-full px-3 py-2.5 rounded-none border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#1D4E3A]/30"
-                      >
-                        {(isKn ? durationOptionsKn : durationOptionsEn).map((d) => (
-                          <option key={d} value={d}>
-                            {d}
-                          </option>
-                        ))}
-                      </select>
+                        placeholder={isKn ? "ಸಮಯಾವಧಿ ಆಯ್ಕೆಮಾಡಿ" : "Select duration"}
+                        options={(isKn ? durationOptionsKn : durationOptionsEn).map((d) => ({
+                          value: d,
+                          label: d,
+                        }))}
+                      />
                     </div>
                   </div>
 
@@ -377,31 +373,29 @@ Safety & Dietary Needs: ${formData.safetyOrDietaryNeeds || 'Standard safety requ
                       <label className="block text-xs font-semibold text-[#263F32] mb-1">
                         {isKn ? 'ಕಲಿಕಾ ಅಥವಾ ಪ್ರವಾಸದ ಉದ್ದೇಶ' : 'Learning Focus / Circuit'}
                       </label>
-                      <select
+                      <CustomSelect
                         value={formData.learningFocus}
-                        onChange={(e) =>
-                          setFormData({ ...formData, learningFocus: e.target.value })
+                        onChange={(val) =>
+                          setFormData({ ...formData, learningFocus: val })
                         }
-                        className="w-full px-3 py-2.5 rounded-none border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#1D4E3A]/30"
-                      >
-                        {(isKn ? learningFocusOptionsKn : learningFocusOptionsEn).map((l) => (
-                          <option key={l} value={l}>
-                            {l}
-                          </option>
-                        ))}
-                      </select>
+                        placeholder={isKn ? "ಉದ್ದೇಶ ಆಯ್ಕೆಮಾಡಿ" : "Select focus"}
+                        options={(isKn ? learningFocusOptionsKn : learningFocusOptionsEn).map((l) => ({
+                          value: l,
+                          label: l,
+                        }))}
+                      />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-[#263F32] mb-1">
                         {isKn ? 'ಅಪೇಕ್ಷಿತ ತಿಂಗಳು / ದಿನಾಂಕ' : 'Preferred Travel Dates'}
                       </label>
-                      <input
-                        type="date"
+                      <CustomDatePicker
                         value={formData.preferredDates}
-                        onChange={(e) =>
-                          setFormData({ ...formData, preferredDates: e.target.value })
+                        onChange={(val) =>
+                          setFormData({ ...formData, preferredDates: val })
                         }
-                        className="w-full px-3.5 py-2.5 rounded-none border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#1D4E3A]/30"
+                        locale={language}
+                        placeholder={isKn ? "ದಿನಾಂಕ ಆಯ್ಕೆಮಾಡಿ" : "Select travel date"}
                       />
                     </div>
                   </div>

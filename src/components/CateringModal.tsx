@@ -4,6 +4,8 @@ import { X, UtensilsCrossed, CheckCircle2, Copy, Send, PhoneCall } from 'lucide-
 import { Language, CateringInquiryData } from '../types';
 import { Mark } from './Header';
 import { getWhatsAppInquiryUrl } from '../config/brand';
+import { CustomSelect } from './CustomSelect';
+import { CustomDatePicker } from './CustomDatePicker';
 
 interface CateringModalProps {
   isOpen: boolean;
@@ -277,35 +279,31 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                       <label className="block text-xs font-semibold text-[#263F32] mb-1">
                         {isKn ? 'ಸಮಾರಂಭದ ವಿಧ' : 'Occasion Type'}
                       </label>
-                      <select
+                      <CustomSelect
                         value={formData.occasionType}
-                        onChange={(e) =>
-                          setFormData({ ...formData, occasionType: e.target.value })
+                        onChange={(val) =>
+                          setFormData({ ...formData, occasionType: val })
                         }
-                        className="w-full px-3 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#9E3D28]/30"
-                      >
-                        {(isKn ? occasionOptionsKn : occasionOptionsEn).map((o) => (
-                          <option key={o} value={o}>
-                            {o}
-                          </option>
-                        ))}
-                      </select>
+                        placeholder={isKn ? "ಸಮಾರಂಭ ಆಯ್ಕೆಮಾಡಿ" : "Select occasion"}
+                        options={(isKn ? occasionOptionsKn : occasionOptionsEn).map((o) => ({
+                          value: o,
+                          label: o,
+                        }))}
+                      />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-[#263F32] mb-1">
                         {isKn ? 'ಅಂದಾಜು ಅತಿಥಿಗಳ ಸಂಖ್ಯೆ' : 'Approximate Guest Count'}
                       </label>
-                      <select
+                      <CustomSelect
                         value={formData.guestCount}
-                        onChange={(e) => setFormData({ ...formData, guestCount: e.target.value })}
-                        className="w-full px-3 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#9E3D28]/30"
-                      >
-                        {guestCountOptions.map((g) => (
-                          <option key={g} value={g}>
-                            {g} {isKn ? 'ಜನರು' : 'Guests'}
-                          </option>
-                        ))}
-                      </select>
+                        onChange={(val) => setFormData({ ...formData, guestCount: val })}
+                        placeholder={isKn ? "ಅತಿಥಿ ಸಂಖ್ಯೆ ಆಯ್ಕೆಮಾಡಿ" : "Select guests"}
+                        options={guestCountOptions.map((g) => ({
+                          value: g,
+                          label: `${g} ${isKn ? 'ಜನರು' : 'Guests'}`,
+                        }))}
+                      />
                     </div>
                   </div>
 
@@ -315,11 +313,11 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                       <label className="block text-xs font-semibold text-[#263F32] mb-1">
                         {isKn ? 'ಕಾರ್ಯಕ್ರಮದ ದಿನಾಂಕ' : 'Event Date'}
                       </label>
-                      <input
-                        type="date"
+                      <CustomDatePicker
                         value={formData.eventDate}
-                        onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#9E3D28]/30"
+                        onChange={(val) => setFormData({ ...formData, eventDate: val })}
+                        locale={language}
+                        placeholder={isKn ? "ಕಾರ್ಯಕ್ರಮ ದಿನಾಂಕ" : "Select event date"}
                       />
                     </div>
                     <div>
@@ -373,37 +371,33 @@ Special Requests: ${formData.specialRequests || 'None specified'}`;
                       <label className="block text-xs font-semibold text-[#263F32] mb-1">
                         {isKn ? 'ಆಹಾರ ಆದ್ಯತೆ' : 'Dietary Preference'}
                       </label>
-                      <select
+                      <CustomSelect
                         value={formData.dietaryPreference}
-                        onChange={(e) =>
-                          setFormData({ ...formData, dietaryPreference: e.target.value })
+                        onChange={(val) =>
+                          setFormData({ ...formData, dietaryPreference: val })
                         }
-                        className="w-full px-3 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#9E3D28]/30"
-                      >
-                        {(isKn ? dietaryOptionsKn : dietaryOptionsEn).map((d) => (
-                          <option key={d} value={d}>
-                            {d}
-                          </option>
-                        ))}
-                      </select>
+                        placeholder={isKn ? "ಆಹಾರ ಆದ್ಯತೆ ಆಯ್ಕೆಮಾಡಿ" : "Select dietary"}
+                        options={(isKn ? dietaryOptionsKn : dietaryOptionsEn).map((d) => ({
+                          value: d,
+                          label: d,
+                        }))}
+                      />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-[#263F32] mb-1">
                         {isKn ? 'ಸರ್ವೀಸ್ & ಸೆಟಪ್ ಶೈಲಿ' : 'Service & Setup Style'}
                       </label>
-                      <select
+                      <CustomSelect
                         value={formData.serviceStyle}
-                        onChange={(e) =>
-                          setFormData({ ...formData, serviceStyle: e.target.value })
+                        onChange={(val) =>
+                          setFormData({ ...formData, serviceStyle: val })
                         }
-                        className="w-full px-3 py-2.5 rounded-lg border border-[#263F32]/20 bg-white text-[#252923] focus:outline-hidden focus:ring-2 focus:ring-[#9E3D28]/30"
-                      >
-                        {(isKn ? serviceStyleOptionsKn : serviceStyleOptionsEn).map((s) => (
-                          <option key={s} value={s}>
-                            {s}
-                          </option>
-                        ))}
-                      </select>
+                        placeholder={isKn ? "ಶೈಲಿ ಆಯ್ಕೆಮಾಡಿ" : "Select style"}
+                        options={(isKn ? serviceStyleOptionsKn : serviceStyleOptionsEn).map((s) => ({
+                          value: s,
+                          label: s,
+                        }))}
+                      />
                     </div>
                   </div>
 
