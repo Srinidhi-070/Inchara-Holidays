@@ -293,3 +293,23 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
 - **Playwright Live Verification**:
   - Captured mobile footer at `390 × 844`: verified language toggle renders as an oval pill (`92px × 44px`).
   - Captured Staff Portal login at `390 × 844`: verified site header is under the backdrop and the executive top bar is fully visible.
+
+---
+
+### 14. Cycle 11: Section Header Grid Placement Defect Rectification
+**Date**: November 9, 2026  
+**Objective**: Fix the layout defect where section titles and descriptions appeared displaced across columns (eyebrow and paragraph on the left, but `<h2>` headline shoved all the way to the right edge).
+
+#### 1. Root Cause & Solution
+- **Root Cause**: The legacy `.section-intro` CSS rule in `src/index.css` configured a 2-column grid (`grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.65fr)`). It previously relied on a specific `.eyebrow` class with `grid-column: 1 / -1`. When we enhanced the eyebrow into an ornamented `<div>` with gold rules and lotus/star symbols, CSS Grid treated it as a regular cell, placing it in Col 1 Row 1, pushing the `<h2>` headline into Col 2 Row 1 (far right), and dropping the description paragraph into Col 1 Row 2.
+- **Solution**:
+  - Replaced `.section-intro` in [`HomeSections.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/HomeSections.tsx) with a unified, left-aligned [`<div className="max-w-3xl mb-10 sm:mb-12">`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/HomeSections.tsx#L173).
+  - Replaced `.section-intro` in [`PackagesSection.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/PackagesSection.tsx) and [`TravellerStories.tsx`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/TravellerStories.tsx) with centered [`<div className="max-w-3xl mb-10 sm:mb-12 text-center mx-auto">`](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/src/components/PackagesSection.tsx#L28).
+  - Aligned all sections across the entire platform to follow the exact same visual hierarchy: Eyebrow ➔ Heading ➔ Supporting Paragraph.
+
+#### 2. Live Quality Verification
+- **TypeScript**: `npx tsc --noEmit` — 0 errors.
+- **Production Build**: `npm run build` — Passed in 683ms.
+- **Playwright Live Verification**:
+  - Captured Services section at `1440 × 900`: Verified clean, unified left-aligned hierarchy (`✦ ONE NAME, MANY JOURNEYS ✦` ➔ `Travel, gathering & hospitality — considered as one.` ➔ body copy).
+  - Captured Packages & Stories sections: Verified centered, cohesive editorial headers.
