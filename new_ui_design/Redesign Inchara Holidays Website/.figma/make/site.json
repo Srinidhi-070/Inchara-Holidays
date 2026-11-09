@@ -1,0 +1,12 @@
+{
+  "title": "Inchara Holidays | Thoughtful Journeys from Karnataka",
+  "description": "Explore Karnataka-rooted holidays, travel services and vegetarian catering, then submit a tailored enquiry in Kannada or English.",
+  "language": "en",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
