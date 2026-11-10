@@ -1184,4 +1184,35 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - `contact-modal-mobile-390.png`: Mobile view at 390×844 verified with all cards legible and no overflow.
   - `hero-mobile-390-clean.png`: Mobile hero verified with bold headline, large touch targets, and balanced dock spacing.
 
+---
+
+### Cycle 35: Interactive Regional & Global Travel Map Pan & Zoom Engine
+**Date**: November 10, 2026  
+**Status**: Completed, Verified & Pushed to Production  
+
+#### 1. Core Directives Addressed
+- **Interactive Zoom & Pan Engine (`InteractiveTravelMap.tsx`)**:
+  - Engineered clean pan & zoom functionality for all 3 cartographic tiers (Karnataka 27 Districts, Incredible India 36 States & UTs, World 143 Countries).
+  - Floating Zoom Controls Dock placed in the top-right corner of the canvas:
+    - **Zoom In (`+`)**: Smooth progressive step scaling up to 3.8× (380%).
+    - **Scale Readout**: Real-time percentage badge (`100%`, `135%`, `170%`, etc.).
+    - **Zoom Out (`-`)**: Decreases scale smoothly down to 1.0× (100%).
+    - **Reset View (`⟲`)**: One-tap button appearing when zoomed or panned to immediately center and reframe the map.
+  - **Click & Drag / Touch Panning**:
+    - Mouse drag and mobile touch drag with dynamic boundary limits preventing the map from drifting off-screen.
+    - Cursor states: `cursor-grab` when zoomed, `cursor-grabbing` during active drag, `cursor-pointer` when hovering over territories.
+    - Drag-vs-click discriminator (`hasDragged.current` with 4px threshold) ensuring panning across the map never triggers accidental territory selections.
+  - **Double-Click Support**: Double-clicking on the map zooms in or resets cleanly.
+  - **Tier Auto-Reset**: Switching between Karnataka, India, and International maps automatically resets zoom to 100% and pan to `(0, 0)`.
+  - Floating instruction indicator badge appears when zoomed in: `"Drag to pan · Click territory to view"` / `"ನಕ್ಷೆ ಸರಿಸಲು ಎಳೆಯಿರಿ · ಆಯ್ಕೆ ಮಾಡಲು ಕ್ಲಿಕ್ ಮಾಡಿ"`.
+
+#### 2. Verification Summary
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled cleanly in **693ms**.
+- **Visual QA via Playwright**:
+  - `travel-map-100.png`: Verified map canvas at 100% zoom with floating controls dock.
+  - `travel-map-zoomed-170.png`: Verified Karnataka map zoomed in at 170% with drag badge and reset button.
+  - `world-map-zoomed-170.png`: Verified World map zoomed in at 170% with selected country (Vietnam) highlighted and right dossier updated.
+
+
 

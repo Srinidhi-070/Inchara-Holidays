@@ -10,7 +10,7 @@
  * logistics, pure veg dining guarantee, and direct enquiry routing.
  */
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Locale, ServiceId } from '../types';
 import {
@@ -25,6 +25,10 @@ import {
   CheckCircle2,
   PhoneCall,
   Check,
+  ZoomIn,
+  ZoomOut,
+  RotateCcw,
+  Move,
 } from 'lucide-react';
 import {
   KARNATAKA_DISTRICTS,
@@ -93,6 +97,105 @@ export const InteractiveTravelMap: React.FC<InteractiveTravelMapProps> = ({
   // Hover state for tooltip readout
   const [hoveredName, setHoveredName] = useState<string | null>(null);
 
+  // Zoom & Pan state
+  const [zoom, setZoom] = useState<number>(1);
+  const [pan, setPan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const dragOrigin = useRef<{ startX: number; startY: number; panX: number; panY: number }>({
+    startX: 0,
+    startY: 0,
+    panX: 0,
+    panY: 0,
+  });
+  const hasDragged = useRef<boolean>(false);
+
+  const handleZoomIn = () => {
+    setZoom((prev) => Math.min(Number((prev + 0.35).toFixed(2)), 3.8));
+  };
+
+  const handleZoomOut = () => {
+    setZoom((prev) => {
+      const next = Math.max(Number((prev - 0.35).toFixed(2)), 1.0);
+      if (next === 1.0) {
+        setPan({ x: 0, y: 0 });
+      }
+      return next;
+    });
+  };
+
+  const handleResetZoom = () => {
+    setZoom(1.0);
+    setPan({ x: 0, y: 0 });
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (e.button !== 0) return;
+    setIsDragging(true);
+    hasDragged.current = false;
+    dragOrigin.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      panX: pan.x,
+      panY: pan.y,
+    };
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    const dx = e.clientX - dragOrigin.current.startX;
+    const dy = e.clientY - dragOrigin.current.startY;
+    if (Math.hypot(dx, dy) > 4) {
+      hasDragged.current = true;
+    }
+    const maxPan = (zoom - 1) * 240 + 60;
+    const newX = Math.max(-maxPan, Math.min(maxPan, dragOrigin.current.panX + dx));
+    const newY = Math.max(-maxPan, Math.min(maxPan, dragOrigin.current.panY + dy));
+    setPan({ x: newX, y: newY });
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      setIsDragging(true);
+      hasDragged.current = false;
+      dragOrigin.current = {
+        startX: e.touches[0].clientX,
+        startY: e.touches[0].clientY,
+        panX: pan.x,
+        panY: pan.y,
+      };
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || e.touches.length !== 1) return;
+    const dx = e.touches[0].clientX - dragOrigin.current.startX;
+    const dy = e.touches[0].clientY - dragOrigin.current.startY;
+    if (Math.hypot(dx, dy) > 4) {
+      hasDragged.current = true;
+    }
+    const maxPan = (zoom - 1) * 240 + 60;
+    const newX = Math.max(-maxPan, Math.min(maxPan, dragOrigin.current.panX + dx));
+    const newY = Math.max(-maxPan, Math.min(maxPan, dragOrigin.current.panY + dy));
+    setPan({ x: newX, y: newY });
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
+
+  const handleDoubleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (zoom < 3.0) {
+      setZoom((prev) => Math.min(Number((prev + 0.6).toFixed(2)), 3.8));
+    } else {
+      handleResetZoom();
+    }
+  };
+
   // Compute active territory details dynamically
   let activeDetail: TerritoryDetail;
   if (activeTier === 'karnataka') {
@@ -109,6 +212,8 @@ export const InteractiveTravelMap: React.FC<InteractiveTravelMapProps> = ({
   const handleTierChange = (tier: MapTier) => {
     setActiveTier(tier);
     setHoveredName(null);
+    setZoom(1.0);
+    setPan({ x: 0, y: 0 });
   };
 
   const tiers: { id: MapTier; num: string; labelEn: string; labelKn: string; icon: React.ComponentType<{ className?: string }> }[] = [
@@ -309,105 +414,181 @@ export const InteractiveTravelMap: React.FC<InteractiveTravelMapProps> = ({
               </span>
             </div>
 
-            {/* PURE VECTOR SVG CANVAS (NO POINTS, NO LINES, NO GLITCHES) */}
-            <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] bg-[#07130C]/95 rounded-2xl border border-[#D4AF37]/20 overflow-hidden flex items-center justify-center p-3 sm:p-5 select-none">
-              
-              {/* TIER 1: KARNATAKA (EVERY DISTRICT CLICKABLE) */}
-              {activeTier === 'karnataka' && (
-                <svg
-                  viewBox="0 0 500 650"
-                  className="w-full h-full max-h-[440px] drop-shadow-[0_10px_32px_rgba(0,0,0,0.9)]"
+            {/* PURE VECTOR SVG CANVAS WITH PAN & ZOOM */}
+            <div
+              className={`relative w-full aspect-[4/3] sm:aspect-[16/11] bg-[#07130C]/95 rounded-2xl border border-[#D4AF37]/20 overflow-hidden flex items-center justify-center p-3 sm:p-5 select-none ${
+                zoom > 1 ? (isDragging ? 'cursor-grabbing' : 'cursor-grab') : 'cursor-default'
+              }`}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onDoubleClick={handleDoubleClick}
+            >
+              {/* Floating Zoom & Pan Controls Dock */}
+              <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 flex items-center gap-1 bg-[#0D1F15]/90 backdrop-blur-md border border-[#D4AF37]/40 rounded-xl p-1 shadow-xl">
+                <button
+                  type="button"
+                  onClick={handleZoomIn}
+                  title={isKn ? "ದೊಡ್ಡದಾಗಿಸಿ (Zoom In)" : "Zoom In (+)"}
+                  aria-label="Zoom In"
+                  disabled={zoom >= 3.8}
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-[#F5D77F] hover:bg-[#D4AF37]/20 active:scale-95 transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
                 >
-                  <g>
-                    {KARNATAKA_DISTRICTS.map((district) => {
-                      const isSelected = selectedDistrictId === district.id;
+                  <ZoomIn className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </button>
+                <div className="px-1.5 text-[10px] sm:text-xs font-mono font-bold text-[#F5D77F] min-w-[38px] text-center select-none">
+                  {Math.round(zoom * 100)}%
+                </div>
+                <button
+                  type="button"
+                  onClick={handleZoomOut}
+                  title={isKn ? "ಚಿಕ್ಕದಾಗಿಸಿ (Zoom Out)" : "Zoom Out (-)"}
+                  aria-label="Zoom Out"
+                  disabled={zoom <= 1.0}
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-[#F5D77F] hover:bg-[#D4AF37]/20 active:scale-95 transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                >
+                  <ZoomOut className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </button>
+                {(zoom > 1.0 || pan.x !== 0 || pan.y !== 0) && (
+                  <button
+                    type="button"
+                    onClick={handleResetZoom}
+                    title={isKn ? "ಮರುಹೊಂದಿಸಿ (Reset View)" : "Reset View"}
+                    aria-label="Reset View"
+                    className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-[#F5D77F] hover:bg-[#D4AF37]/20 active:scale-95 transition-all cursor-pointer border-l border-white/10 ml-0.5 pl-1"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#D4AF37]" />
+                  </button>
+                )}
+              </div>
 
-                      return (
-                        <path
-                          key={district.id}
-                          id={district.id}
-                          d={district.path}
-                          fill={isSelected ? '#D4AF37' : '#11261B'}
-                          fillOpacity={isSelected ? 0.85 : 0.8}
-                          stroke={isSelected ? '#FFFFFF' : '#2A4637'}
-                          strokeWidth={isSelected ? '2' : '0.8'}
-                          className="transition-colors duration-200 cursor-pointer hover:fill-[#D4AF37]/55 hover:stroke-[#F5D77F]"
-                          onMouseEnter={() => setHoveredName(district.name)}
-                          onMouseLeave={() => setHoveredName(null)}
-                          onClick={() => setSelectedDistrictId(district.id)}
-                        >
-                          <title>{district.name} District, Karnataka</title>
-                        </path>
-                      );
-                    })}
-                  </g>
-                </svg>
+              {/* Drag to explore badge when zoomed in */}
+              {zoom > 1.0 && (
+                <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-20 pointer-events-none flex items-center gap-1.5 bg-[#07130C]/90 backdrop-blur-xs border border-[#D4AF37]/35 rounded-lg px-2.5 py-1 text-[10px] sm:text-xs text-[#F5D77F] shadow-lg animate-fade-in">
+                  <Move className="w-3 h-3 text-[#D4AF37]" />
+                  <span>{isKn ? 'ನಕ್ಷೆ ಸರಿಸಲು ಎಳೆಯಿರಿ · ಆಯ್ಕೆ ಮಾಡಲು ಕ್ಲಿಕ್ ಮಾಡಿ' : 'Drag to pan · Click territory to view'}</span>
+                </div>
               )}
 
-              {/* TIER 2: INDIA (EVERY STATE CLICKABLE) */}
-              {activeTier === 'india' && (
-                <svg
-                  viewBox="0 0 612 696"
-                  className="w-full h-full max-h-[440px] drop-shadow-[0_10px_32px_rgba(0,0,0,0.9)]"
-                >
-                  <g>
-                    {INDIA_STATES.map((state) => {
-                      const isSelected = selectedStateId === state.id;
+              {/* TRANSFORM WRAPPER FOR SMOOTH PAN & ZOOM */}
+              <div
+                className="w-full h-full flex items-center justify-center origin-center select-none"
+                style={{
+                  transform: `translate3d(${pan.x}px, ${pan.y}px, 0) scale(${zoom})`,
+                  transition: isDragging ? 'none' : 'transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1)',
+                  willChange: 'transform',
+                }}
+              >
+                {/* TIER 1: KARNATAKA (EVERY DISTRICT CLICKABLE) */}
+                {activeTier === 'karnataka' && (
+                  <svg
+                    viewBox="0 0 500 650"
+                    className="w-full h-full max-h-[440px] drop-shadow-[0_10px_32px_rgba(0,0,0,0.9)]"
+                  >
+                    <g>
+                      {KARNATAKA_DISTRICTS.map((district) => {
+                        const isSelected = selectedDistrictId === district.id;
 
-                      return (
-                        <path
-                          key={state.id}
-                          id={state.id}
-                          d={state.path}
-                          fill={isSelected ? '#D4AF37' : '#11261B'}
-                          fillOpacity={isSelected ? 0.85 : 0.8}
-                          stroke={isSelected ? '#FFFFFF' : '#2A4637'}
-                          strokeWidth={isSelected ? '2' : '0.8'}
-                          className="transition-colors duration-200 cursor-pointer hover:fill-[#D4AF37]/55 hover:stroke-[#F5D77F]"
-                          onMouseEnter={() => setHoveredName(state.name)}
-                          onMouseLeave={() => setHoveredName(null)}
-                          onClick={() => setSelectedStateId(state.id)}
-                        >
-                          <title>{state.name}</title>
-                        </path>
-                      );
-                    })}
-                  </g>
-                </svg>
-              )}
+                        return (
+                          <path
+                            key={district.id}
+                            id={district.id}
+                            d={district.path}
+                            fill={isSelected ? '#D4AF37' : '#11261B'}
+                            fillOpacity={isSelected ? 0.85 : 0.8}
+                            stroke={isSelected ? '#FFFFFF' : '#2A4637'}
+                            strokeWidth={isSelected ? '2' : '0.8'}
+                            className="transition-colors duration-200 cursor-pointer hover:fill-[#D4AF37]/55 hover:stroke-[#F5D77F]"
+                            onMouseEnter={() => setHoveredName(district.name)}
+                            onMouseLeave={() => setHoveredName(null)}
+                            onClick={() => {
+                              if (hasDragged.current) return;
+                              setSelectedDistrictId(district.id);
+                            }}
+                          >
+                            <title>{district.name} District, Karnataka</title>
+                          </path>
+                        );
+                      })}
+                    </g>
+                  </svg>
+                )}
 
-              {/* TIER 3: WORLD (EVERY COUNTRY CLICKABLE, NO SPECIAL INDIA HIGHLIGHT) */}
-              {activeTier === 'international' && (
-                <svg
-                  viewBox="30.767 241.591 784.077 458.627"
-                  className="w-full h-full max-h-[440px] drop-shadow-[0_10px_32px_rgba(0,0,0,0.9)]"
-                >
-                  <g>
-                    {WORLD_COUNTRIES.map((country) => {
-                      const isSelected = selectedCountryId === country.id;
-                      const countryName = COUNTRY_NAMES[country.id] || country.id.toUpperCase();
+                {/* TIER 2: INDIA (EVERY STATE CLICKABLE) */}
+                {activeTier === 'india' && (
+                  <svg
+                    viewBox="0 0 612 696"
+                    className="w-full h-full max-h-[440px] drop-shadow-[0_10px_32px_rgba(0,0,0,0.9)]"
+                  >
+                    <g>
+                      {INDIA_STATES.map((state) => {
+                        const isSelected = selectedStateId === state.id;
 
-                      return (
-                        <path
-                          key={country.id}
-                          id={country.id}
-                          d={country.path}
-                          fill={isSelected ? '#D4AF37' : '#11261B'}
-                          fillOpacity={isSelected ? 0.9 : 0.75}
-                          stroke={isSelected ? '#FFFFFF' : '#2A4637'}
-                          strokeWidth={isSelected ? '1.8' : '0.5'}
-                          className="transition-colors duration-200 cursor-pointer hover:fill-[#D4AF37]/60 hover:stroke-[#F5D77F]"
-                          onMouseEnter={() => setHoveredName(countryName)}
-                          onMouseLeave={() => setHoveredName(null)}
-                          onClick={() => setSelectedCountryId(country.id)}
-                        >
-                          <title>{countryName}</title>
-                        </path>
-                      );
-                    })}
-                  </g>
-                </svg>
-              )}
+                        return (
+                          <path
+                            key={state.id}
+                            id={state.id}
+                            d={state.path}
+                            fill={isSelected ? '#D4AF37' : '#11261B'}
+                            fillOpacity={isSelected ? 0.85 : 0.8}
+                            stroke={isSelected ? '#FFFFFF' : '#2A4637'}
+                            strokeWidth={isSelected ? '2' : '0.8'}
+                            className="transition-colors duration-200 cursor-pointer hover:fill-[#D4AF37]/55 hover:stroke-[#F5D77F]"
+                            onMouseEnter={() => setHoveredName(state.name)}
+                            onMouseLeave={() => setHoveredName(null)}
+                            onClick={() => {
+                              if (hasDragged.current) return;
+                              setSelectedStateId(state.id);
+                            }}
+                          >
+                            <title>{state.name}</title>
+                          </path>
+                        );
+                      })}
+                    </g>
+                  </svg>
+                )}
+
+                {/* TIER 3: WORLD (EVERY COUNTRY CLICKABLE, NO SPECIAL INDIA HIGHLIGHT) */}
+                {activeTier === 'international' && (
+                  <svg
+                    viewBox="30.767 241.591 784.077 458.627"
+                    className="w-full h-full max-h-[440px] drop-shadow-[0_10px_32px_rgba(0,0,0,0.9)]"
+                  >
+                    <g>
+                      {WORLD_COUNTRIES.map((country) => {
+                        const isSelected = selectedCountryId === country.id;
+                        const countryName = COUNTRY_NAMES[country.id] || country.id.toUpperCase();
+
+                        return (
+                          <path
+                            key={country.id}
+                            id={country.id}
+                            d={country.path}
+                            fill={isSelected ? '#D4AF37' : '#11261B'}
+                            fillOpacity={isSelected ? 0.9 : 0.75}
+                            stroke={isSelected ? '#FFFFFF' : '#2A4637'}
+                            strokeWidth={isSelected ? '1.8' : '0.5'}
+                            className="transition-colors duration-200 cursor-pointer hover:fill-[#D4AF37]/60 hover:stroke-[#F5D77F]"
+                            onMouseEnter={() => setHoveredName(countryName)}
+                            onMouseLeave={() => setHoveredName(null)}
+                            onClick={() => {
+                              if (hasDragged.current) return;
+                              setSelectedCountryId(country.id);
+                            }}
+                          >
+                            <title>{countryName}</title>
+                          </path>
+                        );
+                      })}
+                    </g>
+                  </svg>
+                )}
+              </div>
             </div>
 
             {/* Quick Select Destination Buttons */}
