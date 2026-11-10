@@ -120,6 +120,9 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ locale, onEnquir
                     alt={title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = '/images/western-ghats-hero.jpg';
+                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none" />
 
@@ -183,6 +186,9 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ locale, onEnquir
                     src={selectedItem.imageUrl}
                     alt={isKn ? selectedItem.titleKn : selectedItem.titleEn}
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = '/images/western-ghats-hero.jpg';
+                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#162E22] via-transparent to-transparent pointer-events-none" />
                 </div>

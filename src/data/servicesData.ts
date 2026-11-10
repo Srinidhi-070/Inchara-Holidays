@@ -153,7 +153,7 @@ export const serviceCategories: ServiceCategoryDef[] = [
     badgeKn: 'ಸುರಕ್ಷತೆ & ಜ್ಞಾನ',
     badgeEn: 'Safety & Learning',
     iconName: 'GraduationCap',
-    image: '/images/school_trip_safety.jpg',
+    image: '/images/hoysala_belur.jpg',
     services: [
       {
         id: 'school_tours',

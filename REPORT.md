@@ -1145,7 +1145,7 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - Landing page 100vh full-bleed coverage verified at 1440×900.
   - Optically centered Kannada header CTA button verified (`ವಿಚಾರಿಸಿ ↗`).
   - FAQ accordion search and category filtering verified.
-  - Visual moments gallery and lightbox modal verified.
+  - Visual moments gallery asset paths reconciled: Banana Leaf Sadya (`/images/banana-leaf-feast.jpg`), Hampi Stone Chariot (`/images/hampi_stone_chariot_1791795462673.jpg`), Mullayanagiri Peaks (`/images/chikmagalur_peaks.jpg`), and Gokarna Coast (`/images/signature_gokarna_coast_1791795485390.jpg`). All 8 images verified loaded with `isLoaded: true` and equipped with resilient `onError` fallbacks.
   - Contact modal, Cultural Etiquette modal, Privacy Policy modal, and Terms modal verified.
   - Admin Dashboard authentication, Customers directory, and Business Settings verified.
 
