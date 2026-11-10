@@ -782,3 +782,44 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - World: Confirmed recognizable global continents and flight routes.
 - **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
 - **Production Build**: `npm run build` compiled cleanly in **1.07s**.
+
+---
+
+### Cycle 26: Elimination of Map Glitches, Removal of Floating Pins & Lines, Direct 100% Territory Clickability & Dynamic Travel Dossiers
+**Date**: November 10, 2026  
+**Status**: Completed & Verified  
+
+#### 1. Addressed User-Marked Issues & Feedback
+1. **Eliminated Glitches & Focus Outlines**:
+   - The user noticed misaligned text boxes, rectangular focus outlines (e.g. around "Royal"), and SVG rendering glitches.
+   - Completely purged inline SVG text nodes and bounding boxes from the SVG canvas. All territory labels are now presented in a crisp, clean live header readout (`LIVE ATLAS SELECTION: ...`) and browser-native `<title>` tooltips with zero rendering artifacts.
+2. **Removed Floating Points, Radar Circles & Crisscrossing Connection Lines**:
+   - Removed all hardcoded percentage-based circles (`<circle>`), radar pulse rings, and dotted yellow flight lines/arcs from Karnataka, India, and World maps.
+   - Vector cartography is now completely clean, true-to-geography, and free of clutter.
+3. **Removed Artificial Highlight on India in World Map**:
+   - Removed the special `isHomeIndia` yellow outline that drew unnatural attention to India even when the user was viewing global destinations like Vietnam, Japan, or Switzerland.
+4. **Direct Territory Clickability on Every District, State, and Country**:
+   - Every single district path in Karnataka (27 districts), every state/UT path in India (36 states), and every country path across the world (143 countries) is directly clickable with hover feedback (`#D4AF37`/55) and active Mysore Gold (`#D4AF37`) illumination.
+   - Quick-select pill chips below each map provide effortless one-tap selection on mobile/touchscreen devices.
+5. **Rich Right-Side Destination Dossier with Complete Details**:
+   - Created `src/data/territoryDossiers.ts` with comprehensive travel metadata and an intelligent fallback generator (`getTerritoryDetail()`) ensuring 100% click coverage with zero blank states.
+   - Displays:
+     - High-resolution territory photograph & category badge
+     - Bilingual Title & Cultural Subtitle (English and Kannada `Noto Serif Kannada`)
+     - Narrative summary & travel overview
+     - **"Top Places to Visit & Experience"**: Curated bullet checklist of must-see landmarks, temples, natural wonders, and cultural experiences
+     - **Ideal Duration**: Recommended number of days for an unhurried itinerary
+     - **Transit / Access**: Direct flight, rail, or chauffeur drive times and routing from Bengaluru/Mysuru
+     - **100% Satvik Pure Veg Guarantee**: Confirmation of traditional satvik dining arrangements with plantain leaf meals and thalis
+     - **`[ Plan Trip to {Territory} ↗ ]` Button**: Opens `EnquiryDialog` with the territory pre-filled and service set to "Holiday Packages"
+     - **`[ WhatsApp Advisory 💬 ]` Button**: Pre-formats an inquiry message for direct specialist advisory.
+
+#### 2. Verification Results
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled cleanly in **673ms**.
+- **Playwright Live Verification**:
+  - Verified Karnataka: Clicked Hassan, Mysuru, Kodagu, Chikmagalur; verified Mysore Palace dossier and top sights.
+  - Verified India: Clicked Rajasthan and Kerala; verified Lake Pichola and Alleppey Backwaters dossiers.
+  - Verified Global Horizons: Clicked Vietnam and Japan; verified Ha Long Bay and Kyoto Torii gates dossiers; verified India has no artificial yellow highlight.
+  - Verified `[ Plan Trip ]` CTA: Clicking "Plan Trip to Japan" successfully opens `EnquiryDialog` with Japan pre-populated.
+  - Mobile (390×844): Verified responsive stacking of map and dossier with 0 horizontal overflow.
