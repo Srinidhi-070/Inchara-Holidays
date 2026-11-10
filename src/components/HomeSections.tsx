@@ -567,14 +567,18 @@ export function InvitationBanner({ locale, onEnquire }: Props) {
           <p className="text-xs sm:text-sm text-white/90 leading-relaxed font-normal max-w-lg mx-auto mb-6">
             {String(c.invitationBody)}
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
-            <button className="gold-button w-full sm:w-auto inline-flex items-center justify-center gap-2 cursor-pointer text-xs py-3 px-6" type="button" onClick={() => onEnquire()}>
-              <span>{String(c.enquire)}</span>
-              <ArrowUpRight className="w-4 h-4" />
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 !mt-0">
+            <button
+              className="gold-button group !m-0 h-12 min-h-[48px] w-full sm:w-auto inline-flex items-center justify-center gap-2 cursor-pointer text-xs font-bold uppercase tracking-wider py-3 px-7 rounded-xl shadow-lg hover:shadow-[0_0_24px_rgba(212,175,55,0.4)] transition-all active:scale-95"
+              type="button"
+              onClick={() => onEnquire()}
+            >
+              <span className="font-bold text-[#12261C]">{String(c.enquire)}</span>
+              <ArrowUpRight className="w-4 h-4 text-[#12261C] stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </button>
             <a
               href="#destinations"
-              className="outline-button group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 text-white border-white/30 hover:border-[#F5D77F] hover:text-[#F5D77F] transition-all py-3 px-6 rounded-xl text-xs uppercase font-bold tracking-wider cursor-pointer"
+              className="outline-button group !m-0 h-12 min-h-[48px] w-full sm:w-auto inline-flex items-center justify-center gap-2.5 text-white border border-[#D4AF37]/50 hover:border-[#F5D77F] hover:text-[#F5D77F] bg-white/5 hover:bg-white/10 transition-all py-3 px-7 rounded-xl text-xs uppercase font-bold tracking-wider cursor-pointer backdrop-blur-xs active:scale-95"
             >
               <span>{locale === "kn" ? "ತಾಣಗಳನ್ನು ಅನ್ವೇಷಿಸಿ" : "Explore Destinations"}</span>
               <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-2" />

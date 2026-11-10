@@ -823,3 +823,33 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - Verified Global Horizons: Clicked Vietnam and Japan; verified Ha Long Bay and Kyoto Torii gates dossiers; verified India has no artificial yellow highlight.
   - Verified `[ Plan Trip ]` CTA: Clicking "Plan Trip to Japan" successfully opens `EnquiryDialog` with Japan pre-populated.
   - Mobile (390×844): Verified responsive stacking of map and dossier with 0 horizontal overflow.
+
+---
+
+### Cycle 27: Invitation Action Buttons Pixel-Perfect Alignment & Luxury Floating Scroll-to-Top Redesign
+**Date**: November 10, 2026  
+**Status**: Completed & Verified  
+
+#### 1. Addressed User-Marked Issues & Feedback
+1. **Misaligned Invitation Action Buttons ("align the buttons correctly here")**:
+   - **Root Cause**: A legacy CSS rule `.invitation .gold-button { margin-top: 33px; }` in `src/index.css` was applying a 33px top margin solely to the `[ ENQUIRE NOW ↗ ]` button, while `[ EXPLORE DESTINATIONS → ]` had 0px top margin. This caused the gold button to be shifted downwards and misaligned with the outline button.
+   - **Resolution**:
+     - Removed `.invitation .gold-button { margin-top: 33px; }` from `src/index.css`.
+     - Harmonized both buttons in `src/components/HomeSections.tsx` with identical geometry (`!m-0`, `h-12 min-h-[48px]`, `py-3 px-7`, `rounded-xl`, `text-xs font-bold uppercase tracking-wider`).
+     - Added matched hover micro-interactions (gold glow on enquiry button, right translation on explore destinations arrow).
+     - Verified with Playwright: `diffTop = 0.00px`, `diffHeight = 0.00px`, providing 100% pixel-perfect vertical alignment and identical height.
+
+2. **Scroll-to-Top Up Arrow Button Redesign ("up arrow button doesnt look right")**:
+   - **Root Cause**: The previous button in `FloatingActions.tsx` was a cream disc (`#FBF8F1`) that lacked a `viewBox` in its SVG and had `p-1` padding with `cx=20 cy=20 r=18 strokeWidth=3`. This caused the outer circular stroke to collide with the SVG viewport boundary and clip into an irregular, flat-edged polygon/octagon. Additionally, the cream disc clashed with dark backgrounds and had a generic dark green arrow.
+   - **Resolution**:
+     - Upgraded the container to a sleek circular disc in Deep Forest Evergreen glass (`bg-[#0E2319]/95 hover:bg-[#163325] backdrop-blur-md`) with Mysore Gold border (`border-[#D4AF37]/50`) and soft ambient gold glow (`hover:shadow-[0_0_25px_rgba(212,175,55,0.45)]`).
+     - Rebuilt the SVG with an explicit `viewBox="0 0 48 48"` (coordinate center `(24, 24)`, radius `20`, stroke width `2.5`), providing generous margin inside the canvas to eliminate all clipping artifacts. The circular progress ring is now mathematically smooth at all resolutions.
+     - Added a Mysore/Kasavu Gold gradient (`#F5D77F` to `#D4AF37`) to the scroll progress stroke.
+     - Upgraded the arrow icon to a high-contrast Mysore Gold arrow (`text-[#F5D77F] stroke-[2.5]`) that smoothly shifts upward on hover (`group-hover:-translate-y-0.5`).
+     - Added an elegant floating tooltip capsule (`[ Top ↑ ]` / `[ ಮೇಲಕ್ಕೆ ↑ ]`) that smoothly reveals on button hover.
+
+#### 2. Verification Results
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled cleanly in **683ms**.
+- **Playwright Measurement**: Verified `diffTop: 0px` and `diffHeight: 0px` between `ENQUIRE NOW` and `EXPLORE DESTINATIONS`.
+- **Playwright Scroll & Hover Testing**: Verified smooth scroll progress tracking, hover tooltip reveal (`Top ↑`), and click action returning scroll position cleanly to `scrollY = 0`.
