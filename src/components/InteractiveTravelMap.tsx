@@ -140,26 +140,31 @@ export const InteractiveTravelMap: React.FC<InteractiveTravelMapProps> = ({
     // Karnataka
     { tier: 'karnataka', id: 'hassan', nameEn: 'Hassan (Belur)', nameKn: 'ಹಾಸನ (ಬೇಲೂರು)' },
     { tier: 'karnataka', id: 'mysore', nameEn: 'Mysuru (Palace)', nameKn: 'ಮೈಸೂರು' },
+    { tier: 'karnataka', id: 'chamrajnagar', nameEn: 'Bandipur (Safari)', nameKn: 'ಬಂಡೀಪುರ' },
     { tier: 'karnataka', id: 'kodagu', nameEn: 'Kodagu (Coorg)', nameKn: 'ಕೊಡಗು (ಕೂರ್ಗ್)' },
     { tier: 'karnataka', id: 'chikmagalur', nameEn: 'Chikmagalur', nameKn: 'ಚಿಕ್ಕಮಗಳೂರು' },
     { tier: 'karnataka', id: 'uttar-kannand', nameEn: 'Gokarna (Coast)', nameKn: 'ಗೋಕರ್ಣ' },
     { tier: 'karnataka', id: 'udupi', nameEn: 'Udupi', nameKn: 'ಉಡುಪಿ' },
     { tier: 'karnataka', id: 'bellary', nameEn: 'Hampi (Ballari)', nameKn: 'ಹಂಪಿ' },
     { tier: 'karnataka', id: 'bagalkot', nameEn: 'Badami (Bagalkot)', nameKn: 'ಬಾದಾಮಿ' },
+    { tier: 'karnataka', id: 'bijapur', nameEn: 'Bijapur (Gol Gumbaz)', nameKn: 'ವಿಜಯಪುರ' },
     { tier: 'karnataka', id: 'shimoga', nameEn: 'Shivamogga (Jog)', nameKn: 'ಶಿವಮೊಗ್ಗ' },
 
     // India
     { tier: 'india', id: 'rj', nameEn: 'Rajasthan', nameKn: 'ರಾಜಸ್ಥಾನ' },
+    { tier: 'india', id: 'mp', nameEn: 'Madhya Pradesh', nameKn: 'ಮಧ್ಯಪ್ರದೇಶ' },
     { tier: 'india', id: 'kl', nameEn: 'Kerala', nameKn: 'ಕೇರಳ' },
     { tier: 'india', id: 'hp', nameEn: 'Himachal', nameKn: 'ಹಿಮಾಚಲ' },
     { tier: 'india', id: 'jk', nameEn: 'Kashmir', nameKn: 'ಕಾಶ್ಮೀರ' },
-    { tier: 'india', id: 'up', nameEn: 'Agra & Varanasi', nameKn: 'ಆಗ್ರಾ & ವಾರಣಾಸಿ' },
+    { tier: 'india', id: 'up', nameEn: 'Varanasi & Agra', nameKn: 'ವಾರಣಾಸಿ & ಆಗ್ರಾ' },
     { tier: 'india', id: 'ga', nameEn: 'Goa', nameKn: 'ಗೋವಾ' },
     { tier: 'india', id: 'ka', nameEn: 'Karnataka', nameKn: 'ಕರ್ನಾಟಕ' },
     { tier: 'india', id: 'gj', nameEn: 'Gujarat', nameKn: 'ಗುಜರಾತ್' },
     { tier: 'india', id: 'tn', nameEn: 'Tamil Nadu', nameKn: 'ತಮಿಳುನಾಡು' },
+    { tier: 'india', id: 'mh', nameEn: 'Maharashtra', nameKn: 'ಮಹಾರಾಷ್ಟ್ರ' },
+    { tier: 'india', id: 'ut', nameEn: 'Uttarakhand', nameKn: 'ಉತ್ತರಾಖಂಡ' },
 
-    // International
+    // International (Premier, Verified Destinations Only)
     { tier: 'international', id: 'vn', nameEn: 'Vietnam', nameKn: 'ವಿಯೆಟ್ನಾಂ' },
     { tier: 'international', id: 'id', nameEn: 'Bali, Indonesia', nameKn: 'ಬಾಲಿ' },
     { tier: 'international', id: 'jp', nameEn: 'Japan', nameKn: 'ಜಪಾನ್' },
@@ -167,8 +172,11 @@ export const InteractiveTravelMap: React.FC<InteractiveTravelMapProps> = ({
     { tier: 'international', id: 'ch', nameEn: 'Switzerland', nameKn: 'ಸ್ವಿಟ್ಜರ್‌ಲ್ಯಾಂಡ್' },
     { tier: 'international', id: 'th', nameEn: 'Thailand', nameKn: 'ಥೈಲ್ಯಾಂಡ್' },
     { tier: 'international', id: 'sg', nameEn: 'Singapore', nameKn: 'ಸಿಂಗಾಪುರ' },
-    { tier: 'international', id: 'fr', nameEn: 'France', nameKn: 'ಫ್ರಾನ್ಸ್' },
+    { tier: 'international', id: 'fr', nameEn: 'France (Paris)', nameKn: 'ಫ್ರಾನ್ಸ್' },
     { tier: 'international', id: 'it', nameEn: 'Italy', nameKn: 'ಇಟಲಿ' },
+    { tier: 'international', id: 'gb', nameEn: 'United Kingdom', nameKn: 'ಯುಕೆ' },
+    { tier: 'international', id: 'mv', nameEn: 'Maldives', nameKn: 'ಮಾಲ್ಡೀವ್ಸ್' },
+    { tier: 'international', id: 'lk', nameEn: 'Sri Lanka', nameKn: 'ಶ್ರೀಲಂಕಾ' },
   ];
 
   const currentPills = quickPills.filter((p) => p.tier === activeTier);
@@ -293,7 +301,7 @@ export const InteractiveTravelMap: React.FC<InteractiveTravelMapProps> = ({
                     ? (isKn ? 'ಕರ್ನಾಟಕ ನಕ್ಷೆ (೨೭ ಜಿಲ್ಲೆಗಳು)' : 'Karnataka Map (27 Districts)')
                     : activeTier === 'india'
                     ? (isKn ? 'ಭಾರತದ ನಕ್ಷೆ (೩೬ ರಾಜ್ಯಗಳು)' : 'India Map (36 States & UTs)')
-                    : (isKn ? 'ವಿಶ್ವ ನಕ್ಷೆ (ಅಂತಾರಾಷ್ಟ್ರೀಯ ತಾಣಗಳು)' : 'World Map (143 Countries)')}
+                    : (isKn ? `ವಿಶ್ವ ನಕ್ಷೆ (${WORLD_COUNTRIES.length} ಪ್ರಮುಖ ತಾಣಗಳು)` : `World Map (${WORLD_COUNTRIES.length} Global Horizons)`)}
                 </span>
               </div>
               <span className="text-xs text-[#F5D77F] font-semibold tracking-wide">

@@ -210,7 +210,7 @@ export const QuotationModal: React.FC<QuotationModalProps> = ({
         </div>
 
         {/* Printable Quotation View */}
-        <div className="p-6 sm:p-10 overflow-y-auto space-y-7 text-[#252923] bg-[#FCFBF8] print:p-0 print:overflow-visible print:bg-white">
+        <div id="official-quotation-document" className="p-6 sm:p-10 overflow-y-auto space-y-7 text-[#252923] bg-[#FCFBF8] print:p-0 print:overflow-visible print:bg-white">
           {/* Header */}
           <header className="border-b-2 border-[#162E22] pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3.5">

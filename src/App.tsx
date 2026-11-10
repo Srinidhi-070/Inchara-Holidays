@@ -66,18 +66,7 @@ export default function App() {
   }
 
   function handleServiceAction(serviceId?: ServiceId | string) {
-    if (serviceId === "holidays") {
-      const el = document.getElementById("packages");
-      el?.scrollIntoView({ behavior: "smooth" });
-    } else if (serviceId === "transport") {
-      const el = document.getElementById("transport");
-      el?.scrollIntoView({ behavior: "smooth" });
-    } else if (serviceId === "visa") {
-      const el = document.getElementById("travel-assistance");
-      el?.scrollIntoView({ behavior: "smooth" });
-    } else {
-      openEnquiry(serviceId);
-    }
+    openEnquiry(serviceId);
   }
 
   function openPackageItinerary(pkg: SamplePackage) {

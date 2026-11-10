@@ -3,7 +3,7 @@ import { services } from "../content";
 import { detailFields, submitEnquiry } from "../lib/enquiry";
 import type { EnquiryPayload, Locale, ServiceId } from "../types";
 import { brandConfig } from "../config/brand";
-import { Check, X, ArrowRight, ArrowUpRight, MessageCircle } from "lucide-react";
+import { Check, X, ArrowRight, ArrowUpRight, MessageCircle, AlertTriangle } from "lucide-react";
 import { CustomSelect } from "./CustomSelect";
 import { CustomDatePicker } from "./CustomDatePicker";
 
@@ -191,6 +191,7 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
   const [status, setStatus] = useState<"form" | "submitting" | "success" | "error">("form");
   const [referenceNumber, setReferenceNumber] = useState("");
   const [whatsappUrl, setWhatsappUrl] = useState("");
+  const [showDiscardConfirm, setShowDiscardConfirm] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
   const previousFocus = useRef<HTMLElement | null>(null);
   const titleId = useId();
@@ -238,23 +239,21 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
   const selectedServiceMeta = services.find((s) => s.id === payload.service);
 
   function requestClose() {
-    const hasData =
-      payload.service ||
-      Object.keys(payload.details).length > 0 ||
-      payload.contact.name ||
-      payload.contact.phone;
-    if (!hasData || status === "success") {
+    const hasDirtyData =
+      (initialService ? payload.service !== initialService : !!payload.service) ||
+      Object.values(payload.details).some((v) => v !== undefined && v !== "") ||
+      payload.contact.name.trim().length > 0 ||
+      payload.contact.phone.trim().length > 0;
+    if (!hasDirtyData || status === "success") {
       reset();
       onClose();
       return;
     }
-    if (window.confirm(c.discard)) {
-      reset();
-      onClose();
-    }
+    setShowDiscardConfirm(true);
   }
 
   function reset() {
+    setShowDiscardConfirm(false);
     setPayload({ service: "", details: {}, contact: emptyContact });
     setErrors({});
     setStep(0);
@@ -836,6 +835,50 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
                 </button>
               )}
             </footer>
+          </div>
+        )}
+
+        {/* Theme-Specific Discard Confirmation Modal */}
+        {showDiscardConfirm && (
+          <div
+            className="fixed inset-0 z-[1250] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="discard-title"
+          >
+            <div className="max-w-sm w-full bg-[#162E22] text-[#F6F3EA] border border-[#D4AF37]/50 rounded-3xl p-6 sm:p-7 shadow-[0_24px_60px_rgba(0,0,0,0.85)] ring-1 ring-[#F5D77F]/20 text-center relative overflow-hidden">
+              <div className="w-12 h-12 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/40 flex items-center justify-center mx-auto mb-3.5 text-[#F5D77F]">
+                <AlertTriangle className="w-6 h-6 stroke-[2]" />
+              </div>
+              <h3 id="discard-title" className="font-serif-editorial text-lg font-bold text-white mb-2">
+                {locale === "kn" ? "ವಿಚಾರಣೆ ರದ್ದುಗೊಳಿಸುವುದೇ?" : "Discard Enquiry?"}
+              </h3>
+              <p className="text-xs text-white/80 leading-relaxed max-w-xs mx-auto mb-5">
+                {locale === "kn"
+                  ? "ನೀವು ನಮೂದಿಸಿರುವ ಪ್ರಯಾಣದ ವಿವರಗಳು ಉಳಿಯುವುದಿಲ್ಲ. ಖಚಿತವಾಗಿ ರದ್ದುಗೊಳಿಸಿ ಮುಚ್ಚಬೇಕೆ?"
+                  : "Any trip details you have entered will not be saved. Are you sure you want to close?"}
+              </p>
+              <div className="flex items-center justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowDiscardConfirm(false)}
+                  className="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-[#12261C] font-bold text-xs uppercase tracking-wider hover:brightness-105 active:scale-95 transition-all shadow-md cursor-pointer"
+                >
+                  {locale === "kn" ? "ಮುಂದುವರಿಸಿ" : "Keep Editing"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowDiscardConfirm(false);
+                    reset();
+                    onClose();
+                  }}
+                  className="flex-1 py-2.5 px-4 rounded-xl bg-white/5 hover:bg-red-950/40 text-white/90 hover:text-white border border-white/20 hover:border-red-400/50 font-semibold text-xs tracking-wide transition-all cursor-pointer active:scale-95"
+                >
+                  {locale === "kn" ? "ರದ್ದುಗೊಳಿಸಿ" : "Discard"}
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>

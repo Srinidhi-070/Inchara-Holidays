@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { copy } from "../content";
 import type { Locale, ServiceId } from "../types";
-import { ArrowUpRight, CloseIcon, MenuIcon } from "./Icons";
+import { ArrowRight, CloseIcon, MenuIcon } from "./Icons";
 import { BrandMark } from "./BrandMark";
 
 export const Mark = BrandMark;
@@ -85,7 +85,7 @@ export function Header({ locale, setLocale, onEnquire }: Props) {
           <LanguageSwitch locale={locale} setLocale={setLocale} label={String(c.language)} />
           <button className="gold-button header-cta" type="button" onClick={() => onEnquire()}>
             <span className="header-cta__label">{String(c.enquire)}</span>
-            <ArrowUpRight className="header-cta__icon" />
+            <ArrowRight className="header-cta__icon" />
           </button>
           <button
             ref={menuButtonRef}
@@ -128,7 +128,7 @@ export function Header({ locale, setLocale, onEnquire }: Props) {
             }}
           >
             {String(c.enquire)}
-            <ArrowUpRight />
+            <ArrowRight />
           </button>
         </nav>
       </div>

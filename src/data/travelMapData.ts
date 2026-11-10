@@ -3,7 +3,10 @@
  * Authentic vector boundaries:
  * 1. Karnataka Districts (27 Survey-Accurate Boundaries, ViewBox: 0 0 500 650)
  * 2. India States (36 Authentic State/UT Boundaries, ViewBox: 0 0 612 696)
- * 3. World Continents & Nations (179 Authentic Geographic Boundaries, ViewBox: 30.767 241.591 784.077 458.627)
+ * 3. World Continents & Nations (Curated Premier Global Horizons, ViewBox: 30.767 241.591 784.077 458.627)
+ *
+ * NOTE: Conflict and hostile regions (e.g. PK, AF, KP, SY, SO, etc.) are strictly excluded
+ * from the commercial leisure tour horizons.
  */
 
 export interface KarnatakaDistrict {
@@ -23,6 +26,23 @@ export interface WorldCountry {
   id: string;
   path: string;
 }
+
+/**
+ * Hostile & conflict nations strictly excluded from travel advisory & interactive selection
+ */
+export const EXCLUDED_COUNTRY_IDS = new Set([
+  'pk', // Pakistan
+  'af', // Afghanistan
+  'kp', // North Korea
+  'sy', // Syria
+  'ye', // Yemen
+  'so', // Somalia
+  '_somaliland', // Somaliland
+  'iq', // Iraq
+  'sd', // Sudan
+  'ss', // South Sudan
+  'ly', // Libya
+]);
 
 export const KARNATAKA_DISTRICTS: KarnatakaDistrict[] = [
   {
@@ -372,7 +392,7 @@ export const INDIA_STATES: IndiaState[] = [
   }
 ];
 
-export const WORLD_COUNTRIES: WorldCountry[] = [
+const RAW_WORLD_COUNTRIES: WorldCountry[] = [
   {
     "id": "_somaliland",
     "path": "M512.674,502.797l3.526,2.403l1.046-0.052l8.757-3.008l0.994,3.206l-0.701,2.706l-1.893,1.503l-4.729-0.302l-6.769-4.158L512.674,502.797L512.674,502.797z"
@@ -946,3 +966,8 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
     "path": "M468.52,578.226l7.755,8.757l5.946,1.513l3.984-6.248l-0.312-8.281l-6.465-3.337l-2.431,1.098l-3.62,5.524l-5.014-0.053L468.52,578.226L468.52,578.226z"
   }
 ];
+
+export const WORLD_COUNTRIES: WorldCountry[] = RAW_WORLD_COUNTRIES.filter(
+  (country) => !EXCLUDED_COUNTRY_IDS.has(country.id.toLowerCase())
+);
+

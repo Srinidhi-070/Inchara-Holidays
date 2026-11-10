@@ -1,6 +1,6 @@
 import { copy, services } from "../content";
 import type { Locale, ServiceId } from "../types";
-import { ArrowUpRight } from "./Icons";
+import { ArrowRight } from "./Icons";
 import { LanguageSwitch } from "./Header";
 import { brandConfig, getWhatsAppInquiryUrl } from "../config/brand";
 import { Phone, Mail, MessageCircle, MapPin, Clock, Shield } from "lucide-react";
@@ -163,7 +163,7 @@ export function Footer({ locale, setLocale, onEnquire, onOpenAdmin }: Props) {
               onClick={() => onEnquire()}
             >
               <span>{String(c.footerCta)}</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </button>
 
             {onOpenAdmin && (
