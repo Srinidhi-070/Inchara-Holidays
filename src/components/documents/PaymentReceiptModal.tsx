@@ -5,77 +5,22 @@ import {
   recordNewPayment,
   getPaymentSummary,
 } from '../../services/quotationService';
-import { Printer, X, Plus, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Printer, X, Plus, CheckCircle2, ShieldCheck, MessageCircle, Mail, Send, Copy, Check } from 'lucide-react';
 import { AmbariElephant, LotusIcon } from '../SouthIndianMotifs';
+import {
+  cleanClientPhone,
+  numberToWordsINR,
+  buildReceiptWhatsAppText,
+  buildReceiptEmailContent,
+  dispatchWhatsApp,
+  dispatchEmail,
+} from '../../services/clientDispatchService';
 
 interface PaymentReceiptModalProps {
   inquiry: InquiryRecord;
   totalQuotedAmount?: number;
   onClose: () => void;
   onPaymentRecorded?: (payment: PaymentRecord) => void;
-}
-
-/**
- * Converts Indian Rupee number to standard formal words
- */
-function numberToWordsINR(num: number): string {
-  const a = [
-    '',
-    'One',
-    'Two',
-    'Three',
-    'Four',
-    'Five',
-    'Six',
-    'Seven',
-    'Eight',
-    'Nine',
-    'Ten',
-    'Eleven',
-    'Twelve',
-    'Thirteen',
-    'Fourteen',
-    'Fifteen',
-    'Sixteen',
-    'Seventeen',
-    'Eighteen',
-    'Nineteen',
-  ];
-  const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
-
-  if (num === 0) return 'Zero';
-
-  function convertTwoDigits(n: number): string {
-    if (n < 20) return a[n];
-    return b[Math.floor(n / 10)] + (n % 10 !== 0 ? ' ' + a[n % 10] : '');
-  }
-
-  function convertThreeDigits(n: number): string {
-    let str = '';
-    if (Math.floor(n / 100) > 0) {
-      str += a[Math.floor(n / 100)] + ' Hundred ';
-      n %= 100;
-    }
-    if (n > 0) {
-      str += convertTwoDigits(n);
-    }
-    return str.trim();
-  }
-
-  let words = '';
-  const crore = Math.floor(num / 10000000);
-  num %= 10000000;
-  const lakh = Math.floor(num / 100000);
-  num %= 100000;
-  const thousand = Math.floor(num / 1000);
-  num %= 1000;
-
-  if (crore > 0) words += convertTwoDigits(crore) + ' Crore ';
-  if (lakh > 0) words += convertTwoDigits(lakh) + ' Lakh ';
-  if (thousand > 0) words += convertTwoDigits(thousand) + ' Thousand ';
-  if (num > 0) words += convertThreeDigits(num);
-
-  return 'Rupees ' + words.trim() + ' Only';
 }
 
 export const PaymentReceiptModal: React.FC<PaymentReceiptModalProps> = ({
@@ -101,6 +46,37 @@ export const PaymentReceiptModal: React.FC<PaymentReceiptModalProps> = ({
   const [activeReceipt, setActiveReceipt] = useState<PaymentRecord | null>(
     summary.payments[0] || null
   );
+
+  const [notification, setNotification] = useState<string | null>(null);
+
+  const handleSendWhatsApp = () => {
+    if (!activeReceipt) return;
+    const text = buildReceiptWhatsAppText(inquiry, activeReceipt, summary);
+    dispatchWhatsApp(inquiry.phone, text);
+    setNotification('Opening WhatsApp with formal payment receipt...');
+    setTimeout(() => setNotification(null), 4000);
+  };
+
+  const handleSendEmail = () => {
+    if (!activeReceipt) return;
+    const { mailtoUrl } = buildReceiptEmailContent(inquiry, activeReceipt, summary);
+    dispatchEmail(mailtoUrl);
+    setNotification('Opening email client with payment receipt...');
+    setTimeout(() => setNotification(null), 4000);
+  };
+
+  const handleCopyReceipt = async () => {
+    if (!activeReceipt) return;
+    const text = buildReceiptWhatsAppText(inquiry, activeReceipt, summary);
+    try {
+      await navigator.clipboard.writeText(text);
+      setNotification('Official receipt text copied to clipboard!');
+      setTimeout(() => setNotification(null), 4000);
+    } catch {
+      setNotification('Failed to copy. Please allow clipboard permissions.');
+      setTimeout(() => setNotification(null), 4000);
+    }
+  };
 
   const handleRecordPayment = (e: React.FormEvent) => {
     e.preventDefault();
@@ -184,14 +160,34 @@ export const PaymentReceiptModal: React.FC<PaymentReceiptModalProps> = ({
 
           <div className="flex items-center gap-2">
             {!isAdding && activeReceipt && (
-              <button
-                type="button"
-                onClick={handlePrint}
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] hover:brightness-105 text-[#162E22] font-bold text-xs uppercase tracking-wider flex items-center gap-2 cursor-pointer shadow-sm transition-all"
-              >
-                <Printer className="w-4 h-4" />
-                <span>Print Receipt (A4 Portrait)</span>
-              </button>
+              <>
+                <button
+                  type="button"
+                  onClick={handleSendWhatsApp}
+                  className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer shadow-sm transition-all"
+                  title="Send formal payment receipt via WhatsApp"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span className="hidden sm:inline">WhatsApp</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSendEmail}
+                  className="px-3.5 py-2 rounded-xl bg-[#263F32] hover:bg-[#345342] text-[#F5D77F] border border-[#D4AF37]/50 font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer shadow-sm transition-all"
+                  title="Send formal payment receipt via Email"
+                >
+                  <Mail className="w-4 h-4" />
+                  <span className="hidden sm:inline">Email</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handlePrint}
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] hover:brightness-105 text-[#162E22] font-bold text-xs uppercase tracking-wider flex items-center gap-2 cursor-pointer shadow-sm transition-all"
+                >
+                  <Printer className="w-4 h-4" />
+                  <span>Print Receipt</span>
+                </button>
+              </>
             )}
             <button
               type="button"
@@ -374,14 +370,77 @@ export const PaymentReceiptModal: React.FC<PaymentReceiptModalProps> = ({
               </div>
             </form>
           ) : activeReceipt ? (
-            /* =========================================================================
-               MODE 2: GENUINE SINGLE-PAGE A4 PORTRAIT OFFICIAL PAYMENT RECEIPT
-               Strictly isolated for printing, fits on 1 page with official seals & ledger
-               ========================================================================= */
-            <div
-              id="official-payment-receipt"
-              className="border-2 border-[#162E22] rounded-2xl p-6 sm:p-7 bg-white shadow-md space-y-4 text-[#162E22]"
-            >
+            <>
+              {/* Staff Toast Feedback (Hidden on print) */}
+              {notification && (
+                <div className="p-3 rounded-xl bg-[#162E22] border border-[#D4AF37] text-[#F5D77F] text-xs font-semibold flex items-center justify-between shadow-lg animate-in fade-in slide-in-from-top-2 print:hidden">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>{notification}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setNotification(null)}
+                    className="p-1 text-white/60 hover:text-white"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              )}
+
+              {/* Direct Client Dispatch Banner (Hidden on print) */}
+              <div className="p-3.5 rounded-2xl bg-gradient-to-r from-[#162E22] via-[#1E3A2B] to-[#162E22] border border-[#D4AF37]/40 text-[#F6F3EA] flex flex-wrap items-center justify-between gap-3 shadow-md print:hidden">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-[#D4AF37]/20 border border-[#D4AF37]/40 flex items-center justify-center text-[#F5D77F] shrink-0">
+                    <Send className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="font-bold text-xs text-[#F5D77F] tracking-wide block">
+                      Direct Dispatch to Client
+                    </span>
+                    <span className="text-[11px] text-white/70">
+                      Send Receipt #{activeReceipt.receiptNumber} (₹{activeReceipt.amount.toLocaleString('en-IN')}) to {inquiry.customerName} ({cleanClientPhone(inquiry.phone)})
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 flex-wrap">
+                  <button
+                    type="button"
+                    onClick={handleSendWhatsApp}
+                    className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer shadow-xs transition-all"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    <span>Send via WhatsApp</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleSendEmail}
+                    className="px-3.5 py-1.5 rounded-xl bg-[#D4AF37] hover:bg-[#C5A028] text-[#162E22] font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer shadow-xs transition-all"
+                  >
+                    <Mail className="w-3.5 h-3.5" />
+                    <span>Send via Email</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCopyReceipt}
+                    className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-[#F5D77F] border border-white/20 font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer shadow-xs transition-all"
+                    title="Copy formatted receipt text"
+                  >
+                    <Copy className="w-3.5 h-3.5" />
+                    <span>Copy Text</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* =========================================================================
+                 MODE 2: GENUINE SINGLE-PAGE A4 PORTRAIT OFFICIAL PAYMENT RECEIPT
+                 Strictly isolated for printing, fits on 1 page with official seals & ledger
+                 ========================================================================= */}
+              <div
+                id="official-payment-receipt"
+                className="border-2 border-[#162E22] rounded-2xl p-6 sm:p-7 bg-white shadow-md space-y-4 text-[#162E22]"
+              >
               {/* Receipt Header */}
               <div className="border-b-2 border-[#162E22] pb-3.5 flex items-start justify-between gap-4">
                 <div className="flex items-center gap-3">
@@ -556,6 +615,7 @@ export const PaymentReceiptModal: React.FC<PaymentReceiptModalProps> = ({
                 </div>
               </div>
             </div>
+            </>
           ) : (
             <div className="text-center py-8 text-xs text-[#252923]/60">
               No payments recorded yet for this inquiry.

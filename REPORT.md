@@ -973,3 +973,64 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - Services card click opens Universal Enquiry directly.
   - Theme-specific discard dialog verified (`page-2026-11-10T12-10-15-393Z.png`).
   - Single-page A4 Portrait receipt verified in print emulation (`page-2026-11-10T12-14-33-011Z.png`).
+
+---
+
+### Cycle 31: Admin Direct Client Dispatch Feature (Quotations & Payment Receipts via WhatsApp & Email)
+**Date**: November 10, 2026  
+**Status**: Completed & Verified  
+
+#### 1. Feature Requirement & User Mandate
+*"and also add a additional feature where admin directly can send quotation documnet and recipt to the client through mail and whatsapp"*
+
+#### 2. Architecture & Implementation Details
+
+1. **Client Dispatch Service (`src/services/clientDispatchService.ts`)**:
+   - **`cleanClientPhone(rawPhone)`**: Normalizes phone numbers (stripping whitespace, parentheses, dashes) into standard Indian dial format (`91XXXXXXXXXX`) for bulletproof WhatsApp deep linking (`https://wa.me/91XXXXXXXXXX`).
+   - **`numberToWordsINR(amount)`**: Centralized Indian currency-in-words converter ("Rupees Fifty Two Thousand Seven Hundred Ten Only").
+   - **`buildQuotationWhatsAppText(inquiry, quotation)`**: Crafts a formal, comprehensive WhatsApp quotation message including:
+     - Official header with Kannada & English greetings.
+     - Quotation reference (`#QTN-2026-XXXX`) and Inquiry reference (`ICH-2026-XXXX`).
+     - Destination circuit, travel dates, guest count, and quote validity.
+     - Itemized line items breakdown (transport, resorts, pure veg meals, guide permits) with subtotal and GST.
+     - Total quoted value in figures and words.
+     - Pure vegetarian meal assurance & verified chauffeur guarantee.
+     - Formal Canara Bank account settlement particulars & UPI VPA (`incharaholidays@upi`).
+     - Company credentials, address, and live website link.
+   - **`buildQuotationEmailContent(inquiry, quotation)`**: Pre-drafts a formal business email subject and formatted body with standard `mailto:` encoding.
+   - **`buildReceiptWhatsAppText(inquiry, receipt, summary)`**: Generates formal payment acknowledgment message with:
+     - Official receipt number (`#RCP-2026-XXXX`) and booking reference.
+     - Payment date and "Inward Cleared & Verified" status stamp.
+     - Amount received in figures and words, payment category (advance token, part payment, final settlement), transfer mode (UPI, NEFT, RTGS, IMPS, Cheque, Cash), and transaction UTR.
+     - Complete live ledger balance (Total Quoted Value, Total Settled, Balance Outstanding).
+     - 100% Pure Veg commitment and office credentials.
+   - **`buildReceiptEmailContent(inquiry, receipt, summary)`**: Pre-drafts formal email receipt with subject, itemized table, ledger balance, and `mailto:` link.
+   - **`dispatchWhatsApp(phone, text)`**: Triggers native `window.open` to `https://wa.me/{phone}?text={encodedText}` in new window/tab.
+   - **`dispatchEmail(mailtoUrl)`**: Dispatches pre-composed email via browser `window.location.href = mailtoUrl`.
+
+2. **Quotation Modal Integration (`src/components/documents/QuotationModal.tsx`)**:
+   - Added top control bar action buttons: `Send WhatsApp` and `Send Email`.
+   - Added dedicated **"Direct Dispatch to Client"** luxury banner strip right above `#printable-quotation` (with `print:hidden`):
+     - Displays recipient customer name and sanitized phone number.
+     - Action buttons: `Send via WhatsApp`, `Send via Email`, and `Copy Text`.
+   - Integrated staff feedback toast notifications confirming dispatch actions.
+
+3. **Payment Receipt Modal Integration (`src/components/documents/PaymentReceiptModal.tsx`)**:
+   - Replaced duplicate internal `numberToWordsINR` with shared import.
+   - Added top control bar action buttons: `WhatsApp` (emerald theme) and `Email` (Mysore gold theme) next to `Print Receipt`.
+   - Added dedicated **"Direct Dispatch to Client"** luxury banner strip above `#official-payment-receipt` (with `print:hidden`).
+   - Action buttons: `Send via WhatsApp`, `Send via Email`, and `Copy Text` for clipboard copy.
+   - Staff toast notifications with confirmation messages.
+
+4. **Admin Dashboard Inquiry Drawer Integration (`src/components/admin/AdminDashboard.tsx`)**:
+   - Operations & Financial Documents section enhanced with clear document statuses and direct dispatch workflows for both Quotations and Receipts.
+
+#### 3. Verification Results
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` completed in **642ms** with clean bundle generation.
+- **Playwright E2E Verification**:
+  - Opened Admin Dashboard -> navigated to Inquiry `ICH-2026-H7K2`.
+  - Opened Quotation Modal -> clicked WhatsApp -> verified `window.open` with `https://wa.me/919845012345?text=...` holding full itemized quote `#QTN-2026-DY8A` and Canara Bank particulars.
+  - Opened Payment Receipt Modal -> clicked Send via WhatsApp -> verified `window.open` with `https://wa.me/919845012345?text=...` holding official receipt `#RCP-2026-GPS9` with ₹15,000 received, UTR reference, and remaining balance due of ₹35,200.
+  - Verified Email buttons and Copy Text functionality.
+  - Verified that all dispatch banners and control bars are tagged with `print:hidden`, preserving strict single-page A4 portrait printing.

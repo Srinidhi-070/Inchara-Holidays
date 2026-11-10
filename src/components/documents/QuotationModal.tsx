@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import { InquiryRecord, QuotationLineItem, QuotationRecord } from '../../types/inquiry';
 import { defaultBankDetails, createNewQuotation } from '../../services/quotationService';
-import { Printer, X, Plus, Trash2, CheckCircle2, ShieldCheck, Download } from 'lucide-react';
+import { Printer, X, Plus, Trash2, CheckCircle2, ShieldCheck, Download, MessageCircle, Mail, Send, Copy, Check } from 'lucide-react';
 import { AmbariElephant } from '../SouthIndianMotifs';
+import {
+  buildQuotationWhatsAppText,
+  buildQuotationEmailContent,
+  dispatchWhatsApp,
+  dispatchEmail,
+} from '../../services/clientDispatchService';
 
 interface QuotationModalProps {
   inquiry: InquiryRecord;
@@ -152,6 +158,61 @@ export const QuotationModal: React.FC<QuotationModalProps> = ({
     window.print();
   };
 
+  const [notification, setNotification] = useState<{ text: string; type: 'success' | 'info' } | null>(null);
+
+  const getEffectiveQuote = (): QuotationRecord => {
+    if (savedQuote) return savedQuote;
+    return {
+      id: existingQuotation?.id || 'quote-draft',
+      quotationNumber: existingQuotation?.quotationNumber || `QTN-${new Date().getFullYear()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`,
+      inquiryId: inquiry.id,
+      referenceNumber: inquiry.referenceNumber,
+      customerName: inquiry.customerName,
+      customerPhone: inquiry.phone,
+      customerEmail: inquiry.email,
+      serviceCategory: inquiry.serviceCategory,
+      destination,
+      travelDates,
+      guestCount,
+      items,
+      subtotal,
+      gstRate,
+      gstAmount,
+      totalAmount,
+      validityDays: 14,
+      paymentTerms,
+      bankDetails: defaultBankDetails,
+      specialNotes,
+      status: 'sent',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+  };
+
+  const handleSendWhatsApp = () => {
+    const quote = getEffectiveQuote();
+    const text = buildQuotationWhatsAppText(inquiry, quote);
+    dispatchWhatsApp(inquiry.phone, text);
+    setNotification({ text: `WhatsApp opened with formal quote for ${inquiry.customerName}!`, type: 'success' });
+    setTimeout(() => setNotification(null), 4000);
+  };
+
+  const handleSendEmail = () => {
+    const quote = getEffectiveQuote();
+    const { mailtoUrl } = buildQuotationEmailContent(inquiry, quote);
+    dispatchEmail(mailtoUrl);
+    setNotification({ text: `Email draft prepared for ${inquiry.customerName} (${inquiry.email || 'No email registered'})!`, type: 'success' });
+    setTimeout(() => setNotification(null), 4000);
+  };
+
+  const handleCopyQuote = () => {
+    const quote = getEffectiveQuote();
+    const text = buildQuotationWhatsAppText(inquiry, quote);
+    navigator.clipboard.writeText(text);
+    setNotification({ text: `Full quotation copied to clipboard!`, type: 'info' });
+    setTimeout(() => setNotification(null), 3000);
+  };
+
   return (
     <div className="fixed inset-0 z-[1100] flex items-center justify-center p-0 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
       <div className="relative w-full max-w-4xl bg-white sm:rounded-3xl shadow-2xl flex flex-col my-auto max-h-[95vh] overflow-hidden border border-[#D4AF37]/40 print:max-w-none print:max-h-none print:border-none print:shadow-none print:rounded-none">
@@ -190,6 +251,24 @@ export const QuotationModal: React.FC<QuotationModalProps> = ({
                 </button>
                 <button
                   type="button"
+                  onClick={handleSendWhatsApp}
+                  className="px-3 py-2 rounded-xl bg-[#25D366] hover:bg-[#1EBE5D] text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer shadow-sm transition-all active:scale-95"
+                  title="Send Quotation via WhatsApp"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 fill-white" />
+                  <span className="hidden sm:inline">WhatsApp</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSendEmail}
+                  className="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-[#F5D77F] border border-[#D4AF37]/40 font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer shadow-sm transition-all active:scale-95"
+                  title="Send Quotation via Email"
+                >
+                  <Mail className="w-3.5 h-3.5 text-[#F5D77F]" />
+                  <span className="hidden sm:inline">Email</span>
+                </button>
+                <button
+                  type="button"
                   onClick={handlePrint}
                   className="px-4 py-2 rounded-xl bg-[#D4AF37] hover:bg-[#C5A028] text-[#162E22] font-bold text-xs uppercase tracking-wider flex items-center gap-2 cursor-pointer shadow-sm transition-all"
                 >
@@ -211,6 +290,72 @@ export const QuotationModal: React.FC<QuotationModalProps> = ({
 
         {/* Printable Quotation View */}
         <div id="official-quotation-document" className="p-6 sm:p-10 overflow-y-auto space-y-7 text-[#252923] bg-[#FCFBF8] print:p-0 print:overflow-visible print:bg-white">
+          {/* Notification Toast */}
+          {notification && (
+            <div
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold flex items-center justify-between shadow-md print:hidden animate-fade-in ${
+                notification.type === 'success'
+                  ? 'bg-emerald-900 text-emerald-100 border border-emerald-500/50'
+                  : 'bg-[#162E22] text-[#F5D77F] border border-[#D4AF37]/50'
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <span>{notification.text}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setNotification(null)}
+                className="text-white/60 hover:text-white cursor-pointer"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          )}
+
+          {/* Direct Client Communication Strip (Hidden on print) */}
+          <div className="p-4 rounded-2xl bg-[#162E22] text-[#F6F3EA] border border-[#D4AF37]/40 shadow-sm flex flex-col md:flex-row items-center justify-between gap-3.5 print:hidden">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/20 border border-[#D4AF37]/40 flex items-center justify-center text-[#F5D77F] shrink-0">
+                <Send className="w-5 h-5 text-[#D4AF37]" />
+              </div>
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#F5D77F] block">
+                  Direct Client Dispatch
+                </span>
+                <p className="text-[11px] text-white/75">
+                  Send this formal quotation directly to {inquiry.customerName} via verified WhatsApp (+{inquiry.phone}) or Email ({inquiry.email || 'No email registered'}).
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 w-full md:w-auto">
+              <button
+                type="button"
+                onClick={handleSendWhatsApp}
+                className="flex-1 md:flex-none px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#1EBE5D] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+              >
+                <MessageCircle className="w-4 h-4 fill-white" />
+                <span>Send WhatsApp</span>
+              </button>
+              <button
+                type="button"
+                onClick={handleSendEmail}
+                className="flex-1 md:flex-none px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-[#12261C] font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md hover:brightness-105 transition-all active:scale-95 cursor-pointer"
+              >
+                <Mail className="w-4 h-4 text-[#12261C]" />
+                <span>Send Email</span>
+              </button>
+              <button
+                type="button"
+                onClick={handleCopyQuote}
+                className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white/90 hover:text-white border border-white/20 transition-all cursor-pointer"
+                title="Copy Quotation Text"
+              >
+                <Copy className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
           {/* Header */}
           <header className="border-b-2 border-[#162E22] pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3.5">
