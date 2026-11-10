@@ -11,6 +11,7 @@ import {
 } from "./components/HomeSections";
 import { AboutIntroduction } from "./components/AboutIntroduction";
 import { DestinationDiscovery } from "./components/DestinationDiscovery";
+import { InteractiveTravelMap } from "./components/InteractiveTravelMap";
 import { PackagesSection } from "./components/PackagesSection";
 import { InstitutionalCorporateHighlight } from "./components/InstitutionalCorporateHighlight";
 import { TravelLogisticsAssistance } from "./components/TravelLogisticsAssistance";
@@ -46,6 +47,7 @@ export default function App() {
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
   const [adminOpen, setAdminOpen] = useState(false);
   const [concept, setConcept] = useState<Concept>("A");
+  const [hasSelectedConcept, setHasSelectedConcept] = useState(false);
 
   function openEnquiry(service?: ServiceId | string, destName?: string) {
     // Normalize service names to canonical ServiceId
@@ -101,7 +103,7 @@ export default function App() {
 
       <main id="main">
         {/* 2. Hero Section */}
-        <Hero locale={locale} onEnquire={openEnquiry} concept={concept} />
+        <Hero locale={locale} onEnquire={openEnquiry} concept={concept} hasSelectedConcept={hasSelectedConcept} />
 
         {/* 3. About Section (Image 5 Reference) */}
         <AboutIntroduction locale={locale} />
@@ -116,6 +118,12 @@ export default function App() {
         <DestinationDiscovery
           locale={locale}
           onSelectDestination={openDestinationDetails}
+          onEnquire={openEnquiry}
+        />
+
+        {/* 6B. Interactive Regional & Global Travel Map */}
+        <InteractiveTravelMap
+          locale={locale}
           onEnquire={openEnquiry}
         />
 
@@ -225,7 +233,10 @@ export default function App() {
       {/* Floating Heritage Art Direction Switcher Dock */}
       <ConceptSwitcher
         concept={concept}
-        onChange={setConcept}
+        onChange={(c) => {
+          setConcept(c);
+          setHasSelectedConcept(true);
+        }}
         locale={locale}
       />
     </div>

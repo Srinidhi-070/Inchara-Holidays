@@ -713,3 +713,43 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
 - **Playwright Button Hover**: Verified `transform: matrix(1, 0, 0, 1, 6, 0)` (6px along X-axis, 0px vertical).
 - **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
 - **Production Build**: `npm run build` compiled cleanly in **744ms**.
+
+---
+
+### Cycle 24: Sleek Floating Art Direction Dock, Non-Obstructive Mobile Drawer, Curated Heritage Imagery & Interactive Regional Travel Map
+**Date**: November 10, 2026  
+**Status**: Completed & Verified  
+
+#### 1. Addressed User-Marked Issues & Feedback
+1. **Dock Redesign & Misalignment Resolution (Markings 1 & 2 on Desktop)**:
+   - Replaced the oversized, boxy, and cramped art direction dock with a sleek, compact, floating luxury pill dock (`max-w-2xl`, rounded-full, frosted glass `#07130C`/90, Mysore Gold hairline border `border-[#D4AF37]/40`).
+   - Eliminated text truncation and misaligned dividers.
+   - Integrated Framer Motion sliding active indicator (`layoutId="active-concept-pill"`) that smoothly glides between options.
+   - Added a minimize (`✕`) button allowing visitors to collapse the dock into a subtle floating capsule (`[ ✦ Art Direction ▾ ]`).
+
+2. **Mobile Screen Experience Overhaul (Non-Obstructive Experience)**:
+   - Previously covered over 50% of the mobile viewport, obscuring hero headings and buttons.
+   - Replaced with an ultra-minimal floating trigger pill (`[ ✦ View: Karnataka ▾ ]`, ~36px height) anchored at the bottom, leaving 100% of the hero narrative and call-to-actions unobstructed.
+   - Tapping the pill slides up an animated luxury bottom sheet drawer featuring rich destination cards, destination previews, duration tags, and active checkmarks, which auto-dismisses upon selection.
+
+3. **Three Curated Visual Tiers (Eliminated "Greenery Everywhere")**:
+   - **Initial Page Load Opening Image**: Kept the original serene tea garden landscape (`/images/western-ghats-hero.jpg`) and original headline on first visit.
+   - **01 Karnataka Heritage (Explicit Selection)**: Switches to authentic 12th-century Hoysala Chennakeshava Temple carved stone pillar heritage at Belur (`/images/hoysala_belur.jpg`) with Karnataka-specific copy and itinerary CTAs.
+   - **02 Incredible India**: Switches to majestic Rajasthan lake palaces at golden hour (`/images/rajasthan_heritage.jpg`), highlighting palaces, snow peaks, and sacred Ganges heritage.
+   - **03 Global Explorer**: Switches to the emerald limestone karsts of Ha Long Bay, Vietnam (`/images/vietnam_halong.jpg`), highlighting global curated expeditions.
+
+4. **Brand New Interactive Regional Travel Map Component (`InteractiveTravelMap.tsx`)**:
+   - Built a comprehensive interactive map and regional explorer with three discovery scopes:
+     - **Karnataka Circuits (5 Zones)**: Hassan & Hoysala Heartland, Royal Mysuru & Kabini Safari, Coorg & Chikmagalur Coffee Country, Gokarna & Coastal Karavali, and Hampi UNESCO & Badami Caves.
+     - **Incredible India Domestic Circuits (5 Regions)**: Rajasthan Royal Palaces, Kerala Backwaters & Munnar Hills, Himachal Snow Valleys & Kashmir, Golden Triangle & Varanasi, and Goa & Konkan Coast.
+     - **Global Horizons (4 Circuits)**: Vietnam Emerald Ha Long Bay, Bali Island Temples, Japan Kyoto Cherry Blossoms & Mount Fuji, and Dubai & Abu Dhabi Oasis.
+   - **Interactive SVG Geographic Canvas**: Displays region silhouettes, flight/rail connection paths, glowing interactive pins with radar pulse animations, and quick-select buttons.
+   - **Active Destination Dossier Card**: High-resolution imagery, ideal duration, verified transit logistics from Bengaluru/Mysuru, 100% pure vegetarian dining guarantee, key tour highlights checklist, direct `EnquiryDialog` deep-linking, and WhatsApp advisory link.
+   - **Full Bilingual Support**: English and Kannada (`Noto Serif Kannada`) with zero clipping and authentic translations.
+
+#### 2. Verification Results
+- **Playwright Desktop & Mobile Visual Audit**: Verified desktop floating pill dock, mobile slide-up bottom drawer, and interactive map across 1440×900 and 390×844 viewports.
+- **Hero Image Switching**: Verified that initial load serves `/images/western-ghats-hero.jpg`, and clicking 01, 02, and 03 updates to Belur Hoysala, Rajasthan, and Vietnam respectively.
+- **Interactive Map Functional Testing**: Verified switching between Karnataka, India, and International tabs; verified clicking region pins and quick-select buttons updates the dossier card; verified `[ Plan Trip ]` opens `EnquiryDialog` with pre-filled destination.
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled cleanly in **715ms**.

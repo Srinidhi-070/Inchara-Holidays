@@ -8,12 +8,13 @@ type Props = {
   locale: Locale;
   onEnquire: (service?: ServiceId, initialDetails?: string) => void;
   concept?: Concept;
+  hasSelectedConcept?: boolean;
 };
 
-export function Hero({ locale, onEnquire, concept = "A" }: Props) {
+export function Hero({ locale, onEnquire, concept = "A", hasSelectedConcept = false }: Props) {
   const c = copy[locale];
 
-  // Concept-specific dynamic imagery & storytelling tone
+  // Default opening state (serene tea gardens / Western Ghats landscape)
   let heroImage = "/images/western-ghats-hero.jpg";
   let eyebrow = String(c.heroEyebrow);
   let titleA = String(c.heroTitleA);
@@ -22,26 +23,42 @@ export function Hero({ locale, onEnquire, concept = "A" }: Props) {
   let primaryBtn = String(c.heroPrimary);
   let secondaryBtn = String(c.heroSecondary);
 
-  if (concept === "B") {
-    heroImage = "/images/coorg_misty_plantation_1791795473840.jpg";
-    eyebrow = locale === "kn" ? "ಜೀವಂತ ದಿನಚರಿ · ಸಾಂಸ್ಕೃತಿಕ ಪಯಣ" : "A story written in motion · Living journal";
-    titleA = locale === "kn" ? "ನಿಧಾನವಾಗಿ ಸಾಗಿದಾಗ " : "Travel becomes a story, ";
-    titleB = locale === "kn" ? "ಪ್ರಯಾಣವೇ ಕಥೆಯಾಗುತ್ತದೆ." : "when you move slowly.";
-    body = locale === "kn"
-      ? "ಪಶ್ಚಿಮ ಘಟ್ಟಗಳ ಪ್ರಶಾಂತ ಪ್ಲಾಂಟೇಶನ್‌ಗಳಿಂದ ಪಾರಂಪರಿಕ ದೇಗುಲಗಳವರೆಗೆ, ಪ್ರತಿಯೊಂದು ಪಯಣವೂ ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ಡೈರಿಯ ಒಂದು ಅಧ್ಯಾಯದಂತೆ."
-      : "From misty coffee plantations to living stone heritage, unhurried journeys crafted like personal chapters in a treasured journal.";
-    primaryBtn = locale === "kn" ? "ಕಥೆಯನ್ನು ಆರಂಭಿಸಿ" : "Start your story";
-    secondaryBtn = locale === "kn" ? "ದಿನಚರಿಯ ಮಾರ್ಗಗಳು" : "Browse journal routes";
-  } else if (concept === "C") {
-    heroImage = "/images/bali_temple.jpg";
-    eyebrow = locale === "kn" ? "ಭಾರತದಿಂದ ವಿಶ್ವದವರೆಗೆ · ಕಸ್ಟಮ್ ಎಕ್ಸ್‌ಪೆಡಿಶನ್" : "India to the world · Curated expeditions";
-    titleA = locale === "kn" ? "ಇನ್ನೂ ಮುಂದೆ, " : "Go further, ";
-    titleB = locale === "kn" ? "ಹೊಸ ದಿಗಂತಗಳೆಡೆಗೆ." : "with unhurried grace.";
-    body = locale === "kn"
-      ? "ಕರ್ನಾಟಕದ ಆತ್ಮೀಯ ಆತಿಥ್ಯದೊಂದಿಗೆ ಭಾರತದ ರಮಣೀಯ ತಾಣಗಳು ಹಾಗೂ ವಿಯೆಟ್ನಾಂ, ಬಾಲಿ, ದುಬೈ, ಯೂರೋಪ್ ಪಯಣಗಳು — ಸಂಪೂರ್ಣ ವೀಸಾ ಮತ್ತು ಚಾಲಕ ಬೆಂಬಲದೊಂದಿಗೆ."
-      : "One thoughtful travel studio. Distinctive domestic circuits and tailor-made international horizons across Southeast Asia, the Middle East, and beyond.";
-    primaryBtn = locale === "kn" ? "ನನ್ನ ಪ್ರವಾಸ ರೂಪಿಸಿ" : "Design my escape";
-    secondaryBtn = locale === "kn" ? "ಗ್ಲೋಬಲ್ ಸರ್ಕ್ಯೂಟ್‌ಗಳು" : "Explore global circuits";
+  // When user explicitly selects an art direction:
+  if (hasSelectedConcept) {
+    if (concept === "A") {
+      // 01 Karnataka Heritage & In-Karnataka Tours (Belur Hoysala Stone Heritage)
+      heroImage = "/images/hoysala_belur.jpg";
+      eyebrow = locale === "kn" ? "ಕರ್ನಾಟಕದ ಹೆಮ್ಮೆ · ಹೊಯ್ಸಳ & ಮೈಸೂರು ಪರಂಪರೆ" : "Soul of Karnataka · Hoysala to Mysuru Heritage";
+      titleA = locale === "kn" ? "ಶಿಲ್ಪಕಲೆಯ ನೆಲೆ, " : "Living Stone, ";
+      titleB = locale === "kn" ? "ಹೊಯ್ಸಳ ಪರಂಪರೆ." : "Royal Legacies.";
+      body = locale === "kn"
+        ? "ಹೊಯ್ಸಳ ದೇಗುಲಗಳ ಶಿಲ್ಪ ವೈಭವ, ಹಂಪಿಯ ಕಲ್ಲಿನ ರಥ, ಮೈಸೂರು ಅರಮನೆ ಮತ್ತು ಮಲೆನಾಡಿನ ಹಸಿರು ಪ್ಲಾಂಟೇಶನ್‌ಗಳು — ಸಮಗ್ರ ಕರ್ನಾಟಕ ಪ್ರವಾಸಗಳು."
+        : "Curated in-Karnataka journeys: 12th-century Hoysala temple marvels of Belur & Halebidu, royal Mysuru palace traditions, Hampi UNESCO ruins, and misty Coorg coffee hills.";
+      primaryBtn = locale === "kn" ? "ಕರ್ನಾಟಕ ಪ್ರವಾಸಗಳು" : "Explore Karnataka Tours";
+      secondaryBtn = locale === "kn" ? "ಮಾರ್ಗಸೂಚಿಗಳು" : "View Karnataka Routes";
+    } else if (concept === "B") {
+      // 02 Incredible India Domestic Circuits (Rajasthan Palaces / All-India)
+      heroImage = "/images/rajasthan_heritage.jpg";
+      eyebrow = locale === "kn" ? "ಭಾರತೀಯ ಪಯಣಗಳು · ರಾಜಸ್ಥಾನ & ಹಿಮಾಲಯ" : "Incredible India · Palaces, Peaks & Backwaters";
+      titleA = locale === "kn" ? "ಕೋಟೆಗಳಿಂದ " : "From Royal Forts ";
+      titleB = locale === "kn" ? "ಹಿನ್ನೀರಿನವರೆಗೆ." : "to Tranquil Waters.";
+      body = locale === "kn"
+        ? "ರಾಜಸ್ಥಾನದ ಭವ್ಯ ಅರಮನೆಗಳು ಮತ್ತು ಮರಳುಗಾಡು, ಕೇರಳದ ಹೌಸ್‌ಬೋಟ್ ಹಿನ್ನೀರು, ಹಿಮಾಚಲದ ಹಿಮಶಿಖರಗಳು ಮತ್ತು ವಾರಣಾಸಿಯ ಗಂಗಾರತಿ — ಸಮಗ್ರ ಭಾರತೀಯ ಪ್ರವಾಸಗಳು."
+        : "Curated domestic journeys across India: majestic Rajasthan lake palaces, serene Kerala backwaters, snow-clad Himachal valleys, and sacred Ganges heritage.";
+      primaryBtn = locale === "kn" ? "ಭಾರತೀಯ ಸರ್ಕ್ಯೂಟ್‌ಗಳು" : "Explore India Circuits";
+      secondaryBtn = locale === "kn" ? "ಪ್ಯಾಕೇಜ್‌ಗಳು" : "Browse All-India";
+    } else if (concept === "C") {
+      // 03 International Destinations (Vietnam Ha Long Bay & Global Horizons)
+      heroImage = "/images/vietnam_halong.jpg";
+      eyebrow = locale === "kn" ? "ಅಂತಾರಾಷ್ಟ್ರೀಯ ದಿಗಂತಗಳು · ವಿಶ್ವಾಸಾರ್ಹ ಪಯಣ" : "International Horizons · Curated Global Expeditions";
+      titleA = locale === "kn" ? "ಗಡಿಗಳನ್ನು ಮೀರಿ, " : "Beyond Borders, ";
+      titleB = locale === "kn" ? "ಹೊಸ ದಿಗಂತಗಳೆಡೆge." : "with Authentic Care.";
+      body = locale === "kn"
+        ? "ವಿಯೆಟ್ನಾಂನ ಹಾಲಾಂಗ್ ಕೊಲ್ಲಿ, ಬಾಲಿ ದ್ವೀಪ, ಜಪಾನ್ ಚೆರ್ರಿ ಬ್ಲಾಸಮ್, ದುಬೈ ಮತ್ತು ಯೂರೋಪ್ — ಸಂಪೂರ್ಣ ವೀಸಾ ಮಾರ್ಗದರ್ಶನ ಮತ್ತು ಭಾರತೀಯ ಸಾತ್ವಿಕ ಊಟದ ಸೌಕರ್ಯದೊಂದಿಗೆ."
+        : "Seamless global horizons: Vietnam emerald bays, Bali island sanctuaries, Kyoto cherry blossom trails, Dubai dunes, and classic European circuits with end-to-end visa assistance.";
+      primaryBtn = locale === "kn" ? "ಅಂತಾರಾಷ್ಟ್ರೀಯ ಪ್ರವಾಸಗಳು" : "Explore International";
+      secondaryBtn = locale === "kn" ? "ಗ್ಲೋಬಲ್ ವೀಸಾ & ಪ್ರವಾಸ" : "Global Tours & Visa";
+    }
   }
 
   return (
