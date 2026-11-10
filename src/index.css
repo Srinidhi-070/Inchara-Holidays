@@ -2558,8 +2558,8 @@
 
 /* =========================================================================
    OFFICIAL DOCUMENT PRINT STYLESHEET (A4 PORTRAIT SINGLE-PAGE ISOLATION)
-   Ensures Receipts, Quotations, and Brochures print cleanly on a single A4
-   portrait page, hiding the 17-page background homepage and backdrop overlays.
+   Strictly isolates Quotations & Payment Receipts on a clean single A4 page,
+   filling 100% of the printable area with zero bleed from website or drawers.
    ========================================================================= */
 @media print {
   @page {
@@ -2573,33 +2573,38 @@
     color: #111111 !important;
     margin: 0 !important;
     padding: 0 !important;
-    height: auto !important;
-    min-height: auto !important;
+    width: 100% !important;
+    height: 100% !important;
     overflow: visible !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
-  /* When an official printable receipt is active, strictly isolate it on a single A4 page */
-  body:has(#official-payment-receipt) * {
+  /* Reset all parent CSS transforms, filters, and backdrops that create non-root containing blocks */
+  *,
+  *::before,
+  *::after {
+    transform: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Universal print isolation: hide all elements on the page by default */
+  body * {
     visibility: hidden !important;
   }
 
-  body:has(#official-payment-receipt) #official-payment-receipt,
-  body:has(#official-payment-receipt) #official-payment-receipt * {
+  /* Explicitly make ONLY the official document and its descendants visible */
+  #official-payment-receipt,
+  #official-payment-receipt *,
+  #official-quotation-document,
+  #official-quotation-document * {
     visibility: visible !important;
   }
 
-  body:has(#official-quotation-document) * {
-    visibility: hidden !important;
-  }
-
-  body:has(#official-quotation-document) #official-quotation-document,
-  body:has(#official-quotation-document) #official-quotation-document * {
-    visibility: visible !important;
-  }
-
-  /* Hide entire website structure & interactive widgets during print */
+  /* Completely suppress all website shell, modals, and admin overlays */
   header,
   footer,
   nav,
@@ -2617,55 +2622,26 @@
   #reviews,
   .print\:hidden {
     display: none !important;
+    visibility: hidden !important;
   }
 
-  /* Unset all modal backdrop positioning and overlays during print */
-  .fixed.z-\[1050\],
-  .fixed.z-\[1060\],
-  .fixed.z-\[1100\],
-  .fixed.z-\[1200\] {
-    position: static !important;
-    display: block !important;
-    background: transparent !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    inset: auto !important;
-    overflow: visible !important;
-    backdrop-filter: none !important;
-  }
-
-  .fixed.z-\[1050\] > div,
-  .fixed.z-\[1060\] > div,
-  .fixed.z-\[1100\] > div,
-  .fixed.z-\[1200\] > div {
-    max-width: 100% !important;
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    max-height: none !important;
-    overflow: visible !important;
-    background: transparent !important;
-  }
-
-  /* Ensure the official document renders at the top of the A4 page without spillage */
+  /* Pin and hoist the official document to the top-left of the physical A4 sheet */
   #official-payment-receipt,
   #official-quotation-document {
     display: block !important;
-    position: absolute !important;
+    position: fixed !important;
     left: 0 !important;
     top: 0 !important;
-    visibility: visible !important;
     width: 100% !important;
     max-width: 100% !important;
-    margin: 0 auto !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
     padding: 16px 20px !important;
     background: #ffffff !important;
-    border: 1.5px solid #162E22 !important;
+    border: 2px solid #162E22 !important;
     border-radius: 8px !important;
-    box-sizing: border-box !important;
+    box-shadow: none !important;
+    z-index: 999999 !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     page-break-after: avoid !important;

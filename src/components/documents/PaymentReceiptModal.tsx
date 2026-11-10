@@ -115,9 +115,28 @@ export const PaymentReceiptModal: React.FC<PaymentReceiptModalProps> = ({
             size: A4 portrait !important;
             margin: 8mm 10mm !important;
           }
+          html,
           body {
+            width: 100% !important;
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
             background: #ffffff !important;
             color: #111111 !important;
+            overflow: visible !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+          *,
+          *::before,
+          *::after {
+            transform: none !important;
+            filter: none !important;
+            backdrop-filter: none !important;
+            animation: none !important;
+            transition: none !important;
+          }
+          body * {
             visibility: hidden !important;
           }
           #official-payment-receipt,
@@ -125,17 +144,20 @@ export const PaymentReceiptModal: React.FC<PaymentReceiptModalProps> = ({
             visibility: visible !important;
           }
           #official-payment-receipt {
-            position: absolute !important;
+            display: block !important;
+            position: fixed !important;
             left: 0 !important;
             top: 0 !important;
             width: 100% !important;
             max-width: 100% !important;
+            box-sizing: border-box !important;
             margin: 0 !important;
             padding: 16px 20px !important;
             box-shadow: none !important;
-            border: 1.5px solid #162E22 !important;
+            border: 2px solid #162E22 !important;
             border-radius: 8px !important;
             background: #ffffff !important;
+            z-index: 999999 !important;
             page-break-inside: avoid !important;
             break-inside: avoid !important;
             page-break-after: avoid !important;

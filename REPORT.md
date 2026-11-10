@@ -1034,3 +1034,41 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - Opened Payment Receipt Modal -> clicked Send via WhatsApp -> verified `window.open` with `https://wa.me/919845012345?text=...` holding official receipt `#RCP-2026-GPS9` with ₹15,000 received, UTR reference, and remaining balance due of ₹35,200.
   - Verified Email buttons and Copy Text functionality.
   - Verified that all dispatch banners and control bars are tagged with `print:hidden`, preserving strict single-page A4 portrait printing.
+
+---
+
+### Cycle 32: Quotation & Receipt Full-Page A4 Overhaul & Zero-Bleed Print Isolation
+**Date**: November 10, 2026  
+**Status**: Completed & Verified  
+
+#### 1. Issue Addressed & User Mandate
+*"qutotation print also should be like recipt but in other format but similar now its just a screenshot if we download the pdf for quotation so come up with a clean quotation and recipt format which fills the page correctly and it has its correct page format"*
+
+#### 2. Root Cause Analysis
+- **Screenshot / Modal Appearance in PDF**: Previously in `QuotationModal.tsx`, the quotation was not rendered as an isolated formal certificate card. Instead, `#official-quotation-document` was set on the outer modal scroll container. When printed, the browser rendered the modal box (`max-w-4xl`) with centered margins and modal backdrop styling.
+- **Admin Drawer Bleed-Through**: Sibling modal overlays (such as `AdminDashboard` at `z-[1050]` and its inquiry drawer at `z-[1060]`) had `transform` and `backdrop-filter` styles that created non-root CSS containing blocks, causing the drawer text to render on the left side of the print preview.
+
+#### 3. Engineering & Design Overhaul
+1. **Official Tour Quotation Card (`#official-quotation-document`)**:
+   - Re-architected `QuotationModal.tsx` into a dual-mode workflow (Interactive Editor vs. Genuine Single-Page Official Document).
+   - Designed `#official-quotation-document` to match the exact visual dignity, branding, and borders of `#official-payment-receipt`, tailored for commercial quotations:
+     - **Outer Frame**: `border-2 border-[#162E22] rounded-2xl p-6 sm:p-7 bg-white shadow-md text-[#162E22]`
+     - **Header**: Ambari Elephant emblem seal, "INCHARA HOLIDAYS", Kaavi Terracotta tagline, company registration `KA-TO-2024-88419`, `GSTIN: 29AABCU9603R1ZM`, `PAN: AABCU9603R`, Mysuru Palace address.
+     - **Metadata Block**: `TOUR QUOTATION` badge, Reference (`#QTN-2026-XXXX`), Issue Date, Validity period (14 Days), and `Verified Proposal` checkmark.
+     - **Guest & Itinerary Particulars Box**: 2-column textured Ivory (`#FBF8F1`) card with Kaavi Terracotta eyebrows detailing Guest particulars and Itinerary logistics.
+     - **Itemized Table**: Forest Evergreen header with Mysore Gold text (`#F5D77F`), itemized lines, Subtotal, Tour Operator GST (5%), and Total Quoted Tour Investment.
+     - **Amount in Words & Pure Veg Guarantee**: Formal Indian words via `numberToWordsINR` and `100% PURE VEG GUARANTEE` badge.
+     - **Two-Column Settlement Grid**: Payment Schedule & Customary Conditions (left) and Canara Bank Details + UPI VPA (right).
+     - **Signatures & Stamped Seal**: Guest Acceptance Confirmation line (left) and Circular `INCHARA MYSURU ADVISORY` stamp + Tour Director Authorized Signatory line (right).
+2. **Absolute Zero-Bleed Print Isolation**:
+   - Implemented CSS reset during `@media print` removing all CSS transforms, filters, and backdrops (`transform: none !important; filter: none !important; backdrop-filter: none !important;`).
+   - Attached both `#official-quotation-document` and `#official-payment-receipt` directly to the physical page using `position: fixed !important; left: 0; top: 0; width: 100% !important; max-width: 100% !important; z-index: 999999 !important; background: #ffffff !important;`.
+   - Set `@page { size: A4 portrait !important; margin: 8mm 10mm !important; }`.
+   - Entire website, headers, footers, admin dashboards, and non-document elements are suppressed with `visibility: hidden !important; display: none !important;`.
+
+#### 4. Verification Results
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled cleanly in **700ms**.
+- **Playwright Full-Page Visual Audit**:
+  - Captured full A4 portrait print screenshot (`width: 794, height: 1123`) for Quotation (`page-2026-11-10T13-55-30-078Z.png`). Confirmed 100% width, balanced height, crisp borders, complete table, bank details, and circular seal with zero background bleed.
+  - Captured full A4 portrait print screenshot for Payment Receipt (`page-2026-11-10T13-56-53-984Z.png`). Confirmed matching visual hierarchy, ledger breakdown, inward cleared stamp, and zero spillage.
