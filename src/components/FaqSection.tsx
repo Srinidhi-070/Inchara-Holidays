@@ -107,7 +107,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ locale, onEnquire }) => 
         </div>
 
         {/* Category Filter Chips */}
-        <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-8 max-w-4xl mx-auto px-2">
           {categories.map((cat) => {
             const isActive = activeCategory === cat.id;
             return (
@@ -115,10 +115,10 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ locale, onEnquire }) => 
                 key={cat.id}
                 type="button"
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer border ${
+                className={`px-3.5 sm:px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer border ${
                   isActive
                     ? 'bg-[#162E22] text-[#F5D77F] border-[#162E22] shadow-sm'
-                    : 'bg-white/80 text-[#252923]/80 border-[#263F32]/10 hover:border-[#D4AF37]/50 hover:bg-white'
+                    : 'bg-white/80 text-[#252923]/80 border-[#263F32]/10 hover:border-[#D4AF37]/50 hover:bg-white shadow-xs'
                 }`}
               >
                 <span>{cat.icon}</span>

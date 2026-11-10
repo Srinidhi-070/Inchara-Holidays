@@ -79,7 +79,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ locale, onEnquir
         </div>
 
         {/* Filter Chips */}
-        <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-8 max-w-4xl mx-auto px-2">
           {filterTabs.map((tab) => {
             const isActive = activeCategory === tab.id;
             return (

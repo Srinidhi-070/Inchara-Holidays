@@ -1146,6 +1146,7 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - Optically centered Kannada header CTA button verified (`ವಿಚಾರಿಸಿ ↗`).
   - FAQ accordion search and category filtering verified.
   - Visual moments gallery asset paths reconciled: Banana Leaf Sadya (`/images/banana-leaf-feast.jpg`), Hampi Stone Chariot (`/images/hampi_stone_chariot_1791795462673.jpg`), Mullayanagiri Peaks (`/images/chikmagalur_peaks.jpg`), and Gokarna Coast (`/images/signature_gokarna_coast_1791795485390.jpg`). All 8 images verified loaded with `isLoaded: true` and equipped with resilient `onError` fallbacks.
+  - Category filter pills layout resolved in `FaqSection.tsx` and `GallerySection.tsx`: converted from single-row overflow clipping to centered responsive flex-wrap (`flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 max-w-4xl mx-auto px-2`). Confirmed 100% visibility (`isFullyVisible: true`) with zero clipping on desktop (1440px), tablet (1024px, 768px), and mobile (390px).
   - Contact modal, Cultural Etiquette modal, Privacy Policy modal, and Terms modal verified.
   - Admin Dashboard authentication, Customers directory, and Business Settings verified.
 
