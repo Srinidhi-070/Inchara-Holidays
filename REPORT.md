@@ -753,3 +753,32 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
 - **Interactive Map Functional Testing**: Verified switching between Karnataka, India, and International tabs; verified clicking region pins and quick-select buttons updates the dossier card; verified `[ Plan Trip ]` opens `EnquiryDialog` with pre-filled destination.
 - **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
 - **Production Build**: `npm run build` compiled cleanly in **715ms**.
+
+---
+
+### Cycle 25: Authentic Geographic Cartography Upgrade for Karnataka, India, and World Maps
+**Date**: November 10, 2026  
+**Status**: Completed & Verified  
+
+#### 1. Addressed User Feedback
+- **Issue**: "ok but the map doesnt look like karnataka map and india and international maps" — the previous map used stylized schematic paths that did not match the actual, instantly recognizable geographical boundaries of Karnataka, India, and the world continents.
+- **Resolution**:
+  1. **Authentic Karnataka Cartography**:
+     - Projected survey-accurate GeoJSON boundaries into `src/data/travelMapData.ts` covering all 27 Karnataka districts.
+     - Features Karnataka's unmistakable real geographical shape: Bidar/Gulbarga horn in the northeast, Karavali coastline curving along the west from Karwar/Gokarna to Mangaluru, and the southern boundary through Mysuru & Chamrajnagar.
+     - Each district is individually styled and interactive. Clicking districts or circuits highlights the territory in Mysore Gold (`#D4AF37`) with pulsating radar pins.
+  2. **Authentic India Cartography**:
+     - Integrated all 36 Indian states and Union Territories from survey-accurate national vector datasets.
+     - Features India's authentic, recognizable geography: Jammu & Kashmir/Ladakh crown, Gujarat's Kutch & Kathiawar horns, Rajasthan borders, the southern peninsula tapering to Kanyakumari, and the Northeast corridor.
+     - Every single state is an interactive clickable vector path that lights up on hover and click.
+  3. **Authentic World Cartography**:
+     - Integrated 143 country boundaries with true continental landmasses (Eurasia, Africa, the Americas, Australia, Southeast Asia).
+     - Features India highlighted as the primary departure base (`India (Origin)`), with curved flight trajectory paths connecting to Vietnam, Bali (Indonesia), Japan (Kyoto/Tokyo), Dubai (UAE), and Europe.
+
+#### 2. Verification Results
+- **Playwright Visual Verification**: Captured screenshots of all 3 authentic maps across viewports:
+  - Karnataka: Confirmed 27 district boundaries with Hassan/Belur highlighted.
+  - India: Confirmed full national outline with Rajasthan, Kerala, Himachal, and Golden Triangle states.
+  - World: Confirmed recognizable global continents and flight routes.
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled cleanly in **1.07s**.

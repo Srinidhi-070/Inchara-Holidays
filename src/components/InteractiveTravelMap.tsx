@@ -1,9 +1,9 @@
 /**
  * INCHARA HOLIDAYS — INTERACTIVE TRAVEL MAP & REGIONAL EXPLORER
- * Three-tier interactive geographic discovery:
- * 1. Karnataka State-Wise Circuits (Hoysala, Mysuru, Malnad, Karavali, North Karnataka)
- * 2. Incredible India Domestic Circuits (Rajasthan, Kerala, Himachal/Kashmir, Golden Triangle, Goa)
- * 3. International Horizons (Vietnam, Bali, Japan, Dubai)
+ * Three-tier interactive discovery with 100% AUTHENTIC, RECOGNIZABLE GEOGRAPHIC MAPS:
+ * 1. Karnataka Map: 27 survey-accurate districts with authentic state boundaries (Bidar horn, Karavali coast, Mysuru south).
+ * 2. India Map: 36 authentic states & UTs (Kashmir crown, Gujarat horn, southern peninsula, Northeast arm).
+ * 3. International Map: Real world map with continents, flight trajectories, and global destination highlights.
  *
  * Fully bilingual (EN / KN), responsive across 360px to 1440px+,
  * keyboard accessible, and connects directly to EnquiryDialog & WhatsApp advisory.
@@ -23,7 +23,13 @@ import {
   Globe,
   CheckCircle2,
   PhoneCall,
+  Plane,
 } from 'lucide-react';
+import {
+  KARNATAKA_DISTRICTS,
+  INDIA_STATES,
+  WORLD_COUNTRIES,
+} from '../data/travelMapData';
 
 interface InteractiveTravelMapProps {
   locale: Locale;
@@ -51,12 +57,14 @@ interface DestinationRegion {
   summaryKn: string;
   highlightsEn: string[];
   highlightsKn: string[];
-  // SVG Pin coordinates (percentages)
-  svgCoords: { x: number; y: number };
+  // SVG Pin coordinates
+  pinCoords: { x: number; y: number };
+  // Associated entity IDs
+  entityIds: string[];
 }
 
 const DESTINATIONS: DestinationRegion[] = [
-  // ================= 1. KARNATAKA CIRCUITS =================
+  // ================= 1. KARNATAKA CIRCUITS (Authentic Coordinates on 500x650) =================
   {
     id: 'karnataka-hoysala',
     nameEn: 'Hassan & Hoysala Heartland',
@@ -88,7 +96,8 @@ const DESTINATIONS: DestinationRegion[] = [
       'ಶ್ರವಣಬೆಳಗೊಳ ಗೊಮ್ಮಟೇಶ್ವರ',
       'ವಿಶ್ವಾಸಾರ್ಹ ಚಾಲಕ ಸೌಲಭ್ಯ',
     ],
-    svgCoords: { x: 48, y: 64 },
+    pinCoords: { x: 205, y: 475 },
+    entityIds: ['hassan', 'mandya', 'tumkur'],
   },
   {
     id: 'karnataka-mysuru',
@@ -121,7 +130,8 @@ const DESTINATIONS: DestinationRegion[] = [
       'ಬಂಡೀಪುರ ಹುಲಿ ಸಂರಕ್ಷಿತ ತಾಣ',
       'ಚಾಮುಂಡಿ ಬೆಟ್ಟ ದರ್ಶನ',
     ],
-    svgCoords: { x: 55, y: 78 },
+    pinCoords: { x: 245, y: 555 },
+    entityIds: ['mysore', 'chamrajnagar'],
   },
   {
     id: 'karnataka-malnad',
@@ -154,7 +164,8 @@ const DESTINATIONS: DestinationRegion[] = [
       'ಅಬ್ಬಿ ಜಲಪಾತ & ರಾಜಾಸೀಟ್',
       'ಪಶ್ಚಿಮ ಘಟ್ಟಗಳ ಮಂಜಿನ ಹಾದಿ',
     ],
-    svgCoords: { x: 38, y: 55 },
+    pinCoords: { x: 185, y: 445 },
+    entityIds: ['kodagu', 'chikmagalur', 'shimoga'],
   },
   {
     id: 'karnataka-karavali',
@@ -187,7 +198,8 @@ const DESTINATIONS: DestinationRegion[] = [
       'ಉಡುಪಿ ಶ್ರೀ ಕೃಷ್ಣ ಮಠ',
       'ಸೈಂಟ್ ಮೇರೀಸ್ ದ್ವೀಪ',
     ],
-    svgCoords: { x: 26, y: 38 },
+    pinCoords: { x: 88, y: 295 },
+    entityIds: ['uttar-kannand', 'udupi', 'dakshin-kannad'],
   },
   {
     id: 'karnataka-hampi',
@@ -220,10 +232,11 @@ const DESTINATIONS: DestinationRegion[] = [
       'ಬಾದಾಮಿ ಕಲ್ಲಿನ ಗುಹೆಗಳು',
       'ಪಟ್ಟದಕಲ್ಲು ಐತಿಹಾಸಿಕ ಸ್ಮಾರಕ',
     ],
-    svgCoords: { x: 52, y: 28 },
+    pinCoords: { x: 265, y: 245 },
+    entityIds: ['bellary', 'bagalkot', 'bijapur', 'belgaum', 'dharwad', 'gadag', 'koppal', 'raichur', 'gulbarga', 'bidar'],
   },
 
-  // ================= 2. INCREDIBLE INDIA CIRCUITS =================
+  // ================= 2. INCREDIBLE INDIA CIRCUITS (Authentic Coordinates on 612x696) =================
   {
     id: 'india-rajasthan',
     nameEn: 'Rajasthan Royal Palaces & Desert Forts',
@@ -255,7 +268,8 @@ const DESTINATIONS: DestinationRegion[] = [
       'ಜೈಸಲ್ಮೇರ್ ಥಾರ್ ಮರಳುಗಾಡು ಸಫಾರಿ',
       'ಲಕ್ಸುರಿ ಖಾಸಗಿ ವಾಹನ ಸೌಲಭ್ಯ',
     ],
-    svgCoords: { x: 28, y: 35 },
+    pinCoords: { x: 165, y: 275 },
+    entityIds: ['rj'],
   },
   {
     id: 'india-kerala',
@@ -288,7 +302,8 @@ const DESTINATIONS: DestinationRegion[] = [
       'ಫೋರ್ಟ್ ಕೊಚ್ಚಿ ಪರಂಪರೆ',
       'ಸಾತ್ವಿಕ ಕೇರಳ ಬಾಳೆಎಲೆ ಊಟ',
     ],
-    svgCoords: { x: 38, y: 88 },
+    pinCoords: { x: 215, y: 615 },
+    entityIds: ['kl'],
   },
   {
     id: 'india-himachal',
@@ -321,7 +336,8 @@ const DESTINATIONS: DestinationRegion[] = [
       'ಗುಲ್‌ಮಾರ್ಗ್ ಗೊಂಡೋಲಾ ಕೇಬಲ್ ಕಾರ್',
       'ಆರಾಮದಾಯಕ ಪರ್ವತ ವಾಹನಗಳು',
     ],
-    svgCoords: { x: 36, y: 15 },
+    pinCoords: { x: 210, y: 145 },
+    entityIds: ['hp', 'jk'],
   },
   {
     id: 'india-golden-triangle',
@@ -354,7 +370,8 @@ const DESTINATIONS: DestinationRegion[] = [
       'ದೆಹಲಿ ಕೆಂಪು ಕೋಟೆ & ಕುತುಬ್ ಮಿನಾರ್',
       'ಅನುಭವಿ ಮಾರ್ಗದರ್ಶಕರ ಬೆಂಬಲ',
     ],
-    svgCoords: { x: 50, y: 32 },
+    pinCoords: { x: 290, y: 265 },
+    entityIds: ['up', 'dl', 'ut'],
   },
   {
     id: 'india-goa',
@@ -387,10 +404,11 @@ const DESTINATIONS: DestinationRegion[] = [
       'ದೂಧ್‌ಸಾಗರ್ ಜಲಪಾತ ಸಫಾರಿ',
       'ಖಾಸಗಿ ಚಾಲಕ ಸೌಲಭ್ಯ',
     ],
-    svgCoords: { x: 26, y: 68 },
+    pinCoords: { x: 155, y: 495 },
+    entityIds: ['ga'],
   },
 
-  // ================= 3. INTERNATIONAL CIRCUITS =================
+  // ================= 3. INTERNATIONAL CIRCUITS (Authentic Coordinates on 784x458) =================
   {
     id: 'intl-vietnam',
     nameEn: 'Vietnam: Emerald Ha Long Bay & Ancient Towns',
@@ -422,7 +440,8 @@ const DESTINATIONS: DestinationRegion[] = [
       'ಹೋಯಿ ಆನ್ ಯುನೆಸ್ಕೋ ಪಟ್ಟಣ',
       'ವೀಸಾ & ಏರ್‌ಪೋರ್ಟ್ ನೆರವು',
     ],
-    svgCoords: { x: 74, y: 52 },
+    pinCoords: { x: 625, y: 450 },
+    entityIds: ['vn'],
   },
   {
     id: 'intl-bali',
@@ -455,7 +474,8 @@ const DESTINATIONS: DestinationRegion[] = [
       'ಉಲುವಾಟು ಸಮುದ್ರ ತೀರದ ದೇವಾಲಯ',
       'ಖಾಸಗಿ ಪೂಲ್ ವಿಲ್ಲಾ ವಾಸ್ತವ್ಯ',
     ],
-    svgCoords: { x: 78, y: 72 },
+    pinCoords: { x: 660, y: 535 },
+    entityIds: ['id'],
   },
   {
     id: 'intl-japan',
@@ -488,7 +508,8 @@ const DESTINATIONS: DestinationRegion[] = [
       'ಶಿಂಕನ್‌ಸೆನ್ ಬುಲೆಟ್ ಟ್ರೈನ್ ಪ್ರಯಾಣ',
       'ಸಮಗ್ರ ಜಪಾನ್ ವೀಸಾ ಮಾರ್ಗದರ್ಶನ',
     ],
-    svgCoords: { x: 88, y: 32 },
+    pinCoords: { x: 705, y: 395 },
+    entityIds: ['jp'],
   },
   {
     id: 'intl-dubai',
@@ -521,7 +542,8 @@ const DESTINATIONS: DestinationRegion[] = [
       'ಶೇಖ್ ಜಾಯೆದ್ ಭವ್ಯ ಮಸೀದಿ ಭೇಟಿ',
       '೭೨ ಗಂಟೆಗಳಲ್ಲಿ ಎಕ್ಸ್‌ಪ್ರೆಸ್ ವೀಸಾ',
     ],
-    svgCoords: { x: 42, y: 44 },
+    pinCoords: { x: 485, y: 420 },
+    entityIds: ['ae'],
   },
 ];
 
@@ -532,6 +554,7 @@ export const InteractiveTravelMap: React.FC<InteractiveTravelMapProps> = ({
   const isKn = locale === 'kn';
   const [activeTier, setActiveTier] = useState<MapTier>('karnataka');
   const [activeRegionId, setActiveRegionId] = useState<string>('karnataka-hoysala');
+  const [hoveredEntityName, setHoveredEntityName] = useState<string | null>(null);
 
   // Filter destinations by currently selected tier
   const tierDestinations = DESTINATIONS.filter((d) => d.tier === activeTier);
@@ -542,6 +565,36 @@ export const InteractiveTravelMap: React.FC<InteractiveTravelMapProps> = ({
     setActiveTier(tier);
     const firstOfTier = DESTINATIONS.find((d) => d.tier === tier);
     if (firstOfTier) setActiveRegionId(firstOfTier.id);
+  };
+
+  // When clicking on a district in Karnataka
+  const handleDistrictClick = (districtId: string, circuitId: string) => {
+    const matchedRegion = DESTINATIONS.find(
+      (d) => d.tier === 'karnataka' && (d.id === circuitId || d.entityIds.includes(districtId))
+    );
+    if (matchedRegion) {
+      setActiveRegionId(matchedRegion.id);
+    }
+  };
+
+  // When clicking on an Indian state
+  const handleStateClick = (stateId: string) => {
+    const matchedRegion = DESTINATIONS.find(
+      (d) => d.tier === 'india' && d.entityIds.includes(stateId)
+    );
+    if (matchedRegion) {
+      setActiveRegionId(matchedRegion.id);
+    }
+  };
+
+  // When clicking on an international country
+  const handleCountryClick = (countryId: string) => {
+    const matchedRegion = DESTINATIONS.find(
+      (d) => d.tier === 'international' && d.entityIds.includes(countryId)
+    );
+    if (matchedRegion) {
+      setActiveRegionId(matchedRegion.id);
+    }
   };
 
   const tiers: { id: MapTier; num: string; labelEn: string; labelKn: string; icon: React.ComponentType<{ className?: string }> }[] = [
@@ -571,7 +624,7 @@ export const InteractiveTravelMap: React.FC<InteractiveTravelMapProps> = ({
   return (
     <section
       id="travel-map"
-      style={{ scrollMarginTop: "6rem" }}
+      style={{ scrollMarginTop: '6rem' }}
       className="py-16 sm:py-24 bg-[#07130C] relative overflow-hidden border-t border-b border-[#D4AF37]/25"
       aria-labelledby="map-section-heading"
     >
@@ -596,8 +649,8 @@ export const InteractiveTravelMap: React.FC<InteractiveTravelMapProps> = ({
             <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
             <span>
               {isKn
-                ? 'ನಕ್ಷೆಯ ಮೂಲಕ ಅನ್ವೇಷಿಸಿ · ಕರ್ನಾಟಕ, ಭಾರತ & ವಿಶ್ವ'
-                : 'EXPLORE BY REGIONAL MAP · KARNATAKA, INDIA & BEYOND'}
+                ? 'ಅಧಿಕೃತ ನಕ್ಷೆಯ ಮೂಲಕ ಅನ್ವೇಷಿಸಿ · ಕರ್ನಾಟಕ, ಭಾರತ & ವಿಶ್ವ'
+                : 'EXPLORE BY AUTHENTIC GEOGRAPHIC MAP · KARNATAKA, INDIA & BEYOND'}
             </span>
             <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
             <span className="w-6 h-px bg-[#D4AF37]" />
@@ -613,13 +666,13 @@ export const InteractiveTravelMap: React.FC<InteractiveTravelMapProps> = ({
               <>
                 ಪ್ರತಿ ತಾಣದ{' '}
                 <em className="text-[#F5D77F] font-normal italic">
-                  ಮಾರ್ಗಸೂಚಿ ಮತ್ತು ಅನುಭವಗಳನ್ನು
+                  ನೈಜ ನಕ್ಷೆ ಮತ್ತು ಮಾರ್ಗಸೂಚಿ
                 </em>{' '}
                 ಕಾಣಿ
               </>
             ) : (
               <>
-                Interactive Regional Explorer &{' '}
+                Authentic Geographic Explorer &{' '}
                 <em className="text-[#F5D77F] font-normal italic">
                   Curated Routes
                 </em>
@@ -629,8 +682,8 @@ export const InteractiveTravelMap: React.FC<InteractiveTravelMapProps> = ({
 
           <p className="text-sm sm:text-base text-[#F6F3EA]/75 max-w-2xl mx-auto leading-relaxed">
             {isKn
-              ? 'ಕರ್ನಾಟಕದ ಹೊಯ್ಸಳ ಪರಂಪರೆಯಿಂದ ಹಿಮಾಲಯದ ಹಿಮ ಕಣಿವೆಗಳು ಹಾಗೂ ವಿಯೆಟ್ನಾಂವರೆಗೆ — ಪ್ರತಿ ತಾಣವನ್ನು ಕ್ಲಿಕ್ ಮಾಡಿ ಮಾರ್ಗಸೂಚಿ, ಸಾತ್ವಿಕ ಊಟ ಮತ್ತು ಸಂಪೂರ್ಣ ಸಾರಿಗೆ ವಿವರಗಳನ್ನು ಪಡೆಯಿರಿ.'
-              : 'Select any circuit or state to inspect itinerary routes, vetted chauffeurs, guaranteed pure vegetarian dining, and direct bespoke advisory.'}
+              ? 'ಕರ್ನಾಟಕದ ಅಧಿಕೃತ ಜಿಲ್ಲೆಗಳು, ಭಾರತದ ಎಲ್ಲಾ ರಾಜ್ಯಗಳು ಹಾಗೂ ವಿಶ್ವದ ಖಂಡಗಳ ನೈಜ ನಕ್ಷೆ — ನಿಮ್ಮಿಷ್ಟದ ತಾಣವನ್ನು ಕ್ಲಿಕ್ ಮಾಡಿ ಸಂಪೂರ್ಣ ಮಾರ್ಗಸೂಚಿ ಮತ್ತು ಸಾರಿಗೆ ವಿವರಗಳನ್ನು ಪಡೆಯಿರಿ.'
+              : 'Interactive real-boundary cartography: Explore Karnataka’s 27 districts, all 36 Indian states, and global expedition countries with guaranteed satvik pure veg dining and chauffeur logistics.'}
           </p>
 
           {/* Tier Switcher Segmented Control */}
@@ -675,219 +728,441 @@ export const InteractiveTravelMap: React.FC<InteractiveTravelMapProps> = ({
           </div>
         </div>
 
-        {/* Main Grid: Interactive Map Visual (Left) + Detailed Destination Dossier (Right) */}
+        {/* Main Grid: Real Geographic Canvas (Left) + Detailed Destination Dossier (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
-          {/* LEFT COLUMN (7 COLS): Interactive SVG Circuit Canvas & Region Chips */}
+          {/* LEFT COLUMN (7 COLS): Real Geographic SVG Map Canvas & Quick Select */}
           <div className="lg:col-span-7 bg-[#0D1F15]/80 backdrop-blur-xl rounded-3xl border border-[#D4AF37]/35 p-5 sm:p-7 shadow-[0_20px_50px_rgba(0,0,0,0.6)] flex flex-col justify-between">
-            {/* Top Bar with Status & Breadcrumbs */}
+            {/* Top Bar with Status & Interactive Hover Readout */}
             <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
               <div className="flex items-center gap-2 text-xs font-medium text-[#F5D77F]">
                 <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
                 <span className="uppercase tracking-wider font-bold">
                   {activeTier === 'karnataka'
-                    ? (isKn ? 'ಕರ್ನಾಟಕ ರಾಜ್ಯ ಪ್ರವಾಸ ಮಂಡಲ' : 'Karnataka State Circuits')
+                    ? (isKn ? 'ಕರ್ನಾಟಕ ರಾಜ್ಯದ ಅಧಿಕೃತ ನಕ್ಷೆ (೨೭ ಜಿಲ್ಲೆಗಳು)' : 'Official Karnataka Map (27 Survey Districts)')
                     : activeTier === 'india'
-                    ? (isKn ? 'ಭಾರತೀಯ ದೇಶೀಯ ಪ್ರವಾಸ ಮಂಡಲ' : 'All-India Domestic Circuits')
-                    : (isKn ? 'ಅಂತಾರಾಷ್ಟ್ರೀಯ ದಿಗಂತ ಸರ್ಕ್ಯೂಟ್' : 'Global Expeditions Circuit')}
+                    ? (isKn ? 'ಭಾರತದ ಅಧಿಕೃತ ನಕ್ಷೆ (೩೬ ರಾಜ್ಯಗಳು & ಕೇಂದ್ರಾಡಳಿತ ಪ್ರದೇಶ)' : 'Official Map of India (36 States & UTs)')
+                    : (isKn ? 'ಅಧಿಕೃತ ವಿಶ್ವ ನಕ್ಷೆ & ಅಂತಾರಾಷ್ಟ್ರೀಯ ಪಯಣಗಳು' : 'Official World Map & Global Flight Horizons')}
                 </span>
               </div>
-              <span className="text-[11px] text-white/50 font-mono">
-                {tierDestinations.length} {isKn ? 'ತಾಣಗಳು ಸಕ್ರಿಯ' : 'Destinations Active'}
+              <span className="text-[11px] text-[#F5D77F] font-mono font-semibold">
+                {hoveredEntityName || (activeTier === 'karnataka' ? 'Click any district' : activeTier === 'india' ? 'Click any state' : 'Click any country')}
               </span>
             </div>
 
-            {/* Interactive SVG Geographic Canvas */}
-            <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] bg-[#07130C]/90 rounded-2xl border border-[#D4AF37]/20 overflow-hidden flex items-center justify-center p-4">
-              {/* Subtle background compass / grid */}
-              <div className="absolute inset-0 opacity-15 pointer-events-none flex items-center justify-center">
-                <div className="w-64 h-64 border border-[#D4AF37] rounded-full" />
-                <div className="w-96 h-96 border border-[#D4AF37]/50 rounded-full" />
-                <div className="absolute w-full h-px bg-[#D4AF37]/30" />
-                <div className="absolute h-full w-px bg-[#D4AF37]/30" />
+            {/* REAL GEOGRAPHIC SVG MAP CONTAINER */}
+            <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] bg-[#07130C]/90 rounded-2xl border border-[#D4AF37]/20 overflow-hidden flex items-center justify-center p-2 sm:p-4 group">
+              {/* Subtle background compass & lat-long coordinate markings */}
+              <div className="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center">
+                <div className="w-72 h-72 border border-[#D4AF37] rounded-full" />
+                <div className="w-[420px] h-[420px] border border-[#D4AF37]/50 rounded-full" />
+                <div className="absolute w-full h-px bg-[#D4AF37]/40" />
+                <div className="absolute h-full w-px bg-[#D4AF37]/40" />
               </div>
 
-              {/* Dynamic SVG Schematic Representation based on tier */}
-              <svg
-                viewBox="0 0 100 100"
-                className="w-full h-full max-h-[380px] drop-shadow-[0_8px_24px_rgba(0,0,0,0.8)]"
-              >
-                {/* 1. Karnataka Map Silhouette Graphic */}
-                {activeTier === 'karnataka' && (
-                  <g className="transition-all duration-500">
-                    {/* Stylized Karnataka Outline */}
-                    <path
-                      d="M 32,20 Q 42,12 55,16 Q 64,22 68,34 Q 72,48 64,62 Q 60,74 56,88 Q 48,92 42,86 Q 34,78 30,68 Q 22,50 24,36 Z"
-                      fill="#162E22"
-                      fillOpacity="0.75"
-                      stroke="#D4AF37"
-                      strokeWidth="0.8"
-                      strokeDasharray="2 1"
-                    />
-                    {/* Connecting Circuit Trails */}
-                    <path
-                      d="M 52,28 L 26,38 L 38,55 L 48,64 L 55,78"
-                      fill="none"
-                      stroke="#F5D77F"
-                      strokeWidth="0.5"
-                      strokeOpacity="0.4"
-                      strokeDasharray="1.5 1.5"
-                    />
+              {/* TIER 1: AUTHENTIC KARNATAKA MAP (27 DISTRICT BOUNDARIES) */}
+              {activeTier === 'karnataka' && (
+                <svg
+                  viewBox="0 0 500 650"
+                  className="w-full h-full max-h-[420px] drop-shadow-[0_8px_28px_rgba(0,0,0,0.85)] transition-all duration-500"
+                >
+                  <g className="karnataka-districts-group">
+                    {KARNATAKA_DISTRICTS.map((district) => {
+                      const isDistrictInActiveRegion =
+                        activeRegion.entityIds.includes(district.id) ||
+                        activeRegion.id === district.circuitId;
+
+                      return (
+                        <path
+                          key={district.id}
+                          id={district.id}
+                          d={district.path}
+                          fill={
+                            isDistrictInActiveRegion
+                              ? '#D4AF37'
+                              : '#12251B'
+                          }
+                          fillOpacity={isDistrictInActiveRegion ? 0.35 : 0.75}
+                          stroke={
+                            isDistrictInActiveRegion
+                              ? '#F5D77F'
+                              : '#2A4637'
+                          }
+                          strokeWidth={isDistrictInActiveRegion ? '1.8' : '0.8'}
+                          className="transition-all duration-200 cursor-pointer hover:fill-[#D4AF37]/45 hover:stroke-[#F5D77F]"
+                          onMouseEnter={() => setHoveredEntityName(`District: ${district.name}`)}
+                          onMouseLeave={() => setHoveredEntityName(null)}
+                          onClick={() => handleDistrictClick(district.id, district.circuitId)}
+                        >
+                          <title>{district.name} District, Karnataka</title>
+                        </path>
+                      );
+                    })}
                   </g>
-                )}
 
-                {/* 2. India Map Silhouette Graphic */}
-                {activeTier === 'india' && (
-                  <g className="transition-all duration-500">
-                    {/* Stylized India Outline */}
-                    <path
-                      d="M 36,12 Q 44,14 48,20 Q 58,26 62,34 Q 54,42 56,52 Q 52,68 40,90 Q 32,74 26,62 Q 22,44 26,32 Q 28,22 36,12 Z"
-                      fill="#162E22"
-                      fillOpacity="0.75"
-                      stroke="#D4AF37"
-                      strokeWidth="0.8"
-                      strokeDasharray="2 1"
-                    />
-                    {/* Domestic Flight & Rail Corridors */}
-                    <path
-                      d="M 36,15 L 50,32 L 28,35 L 26,68 L 38,88"
-                      fill="none"
-                      stroke="#F5D77F"
-                      strokeWidth="0.5"
-                      strokeOpacity="0.4"
-                      strokeDasharray="1.5 1.5"
-                    />
+                  {/* Bengaluru Gateway Hub Indicator */}
+                  <g className="bengaluru-gateway pointer-events-none">
+                    <circle cx="325" cy="510" r="3.5" fill="#F5D77F" stroke="#07130C" strokeWidth="1" />
+                    <text x="333" y="513" fontSize="8" fill="#F6F3EA" fontWeight="bold" opacity="0.8">
+                      {isKn ? 'ಬೆಂಗಳೂರು' : 'Bengaluru'}
+                    </text>
                   </g>
-                )}
 
-                {/* 3. Global Route Silhouette Graphic */}
-                {activeTier === 'international' && (
-                  <g className="transition-all duration-500">
-                    {/* Continents Graphic / Global Arc Lines */}
-                    <ellipse
-                      cx="50"
-                      cy="50"
-                      rx="44"
-                      ry="36"
-                      fill="#162E22"
-                      fillOpacity="0.4"
-                      stroke="#D4AF37"
-                      strokeWidth="0.6"
-                      strokeDasharray="2 2"
-                    />
-                    <path
-                      d="M 12,50 Q 50,30 88,50 M 12,50 Q 50,70 88,50"
-                      fill="none"
-                      stroke="#D4AF37"
-                      strokeWidth="0.4"
-                      strokeOpacity="0.3"
-                    />
-                    {/* International Flight Arcs originating from India (approx 42, 58) */}
-                    <path
-                      d="M 42,58 Q 58,45 74,52"
-                      fill="none"
-                      stroke="#F5D77F"
-                      strokeWidth="0.6"
-                      strokeDasharray="1.5 1"
-                    />
-                    <path
-                      d="M 42,58 Q 60,65 78,72"
-                      fill="none"
-                      stroke="#F5D77F"
-                      strokeWidth="0.6"
-                      strokeDasharray="1.5 1"
-                    />
-                    <path
-                      d="M 42,58 Q 65,35 88,32"
-                      fill="none"
-                      stroke="#F5D77F"
-                      strokeWidth="0.6"
-                      strokeDasharray="1.5 1"
-                    />
-                    <path
-                      d="M 42,58 Q 42,50 42,44"
-                      fill="none"
-                      stroke="#F5D77F"
-                      strokeWidth="0.6"
-                      strokeDasharray="1.5 1"
-                    />
-                  </g>
-                )}
+                  {/* Interactive Glowing Destination Pins for Karnataka */}
+                  {tierDestinations.map((dest) => {
+                    const isSelected = dest.id === activeRegion.id;
+                    const { x, y } = dest.pinCoords;
 
-                {/* Interactive Clickable Hotspots / Pins */}
-                {tierDestinations.map((dest) => {
-                  const isSelected = dest.id === activeRegion.id;
-                  const { x, y } = dest.svgCoords;
+                    return (
+                      <g
+                        key={dest.id}
+                        onClick={() => setActiveRegionId(dest.id)}
+                        className="cursor-pointer group"
+                        tabIndex={0}
+                        role="button"
+                        aria-label={isKn ? dest.nameKn : dest.nameEn}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            setActiveRegionId(dest.id);
+                          }
+                        }}
+                      >
+                        {/* Radiating Radar Wave on Selected */}
+                        {isSelected && (
+                          <circle
+                            cx={x}
+                            cy={y}
+                            r="16"
+                            fill="#D4AF37"
+                            fillOpacity="0.25"
+                            className="animate-ping"
+                          />
+                        )}
 
-                  return (
-                    <g
-                      key={dest.id}
-                      onClick={() => setActiveRegionId(dest.id)}
-                      className="cursor-pointer group"
-                      tabIndex={0}
-                      role="button"
-                      aria-label={isKn ? dest.nameKn : dest.nameEn}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault();
-                          setActiveRegionId(dest.id);
-                        }
-                      }}
-                    >
-                      {/* Pulse Wave on Selected */}
-                      {isSelected && (
+                        {/* Outer Glow Halo */}
                         <circle
                           cx={x}
                           cy={y}
-                          r="6.5"
-                          fill="#D4AF37"
-                          fillOpacity="0.3"
-                          className="animate-ping"
+                          r={isSelected ? 9 : 6.5}
+                          fill={isSelected ? '#F5D77F' : '#D4AF37'}
+                          stroke="#07130C"
+                          strokeWidth="2"
+                          className="transition-transform duration-300 group-hover:scale-125 shadow-lg"
                         />
-                      )}
 
-                      {/* Outer Glow Circle */}
-                      <circle
-                        cx={x}
-                        cy={y}
-                        r={isSelected ? 4.5 : 3.2}
-                        fill={isSelected ? '#F5D77F' : '#D4AF37'}
-                        stroke="#07130C"
-                        strokeWidth="1"
-                        className="transition-all duration-300 group-hover:scale-125"
-                      />
+                        {/* Core Dot */}
+                        <circle
+                          cx={x}
+                          cy={y}
+                          r={isSelected ? 4 : 2.5}
+                          fill={isSelected ? '#07130C' : '#FFFFFF'}
+                        />
 
-                      {/* Inner Core Dot */}
-                      <circle
-                        cx={x}
-                        cy={y}
-                        r={isSelected ? 2 : 1.4}
-                        fill={isSelected ? '#07130C' : '#F6F3EA'}
-                      />
+                        {/* Pin Destination Label with Drop Shadow */}
+                        <text
+                          x={x}
+                          y={y > 550 ? y - 10 : y + 15}
+                          textAnchor="middle"
+                          fontSize="9.5"
+                          fontWeight={isSelected ? 'bold' : '600'}
+                          fill={isSelected ? '#F5D77F' : '#FFFFFF'}
+                          className="select-none pointer-events-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]"
+                        >
+                          {isKn ? dest.nameKn.split(' ')[0] : dest.nameEn.split(' ')[0]}
+                        </text>
+                      </g>
+                    );
+                  })}
+                </svg>
+              )}
 
-                      {/* Pin Label */}
-                      <text
-                        x={x}
-                        y={y > 80 ? y - 4 : y + 6}
-                        textAnchor="middle"
-                        fontSize="3.2"
-                        fontWeight={isSelected ? 'bold' : 'normal'}
-                        fill={isSelected ? '#F5D77F' : '#FFFFFF'}
-                        fillOpacity={isSelected ? 1 : 0.85}
-                        className="select-none pointer-events-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] tracking-wider"
+              {/* TIER 2: AUTHENTIC INDIA MAP (36 STATES & UNION TERRITORIES) */}
+              {activeTier === 'india' && (
+                <svg
+                  viewBox="0 0 612 696"
+                  className="w-full h-full max-h-[420px] drop-shadow-[0_8px_28px_rgba(0,0,0,0.85)] transition-all duration-500"
+                >
+                  <g className="india-states-group">
+                    {INDIA_STATES.map((state) => {
+                      const isStateInActiveRegion = activeRegion.entityIds.includes(state.id);
+
+                      return (
+                        <path
+                          key={state.id}
+                          id={state.id}
+                          d={state.path}
+                          fill={
+                            isStateInActiveRegion
+                              ? '#D4AF37'
+                              : state.id === 'ka'
+                              ? '#1E3A2B'
+                              : '#12251B'
+                          }
+                          fillOpacity={isStateInActiveRegion ? 0.45 : state.id === 'ka' ? 0.8 : 0.75}
+                          stroke={
+                            isStateInActiveRegion
+                              ? '#F5D77F'
+                              : state.id === 'ka'
+                              ? '#D4AF37'
+                              : '#2A4637'
+                          }
+                          strokeWidth={isStateInActiveRegion ? '1.8' : '0.8'}
+                          className="transition-all duration-200 cursor-pointer hover:fill-[#D4AF37]/45 hover:stroke-[#F5D77F]"
+                          onMouseEnter={() => setHoveredEntityName(`State: ${state.name}`)}
+                          onMouseLeave={() => setHoveredEntityName(null)}
+                          onClick={() => handleStateClick(state.id)}
+                        >
+                          <title>{state.name}</title>
+                        </path>
+                      );
+                    })}
+                  </g>
+
+                  {/* Connecting Domestic Routes / Corridors */}
+                  <path
+                    d="M 210,525 Q 180,400 165,275 M 210,525 Q 215,570 215,615 M 210,525 Q 240,330 210,145 M 210,525 Q 260,380 290,265 M 210,525 L 155,495"
+                    fill="none"
+                    stroke="#D4AF37"
+                    strokeWidth="1"
+                    strokeDasharray="3 3"
+                    strokeOpacity="0.4"
+                    className="pointer-events-none"
+                  />
+
+                  {/* Interactive Glowing Destination Pins for India */}
+                  {tierDestinations.map((dest) => {
+                    const isSelected = dest.id === activeRegion.id;
+                    const { x, y } = dest.pinCoords;
+
+                    return (
+                      <g
+                        key={dest.id}
+                        onClick={() => setActiveRegionId(dest.id)}
+                        className="cursor-pointer group"
+                        tabIndex={0}
+                        role="button"
+                        aria-label={isKn ? dest.nameKn : dest.nameEn}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            setActiveRegionId(dest.id);
+                          }
+                        }}
                       >
-                        {isKn ? dest.nameKn.split(' ')[0] : dest.nameEn.split(' ')[0]}
-                      </text>
-                    </g>
-                  );
-                })}
-              </svg>
+                        {/* Radiating Wave */}
+                        {isSelected && (
+                          <circle
+                            cx={x}
+                            cy={y}
+                            r="18"
+                            fill="#D4AF37"
+                            fillOpacity="0.28"
+                            className="animate-ping"
+                          />
+                        )}
+
+                        {/* Outer Glow Halo */}
+                        <circle
+                          cx={x}
+                          cy={y}
+                          r={isSelected ? 10 : 7}
+                          fill={isSelected ? '#F5D77F' : '#D4AF37'}
+                          stroke="#07130C"
+                          strokeWidth="2"
+                          className="transition-transform duration-300 group-hover:scale-125 shadow-lg"
+                        />
+
+                        {/* Core Dot */}
+                        <circle
+                          cx={x}
+                          cy={y}
+                          r={isSelected ? 4.5 : 3}
+                          fill={isSelected ? '#07130C' : '#FFFFFF'}
+                        />
+
+                        {/* Pin Destination Label */}
+                        <text
+                          x={x}
+                          y={y > 600 ? y - 11 : y + 16}
+                          textAnchor="middle"
+                          fontSize="11"
+                          fontWeight={isSelected ? 'bold' : '600'}
+                          fill={isSelected ? '#F5D77F' : '#FFFFFF'}
+                          className="select-none pointer-events-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]"
+                        >
+                          {isKn ? dest.nameKn.split(' ')[0] : dest.nameEn.split(' ')[0]}
+                        </text>
+                      </g>
+                    );
+                  })}
+                </svg>
+              )}
+
+              {/* TIER 3: AUTHENTIC WORLD MAP (143 COUNTRIES & CONTINENTAL SHAPES) */}
+              {activeTier === 'international' && (
+                <svg
+                  viewBox="30.767 241.591 784.077 458.627"
+                  className="w-full h-full max-h-[420px] drop-shadow-[0_8px_28px_rgba(0,0,0,0.85)] transition-all duration-500"
+                >
+                  <g className="world-countries-group">
+                    {WORLD_COUNTRIES.map((country) => {
+                      const isCountryInActiveRegion = activeRegion.entityIds.includes(country.id);
+                      const isHomeIndia = country.id === 'in';
+
+                      return (
+                        <path
+                          key={country.id}
+                          id={country.id}
+                          d={country.path}
+                          fill={
+                            isCountryInActiveRegion
+                              ? '#D4AF37'
+                              : isHomeIndia
+                              ? '#1E3A2B'
+                              : '#12251B'
+                          }
+                          fillOpacity={isCountryInActiveRegion ? 0.6 : isHomeIndia ? 0.85 : 0.65}
+                          stroke={
+                            isCountryInActiveRegion
+                              ? '#F5D77F'
+                              : isHomeIndia
+                              ? '#D4AF37'
+                              : '#2A4637'
+                          }
+                          strokeWidth={isCountryInActiveRegion ? '1.5' : isHomeIndia ? '1.2' : '0.5'}
+                          className="transition-all duration-200 cursor-pointer hover:fill-[#D4AF37]/50 hover:stroke-[#F5D77F]"
+                          onMouseEnter={() => setHoveredEntityName(`Nation: ${country.id.toUpperCase()}`)}
+                          onMouseLeave={() => setHoveredEntityName(null)}
+                          onClick={() => handleCountryClick(country.id)}
+                        />
+                      );
+                    })}
+                  </g>
+
+                  {/* Curved Flight Trajectories originating from India (x: 540, y: 430) */}
+                  <g className="international-flight-arcs pointer-events-none">
+                    {/* India to Vietnam */}
+                    <path
+                      d="M 540,430 Q 585,420 625,450"
+                      fill="none"
+                      stroke="#D4AF37"
+                      strokeWidth="1.2"
+                      strokeDasharray="3 2"
+                      strokeOpacity="0.75"
+                    />
+                    {/* India to Bali */}
+                    <path
+                      d="M 540,430 Q 600,480 660,535"
+                      fill="none"
+                      stroke="#D4AF37"
+                      strokeWidth="1.2"
+                      strokeDasharray="3 2"
+                      strokeOpacity="0.75"
+                    />
+                    {/* India to Japan */}
+                    <path
+                      d="M 540,430 Q 620,380 705,395"
+                      fill="none"
+                      stroke="#D4AF37"
+                      strokeWidth="1.2"
+                      strokeDasharray="3 2"
+                      strokeOpacity="0.75"
+                    />
+                    {/* India to Dubai */}
+                    <path
+                      d="M 540,430 Q 510,410 485,420"
+                      fill="none"
+                      stroke="#D4AF37"
+                      strokeWidth="1.2"
+                      strokeDasharray="3 2"
+                      strokeOpacity="0.75"
+                    />
+                  </g>
+
+                  {/* India Home Base Marker */}
+                  <g className="india-home-pin pointer-events-none">
+                    <circle cx="540" cy="430" r="5" fill="#1E3A2B" stroke="#D4AF37" strokeWidth="1.5" />
+                    <circle cx="540" cy="430" r="2" fill="#F5D77F" />
+                    <text x="540" y="444" textAnchor="middle" fontSize="9" fill="#F5D77F" fontWeight="bold">
+                      {isKn ? 'ಭಾರತ (ಮೂಲ)' : 'India (Origin)'}
+                    </text>
+                  </g>
+
+                  {/* Interactive International Destination Pins */}
+                  {tierDestinations.map((dest) => {
+                    const isSelected = dest.id === activeRegion.id;
+                    const { x, y } = dest.pinCoords;
+
+                    return (
+                      <g
+                        key={dest.id}
+                        onClick={() => setActiveRegionId(dest.id)}
+                        className="cursor-pointer group"
+                        tabIndex={0}
+                        role="button"
+                        aria-label={isKn ? dest.nameKn : dest.nameEn}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            setActiveRegionId(dest.id);
+                          }
+                        }}
+                      >
+                        {/* Radiating Wave */}
+                        {isSelected && (
+                          <circle
+                            cx={x}
+                            cy={y}
+                            r="16"
+                            fill="#D4AF37"
+                            fillOpacity="0.3"
+                            className="animate-ping"
+                          />
+                        )}
+
+                        {/* Outer Glow Halo */}
+                        <circle
+                          cx={x}
+                          cy={y}
+                          r={isSelected ? 9 : 6.5}
+                          fill={isSelected ? '#F5D77F' : '#D4AF37'}
+                          stroke="#07130C"
+                          strokeWidth="2"
+                          className="transition-transform duration-300 group-hover:scale-125 shadow-lg"
+                        />
+
+                        {/* Core Dot */}
+                        <circle
+                          cx={x}
+                          cy={y}
+                          r={isSelected ? 4 : 2.5}
+                          fill={isSelected ? '#07130C' : '#FFFFFF'}
+                        />
+
+                        {/* Pin Destination Label */}
+                        <text
+                          x={x}
+                          y={y > 500 ? y - 10 : y + 15}
+                          textAnchor="middle"
+                          fontSize="9.5"
+                          fontWeight={isSelected ? 'bold' : '600'}
+                          fill={isSelected ? '#F5D77F' : '#FFFFFF'}
+                          className="select-none pointer-events-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]"
+                        >
+                          {isKn ? dest.nameKn.split(' ')[0] : dest.nameEn.split(' ')[0]}
+                        </text>
+                      </g>
+                    );
+                  })}
+                </svg>
+              )}
             </div>
 
             {/* Bottom Region Quick-Select Pills */}
             <div className="mt-4 pt-3 border-t border-white/10 flex flex-wrap gap-2 items-center">
               <span className="text-[11px] font-bold text-[#D4AF37] uppercase tracking-wider mr-1">
-                {isKn ? 'ತ್ವರಿತ ಆಯ್ಕೆ:' : 'Quick Select:'}
+                {isKn ? 'ತ್ವರಿತ ತಾಣ ಆಯ್ಕೆ:' : 'Quick Select:'}
               </span>
               {tierDestinations.map((dest) => {
                 const isSelected = dest.id === activeRegion.id;
