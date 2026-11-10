@@ -853,3 +853,34 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
 - **Production Build**: `npm run build` compiled cleanly in **683ms**.
 - **Playwright Measurement**: Verified `diffTop: 0px` and `diffHeight: 0px` between `ENQUIRE NOW` and `EXPLORE DESTINATIONS`.
 - **Playwright Scroll & Hover Testing**: Verified smooth scroll progress tracking, hover tooltip reveal (`Top ↑`), and click action returning scroll position cleanly to `scrollY = 0`.
+
+---
+
+### Cycle 28: 100vh Full-Bleed Landing Page Viewport Coverage & Hero Button Precision Alignment
+**Date**: November 10, 2026  
+**Status**: Completed & Verified  
+
+#### 1. Addressed User-Marked Issues & Feedback
+1. **Landing Page Cutoff / White Seam at Viewport Bottom ("the landing page isnt fully covered properly")**:
+   - **Root Cause**: The `.hero` section in `src/index.css` had a restrictive `min-height: min(740px, 90svh)` desktop rule (and `min-height: 760px` in media queries). On modern monitors and laptops with viewports between 800px and 1080px (e.g. 1440×900, 1920×1080), the hero stopped at 740px, exposing 160px–340px of the light cream background and Kolam pattern of the next section (`.trust`). Furthermore, the floating art direction dock (which anchors at `bottom-5`) hung awkwardly across the boundary seam between the dark green hero and the light cream background.
+   - **Resolution**:
+     - Upgraded `.hero` and `.hero__content` in `src/index.css` to `min-height: 100vh; min-height: 100dvh;` across base styles and media queries.
+     - Adjusted `.hero__content` vertical padding to `padding-top: max(88px, 11vh); padding-bottom: max(64px, 9vh);` with centered flex alignment (`justify-content: center`).
+     - Enhanced `.hero__shade` bottom gradient (`linear-gradient(0deg, rgb(8 20 13 / 85%) 0%, transparent 45%, rgb(5 15 9 / 35%) 100%)`) to create a rich, seamless deep evergreen base behind the floating art direction dock.
+     - Verified with Playwright: On a 1440×900 viewport, `heroHeight: 900px`, `isHeroCoveringFullViewport: true`; on 1920×1080, `heroHeight: 1080px`, `isHeroCoveringFullViewport: true`. Zero white/cream gap visible at the bottom of the landing page.
+
+2. **Hero Action Buttons Alignment ("not aligned correctly")**:
+   - **Root Cause**: The `.hero__actions` container lacked `align-items: center`, and the hero buttons in `src/components/HomeSections.tsx` lacked fixed height contracts, matching padding, and `leading-none`. In Kannada mode, font glyph variations (vowels and sub-consonant ottu diacritics) caused optical and vertical alignment drift between the gold and outline buttons.
+   - **Resolution**:
+     - Updated `.hero__actions` in `src/index.css` to include `align-items: center` and `gap: 14px`.
+     - Standardized both hero buttons in `src/components/HomeSections.tsx` with identical geometry contracts: `!m-0 h-12 min-h-[48px] inline-flex items-center justify-center gap-2.5 py-3 px-7 rounded-xl`, uppercase bold tracking, and `leading-none`.
+     - Verified with Playwright across both English and Kannada modes: `diffTop = 0.00px` and `diffHeight = 0.00px`.
+
+#### 2. Verification Results
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled cleanly in **671ms**.
+- **Playwright Full-Bleed Coverage Test**:
+  - 1440×900 Desktop: Confirmed `heroHeight: 900px` (100% viewport coverage).
+  - 1920×1080 Full HD: Confirmed `heroHeight: 1080px` (100% viewport coverage).
+  - 390×844 Mobile: Confirmed `heroHeight: 845px` (100% viewport coverage).
+- **Playwright Button Alignment Test**: Confirmed 0px offset and identical 48px height across both buttons in Kannada and English modes.

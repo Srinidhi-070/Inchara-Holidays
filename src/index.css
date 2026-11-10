@@ -604,7 +604,8 @@
 /* Hero */
 .hero {
   position: relative;
-  min-height: min(740px, 90svh);
+  min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
   background: #0a1810;
   color: #fff;
@@ -646,11 +647,12 @@
 .hero__content {
   position: relative;
   display: flex;
-  min-height: min(740px, 90svh);
+  min-height: 100vh;
+  min-height: 100dvh;
   flex-direction: column;
   justify-content: center;
-  padding-top: 86px;
-  padding-bottom: 42px;
+  padding-top: max(88px, 11vh);
+  padding-bottom: max(64px, 9vh);
 }
 
 .coordinate {
@@ -694,7 +696,8 @@
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 13px;
+  align-items: center;
+  gap: 14px;
   margin-top: 24px;
 }
 
@@ -1883,7 +1886,8 @@
 
   .hero,
   .hero__content {
-    min-height: 760px;
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .hero__content {
@@ -2019,7 +2023,8 @@
 
   .hero,
   .hero__content {
-    min-height: 720px;
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .hero__image {

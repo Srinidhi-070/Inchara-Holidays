@@ -82,14 +82,21 @@ export function Hero({ locale, onEnquire, concept = "A", hasSelectedConcept = fa
             <em>{titleB}</em>
           </h1>
           <p className="hero__body">{body}</p>
-          <div className="hero__actions">
-            <button className="gold-button" type="button" onClick={() => onEnquire()}>
-              {primaryBtn}
-              <ArrowUpRight />
+          <div className="hero__actions flex flex-wrap items-center gap-3.5 sm:gap-4 mt-6 sm:mt-7">
+            <button
+              className="gold-button group !m-0 h-12 min-h-[48px] inline-flex items-center justify-center gap-2.5 cursor-pointer text-xs font-bold uppercase tracking-wider py-3 px-7 rounded-xl shadow-lg hover:shadow-[0_0_24px_rgba(212,175,55,0.4)] transition-all active:scale-95"
+              type="button"
+              onClick={() => onEnquire()}
+            >
+              <span className="font-bold text-[#12261C] leading-none">{primaryBtn}</span>
+              <ArrowUpRight className="w-4 h-4 text-[#12261C] stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </button>
-            <a className="outline-button" href="#services">
-              {secondaryBtn}
-              <ArrowRight />
+            <a
+              className="outline-button group !m-0 h-12 min-h-[48px] inline-flex items-center justify-center gap-2.5 text-white border border-[#D4AF37]/50 hover:border-[#F5D77F] hover:text-[#F5D77F] bg-white/5 hover:bg-white/10 transition-all py-3 px-7 rounded-xl text-xs uppercase font-bold tracking-wider cursor-pointer backdrop-blur-xs active:scale-95"
+              href="#services"
+            >
+              <span className="leading-none">{secondaryBtn}</span>
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-2" />
             </a>
           </div>
         </div>
