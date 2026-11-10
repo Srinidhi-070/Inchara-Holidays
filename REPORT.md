@@ -1150,3 +1150,38 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - Contact modal, Cultural Etiquette modal, Privacy Policy modal, and Terms modal verified.
   - Admin Dashboard authentication, Customers directory, and Business Settings verified.
 
+---
+
+### Cycle 34: Hero Visual Scaling & Direct Contact Window Proportionality Refinement
+**Date**: November 10, 2026  
+**Status**: Completed & Verified  
+
+#### 1. Core Directives Addressed
+1. **Landing Page Hero Content Scaling**:
+   - Elevated `.hero h1` typography from `clamp(30px, 3.4vw, 50px)` to `clamp(46px, 5.2vw, 78px)` on desktop with `line-height: 1.05`, giving the hero statement ("Discover India, *beyond the ordinary.*") grand, cinematic presence matching the landscape.
+   - Synchronized Kannada hero headline `.app.font-kannada .hero h1` to `clamp(40px, 4.6vw, 68px)` with `max-width: 880px` and `line-height: 1.25`.
+   - Scaled `.hero__main` width to `min(920px, 80vw)` and `.hero__body` to `min(650px, 100%)` with font-size `clamp(16px, 1.3vw, 20px)`.
+   - Scaled eyebrow to `clamp(12px, 0.95vw, 14px)` with `letter-spacing: 0.22em`.
+   - Upgraded hero CTA buttons in `HomeSections.tsx` to `h-13 sm:h-14 min-h-[52px] sm:min-h-[56px] py-3.5 sm:py-4 px-7 sm:px-8 text-xs sm:text-sm` with larger icons and active states.
+   - Preserved balanced responsive scaling across Tablet (`clamp(38px, 8.5vw, 56px)`) and Mobile (`clamp(32px, 8.5vw, 42px)`).
+
+2. **Direct Advisory & Contact Window Compactness (`ContactModal.tsx`)**:
+   - Re-architected modal footprint from oversized `max-w-2xl` (672px) down to sleek, centered `max-w-lg` (512px) with `max-h-[92vh]`.
+   - Streamlined header padding from `p-6 sm:p-8` down to `p-4 sm:p-5`, reducing heading size to `text-lg sm:text-xl` and subtitle to `text-[11px] sm:text-xs`.
+   - Resized solo operator curator card from bulky `p-5` with `w-14 h-14` avatar down to a refined `p-3` card with `w-10 h-10` circular seal and `w-5 h-5` Ambari Elephant motif.
+   - Compacted contact channel cards (WhatsApp, Direct Call, Official Email, Operating Hours) from `p-4` with `w-10 h-10` icons to `p-2.5` with `w-8 h-8` icon bubbles and `text-[9px]` / `text-xs` typography.
+   - Compacted registered office card and footer actions (`py-2 px-4 text-[11px]`).
+   - Modal now fits comfortably within standard desktop (1440×900, 1366×768) and mobile (390×844) viewports without overwhelming the screen or forcing unnecessary scrollbars.
+
+#### 2. Verification Summary
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled cleanly in **761ms**.
+- **Visual QA via Playwright**:
+  - `hero-desktop-1440.png`: Hero headline and CTA buttons prominent, balanced, and cinematic at 1440×900.
+  - `hero-kannada-1440.png`: Kannada mode hero rendering verified with zero text overlap or clipping.
+  - `contact-modal-desktop.png`: ContactModal verified at 1440×900 with compact dimensions, crisp spacing, and clear hierarchy.
+  - `contact-modal-en-desktop.png`: English ContactModal verified with clean alignment and touchpoints.
+  - `contact-modal-mobile-390.png`: Mobile view at 390×844 verified with all cards legible and no overflow.
+  - `hero-mobile-390-clean.png`: Mobile hero verified with bold headline, large touch targets, and balanced dock spacing.
+
+
