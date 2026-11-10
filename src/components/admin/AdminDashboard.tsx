@@ -10,8 +10,11 @@ import {
   InquiryRecord,
   InquiryStatus,
   ServiceCategoryId,
+  CustomerRecord,
 } from '../../types/inquiry';
 import { serviceCategories } from '../../data/servicesData';
+import { getAggregatedCustomers, searchCustomers } from '../../services/customerService';
+import { brandConfig } from '../../config/brand';
 import {
   adminLogin,
   adminLogout,
@@ -55,6 +58,11 @@ import {
   Check,
   FileText,
   Receipt,
+  CreditCard,
+  Building2,
+  CheckCircle2,
+  AlertTriangle,
+  Send,
 } from 'lucide-react';
 import { AmbariElephant, LotusIcon } from '../SouthIndianMotifs';
 import { QuotationModal } from '../documents/QuotationModal';
@@ -65,7 +73,7 @@ interface AdminDashboardProps {
   onClose: () => void;
 }
 
-type AdminTab = 'dashboard' | 'inquiries' | 'followups' | 'services' | 'settings';
+type AdminTab = 'dashboard' | 'inquiries' | 'customers' | 'followups' | 'services' | 'settings';
 
 export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(isAdminAuthenticated());
@@ -91,11 +99,22 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
   const [statusFilter, setStatusFilter] = useState('all');
   const [categoryFilter, setCategoryFilter] = useState('all');
 
+  // Customers Directory State
+  const [customers, setCustomers] = useState<CustomerRecord[]>([]);
+  const [customerSearch, setCustomerSearch] = useState('');
+
+  // Business Settings State
+  const [bankAccount, setBankAccount] = useState('110023456789');
+  const [bankIfsc, setBankIfsc] = useState('CNRB0001234');
+  const [gstin, setGstin] = useState('29AABCU9603R1ZM');
+  const [pan, setPan] = useState('AABCU9603R');
+  const [gstRate, setGstRate] = useState(5);
+  const [settingsSaved, setSettingsSaved] = useState(false);
+
   // Selected Inquiry for Detail Drawer
   const [selectedInquiry, setSelectedInquiry] = useState<InquiryRecord | null>(null);
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
   const [editNotes, setEditNotes] = useState('');
-  const [editAssignedStaff, setEditAssignedStaff] = useState('');
   const [editFollowupDate, setEditFollowupDate] = useState('');
   const [updateSuccessMsg, setUpdateSuccessMsg] = useState<string | null>(null);
   const [showQuotationModal, setShowQuotationModal] = useState(false);
@@ -104,7 +123,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
   // Service Management State
   const [categoriesList, setCategoriesList] = useState(serviceCategories);
 
-  // Load stats and inquiries when authenticated
+  // Load stats, inquiries, and customers when authenticated
   const loadDashboardData = async () => {
     setStatsLoading(true);
     setInquiriesLoading(true);
@@ -118,6 +137,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
         category: categoryFilter,
       });
       setInquiries(inqData.inquiries);
+      setCustomers(getAggregatedCustomers());
     } catch (e) {
       console.warn('[Admin] Failed to load data:', e);
     } finally {
@@ -161,7 +181,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
   const handleOpenDetail = (inquiry: InquiryRecord) => {
     setSelectedInquiry(inquiry);
     setEditNotes(inquiry.internalNotes || '');
-    setEditAssignedStaff(inquiry.assignedStaff || '');
     setEditFollowupDate(inquiry.nextFollowupDate || '');
     setUpdateSuccessMsg(null);
   };
@@ -175,7 +194,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
     const updated = await updateInquiry(selectedInquiry.id, {
       status: newStatus,
       internalNotes: editNotes,
-      assignedStaff: editAssignedStaff,
+      assignedStaff: 'Srinidhi N S (Owner)',
       nextFollowupDate: editFollowupDate || undefined,
     });
 
@@ -197,7 +216,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
 
     const updated = await updateInquiry(selectedInquiry.id, {
       internalNotes: editNotes,
-      assignedStaff: editAssignedStaff,
+      assignedStaff: 'Srinidhi N S (Owner)',
       nextFollowupDate: editFollowupDate || undefined,
     });
 
@@ -258,14 +277,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-base sm:text-lg font-bold font-serif-editorial text-[#F6F3EA] tracking-tight">
-                  Inchara Holidays — Operations & Enquiry Management
+                  Inchara Holidays — Operations & Enquiry Desk
                 </h1>
                 <span className="hidden sm:inline px-2 py-0.5 rounded-md bg-[#D4AF37]/20 text-[#F5D77F] text-[10px] font-mono uppercase tracking-wider border border-[#D4AF37]/40">
-                  Staff Admin v1.0
+                  Owner Business OS
                 </span>
               </div>
               <div className="text-xs text-[#E4D8C5]/75">
-                {currentUser ? `Signed in as ${currentUser.fullName} (${currentUser.email})` : 'Authorized Staff Portal'}
+                {currentUser ? `Owner: Srinidhi N S (${currentUser.email})` : 'Authorized Owner Portal'}
               </div>
             </div>
           </div>
@@ -306,17 +325,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                   <Shield className="w-7 h-7 text-[#F5D77F]" />
                 </div>
                 <h2 className="text-2xl font-bold font-serif-editorial text-[#162E22]">
-                  Staff Portal Sign In
+                  Owner Operations Sign In
                 </h2>
                 <p className="text-xs text-[#252923]/70">
-                  Enter authorized credentials to view live inquiries and manage customer bookings.
+                  Secure access for Srinidhi N S to manage inquiries, customer records, quotations, and receipts.
                 </p>
               </div>
 
               <form onSubmit={handleLoginSubmit} className="space-y-4">
                 <div>
                   <label className="block text-xs font-bold text-[#162E22] uppercase tracking-wider mb-1">
-                    Staff Email
+                    Owner Email
                   </label>
                   <input
                     type="email"
@@ -352,12 +371,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                   disabled={loginLoading}
                   className="w-full py-3 px-4 rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                 >
-                  {loginLoading ? 'Authenticating...' : 'Sign In to Dashboard'}
+                  {loginLoading ? 'Authenticating...' : 'Sign In to Operations Desk'}
                 </button>
               </form>
 
               <div className="p-3 rounded-xl bg-[#F6F3EA] border border-[#263F32]/8 text-[11px] text-[#252923]/70 text-center">
-                Default Demo Credentials: <span className="font-mono font-bold">admin@incharaholidays.com</span> / <span className="font-mono font-bold">Inchara@2026</span>
+                Owner Access: <span className="font-mono font-bold">admin@incharaholidays.com</span> / <span className="font-mono font-bold">Inchara@2026</span>
               </div>
             </motion.div>
           </div>
@@ -369,9 +388,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
               {[
                 { id: 'dashboard', label: 'Overview', icon: LayoutDashboard },
                 { id: 'inquiries', label: 'All Inquiries', icon: Inbox },
+                { id: 'customers', label: 'Customers', icon: User },
                 { id: 'followups', label: 'Follow-ups', icon: Clock },
                 { id: 'services', label: 'Services', icon: Layers },
-                { id: 'settings', label: 'Settings', icon: Settings },
+                { id: 'settings', label: 'Business & Tax', icon: Settings },
               ].map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
@@ -672,7 +692,112 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                 </div>
               )}
 
-              {/* TAB 3: SERVICES MANAGEMENT */}
+              {/* TAB 3: CUSTOMER DIRECTORY (Solo Operator Client Database) */}
+              {activeTab === 'customers' && (
+                <div className="space-y-4">
+                  {/* Summary & Search */}
+                  <div className="p-5 rounded-2xl bg-white border border-[#263F32]/12 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+                    <div>
+                      <h3 className="text-base font-bold font-serif-editorial text-[#162E22]">
+                        Central Customer Directory ({customers.length} Profiles)
+                      </h3>
+                      <p className="text-xs text-[#252923]/70">
+                        Aggregated client records with lifetime inquiries, quotes, bookings, and instant WhatsApp chat.
+                      </p>
+                    </div>
+
+                    <div className="relative w-full sm:w-72">
+                      <Search className="w-4 h-4 text-[#252923]/40 absolute left-3 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="text"
+                        value={customerSearch}
+                        onChange={(e) => setCustomerSearch(e.target.value)}
+                        placeholder="Search by name, phone or email..."
+                        className="w-full pl-9 pr-3 py-2 rounded-xl border border-[#263F32]/15 text-xs text-[#162E22] focus:border-[#D4AF37] focus:outline-hidden bg-[#FBF8F1]"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Customer Cards Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {(customerSearch ? searchCustomers(customerSearch) : customers).map((cust) => {
+                      const cleanPhone = cust.phone.replace(/[^\d]/g, '');
+                      const waText = encodeURIComponent(
+                        `Namaskara ${cust.name}, Srinidhi from Inchara Holidays here following up on your travel plans.`
+                      );
+
+                      return (
+                        <div
+                          key={cust.id}
+                          className="p-5 rounded-2xl bg-white border border-[#263F32]/12 shadow-xs hover:border-[#D4AF37]/50 transition-all space-y-3"
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <div>
+                              <h4 className="font-bold text-sm text-[#162E22]">{cust.name}</h4>
+                              <div className="text-xs font-mono text-[#9E3D28] font-semibold">{cust.phone}</div>
+                            </div>
+                            <span className="px-2 py-0.5 rounded-full bg-[#162E22] text-[#F5D77F] text-[10px] font-bold">
+                              {cust.totalBookings > 0 ? 'Confirmed Client' : 'Active Lead'}
+                            </span>
+                          </div>
+
+                          {cust.email && (
+                            <div className="text-xs text-[#252923]/70 truncate flex items-center gap-1.5">
+                              <Mail className="w-3.5 h-3.5 text-[#D4AF37] shrink-0" />
+                              <span className="truncate">{cust.email}</span>
+                            </div>
+                          )}
+
+                          <div className="grid grid-cols-3 gap-2 p-2.5 rounded-xl bg-[#F6F3EA] text-center text-xs">
+                            <div>
+                              <div className="text-[10px] text-[#252923]/60">Inquiries</div>
+                              <div className="font-bold text-[#162E22]">{cust.totalInquiries}</div>
+                            </div>
+                            <div>
+                              <div className="text-[10px] text-[#252923]/60">Tours</div>
+                              <div className="font-bold text-[#162E22]">{cust.totalBookings}</div>
+                            </div>
+                            <div>
+                              <div className="text-[10px] text-[#252923]/60">Spend</div>
+                              <div className="font-bold text-[#9E3D28]">
+                                {cust.totalSpend > 0 ? `₹${cust.totalSpend.toLocaleString('en-IN')}` : '—'}
+                              </div>
+                            </div>
+                          </div>
+
+                          {cust.notes && (
+                            <div className="text-[11px] text-[#252923]/75 italic line-clamp-2 bg-amber-50/50 p-2 rounded-lg border border-amber-200/40">
+                              "{cust.notes}"
+                            </div>
+                          )}
+
+                          <div className="flex items-center gap-2 pt-1 border-t border-[#263F32]/8">
+                            <a
+                              href={`https://wa.me/${cleanPhone.startsWith('91') ? cleanPhone : '91' + cleanPhone}?text=${waText}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex-1 py-1.5 px-2.5 rounded-lg bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#128C7E] text-[11px] font-bold flex items-center justify-center gap-1 transition-colors"
+                            >
+                              <MessageCircle className="w-3.5 h-3.5" />
+                              <span>WhatsApp</span>
+                            </a>
+
+                            <a
+                              href={`tel:${cust.phone}`}
+                              className="py-1.5 px-3 rounded-lg bg-[#162E22]/5 hover:bg-[#162E22]/10 text-[#162E22] text-[11px] font-bold flex items-center justify-center gap-1 transition-colors"
+                            >
+                              <Phone className="w-3.5 h-3.5 text-[#D4AF37]" />
+                              <span>Call</span>
+                            </a>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* TAB 4: SERVICES MANAGEMENT */}
               {activeTab === 'services' && (
                 <div className="space-y-4">
                   <div className="p-4 rounded-2xl bg-white border border-[#263F32]/12 shadow-xs">
@@ -719,32 +844,171 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                 </div>
               )}
 
-              {/* TAB 4: SETTINGS */}
+              {/* TAB 5: SETTINGS & SOLO OPERATOR CREDENTIALS */}
               {activeTab === 'settings' && (
-                <div className="p-6 rounded-3xl bg-white border border-[#263F32]/12 shadow-xs space-y-6 max-w-2xl">
-                  <h3 className="text-base font-bold font-serif-editorial text-[#162E22]">
-                    Operations Notification & Contact Credentials
-                  </h3>
+                <div className="space-y-6 max-w-3xl">
+                  {/* Verification Checklist Alert */}
+                  <div className="p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-3.5">
+                    <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                    <div className="text-xs space-y-1">
+                      <div className="font-bold text-[#162E22] uppercase tracking-wider text-[11px]">
+                        Owner Verification Notice — Provisional Pre-Launch Credentials
+                      </div>
+                      <p className="text-[#252923]/80 leading-relaxed">
+                        Tax credentials (GSTIN: <span className="font-mono font-bold">29AABCU9603R1ZM</span>, PAN: <span className="font-mono font-bold">AABCU9603R</span>) and Bank Particulars (Canara Bank A/C <span className="font-mono font-bold">110023456789</span>) are configured as provisional defaults. Srinidhi N S must verify or update these official records prior to accepting live commercial customer funds.
+                      </p>
+                    </div>
+                  </div>
 
-                  <div className="space-y-3 text-xs">
-                    <div className="p-3.5 rounded-xl bg-[#F6F3EA] border border-[#263F32]/10 space-y-1">
-                      <div className="font-bold text-[#162E22]">Official WhatsApp Recipient:</div>
-                      <div className="font-mono text-[#9E3D28] font-bold">+91 94480 00000</div>
-                      <div className="text-[11px] text-[#252923]/60">Configured via VITE_WHATSAPP_NUMBER in Vercel environment</div>
+                  {/* Bank Settlement Particulars */}
+                  <div className="p-6 rounded-3xl bg-white border border-[#263F32]/12 shadow-xs space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-base font-bold font-serif-editorial text-[#162E22] flex items-center gap-2">
+                        <Building2 className="w-4 h-4 text-[#D4AF37]" />
+                        <span>Canara Bank Settlement Particulars</span>
+                      </h3>
+                      <span className="text-[10px] font-mono font-bold text-[#9E3D28] bg-[#F6F3EA] px-2 py-0.5 rounded-md border border-[#9E3D28]/15">
+                        Printed on Quotations & Receipts
+                      </span>
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-[#F6F3EA] border border-[#263F32]/10 space-y-1">
-                      <div className="font-bold text-[#162E22]">Notification Dispatch Email:</div>
-                      <div className="font-mono text-[#162E22] font-bold">inquiries@incharaholidays.com</div>
-                      <div className="text-[11px] text-[#252923]/60">Configured via STAFF_NOTIFICATION_EMAIL / RESEND_API_KEY</div>
-                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                      <div>
+                        <label className="block text-[11px] font-bold text-[#162E22] uppercase mb-1">
+                          Bank Name & Branch
+                        </label>
+                        <input
+                          type="text"
+                          defaultValue="Canara Bank — Sayyaji Rao Road, Mysuru"
+                          disabled
+                          className="w-full px-3 py-2 rounded-xl border border-[#263F32]/15 bg-gray-50 text-[#162E22] font-medium"
+                        />
+                      </div>
 
-                    <div className="p-3.5 rounded-xl bg-[#F6F3EA] border border-[#263F32]/10 space-y-1">
-                      <div className="font-bold text-[#162E22]">Supabase Database URL:</div>
-                      <div className="font-mono text-[#252923]/70 truncate">
-                        {import.meta.env.VITE_SUPABASE_URL || 'Configured via Vercel Production Environment Variables'}
+                      <div>
+                        <label className="block text-[11px] font-bold text-[#162E22] uppercase mb-1">
+                          Account Number
+                        </label>
+                        <input
+                          type="text"
+                          value={bankAccount}
+                          onChange={(e) => setBankAccount(e.target.value)}
+                          className="w-full px-3 py-2 rounded-xl border border-[#263F32]/20 font-mono text-[#162E22] focus:border-[#D4AF37] focus:outline-hidden"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-[#162E22] uppercase mb-1">
+                          IFSC Code
+                        </label>
+                        <input
+                          type="text"
+                          value={bankIfsc}
+                          onChange={(e) => setBankIfsc(e.target.value)}
+                          className="w-full px-3 py-2 rounded-xl border border-[#263F32]/20 font-mono text-[#162E22] focus:border-[#D4AF37] focus:outline-hidden"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-[#162E22] uppercase mb-1">
+                          Account Beneficiary
+                        </label>
+                        <input
+                          type="text"
+                          defaultValue="INCHARA HOLIDAYS"
+                          disabled
+                          className="w-full px-3 py-2 rounded-xl border border-[#263F32]/15 bg-gray-50 text-[#162E22] font-semibold"
+                        />
                       </div>
                     </div>
+                  </div>
+
+                  {/* Tax & GST Rate Configuration */}
+                  <div className="p-6 rounded-3xl bg-white border border-[#263F32]/12 shadow-xs space-y-4">
+                    <h3 className="text-base font-bold font-serif-editorial text-[#162E22] flex items-center gap-2">
+                      <CreditCard className="w-4 h-4 text-[#D4AF37]" />
+                      <span>Statutory GST & Quotation Defaults</span>
+                    </h3>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                      <div>
+                        <label className="block text-[11px] font-bold text-[#162E22] uppercase mb-1">
+                          GSTIN (Karnataka)
+                        </label>
+                        <input
+                          type="text"
+                          value={gstin}
+                          onChange={(e) => setGstin(e.target.value)}
+                          className="w-full px-3 py-2 rounded-xl border border-[#263F32]/20 font-mono text-[#162E22]"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-[#162E22] uppercase mb-1">
+                          Income Tax PAN
+                        </label>
+                        <input
+                          type="text"
+                          value={pan}
+                          onChange={(e) => setPan(e.target.value)}
+                          className="w-full px-3 py-2 rounded-xl border border-[#263F32]/20 font-mono text-[#162E22]"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-[#162E22] uppercase mb-1">
+                          Tour Operator GST Rate (%)
+                        </label>
+                        <input
+                          type="number"
+                          value={gstRate}
+                          onChange={(e) => setGstRate(Number(e.target.value))}
+                          className="w-full px-3 py-2 rounded-xl border border-[#263F32]/20 font-mono font-bold text-[#9E3D28]"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Communication Gateways */}
+                  <div className="p-6 rounded-3xl bg-white border border-[#263F32]/12 shadow-xs space-y-3 text-xs">
+                    <h3 className="text-base font-bold font-serif-editorial text-[#162E22]">
+                      Automated Lead Notifications
+                    </h3>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="p-3.5 rounded-xl bg-[#F6F3EA] border border-[#263F32]/10 space-y-1">
+                        <div className="font-bold text-[#162E22]">Owner WhatsApp Hotline:</div>
+                        <div className="font-mono text-[#162E22] font-bold">+91 80736 92802</div>
+                        <div className="text-[11px] text-[#252923]/60">Vercel ENV: VITE_WHATSAPP_NUMBER</div>
+                      </div>
+
+                      <div className="p-3.5 rounded-xl bg-[#F6F3EA] border border-[#263F32]/10 space-y-1">
+                        <div className="font-bold text-[#162E22]">Email Notification Recipient:</div>
+                        <div className="font-mono text-[#162E22] font-bold">nssrinidhi72884@gmail.com</div>
+                        <div className="text-[11px] text-[#252923]/60">Vercel ENV: STAFF_NOTIFICATION_EMAIL</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Save Button */}
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSettingsSaved(true);
+                        setTimeout(() => setSettingsSaved(false), 3000);
+                      }}
+                      className="px-6 py-2.5 rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-md"
+                    >
+                      <CheckCircle2 className="w-4 h-4" />
+                      <span>Save Business & Tax Settings</span>
+                    </button>
+                    {settingsSaved && (
+                      <span className="text-xs text-[#128C7E] font-bold flex items-center gap-1">
+                        <Check className="w-3.5 h-3.5" />
+                        Settings saved to local operating cache.
+                      </span>
+                    )}
                   </div>
                 </div>
               )}

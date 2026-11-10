@@ -299,3 +299,95 @@ export interface PaymentRecord {
   notes?: string;
   createdAt: string;
 }
+
+export interface CustomerRecord {
+  id: string;
+  name: string;
+  phone: string;
+  email?: string;
+  city?: string;
+  preferredLanguage?: Language;
+  notes?: string;
+  totalInquiries: number;
+  totalBookings: number;
+  totalSpend: number;
+  lastContactedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface BookingRecord {
+  id: string;
+  bookingReference: string;
+  inquiryId?: string;
+  quotationId?: string;
+  customerName: string;
+  customerPhone: string;
+  customerEmail?: string;
+  destination: string;
+  travelStartDate: string;
+  travelEndDate: string;
+  passengerCount: number;
+  assignedVehicle?: string;
+  driverName?: string;
+  driverPhone?: string;
+  hotelDetails?: string;
+  totalCost: number;
+  advancePaid: number;
+  balancePending: number;
+  pureVegGuarantee: boolean;
+  status: 'confirmed' | 'ongoing' | 'completed' | 'cancelled';
+  specialRequests?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface BusinessSettings {
+  id: string;
+  businessName: string;
+  businessNameKn: string;
+  tagline: string;
+  taglineKn: string;
+  ownerName: string;
+  phonePrimary: string;
+  phoneRaw: string;
+  emailPrimary: string;
+  emailOfficial: string;
+  registeredAddressEn: string;
+  registeredAddressKn: string;
+  regNumber: string;
+  gstin: string;
+  pan: string;
+  bankName: string;
+  bankAccountNumber: string;
+  bankIfsc: string;
+  bankBranch: string;
+  gstRatePercent: number;
+  isVerifiedByOwner: boolean;
+  updatedAt: string;
+}
+
+export interface FaqItem {
+  id: string;
+  category: 'pure_veg' | 'booking_pricing' | 'custom_planning' | 'fleet_safety' | 'educational' | 'cancellation';
+  questionEn: string;
+  questionKn: string;
+  answerEn: string;
+  answerKn: string;
+  sortOrder: number;
+  isActive: boolean;
+}
+
+export interface PromotionItem {
+  id: string;
+  badgeEn: string;
+  badgeKn: string;
+  titleEn: string;
+  titleKn: string;
+  descriptionEn: string;
+  descriptionKn: string;
+  discountCode?: string;
+  validUntil?: string;
+  isActive: boolean;
+}
+

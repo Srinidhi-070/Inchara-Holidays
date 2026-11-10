@@ -16,8 +16,13 @@ import { PackagesSection } from "./components/PackagesSection";
 import { InstitutionalCorporateHighlight } from "./components/InstitutionalCorporateHighlight";
 import { TravelLogisticsAssistance } from "./components/TravelLogisticsAssistance";
 import { CateringShowcase } from "./components/CateringShowcase";
+import { GallerySection } from "./components/GallerySection";
 import { WhyUs } from "./components/WhyUs";
 import { TravellerStories } from "./components/TravellerStories";
+import { FaqSection } from "./components/FaqSection";
+import { ContactModal } from "./components/ContactModal";
+import { TravelGuidesModal } from "./components/TravelGuidesModal";
+import { PrivacyPolicyModal, TermsModal } from "./components/LegalModals";
 import { FloatingActions } from "./components/FloatingActions";
 import { CustomCursor } from "./components/CustomCursor";
 import { ScrollProgressBar } from "./components/ScrollProgressBar";
@@ -46,6 +51,10 @@ export default function App() {
   const [selectedPackage, setSelectedPackage] = useState<SamplePackage | null>(null);
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
   const [adminOpen, setAdminOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
+  const [guidesOpen, setGuidesOpen] = useState(false);
+  const [privacyOpen, setPrivacyOpen] = useState(false);
+  const [termsOpen, setTermsOpen] = useState(false);
   const [concept, setConcept] = useState<Concept>("A");
   const [hasSelectedConcept, setHasSelectedConcept] = useState(false);
 
@@ -143,6 +152,9 @@ export default function App() {
           onOpenCatering={() => openEnquiry("catering")}
         />
 
+        {/* 10B. Curated Visual Moments Gallery */}
+        <GallerySection locale={locale} onEnquire={openEnquiry} />
+
         {/* 11. Why Us / Personal Warmth (Image 3 Reference) */}
         <WhyUs locale={locale} />
 
@@ -151,6 +163,9 @@ export default function App() {
 
         {/* 11. Customer Reflections / Stories */}
         <TravellerStories locale={locale} />
+
+        {/* 11B. Comprehensive Frequently Asked Questions */}
+        <FaqSection locale={locale} onEnquire={openEnquiry} />
 
         {/* 12. Final Invitation Banner */}
         <InvitationBanner locale={locale} onEnquire={openEnquiry} />
@@ -162,6 +177,10 @@ export default function App() {
         setLocale={setLocale}
         onEnquire={openEnquiry}
         onOpenAdmin={() => setAdminOpen(true)}
+        onOpenContact={() => setContactOpen(true)}
+        onOpenGuides={() => setGuidesOpen(true)}
+        onOpenPrivacy={() => setPrivacyOpen(true)}
+        onOpenTerms={() => setTermsOpen(true)}
       />
 
       {/* 14. Floating Scroll-to-Top Dock */}
@@ -218,6 +237,35 @@ export default function App() {
           />
         )}
       </Suspense>
+
+      {/* Direct Contact & Advisory Modal */}
+      <ContactModal
+        isOpen={contactOpen}
+        onClose={() => setContactOpen(false)}
+        locale={locale}
+        onOpenEnquiry={openEnquiry}
+      />
+
+      {/* Cultural Etiquette & Travel Guides Modal */}
+      <TravelGuidesModal
+        isOpen={guidesOpen}
+        onClose={() => setGuidesOpen(false)}
+        locale={locale}
+      />
+
+      {/* DPDP Privacy Policy Modal */}
+      <PrivacyPolicyModal
+        isOpen={privacyOpen}
+        onClose={() => setPrivacyOpen(false)}
+        locale={locale}
+      />
+
+      {/* Customary Terms & Conditions Modal */}
+      <TermsModal
+        isOpen={termsOpen}
+        onClose={() => setTermsOpen(false)}
+        locale={locale}
+      />
 
       {/* Floating Heritage Art Direction Switcher Dock */}
       <ConceptSwitcher

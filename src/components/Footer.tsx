@@ -10,9 +10,22 @@ type Props = {
   setLocale: (locale: Locale) => void;
   onEnquire: (service?: ServiceId) => void;
   onOpenAdmin?: () => void;
+  onOpenContact?: () => void;
+  onOpenGuides?: () => void;
+  onOpenPrivacy?: () => void;
+  onOpenTerms?: () => void;
 };
 
-export function Footer({ locale, setLocale, onEnquire, onOpenAdmin }: Props) {
+export function Footer({
+  locale,
+  setLocale,
+  onEnquire,
+  onOpenAdmin,
+  onOpenContact,
+  onOpenGuides,
+  onOpenPrivacy,
+  onOpenTerms,
+}: Props) {
   const c = copy[locale];
   const isKn = locale === "kn";
 
@@ -116,6 +129,30 @@ export function Footer({ locale, setLocale, onEnquire, onOpenAdmin }: Props) {
                 <span>{isKn ? "೧೦೦% ಶುದ್ಧ ಸಸ್ಯಾಹಾರಿ ಆತಿಥ್ಯ" : "100% Pure Veg Pankti Seva"}</span>
               </a>
             </li>
+            <li>
+              <a href="#faqs" className="hover:text-[#f5d77f] transition-colors flex items-center gap-1.5">
+                <span className="text-[#D4AF37]/60">✦</span>
+                <span>{isKn ? "ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೋತ್ತರಗಳು (FAQs)" : "Common Questions & FAQs"}</span>
+              </a>
+            </li>
+            <li>
+              <a href="#gallery" className="hover:text-[#f5d77f] transition-colors flex items-center gap-1.5">
+                <span className="text-[#D4AF37]/60">✦</span>
+                <span>{isKn ? "ಚಿತ್ರ ಗ್ಯಾಲರಿ" : "Visual Journey Gallery"}</span>
+              </a>
+            </li>
+            {onOpenGuides && (
+              <li>
+                <button
+                  type="button"
+                  onClick={onOpenGuides}
+                  className="hover:text-[#f5d77f] transition-colors flex items-center gap-1.5 text-left cursor-pointer"
+                >
+                  <span className="text-[#D4AF37]/60">✦</span>
+                  <span>{isKn ? "ಸಾಂಸ್ಕೃತಿಕ ಶಿಷ್ಟಾಚಾರ ಮಾರ್ಗದರ್ಶಿ" : "Cultural Etiquette Guide"}</span>
+                </button>
+              </li>
+            )}
           </ul>
         </div>
 
@@ -166,14 +203,25 @@ export function Footer({ locale, setLocale, onEnquire, onOpenAdmin }: Props) {
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
 
+            {onOpenContact && (
+              <button
+                type="button"
+                onClick={onOpenContact}
+                className="inline-flex items-center justify-center gap-2 text-xs font-semibold text-[#f5d77f] hover:text-white transition-colors py-1.5 px-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 cursor-pointer"
+              >
+                <MapPin className="w-3.5 h-3.5 text-[#D4AF37]" />
+                <span>{isKn ? "ನೇರ ಸಂಪರ್ಕ & ಕಾರ್ಯಾಲಯ" : "Office Location & Direct Line"}</span>
+              </button>
+            )}
+
             {onOpenAdmin && (
               <button
                 type="button"
                 onClick={onOpenAdmin}
-                className="inline-flex items-center justify-center gap-2 text-[11px] font-semibold text-[#f5d77f]/70 hover:text-[#f5d77f] transition-colors pt-2"
+                className="inline-flex items-center justify-center gap-2 text-[11px] font-semibold text-[#f5d77f]/70 hover:text-[#f5d77f] transition-colors pt-2 cursor-pointer"
               >
                 <Shield className="w-3.5 h-3.5 text-[#D4AF37]" />
-                <span>{isKn ? "ಸಿಬ್ಬಂದಿ ಲಾಗಿನ್ (Staff Portal)" : "Staff Portal Login"}</span>
+                <span>{isKn ? "ಮಾಲೀಕರ ನಿರ್ವಹಣೆ (Owner Portal)" : "Owner Operations Portal"}</span>
               </button>
             )}
           </div>
@@ -182,9 +230,33 @@ export function Footer({ locale, setLocale, onEnquire, onOpenAdmin }: Props) {
 
       {/* Bottom Bar */}
       <div className="shell flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-xs text-white/60">
-        <p>
-          © {new Date().getFullYear()} {String(c.rights)} · Reg: {brandConfig.regNumber}
-        </p>
+        <div className="flex flex-col sm:flex-row items-center gap-3">
+          <p>
+            © {new Date().getFullYear()} {String(c.rights)} · Reg: {brandConfig.regNumber}
+          </p>
+          <div className="flex items-center gap-3 text-white/50 text-[11px]">
+            {onOpenPrivacy && (
+              <button
+                type="button"
+                onClick={onOpenPrivacy}
+                className="hover:text-[#f5d77f] transition-colors cursor-pointer"
+              >
+                {isKn ? "ಗೌಪ್ಯತಾ ನೀತಿ" : "Privacy Policy"}
+              </button>
+            )}
+            <span>·</span>
+            {onOpenTerms && (
+              <button
+                type="button"
+                onClick={onOpenTerms}
+                className="hover:text-[#f5d77f] transition-colors cursor-pointer"
+              >
+                {isKn ? "ನಿಯಮಗಳು & ಷರತ್ತುಗಳು" : "Terms & Conditions"}
+              </button>
+            )}
+          </div>
+        </div>
+
         <p className="text-center sm:text-left text-[#f5d77f]/80">
           {String(c.demo)}
         </p>
