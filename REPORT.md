@@ -884,3 +884,27 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - 1920×1080 Full HD: Confirmed `heroHeight: 1080px` (100% viewport coverage).
   - 390×844 Mobile: Confirmed `heroHeight: 845px` (100% viewport coverage).
 - **Playwright Button Alignment Test**: Confirmed 0px offset and identical 48px height across both buttons in Kannada and English modes.
+
+---
+
+### Cycle 29: Header CTA Button (`ವಿಚಾರಿಸಿ ↗`) Optical Centering & Kannada Typography Alignment
+**Date**: November 10, 2026  
+**Status**: Completed & Verified  
+
+#### 1. Addressed User-Marked Issues & Feedback
+- **Header CTA Pill Misalignment (`media_1794298902892_abd037c2.png` showing `[ ವಿಚಾರಿಸಿ ↗ ]`)**:
+  - **Root Cause**:
+    - In `src/index.css`, `.app.font-kannada .header-cta .header-cta__label` had an outdated rule `transform: translateY(-0.5px)` while `.header-cta__icon` had `transform: translateY(0.5px)`. This pulled the text up while pushing the arrow down, creating a 1px vertical divergent offset.
+    - Furthermore, `Noto Sans Kannada` font metrics allocate extra descent room for bottom consonant subscripts (ottu). Because `ವಿಚಾರಿಸಿ` has only top vowel matras (`ಿ`) and no bottom subscript letters, the glyphs naturally sat high within the font bounding box. The -0.5px upward translation exacerbated this, leaving nearly double the padding below `ವಿಚಾರಿಸಿ` (15.75px) compared to above it, making the text appear to float awkwardly near the top of the golden pill.
+    - The vector arrow was rendered at a thin stroke width (1.7) compared to the bold (700) Kannada font weight, making it look faint and disconnected.
+  - **Resolution**:
+    - Rebalanced `.app.font-kannada .header-cta .header-cta__label` with `transform: translateY(2px)` to place the optical center of `ವಿಚಾರಿಸಿ` in the vertical center of the 44px pill.
+    - Centered `.app.font-kannada .header-cta .header-cta__icon` with `transform: translateY(0)` so its arrow shaft and arrowhead share the exact same horizontal centerline as `ವಿಚಾರಿಸಿ`.
+    - Tuned arrow dimensions and stroke width to `width: 15px; height: 15px; stroke-width: 2.2;` matching the weight of the typography.
+    - Harmonized the horizontal gap to `7px` for a natural, cohesive layout.
+    - Captured high-resolution element screenshots verifying vertical and horizontal balance in both Kannada (`ವಿಚಾರಿಸಿ ↗`) and English (`ENQUIRE NOW ↗`) modes.
+
+#### 2. Verification Results
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled cleanly in **745ms**.
+- **Playwright Visual Verification**: Confirmed vertical alignment and balanced padding in `.header-cta` screenshot (`element-2026-11-10T08-36-34-985Z.png`).
