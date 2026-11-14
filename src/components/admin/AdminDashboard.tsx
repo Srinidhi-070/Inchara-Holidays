@@ -194,7 +194,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
     const updated = await updateInquiry(selectedInquiry.id, {
       status: newStatus,
       internalNotes: editNotes,
-      assignedStaff: 'Srinidhi N S (Owner)',
+      assignedStaff: 'Ravindra S (Owner)',
       nextFollowupDate: editFollowupDate || undefined,
     });
 
@@ -216,7 +216,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
 
     const updated = await updateInquiry(selectedInquiry.id, {
       internalNotes: editNotes,
-      assignedStaff: 'Srinidhi N S (Owner)',
+      assignedStaff: 'Ravindra S (Owner)',
       nextFollowupDate: editFollowupDate || undefined,
     });
 
@@ -284,7 +284,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                 </span>
               </div>
               <div className="text-xs text-[#E4D8C5]/75">
-                {currentUser ? `Owner: Srinidhi N S (${currentUser.email})` : 'Authorized Owner Portal'}
+                {currentUser ? `Owner: Ravindra S (${currentUser.email})` : 'Authorized Owner Portal'}
               </div>
             </div>
           </div>
@@ -328,7 +328,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                   Owner Operations Sign In
                 </h2>
                 <p className="text-xs text-[#252923]/70">
-                  Secure access for Srinidhi N S to manage inquiries, customer records, quotations, and receipts.
+                  Secure access for Ravindra S to manage inquiries, customer records, quotations, and receipts.
                 </p>
               </div>
 
@@ -723,7 +723,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                     {(customerSearch ? searchCustomers(customerSearch) : customers).map((cust) => {
                       const cleanPhone = cust.phone.replace(/[^\d]/g, '');
                       const waText = encodeURIComponent(
-                        `Namaskara ${cust.name}, Srinidhi from Inchara Holidays here following up on your travel plans.`
+                        `Namaskara ${cust.name}, Ravindra from Inchara Holidays here following up on your travel plans.`
                       );
 
                       return (
@@ -855,7 +855,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                         Owner Verification Notice — Provisional Pre-Launch Credentials
                       </div>
                       <p className="text-[#252923]/80 leading-relaxed">
-                        Tax credentials (GSTIN: <span className="font-mono font-bold">29AABCU9603R1ZM</span>, PAN: <span className="font-mono font-bold">AABCU9603R</span>) and Bank Particulars (Canara Bank A/C <span className="font-mono font-bold">110023456789</span>) are configured as provisional defaults. Srinidhi N S must verify or update these official records prior to accepting live commercial customer funds.
+                        Tax credentials (GSTIN: <span className="font-mono font-bold">29AABCU9603R1ZM</span>, PAN: <span className="font-mono font-bold">AABCU9603R</span>) and Bank Particulars (Canara Bank A/C <span className="font-mono font-bold">110023456789</span>) are configured as provisional defaults. Ravindra S must verify or update these official records prior to accepting live commercial customer funds.
                       </p>
                     </div>
                   </div>
@@ -879,7 +879,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                         </label>
                         <input
                           type="text"
-                          defaultValue="Canara Bank — Sayyaji Rao Road, Mysuru"
+                          defaultValue="Canara Bank — Malleshwaram, Bengaluru"
                           disabled
                           className="w-full px-3 py-2 rounded-xl border border-[#263F32]/15 bg-gray-50 text-[#162E22] font-medium"
                         />
@@ -978,13 +978,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div className="p-3.5 rounded-xl bg-[#F6F3EA] border border-[#263F32]/10 space-y-1">
                         <div className="font-bold text-[#162E22]">Owner WhatsApp Hotline:</div>
-                        <div className="font-mono text-[#162E22] font-bold">+91 80736 92802</div>
+                        <div className="font-mono text-[#162E22] font-bold">+91 90361 74880</div>
                         <div className="text-[11px] text-[#252923]/60">Vercel ENV: VITE_WHATSAPP_NUMBER</div>
                       </div>
 
                       <div className="p-3.5 rounded-xl bg-[#F6F3EA] border border-[#263F32]/10 space-y-1">
                         <div className="font-bold text-[#162E22]">Email Notification Recipient:</div>
-                        <div className="font-mono text-[#162E22] font-bold">nssrinidhi72884@gmail.com</div>
+                        <div className="font-mono text-[#162E22] font-bold">
+                          {brandConfig.notificationEmail || 'Pending configuration'}
+                        </div>
                         <div className="text-[11px] text-[#252923]/60">Vercel ENV: STAFF_NOTIFICATION_EMAIL</div>
                       </div>
                     </div>

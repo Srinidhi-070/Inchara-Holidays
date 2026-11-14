@@ -11,6 +11,8 @@
 export interface BrandConfig {
   nameKn: string;
   nameEn: string;
+  ownerNameEn: string;
+  ownerNameKn: string;
   taglineKn: string;
   taglineEn: string;
   phoneDisplay: string;
@@ -18,9 +20,12 @@ export interface BrandConfig {
   whatsappDisplay: string;
   whatsappRaw: string;
   email: string;
+  emailStatusEn: string;
+  emailStatusKn: string;
   notificationEmail: string;
   addressKn: string;
   addressEn: string;
+  mapsUrl: string;
   hoursKn: string;
   hoursEn: string;
   website: string;
@@ -42,27 +47,32 @@ const getEnv = (key: string, fallback: string): string => {
 export const brandConfig: BrandConfig = {
   nameKn: 'ಇಂಚರ ಹಾಲಿಡೇಸ್',
   nameEn: 'Inchara Holidays',
+  ownerNameEn: 'Ravindra S',
+  ownerNameKn: 'ರವೀಂದ್ರ ಎಸ್',
   taglineKn: 'ಭಾರತವನ್ನು ಅನ್ವೇಷಿಸಿ, ಸಾಮಾನ್ಯತೆಯನ್ನು ಮೀರಿ · ಕರಾವಳಿ, ಮಲೆನಾಡು ಹಾಗೂ ಕರ್ನಾಟಕದ ಪರಂಪರೆ',
   taglineEn: 'Your Trusted Travel Partner · Heritage, Hospitality & Mindful Journeys',
 
-  // Real business contacts (overridable via Vite environment variables)
-  phoneDisplay: getEnv('VITE_CONTACT_PHONE_DISPLAY', '+91 94480 00000'),
-  phoneRaw: getEnv('VITE_CONTACT_PHONE', '919448000000'),
+  // Real business contacts (Malleshwaram, Bengaluru desk)
+  phoneDisplay: getEnv('VITE_CONTACT_PHONE_DISPLAY', '+91 90361 74880'),
+  phoneRaw: getEnv('VITE_CONTACT_PHONE', '919036174880'),
 
-  whatsappDisplay: getEnv('VITE_WHATSAPP_DISPLAY', '+91 94480 00000'),
-  whatsappRaw: getEnv('VITE_WHATSAPP_NUMBER', '919448000000'),
+  whatsappDisplay: getEnv('VITE_WHATSAPP_DISPLAY', '+91 90361 74880'),
+  whatsappRaw: getEnv('VITE_WHATSAPP_NUMBER', '919036174880'),
 
-  email: getEnv('VITE_CONTACT_EMAIL', 'hello@incharaholidays.com'),
+  email: getEnv('VITE_CONTACT_EMAIL', 'info@incharaholidays.com'),
+  emailStatusEn: 'Setup in progress (Reach via Call/WhatsApp)',
+  emailStatusKn: 'ಸಿದ್ಧತೆಯಲ್ಲಿದೆ (ವಾಟ್ಸಾಪ್/ಕರೆಗೆ ಆದ್ಯತೆ)',
   notificationEmail: getEnv('VITE_NOTIFICATIONS_EMAIL', 'inquiries@incharaholidays.com'),
 
-  addressKn: 'ನಂ. ೪೮, ಹೆರಿಟೇಜ್ ಕಾರಿಡಾರ್, ಮೈಸೂರು & ಬೆಂಗಳೂರು, ಕರ್ನಾಟಕ - ೫೬೦೦೦೧',
-  addressEn: 'No. 48, Heritage Corridor, Mysuru & Bengaluru, Karnataka - 560001, India',
+  addressKn: 'ಇಂಚರ ಹಾಲಿಡೇಸ್, ೭/೧, ೬ನೇ ಕ್ರಾಸ್ ರಸ್ತೆ, ಸ್ವಿಮ್ಮಿಂಗ್ ಪೂಲ್ ಬಡಾವಣೆ, ಎಚ್.ಎನ್. ಬಡಾವಣೆ, ಮಲ್ಲೇಶ್ವರಂ, ಬೆಂಗಳೂರು, ಕರ್ನಾಟಕ ೫೬೦೦೦೩',
+  addressEn: 'INCHARA HOLIDAYS, 7/1, 6th Cross Rd, Swimming Pool Extension, HN Layout, Malleshwaram, Bengaluru, Karnataka 560003',
+  mapsUrl: 'https://maps.app.goo.gl/r9YGiWEQwDKTtc9e7',
 
-  hoursKn: 'ಸೋಮವಾರ - ಶನಿವಾರ: ಮುಂಜಾನೆ ೯:೦೦ ರಿಂದ ಸಂಜೆ ೮:೦೦ ವರೆಗೆ',
-  hoursEn: 'Monday - Saturday: 9:00 AM - 8:00 PM IST',
+  hoursKn: 'ಸೋಮವಾರ - ಭಾನುವಾರ: ಮುಂಜಾನೆ ೮:೦೦ ರಿಂದ ರಾತ್ರಿ ೯:೩೦ ವರೆಗೆ',
+  hoursEn: 'Monday - Sunday: 8:00 AM - 9:30 PM IST',
 
   website: 'https://inchara-holidays.vercel.app',
-  regNumber: 'KA-TO-2024-88419',
+  regNumber: '',
 };
 
 /**

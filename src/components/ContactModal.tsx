@@ -35,8 +35,8 @@ export const ContactModal: React.FC<ContactModalProps> = ({
   if (!isOpen) return null;
 
   const waGreeting = isKn
-    ? 'ನಮಸ್ಕಾರ ಶ್ರೀನಿಧಿ ಅವರೇ, ಇಂಚರ ಹಾಲಿಡೇಸ್ ಮೂಲಕ ನನ್ನ ಪ್ರವಾಸದ ಯೋಜನೆಗೆ ಸಮಾಲೋಚನೆ ನಡೆಸಲು ಬಯಸುತ್ತೇನೆ.'
-    : 'Namaskara Srinidhi, I would like to consult with you for planning a holiday itinerary with Inchara Holidays.';
+    ? 'ನಮಸ್ಕಾರ ರವೀಂದ್ರ ಅವರೇ, ಇಂಚರ ಹಾಲಿಡೇಸ್ ಮೂಲಕ ನನ್ನ ಪ್ರವಾಸದ ಯೋಜನೆಗೆ ಸಮಾಲೋಚನೆ ನಡೆಸಲು ಬಯಸುತ್ತೇನೆ.'
+    : 'Namaskara Ravindra, I would like to consult with you for planning a holiday itinerary with Inchara Holidays.';
 
   return (
     <AnimatePresence>
@@ -63,7 +63,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
             </div>
 
             <h2 className="text-lg sm:text-xl font-bold font-serif-editorial text-white leading-tight">
-              {isKn ? 'ಇಂಚರ ಹಾಲಿಡೇಸ್ ಸಂಪರ್ಕಿಸಿ' : 'Get in Touch with Srinidhi N S'}
+              {isKn ? 'ಇಂಚರ ಹಾಲಿಡೇಸ್ ಸಂಪರ್ಕಿಸಿ' : 'Get in Touch with Ravindra S'}
             </h2>
 
             <p className="text-[11px] sm:text-xs text-white/75 mt-0.5 leading-snug">
@@ -85,7 +85,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
                   {isKn ? 'ಮಾಲೀಕರು & ಪ್ರಧಾನ ಮಾರ್ಗದರ್ಶಿ' : 'Owner & Lead Curator'}
                 </div>
                 <h3 className="text-xs sm:text-sm font-bold text-[#162E22] truncate">
-                  Srinidhi N S (ಶ್ರೀನಿಧಿ ಎನ್ ಎಸ್)
+                  Ravindra S (ರವೀಂದ್ರ ಎಸ್)
                 </h3>
                 <p className="text-[10.5px] text-[#252923]/70 mt-0.5 leading-tight">
                   {isKn
@@ -141,11 +141,8 @@ export const ContactModal: React.FC<ContactModalProps> = ({
                 </div>
               </a>
 
-              {/* Email */}
-              <a
-                href={`mailto:${brandConfig.email}`}
-                className="p-2.5 rounded-lg bg-white hover:bg-[#F6F3EA] border border-[#263F32]/15 flex items-center gap-2.5 transition-colors group cursor-pointer"
-              >
+              {/* Email / Setup in progress */}
+              <div className="p-2.5 rounded-lg bg-white border border-[#263F32]/15 flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-full bg-[#162E22] text-[#F5D77F] flex items-center justify-center shrink-0 shadow-xs">
                   <Mail className="w-4 h-4 text-[#D4AF37]" />
                 </div>
@@ -153,14 +150,14 @@ export const ContactModal: React.FC<ContactModalProps> = ({
                   <div className="text-[9px] font-bold text-[#9E3D28] uppercase tracking-wider">
                     {isKn ? 'ಇಮೇಲ್ ಪತ್ರವ್ಯವಹಾರ' : 'Official Email'}
                   </div>
-                  <div className="text-xs font-semibold text-[#162E22] truncate group-hover:text-[#9E3D28] transition-colors">
-                    {brandConfig.email}
+                  <div className="text-xs font-semibold text-[#162E22] truncate">
+                    {isKn ? brandConfig.emailStatusKn : brandConfig.emailStatusEn}
                   </div>
                   <span className="text-[9px] text-[#252923]/60 block leading-tight">
-                    {isKn ? 'ದಾಖಲೆ & ಕೊಟೇಶನ್' : 'For formal proposals'}
+                    {isKn ? 'ಶೀಘ್ರದಲ್ಲೇ ಲಭ್ಯವಾಗಲಿದೆ' : 'Official email setup in progress'}
                   </span>
                 </div>
-              </a>
+              </div>
 
               {/* Business Hours */}
               <div className="p-2.5 rounded-lg bg-white border border-[#263F32]/10 flex items-center gap-2.5">
@@ -181,21 +178,29 @@ export const ContactModal: React.FC<ContactModalProps> = ({
               </div>
             </div>
 
-            {/* Office Address */}
-            <div className="p-2.5 sm:p-3 rounded-lg bg-[#F6F3EA] border border-[#263F32]/10 flex items-start gap-2.5">
-              <MapPin className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
-              <div className="text-[11px] min-w-0">
-                <div className="font-bold text-[#162E22] uppercase tracking-wider text-[10px]">
-                  {isKn ? 'ನೋಂದಾಯಿತ ಕಾರ್ಯಾಲಯ' : 'Registered Office Location'}
-                </div>
-                <p className="text-[#252923]/80 mt-0.5 leading-snug">
-                  {isKn ? brandConfig.addressKn : brandConfig.addressEn}
-                </p>
-                <div className="text-[10px] font-mono text-[#9E3D28] mt-0.5 font-semibold">
-                  Karnataka State Tourism Forum · Reg: {brandConfig.regNumber}
+            {/* Bengaluru Operating Desk & Address (Clickable Map Location) */}
+            <a
+              href={brandConfig.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2.5 sm:p-3 rounded-lg bg-[#F6F3EA] hover:bg-[#efe9dc] border border-[#263F32]/15 flex items-start justify-between gap-2.5 transition-colors group cursor-pointer"
+            >
+              <div className="flex items-start gap-2.5 min-w-0">
+                <MapPin className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                <div className="text-[11px] min-w-0">
+                  <div className="font-bold text-[#162E22] uppercase tracking-wider text-[10px]">
+                    {isKn ? 'ಬೆಂಗಳೂರು ಕಾರ್ಯಾಚರಣಾ ವಿಳಾಸ' : 'Bengaluru Operating Desk'}
+                  </div>
+                  <p className="text-[#252923]/85 mt-0.5 leading-snug">
+                    {isKn ? brandConfig.addressKn : brandConfig.addressEn}
+                  </p>
                 </div>
               </div>
-            </div>
+              <div className="shrink-0 flex items-center gap-1 text-[10px] font-bold text-[#9E3D28] group-hover:text-[#162E22] transition-colors mt-0.5 whitespace-nowrap bg-white/80 px-2 py-1 rounded-md border border-[#9E3D28]/20">
+                <span>{isKn ? 'ನಕ್ಷೆ ನೋಡಿ' : 'View on Maps'}</span>
+                <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+              </div>
+            </a>
           </div>
 
           {/* Footer Actions */}

@@ -61,10 +61,16 @@ export function Footer({
           </p>
 
           <div className="pt-2 text-xs text-white/80 space-y-2">
-            <div className="flex items-start gap-2.5">
-              <MapPin className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
+            <a
+              href={brandConfig.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-start gap-2.5 hover:text-[#f5d77f] transition-colors group cursor-pointer"
+              title={isKn ? "ಗೂಗಲ್ ನಕ್ಷೆಯಲ್ಲಿ ನೋಡಿ" : "View on Google Maps"}
+            >
+              <MapPin className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
               <span>{isKn ? brandConfig.addressKn : brandConfig.addressEn}</span>
-            </div>
+            </a>
             <div className="flex items-center gap-2.5">
               <Clock className="w-4 h-4 text-[#D4AF37] shrink-0" />
               <span>{isKn ? brandConfig.hoursKn : brandConfig.hoursEn}</span>
@@ -210,7 +216,7 @@ export function Footer({
                 className="inline-flex items-center justify-center gap-2 text-xs font-semibold text-[#f5d77f] hover:text-white transition-colors py-1.5 px-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 cursor-pointer"
               >
                 <MapPin className="w-3.5 h-3.5 text-[#D4AF37]" />
-                <span>{isKn ? "ನೇರ ಸಂಪರ್ಕ & ಕಾರ್ಯಾಲಯ" : "Office Location & Direct Line"}</span>
+                <span>{isKn ? "ಕಾರ್ಯಾಚರಣಾ ವಿಳಾಸ & ಸಂಪರ್ಕ" : "Operating Desk & Direct Line"}</span>
               </button>
             )}
 
@@ -232,7 +238,7 @@ export function Footer({
       <div className="shell flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-xs text-white/60">
         <div className="flex flex-col sm:flex-row items-center gap-3">
           <p>
-            © {new Date().getFullYear()} {String(c.rights)} · Reg: {brandConfig.regNumber}
+            © {new Date().getFullYear()} {String(c.rights)}
           </p>
           <div className="flex items-center gap-3 text-white/50 text-[11px]">
             {onOpenPrivacy && (

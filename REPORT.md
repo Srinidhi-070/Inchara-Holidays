@@ -1214,5 +1214,45 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - `travel-map-zoomed-170.png`: Verified Karnataka map zoomed in at 170% with drag badge and reset button.
   - `world-map-zoomed-170.png`: Verified World map zoomed in at 170% with selected country (Vietnam) highlighted and right dossier updated.
 
+---
+
+### Cycle 36: Business Credentials & Solo Operator Profile Migration to Ravindra S, Bengaluru Operating Desk & Interactive Maps Link
+**Date**: November 14, 2026  
+**Status**: Completed, Verified & Staged for Production  
+
+#### 1. Core Directives Addressed
+1. **Solo Operator Identity & Contact Update (`brand.ts`, `ContactModal.tsx`, `AdminDashboard.tsx`)**:
+   - Migrated owner operator identity from provisional placeholder to **Ravindra S** (`ರವೀಂದ್ರ ಎಸ್`) across the platform.
+   - Direct business hotline and WhatsApp updated to **`+91 90361 74880`** (`919036174880`).
+   - Admin operations dashboard, login portal, quotation templates, receipt generators, and WhatsApp/Email dispatch services updated to address Ravindra S as the lead curator.
+   - Email status updated to reflect active setup: *"Setup in progress (Reach via Call/WhatsApp)"* / *"ಸಿದ್ಧತೆಯಲ್ಲಿದೆ (ವಾಟ್ಸಾಪ್/ಕರೆಗೆ ಆದ್ಯತೆ)"*.
+
+2. **Operating Desk Phrasing & Home-Office Optimization**:
+   - Replaced all occurrences of "Registered Office Location" with **"Bengaluru Operating Desk"** / **"ಬೆಂಗಳೂರು ಕಾರ್ಯಾಚರಣಾ ವಿಳಾಸ"**, accurately reflecting the solo owner's home-based travel desk in Malleshwaram.
+   - Canonical address updated across all touchpoints:  
+     `INCHARA HOLIDAYS, 7/1, 6th Cross Rd, Swimming Pool Extension, HN Layout, Malleshwaram, Bengaluru, Karnataka 560003`  
+     (Kannada: `ಇಂಚರ ಹಾಲಿಡೇಸ್, ೭/೧, ೬ನೇ ಕ್ರಾಸ್ ರಸ್ತೆ, ಸ್ವಿಮ್ಮಿಂಗ್ ಪೂಲ್ ಬಡಾವಣೆ, ಎಚ್.ಎನ್. ಬಡಾವಣೆ, ಮಲ್ಲೇಶ್ವರಂ, ಬೆಂಗಳೂರು, ಕರ್ನಾಟಕ ೫೬೦೦೦೩`).
+   - Integrated direct Google Maps link (`https://maps.app.goo.gl/r9YGiWEQwDKTtc9e7`) into both the Contact Modal and the 4-column directory footer with interactive `[View on Maps ↗]` / `[ನಕ್ಷೆ ನೋಡಿ ↗]` badges.
+
+3. **Complete Purge of Provisional Registration Number**:
+   - Completely removed `Karnataka State Tourism Forum · Reg: KA-TO-2024-88419` from the Direct Contact Modal, Footer copyright bar, Privacy Policy modal, Itinerary brochure, Quotation modal, Payment Receipt modal, and dispatch templates.
+
+4. **Visual & Structural Verification of Prior User Feedback**:
+   - **Gallery Assets**: Verified that all 8 gallery items (`Chennakeshava Temple`, `Misty Coffee Plantations`, `Traditional Banana Leaf Sadya`, `Vijayanagara Stone Chariot`, `Mullayanagiri Clouds & Peaks`, `Om Beach Coastal Serenity`, `Luxury Chauffeur Urbania`, and `Mysore Palace`) render full, high-definition photographs with zero broken icon fallbacks.
+   - **FAQ Filter Chips**: Verified that all category filter chips (`All Questions`, `100% Pure Veg`, `Pricing & Token`, `Custom Tailoring`, `Fleet & Chauffeurs`, `Educational Tours`, `Weather & Refund`) render with complete visibility, responsive wrapping, and zero horizontal border clipping.
+   - **Hero Visual Scale**: Verified enlarged cinematic typography and touch-friendly CTA buttons.
+   - **Direct Contact Modal Scale**: Verified compact `max-w-lg` container fitting cleanly on standard desktop and mobile viewports.
+
+#### 2. Verification Summary
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled cleanly in **1.01s**.
+- **Visual QA via Playwright MCP**:
+  - `contact-modal-verified.png`: Verified English Contact Modal showing Ravindra S, +91 90361 74880, email setup status, and clickable Bengaluru Operating Desk link to Google Maps.
+  - `contact-modal-kn-verified.png`: Verified Kannada Contact Modal with authentic Kannada typography and zero layout overflow.
+  - `gallery-check.png`: Verified all 8 gallery destination and culinary images loading seamlessly.
+  - `faq-check.png`: Verified FAQ filter pills fully displayed without horizontal truncation.
+  - `hero-check.png`: Verified enlarged hero banner typography scale and visual balance.
+
+
 
 

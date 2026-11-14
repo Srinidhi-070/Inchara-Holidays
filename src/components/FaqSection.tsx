@@ -137,7 +137,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ locale, onEnquire }) => 
                 {isKn ? 'ಯಾವುದೇ ಪ್ರಶ್ನೆಗಳು ಕಂಡುಬಂದಿಲ್ಲ' : 'No matching questions found'}
               </p>
               <p className="text-xs text-[#252923]/60 mt-1">
-                {isKn ? 'ನೇರವಾಗಿ ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ ಅಥವಾ ವಿಚಾರಣೆ ನಮೂನೆ ಭರ್ತಿ ಮಾಡಿ.' : 'Feel free to consult Srinidhi directly via WhatsApp or submit an enquiry.'}
+                {isKn ? 'ನೇರವಾಗಿ ರವೀಂದ್ರ ಅವರನ್ನು ಸಂಪರ್ಕಿಸಿ ಅಥವಾ ವಿಚಾರಣೆ ನಮೂನೆ ಭರ್ತಿ ಮಾಡಿ.' : 'Feel free to consult Ravindra directly via WhatsApp or submit an enquiry.'}
               </p>
             </div>
           ) : (
@@ -209,7 +209,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ locale, onEnquire }) => 
               <span>{isKn ? 'ವಿಶಿಷ್ಟ ಅಗತ್ಯವಿದೆಯೇ?' : 'Have a unique travel requirement?'}</span>
             </div>
             <h3 className="text-base sm:text-lg font-bold font-serif-editorial text-white">
-              {isKn ? 'ನೇರವಾಗಿ ಶ್ರೀನಿಧಿ ಅವರೊಂದಿಗೆ ಮಾತನಾಡಿ' : 'Consult Srinidhi N S (Owner & Curator)'}
+              {isKn ? 'ನೇರವಾಗಿ ರವೀಂದ್ರ ಅವರೊಂದಿಗೆ ಮಾತನಾಡಿ' : 'Consult Ravindra S (Owner & Curator)'}
             </h3>
             <p className="text-xs text-white/70 mt-0.5">
               {isKn

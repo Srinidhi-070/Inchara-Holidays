@@ -477,10 +477,10 @@ export const PaymentReceiptModal: React.FC<PaymentReceiptModalProps> = ({
                       Premier South Indian Travel & Cultural Hospitality
                     </p>
                     <p className="text-[10px] text-[#252923]/70">
-                      Reg: <strong>KA-TO-2024-88419</strong> · GSTIN: <strong>29AABCU9603R1ZM</strong> · PAN: <strong>AABCU9603R</strong>
+                      GSTIN: <strong>29AABCU9603R1ZM</strong> · PAN: <strong>AABCU9603R</strong>
                     </p>
                     <p className="text-[10px] text-[#252923]/60">
-                      Sayyaji Rao Road, Near Mysuru Palace, Mysuru – 570001, Karnataka · +91 99000 00000
+                      INCHARA HOLIDAYS, 7/1, 6th Cross Rd, Swimming Pool Extension, Malleshwaram, Bengaluru 560003 · +91 90361 74880
                     </p>
                   </div>
                 </div>

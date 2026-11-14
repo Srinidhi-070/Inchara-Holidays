@@ -104,8 +104,8 @@ export const PrivacyPolicyModal: React.FC<LegalModalProps> = ({ isOpen, onClose,
               </h3>
               <p>
                 {isKn
-                  ? 'ಡಿಜಿಟಲ್ ವೈಯಕ್ತಿಕ ಡೇಟಾ ಸಂರಕ್ಷಣಾ ಕಾಯ್ದೆ (DPDP 2023) ಅಡಿಯಲ್ಲಿ, ನಿಮ್ಮ ವಿವರಗಳನ್ನು ನಮ್ಮ ವ್ಯವಸ್ಥೆಯಿಂದ ಸಂಪೂರ್ಣವಾಗಿ ಅಳಿಸಲು (Purge) ನೀವು ಯಾವುದೇ ಸಮಯದಲ್ಲಿ contact@incharaholidays.com ಗೆ ಇಮೇಲ್ ಕಳುಹಿಸಬಹುದು. ೪೮ ಗಂಟೆಗಳ ಒಳಗೆ ನಿಮ್ಮ ದಾಖಲೆಯನ್ನು ಸುರಕ್ಷಿತವಾಗಿ ತೆಗೆದುಹಾಕಲಾಗುತ್ತದೆ.'
-                  : 'In compliance with India\'s Digital Personal Data Protection Act 2023, you retain the complete right to request the deletion or correction of your contact records. Email Srinidhi N S at contact@incharaholidays.com; all records will be securely purged within 48 business hours.'}
+                  ? 'ಡಿಜಿಟಲ್ ವೈಯಕ್ತಿಕ ಡೇಟಾ ಸಂರಕ್ಷಣಾ ಕಾಯ್ದೆ (DPDP 2023) ಅಡಿಯಲ್ಲಿ, ನಿಮ್ಮ ವಿವರಗಳನ್ನು ನಮ್ಮ ವ್ಯವಸ್ಥೆಯಿಂದ ಸಂಪೂರ್ಣವಾಗಿ ಅಳಿಸಲು (Purge) ನೀವು ಯಾವುದೇ ಸಮಯದಲ್ಲಿ ರವೀಂದ್ರ ಅವರನ್ನು (+91 90361 74880) ಸಂಪರ್ಕಿಸಬಹುದು. ೪೮ ಗಂಟೆಗಳ ಒಳಗೆ ನಿಮ್ಮ ದಾಖಲೆಯನ್ನು ಸುರಕ್ಷಿತವಾಗಿ ತೆಗೆದುಹಾಕಲಾಗುತ್ತದೆ.'
+                  : 'In compliance with India\'s Digital Personal Data Protection Act 2023, you retain the complete right to request the deletion or correction of your contact records. Contact Ravindra S at +91 90361 74880 or via WhatsApp; all records will be securely purged within 48 business hours.'}
               </p>
             </div>
           </div>
@@ -113,7 +113,7 @@ export const PrivacyPolicyModal: React.FC<LegalModalProps> = ({ isOpen, onClose,
           {/* Footer */}
           <div className="p-4 bg-[#F6F3EA] border-t border-[#263F32]/10 flex items-center justify-between">
             <span className="text-xs text-[#252923]/60">
-              {brandConfig.nameEn} · {brandConfig.regNumber}
+              {brandConfig.nameEn}
             </span>
             <button
               type="button"

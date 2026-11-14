@@ -13,7 +13,7 @@ export const defaultBankDetails: BankSettlementDetails = {
   accountName: 'INCHARA HOLIDAYS',
   accountNumber: '110023456789',
   ifscCode: 'CNRB0001234',
-  branch: 'Mysore Main Branch, Sayyaji Rao Road, Mysuru',
+  branch: 'Malleshwaram Branch, Bengaluru',
   upiId: 'incharaholidays@upi',
 };
 

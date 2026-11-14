@@ -1,7 +1,7 @@
 /**
  * INCHARA HOLIDAYS — SOLO OPERATOR CUSTOMER DIRECTORY SERVICE
  * Aggregates client profiles across inquiries, quotes, and confirmed journeys.
- * Enables one-click communication for Srinidhi N S (Owner & Operator).
+ * Enables one-click communication for Ravindra S (Owner & Operator).
  */
 
 import { CustomerRecord, InquiryRecord } from '../types/inquiry';

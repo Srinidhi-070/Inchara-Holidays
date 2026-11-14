@@ -107,9 +107,9 @@ export function buildQuotationWhatsAppText(inquiry: InquiryRecord, quotation: Qu
     `• UPI VPA: *${quotation.bankDetails.upiId}*\n\n` +
     `To confirm this reservation, kindly share the advance transfer UTR or reply to this message. We look forward to hosting you on an unforgettable journey!\n\n` +
     `Warm Regards,\n` +
-    `*Inchara Holidays Advisory Desk*\n` +
-    `📍 Sayyaji Rao Road, Near Mysuru Palace, Mysuru – 570001\n` +
-    `📞 +91 99000 00000 | ✉️ ${brandConfig.email}\n` +
+    `*Inchara Holidays Operations Desk*\n` +
+    `📍 INCHARA HOLIDAYS, 7/1, 6th Cross Rd, Swimming Pool Extension, Malleshwaram, Bengaluru 560003\n` +
+    `📞 +91 90361 74880\n` +
     `🌐 ${brandConfig.website}`
   );
 }
@@ -153,14 +153,13 @@ export function buildQuotationEmailContent(inquiry: InquiryRecord, quotation: Qu
     `IFSC Code: ${quotation.bankDetails.ifscCode}\n` +
     `Branch: ${quotation.bankDetails.branch}\n` +
     `UPI ID: ${quotation.bankDetails.upiId}\n\n` +
-    `Should you require any customized adjustments or wish to confirm booking slots, please feel free to reply to this email or call us directly at +91 99000 00000.\n\n` +
+    `Should you require any customized adjustments or wish to confirm booking slots, please feel free to reply to this email or call us directly at +91 90361 74880.\n\n` +
     `Warm regards,\n\n` +
     `Travel Operations Desk\n` +
     `Inchara Holidays\n` +
-    `Sayyaji Rao Road, Near Mysuru Palace, Mysuru – 570001, Karnataka\n` +
-    `Email: ${brandConfig.email}\n` +
-    `Website: ${brandConfig.website}\n` +
-    `Karnataka Tourism Reg: ${brandConfig.regNumber}`;
+    `7/1, 6th Cross Rd, Swimming Pool Extension, Malleshwaram, Bengaluru 560003, Karnataka\n` +
+    `Phone: +91 90361 74880\n` +
+    `Website: ${brandConfig.website}`;
 
   const recipient = inquiry.email || '';
   const mailtoUrl = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
@@ -210,11 +209,11 @@ export function buildReceiptWhatsAppText(
     (receipt.notes ? `• Remarks: _${receipt.notes}_\n` : '') +
     ledgerSection +
     `\n🌿 *PURE VEG & SERVICE GUARANTEE:*\n` +
-    `Your tour arrangements and pure vegetarian meal bookings are formally recorded. A physical stamped copy is accessible at our Mysuru desk or printable via our staff portal.\n\n` +
+    `Your tour arrangements and pure vegetarian meal bookings are formally recorded.\n\n` +
     `Thank you for traveling with Inchara Holidays!\n\n` +
     `Accounts Desk · Inchara Holidays\n` +
-    `Reg: KA-TO-2024-88419 · GSTIN: 29AABCU9603R1ZM\n` +
-    `📞 +91 99000 00000 | ✉️ ${brandConfig.email}`
+    `GSTIN: 29AABCU9603R1ZM · PAN: AABCU9603R\n` +
+    `📞 +91 90361 74880`
   );
 }
 
@@ -267,15 +266,14 @@ export function buildReceiptEmailContent(
     `\nTERMS & GUARANTEES:\n` +
     `1. This electronic receipt serves as valid proof of inward advance settlement for tour confirmation.\n` +
     `2. 100% Pure Vegetarian cuisine guaranteed across all tour dining points.\n` +
-    `3. Formal stamped receipts are retained on company ledger KA-TO-2024-88419.\n\n` +
+    `3. Formal stamped receipts are retained on company operations records.\n\n` +
     `Thank you for entrusting your journey to Inchara Holidays. Please do not hesitate to contact our desk should you have any questions.\n\n` +
     `Warm regards,\n\n` +
     `Accounts & Finance Desk\n` +
     `Inchara Holidays\n` +
-    `Sayyaji Rao Road, Near Mysuru Palace, Mysuru – 570001, Karnataka\n` +
+    `7/1, 6th Cross Rd, Swimming Pool Extension, Malleshwaram, Bengaluru 560003, Karnataka\n` +
     `GSTIN: 29AABCU9603R1ZM · PAN: AABCU9603R\n` +
-    `Phone: +91 99000 00000\n` +
-    `Email: ${brandConfig.email}\n` +
+    `Phone: +91 90361 74880\n` +
     `Website: ${brandConfig.website}`;
 
   const recipient = inquiry.email || '';

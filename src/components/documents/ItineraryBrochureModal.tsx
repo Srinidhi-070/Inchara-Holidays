@@ -70,18 +70,18 @@ export const ItineraryBrochureModal: React.FC<ItineraryBrochureModalProps> = ({ 
                   INCHARA HOLIDAYS
                 </h1>
                 <p className="text-xs text-[#9E3D28] font-semibold mt-1">
-                  ಇಂಚರ ಹಾಲಿಡೇಸ್ · Reg: KA-TO-2024-88419
+                  ಇಂಚರ ಹಾಲಿಡೇಸ್
                 </p>
                 <p className="text-[11px] text-[#252923]/70 font-normal">
-                  Approved Karnataka Tourism, Heritage & Pure Veg Hospitality Provider
+                  Authentic South Indian Travel, Heritage & Pure Veg Hospitality Provider
                 </p>
               </div>
             </div>
 
             <div className="text-right text-xs space-y-0.5 text-[#252923]/80">
-              <div className="font-semibold text-[#162E22]">Head Office: Sayyaji Rao Road, Mysuru - 570001</div>
-              <div>Phone: +91 94480 00000 · WhatsApp Desk: +91 94480 00000</div>
-              <div>Email: hello@incharaholidays.com · www.incharaholidays.com</div>
+              <div className="font-semibold text-[#162E22]">Operating Desk: Malleshwaram, Bengaluru - 560003</div>
+              <div>Phone: +91 90361 74880 · WhatsApp: +91 90361 74880</div>
+              <div>Curator: Ravindra S · inchara-holidays.vercel.app</div>
             </div>
           </header>
 
