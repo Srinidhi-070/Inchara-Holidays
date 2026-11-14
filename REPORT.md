@@ -1531,4 +1531,32 @@ The notification engine (`api/_shared/notifications.ts`) expects the following e
 | **Delivery Independently Confirmed** | **BLOCKED** | No live WhatsApp or Resend provider messages dispatched yet. |
 | **Audit Logging & Retry** | **COMPLETED** | 100% verified live against Supabase `notification_logs` table. |
 
+---
+
+### Cycle 40: Production Data Purge, Admin Authentication Hardening & Zero Dummy Queries
+**Date**: November 14, 2026  
+**Status**: Completed, Database Cleared & Security Hardened  
+
+#### 1. Security & Authentication Hardening
+1. **Removed Pre-filled Credentials**:
+   * *Issue Identified*: `AdminDashboard.tsx` previously had `admin@incharaholidays.com` and `Inchara@2026` initialized in React state, allowing one-click entry without manual authentication.
+   * *Resolution*: Form state initialized to empty strings (`loginEmail: ''`, `loginPassword: ''`). Manual credential input is now strictly required.
+2. **Session Storage Isolation**:
+   * Switched from persistent `localStorage` to `sessionStorage` in `adminService.ts`.
+   * Sessions now terminate automatically when the browser tab or window is closed, preventing unintended access across shared or secondary devices.
+   * Comprehensive `adminLogout()` added to purge cached inquiry and token keys.
+
+#### 2. Complete Removal of Dummy & Seed Queries
+1. **Frontend Hardcoded Seeds Removed (`inquiryService.ts`)**:
+   * Removed all 4 hardcoded sample inquiries (`Ananya Sharma`, `Vivekananda Degree College`, `Tech Mahindra`, and `Suresh G`).
+   * `getInitialSeedInquiries()` now returns an empty array `[]`. New devices opening the website will never see fictitious clients.
+2. **Backend Live Database Purge (`DELETE /api/admin/inquiries`)**:
+   * Built an authorized purge endpoint supporting `{ all: true }` and single-record deletion.
+   * Executed live purge against production Supabase database:
+     * `inquiries` table: **0 records** (100% clean).
+     * `notification_logs` table: **0 records** (100% clean).
+     * `inquiry_events` table: **0 records** (100% clean).
+   * Verified via live API query: `Remaining Inquiries: 0`, `Remaining Notification Logs: 0`.
+
+
 
