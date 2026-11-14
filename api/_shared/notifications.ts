@@ -357,7 +357,7 @@ async function recordNotificationLog(log: NotificationLog): Promise<void> {
 
   if (supabase) {
     try {
-      await supabase.from('notification_logs').insert({
+      const { error } = await supabase.from('notification_logs').insert({
         id: log.id,
         inquiry_id: log.inquiryId,
         inquiry_reference: log.inquiryReference || null,
@@ -373,6 +373,11 @@ async function recordNotificationLog(log: NotificationLog): Promise<void> {
         last_attempt_at: log.lastAttemptAt || nowIso,
         created_at: log.createdAt || nowIso,
       });
+
+      if (error) {
+        console.warn('[Notification Log DB Write Error]:', error);
+        addMemoryNotificationLog(log);
+      }
     } catch (dbErr) {
       console.warn('[Notification Log DB Write Failed]:', dbErr);
       addMemoryNotificationLog(log);

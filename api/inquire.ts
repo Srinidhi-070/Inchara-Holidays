@@ -152,11 +152,14 @@ export default async function handler(req: any, res: any) {
       addMemoryInquiry(inquiryRecord);
     }
 
-    // 7. Multi-Channel Automated Notification Dispatch (Background Async)
-    // Runs independently: if notifications fail, the inquiry record remains permanently saved.
-    dispatchNotifications(inquiryRecord).catch((notifErr) => {
-      console.warn('[Background Notification Warning]:', notifErr);
-    });
+    // 7. Multi-Channel Automated Notification Dispatch (Independent Failure Isolation)
+    // Awaited to guarantee serverless execution completes both WhatsApp and Email jobs.
+    // If notifications fail, the inquiry record remains permanently saved in the database.
+    try {
+      await dispatchNotifications(inquiryRecord);
+    } catch (notifErr) {
+      console.warn('[Notification Dispatch Warning]:', notifErr);
+    }
 
     // 8. Return Verified Success Acknowledgment
     return res.status(201).json({
