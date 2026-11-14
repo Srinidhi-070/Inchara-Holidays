@@ -5,6 +5,11 @@
  * Completely isolated from frontend Vite/React bundle.
  */
 
+declare global {
+  var process: any;
+  var Buffer: any;
+}
+
 export type Language = 'kn' | 'en';
 export type ContactMethod = 'whatsapp' | 'phone' | 'email';
 
