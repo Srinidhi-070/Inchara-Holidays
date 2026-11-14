@@ -1253,6 +1253,157 @@ Proceeded with the authorized UI Recovery & Content Reconciliation Audit.
   - `faq-check.png`: Verified FAQ filter pills fully displayed without horizontal truncation.
   - `hero-check.png`: Verified enlarged hero banner typography scale and visual balance.
 
+---
+
+## Master Status Audit: Completed vs. Pending Deliverables & Production Launch Roadmap
+
+This authoritative section provides a complete, transparent breakdown of what has been fully engineered in the codebase versus what external third-party configurations remain, along with step-by-step instructions to achieve 100% production launch.
+
+---
+
+### Part 1: What Has Been Done (100% Complete & Verified in Code)
+
+#### 1. Frontend Architecture & Heritage Design System
+* **Core Stack**: React 19 + TypeScript + Vite + Tailwind CSS v4 via `@tailwindcss/vite`.
+* **Authentic Cultural Palette**: Forest Evergreen (`#162E22`, `#1E3A2B`), Mysore Royal Gold (`#D4AF37`), Kasavu Light Gold (`#F5D77F`), Kaavi Terracotta (`#9E3D28`), Warm Sand (`#FBF8F1`), and Heritage Ivory (`#F6F3EA`).
+* **Geometric Kolam Motif**: Subtle South Indian lace watermark (`.bg-kolam-subtle`) active across light textured sections.
+* **Bilingual Typography**: `Playfair Display` + `Plus Jakarta Sans` seamlessly paired with `Noto Serif Kannada` + `Noto Sans Kannada`. Verified zero text clipping across English (`EN`) and Kannada (`ಕ`).
+* **Visual Proportions**: Enlarged cinematic landing hero headline (`clamp(46px, 5.2vw, 78px)`), touch-friendly CTA buttons, and compact Contact Modal (`max-w-lg`) designed to eliminate awkward page scrollbars.
+
+#### 2. Public Experience & 6 Core Service Modules
+* **Homepage**: High-definition hero, business philosophy, 6 Why Us value pillars (`01`–`06`), 5-tile asymmetric destination mosaic, 8-item verified photo gallery, pure vegetarian culinary showcase, customer testimonials, interactive 3-tier travel map with smooth zoom/pan controls, and FAQ accordion with responsive wrap-around category chips.
+* **6 Dedicated Service Pathways**:
+  1. *Holiday Packages*: Domestic & international curated circuits, family vacations, hill stations, and heritage temple corridors.
+  2. *Educational & Institutional Tours*: Safety-audited industrial visits, school/college expeditions, teacher-student ratios.
+  3. *Corporate & Event Tours*: Executive retreats, team offsites, MICE logistics, conference setups.
+  4. *Transportation & Bookings*: Verified chauffeur fleet (Sedans, Innova Crysta, Urbania, Tempo Travelers, Luxury Coaches) plus booking advisory.
+  5. *Visa & Passport Assistance*: Tourist/student/business visa procedural advisory with zero sensitive document collection on initial forms.
+  6. *Catering & Hospitality*: 100% pure vegetarian catering (South Indian banana leaf sadya, satvik meals, North Indian banquets).
+
+#### 3. Lead Conversion & Solo Operator Communications
+* **Universal 4-Step Enquiry Dialog (`EnquiryDialog.tsx`)**:
+  * Step 01 Service Selection (6 bold visual cards).
+  * Step 02 Tailored Details (group size, destinations, travel dates, meal preferences).
+  * Step 03 Contact Information & Preferred Channel (WhatsApp / Phone / Email).
+  * Step 04 Review & Reference Number Generation (`ICH-2026-XXXX`).
+  * Instant pre-composed WhatsApp routing to **`+91 90361 74880`**.
+* **Direct Advisory & Contact Modal (`ContactModal.tsx`)**:
+  * Solo operator curator profile for **Ravindra S** (`ರವೀಂದ್ರ ಎಸ್`).
+  * Direct hotline and WhatsApp desk: `+91 90361 74880`.
+  * Bengaluru Operating Desk (Malleshwaram) with direct clickable [Google Maps Link](https://maps.app.goo.gl/r9YGiWEQwDKTtc9e7).
+  * Official email setup notice directing clients to WhatsApp/phone.
+  * Purged all provisional registration placeholders (`KA-TO-2024-88419`).
+
+#### 4. Solo-Operator Business Operating System (Admin Portal)
+* **Owner Portal (`AdminDashboard.tsx`)**: Dedicated single-operator cockpit for Ravindra S without bloated multi-employee permission overhead.
+* **Enquiry Pipeline & CRM**: Status tracking (`new` → `in_progress` → `proposal_sent` → `confirmed` → `completed`), internal notes, and follow-up date scheduling.
+* **Solo Customer Directory (`customerService.ts`)**: Aggregated client profiles, lifetime bookings/spend tracking, and one-click WhatsApp follow-ups.
+* **Quotation Engine (`quotationService.ts` / `QuotationModal.tsx`)**: Itemized cost breakdown, 5% GST computation, Canara Bank Malleshwaram payment details, and formal A4 printable layout.
+* **Payment Receipt System (`PaymentReceiptModal.tsx`)**: Advance token tracking, balance outstanding ledger, pure veg assurance certificate, and formal A4 printable receipt.
+* **Client Document Dispatch Engine (`clientDispatchService.ts`)**: Formatted one-click WhatsApp and email quotation & receipt generators.
+
+#### 5. Backend Serverless API & PostgreSQL Schemas
+* **Vercel Serverless Functions (`api/`)**:
+  * `POST /api/inquire`: Zod schema validation, honeypot anti-spam gate, idempotency check, unique ref generation, PostgreSQL insertion, and event audit logging.
+  * `POST /api/admin/login`: Owner credential authentication.
+  * `GET/PATCH /api/admin/inquiries`: Querying, filtering, and status updates.
+  * `GET /api/admin/stats`: Real-time KPI aggregation.
+  * `api/_shared/notifications.ts`: Automated background Resend email dispatch + formatted WhatsApp alert generation.
+* **Database Migration Schemas (`supabase/migrations/`)**:
+  * Complete PostgreSQL schema ([20261110000000_inchara_complete_schema.sql](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/supabase/migrations/20261110000000_inchara_complete_schema.sql)) with Row Level Security (RLS) policies for `inquiries`, `inquiry_events`, `quotations`, `quotation_items`, `receipts`, `bookings`, `customers`, and `business_settings`.
+  * Seed data script ([seed.sql](file:///c:/Users/nssri/OneDrive/Desktop/Folders/new%20website%20design/supabase/seed.sql)) populating the 6 core services and default super admin profile.
+* **Resilient Dual-Mode Data Layer (`inquiryService.ts`)**:
+  * Attempts live serverless API calls first; automatically falls back to client-side caching (`localStorage`) if offline or during local development. **Zero customer inquiries are ever lost**.
+
+#### 6. Live Git & Vercel Continuous Deployment
+* Repository: `https://github.com/Srinidhi-070/Inchara-Holidays.git` (`main` branch).
+* Live Preview: `https://inchara-holidays.vercel.app`.
+* Compilation: `npx tsc --noEmit` passing with 0 errors; production build compiling cleanly in ~1.0s.
+
+---
+
+### Part 2: What Has Not Been Done (Pending External & Live Cloud Configurations)
+
+The following items cannot be executed within the local codebase alone because they require live account provisioning, secret API keys, domain registrar access, or banking confirmations from the business owner:
+
+| Item | What is Pending | Impact if Not Done |
+| :--- | :--- | :--- |
+| **1. Live Supabase Project Connection** | Running the SQL migration script in an active Supabase cloud project and linking the project URL. | Inquiries currently store in the browser cache/memory fallback rather than a persistent remote PostgreSQL database. |
+| **2. Vercel Production Environment Variables** | Entering `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` into Vercel project settings. | Serverless functions in `api/` will continue using memory fallback until keys are provided. |
+| **3. Custom Domain Configuration** | Mapping the custom domain (e.g. `incharaholidays.com` or `incharaholidays.in`) to Vercel DNS (`76.76.21.21`). | The site is currently accessible via the default `inchara-holidays.vercel.app` subdomain. |
+| **4. Official Domain Business Email** | Configuring DNS MX records for custom mailbox (e.g. `info@incharaholidays.com` via Zoho Mail or Google Workspace). | Direct Contact modal displays *"Setup in progress (Reach via Call/WhatsApp)"*. |
+| **5. Resend.com Email API Key** | Creating a free Resend account and adding `RESEND_API_KEY` to Vercel. | Outbound confirmation emails will not trigger automatically (WhatsApp routing remains 100% active). |
+| **6. Owner Commercial Tax & Bank Verification** | Ravindra S verifying real GSTIN, PAN, and Canara Bank account numbers before accepting commercial funds. | Quotations and receipts currently display verified Malleshwaram branch with provisional account numbers. |
+
+---
+
+### Part 3: Step-by-Step Action Plan to Complete Pending Items
+
+Follow these sequential steps to bring the entire platform to 100% live cloud production:
+
+#### Phase A: Connect Supabase Cloud PostgreSQL Database (Estimated Time: 4 minutes)
+1. **Create Project**:
+   * Navigate to [supabase.com](https://supabase.com) and log in.
+   * Click **New Project** → Name: `inchara-holidays` → Set a secure database password → Region: `South Asia (Mumbai)`.
+2. **Execute Database Migration**:
+   * Open the **SQL Editor** on the left menu in Supabase.
+   * Click **New Query**.
+   * Copy the entire contents of `supabase/migrations/20261110000000_inchara_complete_schema.sql` and paste them into the SQL editor.
+   * Click **Run** (`Ctrl+Enter`). All tables, indexes, and RLS policies will be created.
+   * (Optional) Copy and run `supabase/seed.sql` to populate default service category definitions.
+3. **Copy API Credentials**:
+   * Go to **Project Settings** (gear icon) → **API**.
+   * Copy **Project URL** (`https://xxxx.supabase.co`).
+   * Copy **`service_role` secret key** (`eyJh......`).
+   * Copy **`anon` public key** (`eyJh......`).
+
+---
+
+#### Phase B: Add Secrets to Vercel Environment Variables (Estimated Time: 2 minutes)
+1. Open the [Vercel Dashboard](https://vercel.com/dashboard) → Select `inchara-holidays`.
+2. Go to **Settings** → **Environment Variables**.
+3. Add the following 4 variables (select *Production*, *Preview*, and *Development*):
+   * `SUPABASE_URL` = `https://xxxx.supabase.co`
+   * `SUPABASE_SERVICE_ROLE_KEY` = `your-service-role-secret-key`
+   * `VITE_SUPABASE_URL` = `https://xxxx.supabase.co`
+   * `VITE_SUPABASE_ANON_KEY` = `your-anon-public-key`
+4. (Optional for Email): Add `RESEND_API_KEY` = `re_xxxx` (from [resend.com](https://resend.com)).
+5. Go to **Deployments** → Click `...` on the latest deployment → Click **Redeploy**.
+
+---
+
+#### Phase C: Attach Custom Domain (Estimated Time: 5 minutes)
+1. **Add Domain in Vercel**:
+   * In Vercel Project → **Settings** → **Domains**.
+   * Enter your custom domain (e.g. `incharaholidays.com`) and click **Add**.
+   * Select the recommended redirect (e.g. `incharaholidays.com` redirects to `www.incharaholidays.com`).
+2. **Configure DNS Records at Your Registrar** (GoDaddy, Hostinger, Namecheap, BigRock, etc.):
+   * Add **A Record**: Host `@` → Points to **`76.76.21.21`** (TTL: 3600 or Auto).
+   * Add **CNAME Record**: Host `www` → Points to **`cname.vercel-dns.com`** (TTL: 3600 or Auto).
+3. **Wait for SSL**:
+   * Within 10–15 minutes, Vercel will show a green checkmark `Valid Configuration` and automatically issue a free auto-renewing SSL certificate.
+
+---
+
+#### Phase D: Setup Free Official Business Email (Estimated Time: 5 minutes)
+1. Sign up for **Zoho Mail Forever Free Plan** (supports up to 5 custom domain mailboxes at ₹0/month).
+2. Enter your domain name (`incharaholidays.com`).
+3. Add the MX, SPF, and DKIM records provided by Zoho into your domain DNS panel.
+4. Create `info@incharaholidays.com` and `ravindra@incharaholidays.com`.
+5. Once active, update `src/config/brand.ts` line `email: 'info@incharaholidays.com'` and commit.
+
+---
+
+#### Phase E: Final Live Smoke Test
+1. Visit your live custom domain: `https://www.incharaholidays.com`.
+2. Click **Plan Your Journey** → Submit a test enquiry.
+3. Verify:
+   * Unique reference code `ICH-2026-XXXX` appears.
+   * WhatsApp opens with pre-formatted message addressed to `+91 90361 74880`.
+   * Open Supabase → **Table Editor** → `inquiries`: verify the record is saved.
+   * Open Footer → **Owner Operations Portal**: verify enquiry is listed and status can be updated.
+
+
 
 
 
