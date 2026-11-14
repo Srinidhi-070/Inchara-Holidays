@@ -17,12 +17,16 @@ export interface AdminUser {
 }
 
 export function getAdminToken(): string | null {
-  return localStorage.getItem(ADMIN_TOKEN_KEY);
+  try {
+    return sessionStorage.getItem(ADMIN_TOKEN_KEY);
+  } catch {
+    return null;
+  }
 }
 
 export function getCurrentAdminUser(): AdminUser | null {
   try {
-    const raw = localStorage.getItem(ADMIN_USER_KEY);
+    const raw = sessionStorage.getItem(ADMIN_USER_KEY);
     return raw ? JSON.parse(raw) : null;
   } catch {
     return null;
@@ -45,8 +49,8 @@ export async function adminLogin(email: string, password: string): Promise<{ suc
     if (res.ok) {
       const data = await res.json();
       if (data.token && data.user) {
-        localStorage.setItem(ADMIN_TOKEN_KEY, data.token);
-        localStorage.setItem(ADMIN_USER_KEY, JSON.stringify(data.user));
+        sessionStorage.setItem(ADMIN_TOKEN_KEY, data.token);
+        sessionStorage.setItem(ADMIN_USER_KEY, JSON.stringify(data.user));
         return { success: true, user: data.user };
       }
     }
@@ -63,23 +67,31 @@ export async function adminLogin(email: string, password: string): Promise<{ suc
     const user: AdminUser = {
       id: 'usr_lead_admin',
       email: cleanEmail,
-      fullName: 'Inchara Operations Lead',
+      fullName: 'Ravindra S (Owner & Curator)',
       role: 'super_admin',
     };
-    localStorage.setItem(ADMIN_TOKEN_KEY, `local_auth_${Date.now()}`);
-    localStorage.setItem(ADMIN_USER_KEY, JSON.stringify(user));
+    sessionStorage.setItem(ADMIN_TOKEN_KEY, `local_auth_${Date.now()}`);
+    sessionStorage.setItem(ADMIN_USER_KEY, JSON.stringify(user));
     return { success: true, user };
   }
 
   return {
     success: false,
-    error: 'Invalid credentials. Use admin@incharaholidays.com with password Inchara@2026'
+    error: 'Invalid credentials. Please verify your email and passkey.'
   };
 }
 
 export function adminLogout(): void {
-  localStorage.removeItem(ADMIN_TOKEN_KEY);
-  localStorage.removeItem(ADMIN_USER_KEY);
+  try {
+    sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+    sessionStorage.removeItem(ADMIN_USER_KEY);
+    localStorage.removeItem(ADMIN_TOKEN_KEY);
+    localStorage.removeItem(ADMIN_USER_KEY);
+    localStorage.removeItem('inchara_inquiries_db_v1');
+    localStorage.removeItem('inchara_notification_logs_v1');
+  } catch (e) {
+    console.warn('[Admin] Logout cleanup warning:', e);
+  }
 }
 
 /**
@@ -287,6 +299,36 @@ export async function updateInquiry(
 
   saveLocalInquiry(updated);
   return updated;
+}
+
+/**
+ * Purges all test and dummy inquiries from backend and local cache
+ */
+export async function purgeAllInquiries(): Promise<{ success: boolean; message: string }> {
+  const token = getAdminToken();
+
+  try {
+    const res = await fetch('/api/admin/inquiries', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ all: true }),
+    });
+
+    if (res.ok) {
+      localStorage.removeItem('inchara_inquiries_db_v1');
+      localStorage.removeItem('inchara_notification_logs_v1');
+      return { success: true, message: 'All test inquiries and notification logs cleared.' };
+    }
+  } catch (err) {
+    console.warn('[Admin] Serverless purge error:', err);
+  }
+
+  localStorage.removeItem('inchara_inquiries_db_v1');
+  localStorage.removeItem('inchara_notification_logs_v1');
+  return { success: true, message: 'Local inquiry cache cleared.' };
 }
 
 /**

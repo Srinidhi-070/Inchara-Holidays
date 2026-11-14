@@ -10,7 +10,7 @@ import { getMemoryInquiries, updateMemoryInquiry } from '../_shared/store.js';
 
 export default async function handler(req: any, res: any) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, PATCH, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, PATCH, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
@@ -200,6 +200,37 @@ export default async function handler(req: any, res: any) {
       return res.status(404).json({ success: false, error: 'Inquiry not found' });
     } catch (err: any) {
       return res.status(500).json({ success: false, error: err?.message || 'Update failed' });
+    }
+  }
+
+  // 3. DELETE: Purge single inquiry or all test inquiries
+  if (req.method === 'DELETE') {
+    try {
+      const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
+      const { id, all } = body;
+
+      if (all) {
+        if (isSupabaseConfigured() && supabase) {
+          await supabase.from('notification_logs').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+          await supabase.from('inquiry_events').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+          await supabase.from('inquiries').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+          await supabase.from('customers').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+        }
+        return res.status(200).json({ success: true, message: 'All test inquiries and logs purged.' });
+      }
+
+      if (id) {
+        if (isSupabaseConfigured() && supabase) {
+          await supabase.from('notification_logs').delete().eq('inquiry_id', id);
+          await supabase.from('inquiry_events').delete().eq('inquiry_id', id);
+          await supabase.from('inquiries').delete().eq('id', id);
+        }
+        return res.status(200).json({ success: true, message: `Inquiry ${id} deleted.` });
+      }
+
+      return res.status(400).json({ success: false, error: 'Inquiry ID or all:true is required for deletion.' });
+    } catch (err: any) {
+      return res.status(500).json({ success: false, error: err?.message || 'Delete failed' });
     }
   }
 

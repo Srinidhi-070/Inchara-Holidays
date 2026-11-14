@@ -25,6 +25,7 @@ import {
   fetchAdminInquiries,
   updateInquiry,
   exportInquiriesToCsv,
+  purgeAllInquiries,
   fetchNotificationLogs,
   retryNotificationJob,
   AdminUser,
@@ -36,6 +37,7 @@ import {
   Clock,
   CheckCircle,
   FileSpreadsheet,
+  Trash2,
   Settings,
   Search,
   Filter,
@@ -83,9 +85,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(isAdminAuthenticated());
   const [currentUser, setCurrentUser] = useState<AdminUser | null>(getCurrentAdminUser());
 
-  // Login form state
-  const [loginEmail, setLoginEmail] = useState('admin@incharaholidays.com');
-  const [loginPassword, setLoginPassword] = useState('Inchara@2026');
+  // Login form state — blank by default; owner must enter credentials
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
 
@@ -623,15 +625,33 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                       </button>
                     </div>
 
-                    {/* Export CSV Button */}
-                    <button
-                      type="button"
-                      onClick={handleExportCsv}
-                      className="px-4 py-2 rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer shadow-xs"
-                    >
-                      <FileSpreadsheet className="w-3.5 h-3.5" />
-                      <span>Export CSV</span>
-                    </button>
+                    <div className="flex items-center gap-2">
+                      {/* Purge Test Data Button */}
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          if (window.confirm('Are you sure you want to clean up all test inquiries and notification logs? This leaves the dashboard completely fresh for real customers.')) {
+                            await purgeAllInquiries();
+                            await loadDashboardData();
+                          }
+                        }}
+                        className="px-3 py-2 rounded-xl border border-red-200 bg-red-50 hover:bg-red-100 text-red-700 text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-colors"
+                        title="Purge test inquiries"
+                      >
+                        <Trash2 className="w-3.5 h-3.5 text-red-600" />
+                        <span>Clear Test Data</span>
+                      </button>
+
+                      {/* Export CSV Button */}
+                      <button
+                        type="button"
+                        onClick={handleExportCsv}
+                        className="px-4 py-2 rounded-xl bg-[#162E22] hover:bg-[#263F32] text-[#F5D77F] text-xs font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer shadow-xs"
+                      >
+                        <FileSpreadsheet className="w-3.5 h-3.5" />
+                        <span>Export CSV</span>
+                      </button>
+                    </div>
                   </div>
 
                   {/* Inquiries Table */}
