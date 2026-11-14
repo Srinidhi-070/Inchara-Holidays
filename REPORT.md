@@ -1403,6 +1403,53 @@ Follow these sequential steps to bring the entire platform to 100% live cloud pr
    * Open Supabase → **Table Editor** → `inquiries`: verify the record is saved.
    * Open Footer → **Owner Operations Portal**: verify enquiry is listed and status can be updated.
 
+---
+
+### Cycle 37: Serverless API Runtime Correction, Automated Multi-Channel Notification Engine & Admin Notification Logs Workspace
+**Date**: November 14, 2026  
+**Status**: Completed, Verified Locally & Deployed to Live Vercel Production  
+
+#### 1. Core Directives & Root Cause Analysis
+1. **Serverless API Runtime Correction (`api/`)**:
+   * *Root Cause Identified*: All `/api/*` endpoints previously threw `FUNCTION_INVOCATION_FAILED (HTTP 500)` on Vercel due to cross-boundary TypeScript imports from `../src/` without file extensions.
+   * *Resolution*: Fully isolated `api/` into a self-contained serverless module with dedicated `api/_shared/types.ts`, `api/_shared/validation.ts`, `api/_shared/servicesData.ts`, and `api/_shared/store.ts`.
+   * *Live Verification*: Tested on `https://inchara-holidays.vercel.app`:
+     * `GET /api/services` → Returned **HTTP 200 OK** with 56 KB complete service registry.
+     * `POST /api/inquire` → Returned **HTTP 201 Created** registering test enquiry with unique ref `ICH-2026-CTML`.
+     * `POST /api/admin/login` → Verified negative test (`401 Unauthorized`) and positive test (`200 OK` for Ravindra S).
+     * `GET /api/admin/notifications` → Returned **HTTP 200 OK**.
+
+2. **Automated Multi-Channel Notification Engine (`api/_shared/notifications.ts`)**:
+   * **Meta WhatsApp Business Cloud API Integration**: Engineered server-to-owner automated notification engine formatting structured dossiers across all 6 service categories (Holidays, Educational, Corporate, Transport, Visa, and Pure Veg Catering). Captures provider message IDs (`wamid...`).
+   * **Branded Responsive HTML Email Templates**:
+     * *Owner Lead Alert*: High-contrast Deep Evergreen & Gold table layout with customer contact particulars, service requirements, customer message, and one-click WhatsApp/Call action buttons.
+     * *Customer Acknowledgement*: Culturally rooted bilingual acknowledgement setting clear solo-operator response expectations for Ravindra S.
+   * **Independent Failure Isolation**: Database write executes first. If WhatsApp fails, email still runs; if email fails, WhatsApp still runs. A notification failure never drops the customer enquiry.
+
+3. **Database Schema Update (`supabase/migrations/`)**:
+   * Added `notification_logs` table to `20261110000000_inchara_complete_schema.sql` tracking: `inquiry_id`, `inquiry_reference`, `customer_name`, `channel`, `recipient`, `template_name`, `status` (`pending`, `processing`, `sent`, `delivered`, `failed`, `retry_scheduled`), `provider_message_id`, `error_message`, `attempt_count`, and `last_attempt_at`.
+   * Added indexes and Row Level Security (RLS) policies for authenticated owner and service role.
+
+4. **Admin Dashboard Notification Management Tab (`AdminDashboard.tsx`)**:
+   * Added **Notifications** sidebar navigation tab with active styling.
+   * Implemented delivery metrics (Total Dispatched, WhatsApp Sent, Email Sent, Failed/Retrying).
+   * Implemented filter chips (`All Dispatches`, `WhatsApp Only`, `Email Only`, `Failed Only`).
+   * Built interactive log cards displaying reference code (clickable to open enquiry detail drawer), customer name, channel badges, recipient, provider message ID, and attempt timestamps.
+   * Implemented one-click **Retry Dispatch** action with loading spinners and feedback toasts.
+
+#### 2. Verification Summary
+- **TypeScript**: `npx tsc --noEmit` passed with **0 errors**.
+- **Production Build**: `npm run build` compiled cleanly in **1.20s**.
+- **Live Vercel Endpoints Verified**:
+  - `https://inchara-holidays.vercel.app/api/health` → `200 OK`
+  - `https://inchara-holidays.vercel.app/api/services` → `200 OK`
+  - `https://inchara-holidays.vercel.app/api/inquire` → `201 Created`
+  - `https://inchara-holidays.vercel.app/api/admin/login` → `200 OK`
+  - `https://inchara-holidays.vercel.app/api/admin/notifications` → `200 OK`
+- **Visual QA via Playwright MCP**:
+  - `admin-notifications-workspace.png`: Verified Admin Notifications tab with active navigation, metric cards, filter chips, and empty state.
+
+
 
 
 
