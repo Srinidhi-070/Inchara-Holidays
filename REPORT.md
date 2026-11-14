@@ -1449,8 +1449,35 @@ Follow these sequential steps to bring the entire platform to 100% live cloud pr
 - **Visual QA via Playwright MCP**:
   - `admin-notifications-workspace.png`: Verified Admin Notifications tab with active navigation, metric cards, filter chips, and empty state.
 
+---
 
+### Cycle 38: Live Supabase PostgreSQL Provisioning, Master Schema Migration & Production Verification
+**Date**: November 14, 2026  
+**Status**: Completed, Fully Connected & Verified Live in Production  
 
+#### 1. Scope & Execution
+1. **Supabase Project Provisioning**:
+   * Organization: `Inchara Holidays` (Free Tier).
+   * Project: `Inchara-Holidays` (Dedicated Postgres instance in `ap-northeast-2`).
+   * REST Endpoint: `https://jabqfgbpmlnqecxorjuu.supabase.co`.
+2. **Master Database Schema & Seed (`supabase/master_complete_setup.sql`)**:
+   * Assembled unified migration containing all 15 core business tables: `service_categories`, `services`, `inquiries`, `inquiry_events`, `notification_logs`, `admin_profiles`, `packages`, `customers`, `quotations`, `quotation_items`, `receipts`, `bookings`, `business_settings`, `faqs`, and `promotions`.
+   * Enforced Row Level Security (RLS) policies allowing public enquiry submissions, public catalogue reads, and privileged service-role / authenticated access for backend serverless functions and owner management.
+   * Pre-populated with canonical Karnataka business settings for owner Ravindra S and all 6 core service categories.
+3. **Vercel Production Environment Variables**:
+   * Configured secure production keys: `SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `SUPABASE_PUBLISHABLE_KEY`, and `SUPABASE_SERVICE_ROLE_KEY`.
+   * Updated `api/_shared/supabase.ts` to seamlessly support both legacy and modern Supabase secret key formats.
+4. **Vercel Build Hygiene**:
+   * Relocated `@types/node` from `devDependencies` to `dependencies` in `package.json` to eliminate serverless compilation warnings (`TS2688`).
 
-
+#### 2. Live Verification Results
+- **Production URL**: `https://inchara-holidays.vercel.app`
+- **Homepage Status**: `HTTP 200 OK`
+- **Services Registry**: `GET /api/services` → `HTTP 200 OK` (all 6 service categories returned).
+- **Enquiry Persistence**: `POST /api/inquire` → `HTTP 201 Created`
+  * Reference Code: `ICH-2026-TUTP`
+  * Customer Name: `Ravindra S (Verification Test)`
+  * Database Status: **`persistedToDatabase: true`** (successfully written to Supabase `inquiries` and `inquiry_events`).
+- **Compilation Check**: `npx tsc --noEmit` passed with 0 errors.
+- **Production Build**: `npm run build` compiled in 1.00s.
 
