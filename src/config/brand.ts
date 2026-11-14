@@ -71,7 +71,7 @@ export const brandConfig: BrandConfig = {
   hoursKn: 'ಸೋಮವಾರ - ಭಾನುವಾರ: ಮುಂಜಾನೆ ೮:೦೦ ರಿಂದ ರಾತ್ರಿ ೯:೩೦ ವರೆಗೆ',
   hoursEn: 'Monday - Sunday: 8:00 AM - 9:30 PM IST',
 
-  website: 'https://inchara-holidays.vercel.app',
+  website: getEnv('VITE_SITE_URL', 'https://inchara-holidays.vercel.app'),
   regNumber: '',
 };
 
