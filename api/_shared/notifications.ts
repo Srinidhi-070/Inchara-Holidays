@@ -525,7 +525,7 @@ export async function dispatchNotifications(inquiry: InquiryRecord): Promise<Dis
 
   const nowIso = new Date().toISOString();
   const staffWhatsApp = process.env.STAFF_WHATSAPP_NUMBER || process.env.VITE_WHATSAPP_NUMBER || '919036174880';
-  const staffEmail = process.env.STAFF_NOTIFICATION_EMAIL || process.env.CONTACT_EMAIL || 'info@incharaholidays.com';
+  const staffEmail = process.env.STAFF_NOTIFICATION_EMAIL || process.env.CONTACT_EMAIL || 'incharaholidays@gmail.com';
 
   // =========================================================================
   // JOB 1: WhatsApp Notification to Business Owner

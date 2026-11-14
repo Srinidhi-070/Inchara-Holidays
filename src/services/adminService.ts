@@ -57,7 +57,7 @@ export async function adminLogin(email: string, password: string): Promise<{ suc
   // 2. Client fallback verification for development & offline inspection
   const cleanEmail = email.toLowerCase().trim();
   if (
-    (cleanEmail === 'admin@incharaholidays.com' || cleanEmail === 'inchara@travel.com' || cleanEmail === 'demo@incharaholidays.com') &&
+    (cleanEmail === 'admin@incharaholidays.com' || cleanEmail === 'incharaholidays@gmail.com' || cleanEmail === 'inchara@travel.com' || cleanEmail === 'demo@incharaholidays.com') &&
     (password === 'Inchara@2026' || password === 'admin123')
   ) {
     const user: AdminUser = {

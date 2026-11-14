@@ -141,23 +141,26 @@ export const ContactModal: React.FC<ContactModalProps> = ({
                 </div>
               </a>
 
-              {/* Email / Setup in progress */}
-              <div className="p-2.5 rounded-lg bg-white border border-[#263F32]/15 flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-[#162E22] text-[#F5D77F] flex items-center justify-center shrink-0 shadow-xs">
+              {/* Official Email */}
+              <a
+                href={`mailto:${brandConfig.email}`}
+                className="p-2.5 rounded-lg bg-white border border-[#263F32]/15 hover:border-[#D4AF37]/50 hover:bg-[#F6F3EA]/50 transition-all flex items-center gap-2.5 group"
+              >
+                <div className="w-8 h-8 rounded-full bg-[#162E22] text-[#F5D77F] flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
                   <Mail className="w-4 h-4 text-[#D4AF37]" />
                 </div>
                 <div className="min-w-0">
                   <div className="text-[9px] font-bold text-[#9E3D28] uppercase tracking-wider">
-                    {isKn ? 'ಇಮೇಲ್ ಪತ್ರವ್ಯವಹಾರ' : 'Official Email'}
+                    {isKn ? 'ಅಧಿಕೃತ ಇಮೇಲ್' : 'Official Email'}
                   </div>
-                  <div className="text-xs font-semibold text-[#162E22] truncate">
-                    {isKn ? brandConfig.emailStatusKn : brandConfig.emailStatusEn}
+                  <div className="text-xs font-semibold text-[#162E22] truncate group-hover:text-[#9E3D28] transition-colors">
+                    {brandConfig.email}
                   </div>
                   <span className="text-[9px] text-[#252923]/60 block leading-tight">
-                    {isKn ? 'ಶೀಘ್ರದಲ್ಲೇ ಲಭ್ಯವಾಗಲಿದೆ' : 'Official email setup in progress'}
+                    {isKn ? 'ಪ್ರಸ್ತಾವನೆಗಳು & ವಿಚಾರಣೆಗಳಿಗಾಗಿ' : 'For formal proposals & enquiries'}
                   </span>
                 </div>
-              </div>
+              </a>
 
               {/* Business Hours */}
               <div className="p-2.5 rounded-lg bg-white border border-[#263F32]/10 flex items-center gap-2.5">

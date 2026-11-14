@@ -303,8 +303,8 @@ CREATE TABLE IF NOT EXISTS business_settings (
   owner_name TEXT NOT NULL DEFAULT 'Ravindra S',
   phone_primary TEXT NOT NULL DEFAULT '+91 90361 74880',
   phone_raw TEXT NOT NULL DEFAULT '919036174880',
-  email_primary TEXT NOT NULL DEFAULT 'info@incharaholidays.com',
-  email_official TEXT NOT NULL DEFAULT 'contact@incharaholidays.com',
+  email_primary TEXT NOT NULL DEFAULT 'incharaholidays@gmail.com',
+  email_official TEXT NOT NULL DEFAULT 'incharaholidays@gmail.com',
   registered_address_en TEXT NOT NULL DEFAULT 'INCHARA HOLIDAYS, 7/1, 6th Cross Rd, Swimming Pool Extension, HN Layout, Malleshwaram, Bengaluru, Karnataka 560003',
   registered_address_kn TEXT NOT NULL DEFAULT 'ಇಂಚರ ಹಾಲಿಡೇಸ್, ೭/೧, ೬ನೇ ಕ್ರಾಸ್ ರಸ್ತೆ, ಸ್ವಿಮ್ಮಿಂಗ್ ಪೂಲ್ ಬಡಾವಣೆ, ಎಚ್.ಎನ್. ಬಡಾವಣೆ, ಮಲ್ಲೇಶ್ವರಂ, ಬೆಂಗಳೂರು, ಕರ್ನಾಟಕ ೫೬೦೦೦೩',
   reg_number TEXT NOT NULL DEFAULT '',
@@ -479,5 +479,5 @@ display_order = EXCLUDED.display_order;
 
 -- Insert default admin profile for Ravindra S
 INSERT INTO admin_profiles (email, full_name, role, phone, is_active)
-VALUES ('info@incharaholidays.com', 'Ravindra S (Owner & Lead Curator)', 'super_admin', '+91 90361 74880', true)
+VALUES ('incharaholidays@gmail.com', 'Ravindra S (Owner & Lead Curator)', 'super_admin', '+91 90361 74880', true)
 ON CONFLICT (email) DO NOTHING;

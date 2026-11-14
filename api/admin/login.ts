@@ -56,16 +56,22 @@ export default async function handler(req: any, res: any) {
     }
 
     // 2. Verified Solo-Operator Fallback Credentials
-    const masterEmail = process.env.ADMIN_EMAIL || 'admin@incharaholidays.com';
+    const masterEmail = process.env.ADMIN_EMAIL || 'incharaholidays@gmail.com';
     const masterPassword = process.env.ADMIN_PASSWORD || 'Inchara@2026';
 
-    if (email.toLowerCase().trim() === masterEmail.toLowerCase().trim() && password === masterPassword) {
+    const isMatch = (
+      email.toLowerCase().trim() === masterEmail.toLowerCase().trim() ||
+      email.toLowerCase().trim() === 'admin@incharaholidays.com' ||
+      email.toLowerCase().trim() === 'incharaholidays@gmail.com'
+    ) && password === masterPassword;
+
+    if (isMatch) {
       return res.status(200).json({
         success: true,
         token: `mock_jwt_${Buffer.from(email).toString('base64')}_${Date.now()}`,
         user: {
           id: 'admin_root',
-          email: masterEmail,
+          email: email.toLowerCase().trim(),
           fullName: 'Ravindra S (Owner & Lead Curator)',
           role: 'super_admin',
         }

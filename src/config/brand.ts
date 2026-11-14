@@ -59,10 +59,10 @@ export const brandConfig: BrandConfig = {
   whatsappDisplay: getEnv('VITE_WHATSAPP_DISPLAY', '+91 90361 74880'),
   whatsappRaw: getEnv('VITE_WHATSAPP_NUMBER', '919036174880'),
 
-  email: getEnv('VITE_CONTACT_EMAIL', 'info@incharaholidays.com'),
-  emailStatusEn: 'Setup in progress (Reach via Call/WhatsApp)',
-  emailStatusKn: 'ಸಿದ್ಧತೆಯಲ್ಲಿದೆ (ವಾಟ್ಸಾಪ್/ಕರೆಗೆ ಆದ್ಯತೆ)',
-  notificationEmail: getEnv('VITE_NOTIFICATIONS_EMAIL', 'inquiries@incharaholidays.com'),
+  email: getEnv('VITE_CONTACT_EMAIL', 'incharaholidays@gmail.com'),
+  emailStatusEn: 'incharaholidays@gmail.com',
+  emailStatusKn: 'incharaholidays@gmail.com',
+  notificationEmail: getEnv('VITE_NOTIFICATIONS_EMAIL', 'incharaholidays@gmail.com'),
 
   addressKn: 'ಇಂಚರ ಹಾಲಿಡೇಸ್, ೭/೧, ೬ನೇ ಕ್ರಾಸ್ ರಸ್ತೆ, ಸ್ವಿಮ್ಮಿಂಗ್ ಪೂಲ್ ಬಡಾವಣೆ, ಎಚ್.ಎನ್. ಬಡಾವಣೆ, ಮಲ್ಲೇಶ್ವರಂ, ಬೆಂಗಳೂರು, ಕರ್ನಾಟಕ ೫೬೦೦೦೩',
   addressEn: 'INCHARA HOLIDAYS, 7/1, 6th Cross Rd, Swimming Pool Extension, HN Layout, Malleshwaram, Bengaluru, Karnataka 560003',
