@@ -1,30 +1,31 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
+ * INCHARA HOLIDAYS — SERVERLESS INQUIRY SUBMISSION HANDLER
+ * Completely self-contained within api/ directory for zero-error Vercel execution.
  */
 
-import { validateInquiryInput } from '../src/utils/validation';
-import { InquiryRecord } from '../src/types/inquiry';
-import { getSupabase, isSupabaseConfigured } from './_shared/supabase';
-import { dispatchNotifications } from './_shared/notifications';
-import { addMemoryInquiry } from './_shared/store';
+import { validateInquiryInput } from './_shared/validation.js';
+import { InquiryRecord } from './_shared/types.js';
+import { getSupabase, isSupabaseConfigured } from './_shared/supabase.js';
+import { dispatchNotifications } from './_shared/notifications.js';
+import { addMemoryInquiry } from './_shared/store.js';
 
 /**
- * Generates an authentic, professional, unique inquiry reference code.
- * Format: ICH-2026-XXXX (e.g. ICH-2026-K7M2)
+ * Generates unique reference code: ICH-YYYY-XXXX (e.g. ICH-2026-K7M2)
  */
 function generateReferenceNumber(): string {
   const year = new Date().getFullYear();
-  const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ'; // Exclude visually ambiguous characters (0, 1, I, O)
-  let randomPart = '';
+  const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+  let rand = '';
   for (let i = 0; i < 4; i++) {
-    randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
+    rand += chars.charAt(Math.floor(Math.random() * chars.length));
   }
-  return `ICH-${year}-${randomPart}`;
+  return `ICH-${year}-${rand}`;
 }
 
 export default async function handler(req: any, res: any) {
-  // CORS & Methods
+  // CORS & Preflight
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Idempotency-Key');
@@ -48,16 +49,15 @@ export default async function handler(req: any, res: any) {
     if (!validation.success || !validation.data) {
       return res.status(400).json({
         success: false,
-        error: 'Validation failed. Please verify the required fields.',
+        error: 'Validation failed. Please verify required fields.',
         details: validation.errors
       });
     }
 
     const { customer, serviceCategory, serviceType, servicePayload, idempotencyKey, honeypot } = validation.data;
 
-    // 2. Anti-Spam Honeypot Verification
+    // 2. Anti-Spam Honeypot Gate
     if (honeypot && honeypot.length > 0) {
-      // Quietly reject bot submissions
       return res.status(200).json({
         success: true,
         referenceNumber: 'ICH-2026-SPAM',
@@ -84,8 +84,8 @@ export default async function handler(req: any, res: any) {
       }
     }
 
-    // 4. Generate Unique Reference Number
-    let referenceNumber = generateReferenceNumber();
+    // 4. Generate Unique Reference Code
+    const referenceNumber = generateReferenceNumber();
     const nowIso = new Date().toISOString();
     const inquiryId = crypto.randomUUID();
 
@@ -100,58 +100,62 @@ export default async function handler(req: any, res: any) {
       preferredContactMethod: customer.preferredContactMethod,
       serviceCategory,
       serviceType,
-      servicePayload: servicePayload || {},
+      servicePayload: (servicePayload as Record<string, unknown>) || {},
       additionalRequirements: customer.additionalRequirements || undefined,
       status: 'new',
       createdAt: nowIso,
       updatedAt: nowIso,
     };
 
-    // 6. Persistence to PostgreSQL or In-Memory Fallback
+    // 6. Persistence: Supabase PostgreSQL First, In-Memory Fallback Second
+    let isPersistedToDb = false;
     if (isSupabaseConfigured() && supabase) {
       const { error: insertError } = await supabase.from('inquiries').insert({
         id: inquiryId,
         reference_number: referenceNumber,
         customer_name: inquiryRecord.customerName,
         phone: inquiryRecord.phone,
-        email: inquiryRecord.email,
+        email: inquiryRecord.email || null,
         city: customer.city || null,
         preferred_language: inquiryRecord.preferredLanguage,
         preferred_contact_method: inquiryRecord.preferredContactMethod,
         service_category: inquiryRecord.serviceCategory,
         service_type: inquiryRecord.serviceType,
         service_payload: inquiryRecord.servicePayload,
-        additional_requirements: inquiryRecord.additionalRequirements,
+        additional_requirements: inquiryRecord.additionalRequirements || null,
         status: 'new',
         idempotency_key: idempotencyKey || null,
         created_at: nowIso,
         updated_at: nowIso,
       });
 
-      if (insertError) {
-        console.error('[Supabase Insert Error]:', insertError);
-        // Fall back to memory so client inquiry is never discarded
-        addMemoryInquiry(inquiryRecord);
+      if (!insertError) {
+        isPersistedToDb = true;
+        // Record creation event in audit trail
+        try {
+          await supabase.from('inquiry_events').insert({
+            inquiry_id: inquiryId,
+            event_type: 'created',
+            new_status: 'new',
+            notes: 'Customer submitted new inquiry via web portal',
+            actor_name: 'Customer (Web Portal)',
+            created_at: nowIso,
+          });
+        } catch (eventErr) {
+          console.warn('[Audit Trail Event Warning]:', eventErr);
+        }
       } else {
-        // Log creation event in audit trail
-        await supabase.from('inquiry_events').insert({
-          inquiry_id: inquiryId,
-          event_type: 'created',
-          new_status: 'new',
-          notes: 'Customer submitted new inquiry via web portal',
-          actor_name: 'Customer (Web Portal)',
-          created_at: nowIso,
-        });
+        console.error('[Supabase Insert Error]:', insertError);
+        addMemoryInquiry(inquiryRecord);
       }
     } else {
       addMemoryInquiry(inquiryRecord);
-      console.log(`[Inquiries Store] Stored inquiry ${referenceNumber} in memory store`);
     }
 
-    // 7. Dispatch Background Notifications (Resend Email & WhatsApp)
-    // Non-blocking: notification failure never cancels the saved inquiry
-    dispatchNotifications(inquiryRecord).catch((err) => {
-      console.warn('[Notification Error]:', err);
+    // 7. Multi-Channel Automated Notification Dispatch (Background Async)
+    // Runs independently: if notifications fail, the inquiry record remains permanently saved.
+    dispatchNotifications(inquiryRecord).catch((notifErr) => {
+      console.warn('[Background Notification Warning]:', notifErr);
     });
 
     // 8. Return Verified Success Acknowledgment
@@ -160,6 +164,7 @@ export default async function handler(req: any, res: any) {
       referenceNumber,
       message: 'Inquiry registered successfully. An Inchara Holidays travel coordinator will connect with you shortly.',
       inquiry: inquiryRecord,
+      persistedToDatabase: isPersistedToDb,
     });
   } catch (error: any) {
     console.error('[API Inquire Handler Error]:', error);

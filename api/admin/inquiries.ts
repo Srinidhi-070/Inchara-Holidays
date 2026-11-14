@@ -1,11 +1,12 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
+ * INCHARA HOLIDAYS — ADMIN INQUIRIES MANAGEMENT HANDLER
  */
 
-import { getSupabase, isSupabaseConfigured } from '../_shared/supabase';
-import { InquiryRecord, InquiryStatus } from '../../src/types/inquiry';
-import { getMemoryInquiries, updateMemoryInquiry } from '../_shared/store';
+import { getSupabase, isSupabaseConfigured } from '../_shared/supabase.js';
+import { InquiryRecord, InquiryStatus } from '../_shared/types.js';
+import { getMemoryInquiries, updateMemoryInquiry } from '../_shared/store.js';
 
 export default async function handler(req: any, res: any) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -14,7 +15,7 @@ export default async function handler(req: any, res: any) {
 
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  // Basic authorization header check
+  // Basic authorization check
   const authHeader = req.headers['authorization'];
   if (!authHeader) {
     return res.status(401).json({ success: false, error: 'Unauthorized. Staff token required.' });
@@ -49,11 +50,9 @@ export default async function handler(req: any, res: any) {
         }
 
         const { data, count, error } = await query;
-
         if (error) throw error;
 
-        // Map snake_case to camelCase
-        const items: InquiryRecord[] = (data || []).map((row: any) => ({
+        const inquiries: InquiryRecord[] = (data || []).map((row: any) => ({
           id: row.id,
           referenceNumber: row.reference_number,
           customerName: row.customer_name,
@@ -75,18 +74,19 @@ export default async function handler(req: any, res: any) {
 
         return res.status(200).json({
           success: true,
-          inquiries: items,
-          total: count || items.length,
+          inquiries,
+          total: count || inquiries.length,
           limit: Number(limit),
           offset: Number(offset),
         });
       } catch (err: any) {
-        return res.status(500).json({ success: false, error: err.message });
+        console.warn('[Inquiries API] Supabase query failed, falling back to memory:', err);
       }
     }
 
-    // In-memory fallback
+    // In-Memory Fallback Filter
     let list = getMemoryInquiries();
+
     if (category && category !== 'all') {
       list = list.filter((i) => i.serviceCategory === category);
     }
@@ -99,93 +99,107 @@ export default async function handler(req: any, res: any) {
         (i) =>
           i.referenceNumber.toLowerCase().includes(q) ||
           i.customerName.toLowerCase().includes(q) ||
-          i.phone.toLowerCase().includes(q) ||
+          i.phone.includes(q) ||
           (i.email && i.email.toLowerCase().includes(q))
       );
     }
 
+    const total = list.length;
     const paginated = list.slice(Number(offset), Number(offset) + Number(limit));
 
     return res.status(200).json({
       success: true,
       inquiries: paginated,
-      total: list.length,
+      total,
       limit: Number(limit),
       offset: Number(offset),
-      isFallback: true,
     });
   }
 
-  // 2. PATCH: Update Status, Notes, Followup Date
+  // 2. PATCH: Update Status, Notes, Follow-up
   if (req.method === 'PATCH') {
     try {
-      const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-      const { id, status, assignedStaff, internalNotes, nextFollowupDate, actorName = 'Staff' } = body;
+      const { id, status, internalNotes, assignedStaff, nextFollowupDate } =
+        typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
 
       if (!id) {
-        return res.status(400).json({ success: false, error: 'Inquiry ID is required.' });
+        return res.status(400).json({ success: false, error: 'Inquiry ID is required' });
       }
 
+      const updates: Partial<InquiryRecord> = {};
+      if (status) updates.status = status as InquiryStatus;
+      if (internalNotes !== undefined) updates.internalNotes = internalNotes;
+      if (assignedStaff !== undefined) updates.assignedStaff = assignedStaff;
+      if (nextFollowupDate !== undefined) updates.nextFollowupDate = nextFollowupDate;
+
+      const nowIso = new Date().toISOString();
+
       if (isSupabaseConfigured() && supabase) {
-        // Fetch current record for audit comparison
-        const { data: current } = await supabase
+        const dbUpdates: Record<string, any> = { updated_at: nowIso };
+        if (status) dbUpdates.status = status;
+        if (internalNotes !== undefined) dbUpdates.internal_notes = internalNotes;
+        if (assignedStaff !== undefined) dbUpdates.assigned_staff = assignedStaff;
+        if (nextFollowupDate !== undefined) dbUpdates.next_followup_date = nextFollowupDate;
+
+        const { data, error } = await supabase
           .from('inquiries')
-          .select('status')
-          .eq('id', id)
-          .single();
-
-        const updatePayload: Record<string, any> = {
-          updated_at: new Date().toISOString(),
-        };
-
-        if (status) updatePayload.status = status;
-        if (assignedStaff !== undefined) updatePayload.assigned_staff = assignedStaff;
-        if (internalNotes !== undefined) updatePayload.internal_notes = internalNotes;
-        if (nextFollowupDate !== undefined) updatePayload.next_followup_date = nextFollowupDate;
-
-        const { data: updated, error } = await supabase
-          .from('inquiries')
-          .update(updatePayload)
+          .update(dbUpdates)
           .eq('id', id)
           .select()
           .single();
 
-        if (error) throw error;
+        if (!error && data) {
+          // Log status change in audit trail
+          if (status) {
+            await supabase.from('inquiry_events').insert({
+              inquiry_id: id,
+              event_type: 'status_changed',
+              new_status: status,
+              notes: internalNotes || 'Status updated by owner',
+              actor_name: assignedStaff || 'Ravindra S (Owner)',
+              created_at: nowIso,
+            });
+          }
 
-        // Log status change event if status shifted
-        if (status && current && current.status !== status) {
-          await supabase.from('inquiry_events').insert({
-            inquiry_id: id,
-            event_type: 'status_changed',
-            previous_status: current.status,
-            new_status: status,
-            notes: internalNotes || `Status updated to ${status}`,
-            actor_name: actorName,
+          return res.status(200).json({
+            success: true,
+            message: 'Inquiry updated successfully',
+            inquiry: {
+              id: data.id,
+              referenceNumber: data.reference_number,
+              customerName: data.customer_name,
+              phone: data.phone,
+              email: data.email,
+              preferredLanguage: data.preferred_language,
+              preferredContactMethod: data.preferred_contact_method,
+              serviceCategory: data.service_category,
+              serviceType: data.service_type,
+              servicePayload: data.service_payload || {},
+              additionalRequirements: data.additional_requirements,
+              status: data.status,
+              assignedStaff: data.assigned_staff,
+              internalNotes: data.internal_notes,
+              nextFollowupDate: data.next_followup_date,
+              createdAt: data.created_at,
+              updatedAt: data.updated_at,
+            },
           });
         }
+      }
 
+      // Memory Fallback
+      const updated = updateMemoryInquiry(id, updates);
+      if (updated) {
         return res.status(200).json({
           success: true,
-          message: 'Inquiry updated successfully',
+          message: 'Inquiry updated successfully (local memory)',
           inquiry: updated,
         });
       }
 
-      // Memory fallback update
-      const updatePayload: Partial<InquiryRecord> = {};
-      if (status) updatePayload.status = status as InquiryStatus;
-      if (internalNotes !== undefined) updatePayload.internalNotes = internalNotes;
-      if (nextFollowupDate !== undefined) updatePayload.nextFollowupDate = nextFollowupDate;
-
-      const updatedMemory = updateMemoryInquiry(id, updatePayload);
-
-      return res.status(200).json({
-        success: true,
-        message: 'Inquiry updated successfully',
-        inquiry: updatedMemory,
-      });
+      return res.status(404).json({ success: false, error: 'Inquiry not found' });
     } catch (err: any) {
-      return res.status(500).json({ success: false, error: err.message });
+      return res.status(500).json({ success: false, error: err?.message || 'Update failed' });
     }
   }
 

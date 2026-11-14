@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { AdminDashboardStats, InquiryRecord, InquiryStatus } from '../types/inquiry';
+import { AdminDashboardStats, InquiryRecord, InquiryStatus, NotificationLog } from '../types/inquiry';
 import { getLocalStoredInquiries, saveLocalInquiry } from './inquiryService';
 
 const ADMIN_TOKEN_KEY = 'inchara_admin_session_token';
@@ -336,3 +336,78 @@ export function exportInquiriesToCsv(inquiries: InquiryRecord[], filename = 'inc
   document.body.removeChild(link);
   URL.revokeObjectURL(url);
 }
+
+const LOCAL_NOTIF_KEY = 'inchara_notification_logs_v1';
+
+export function getLocalNotificationLogs(): NotificationLog[] {
+  try {
+    const raw = localStorage.getItem(LOCAL_NOTIF_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveLocalNotificationLog(log: NotificationLog): void {
+  try {
+    const list = getLocalNotificationLogs();
+    const updated = [log, ...list.filter((l) => l.id !== log.id)];
+    localStorage.setItem(LOCAL_NOTIF_KEY, JSON.stringify(updated.slice(0, 100)));
+  } catch (e) {
+    console.warn('[LocalStorage] Could not save notification log:', e);
+  }
+}
+
+/**
+ * Fetches notification delivery logs from serverless API with client fallback
+ */
+export async function fetchNotificationLogs(limit = 50): Promise<NotificationLog[]> {
+  try {
+    const token = getAdminToken();
+    const res = await fetch(`/api/admin/notifications?limit=${limit}`, {
+      headers: {
+        'Authorization': `Bearer ${token || 'anonymous'}`,
+      },
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data.logs)) {
+        return data.logs;
+      }
+    }
+  } catch (err) {
+    console.info('[AdminService] Serverless notifications API offline, checking local storage:', err);
+  }
+
+  return getLocalNotificationLogs();
+}
+
+/**
+ * Retries a failed notification job via serverless API
+ */
+export async function retryNotificationJob(logId: string): Promise<{ success: boolean; log?: NotificationLog; error?: string }> {
+  try {
+    const token = getAdminToken();
+    const res = await fetch('/api/admin/notifications', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token || 'anonymous'}`,
+      },
+      body: JSON.stringify({ logId }),
+    });
+
+    const data = await res.json();
+    if (data.success && data.log) {
+      saveLocalNotificationLog(data.log);
+    }
+    return data;
+  } catch (err: any) {
+    return {
+      success: false,
+      error: err?.message || 'Network exception during notification retry',
+    };
+  }
+}
+

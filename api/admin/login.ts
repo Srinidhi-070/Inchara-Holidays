@@ -1,9 +1,10 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
+ * INCHARA HOLIDAYS — OWNER AUTHENTICATION HANDLER
  */
 
-import { getSupabase, isSupabaseConfigured } from '../_shared/supabase';
+import { getSupabase, isSupabaseConfigured } from '../_shared/supabase.js';
 
 export default async function handler(req: any, res: any) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -35,7 +36,6 @@ export default async function handler(req: any, res: any) {
       });
 
       if (!error && data?.session) {
-        // Fetch role from admin_profiles
         const { data: profile } = await supabase
           .from('admin_profiles')
           .select('*')
@@ -48,15 +48,14 @@ export default async function handler(req: any, res: any) {
           user: {
             id: data.user.id,
             email: data.user.email,
-            fullName: profile?.full_name || 'Staff Administrator',
-            role: profile?.role || 'travel_consultant',
+            fullName: profile?.full_name || 'Ravindra S (Owner)',
+            role: profile?.role || 'super_admin',
           }
         });
       }
     }
 
-    // 2. Verified Local / Master Admin Credentials
-    // Allows staff to log in immediately even before Supabase Auth users are invited
+    // 2. Verified Solo-Operator Fallback Credentials
     const masterEmail = process.env.ADMIN_EMAIL || 'admin@incharaholidays.com';
     const masterPassword = process.env.ADMIN_PASSWORD || 'Inchara@2026';
 
@@ -67,7 +66,7 @@ export default async function handler(req: any, res: any) {
         user: {
           id: 'admin_root',
           email: masterEmail,
-          fullName: 'Inchara Operations Lead',
+          fullName: 'Ravindra S (Owner & Lead Curator)',
           role: 'super_admin',
         }
       });
@@ -75,7 +74,7 @@ export default async function handler(req: any, res: any) {
 
     return res.status(401).json({
       success: false,
-      error: 'Invalid email or password. Please verify your staff credentials.'
+      error: 'Invalid email or password. Please verify your owner credentials.'
     });
   } catch (err: any) {
     return res.status(500).json({

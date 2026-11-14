@@ -11,6 +11,7 @@ import {
   InquiryStatus,
   ServiceCategoryId,
   CustomerRecord,
+  NotificationLog,
 } from '../../types/inquiry';
 import { serviceCategories } from '../../data/servicesData';
 import { getAggregatedCustomers, searchCustomers } from '../../services/customerService';
@@ -24,9 +25,12 @@ import {
   fetchAdminInquiries,
   updateInquiry,
   exportInquiriesToCsv,
+  fetchNotificationLogs,
+  retryNotificationJob,
   AdminUser,
 } from '../../services/adminService';
 import {
+  Bell,
   LayoutDashboard,
   Inbox,
   Clock,
@@ -73,7 +77,7 @@ interface AdminDashboardProps {
   onClose: () => void;
 }
 
-type AdminTab = 'dashboard' | 'inquiries' | 'customers' | 'followups' | 'services' | 'settings';
+type AdminTab = 'dashboard' | 'inquiries' | 'customers' | 'followups' | 'notifications' | 'services' | 'settings';
 
 export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(isAdminAuthenticated());
@@ -123,10 +127,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
   // Service Management State
   const [categoriesList, setCategoriesList] = useState(serviceCategories);
 
-  // Load stats, inquiries, and customers when authenticated
+  // Notification Management State
+  const [notifications, setNotifications] = useState<NotificationLog[]>([]);
+  const [notificationsLoading, setNotificationsLoading] = useState(false);
+  const [retryingLogId, setRetryingLogId] = useState<string | null>(null);
+  const [notifFilter, setNotifFilter] = useState<'all' | 'whatsapp' | 'email' | 'failed'>('all');
+  const [retryFeedback, setRetryFeedback] = useState<string | null>(null);
+
+  // Load stats, inquiries, customers, and notification logs when authenticated
   const loadDashboardData = async () => {
     setStatsLoading(true);
     setInquiriesLoading(true);
+    setNotificationsLoading(true);
     try {
       const statsData = await fetchAdminStats();
       setStats(statsData);
@@ -138,11 +150,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
       });
       setInquiries(inqData.inquiries);
       setCustomers(getAggregatedCustomers());
+
+      const notifData = await fetchNotificationLogs();
+      setNotifications(notifData);
     } catch (e) {
       console.warn('[Admin] Failed to load data:', e);
     } finally {
       setStatsLoading(false);
       setInquiriesLoading(false);
+      setNotificationsLoading(false);
     }
   };
 
@@ -151,6 +167,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
       loadDashboardData();
     }
   }, [isOpen, isAuthenticated, statusFilter, categoryFilter]);
+
+  const filteredNotifications = notifications.filter((n) => {
+    if (notifFilter === 'whatsapp') return n.channel === 'whatsapp';
+    if (notifFilter === 'email') return n.channel === 'email';
+    if (notifFilter === 'failed') return n.status === 'failed';
+    return true;
+  });
 
   // Handle Login
   const handleLoginSubmit = async (e: React.FormEvent) => {
@@ -390,6 +413,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                 { id: 'inquiries', label: 'All Inquiries', icon: Inbox },
                 { id: 'customers', label: 'Customers', icon: User },
                 { id: 'followups', label: 'Follow-ups', icon: Clock },
+                { id: 'notifications', label: 'Notifications', icon: Bell },
                 { id: 'services', label: 'Services', icon: Layers },
                 { id: 'settings', label: 'Business & Tax', icon: Settings },
               ].map((tab) => {
@@ -844,7 +868,259 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                 </div>
               )}
 
-              {/* TAB 5: SETTINGS & SOLO OPERATOR CREDENTIALS */}
+              {/* TAB 5: AUTOMATED NOTIFICATIONS & AUDIT DISPATCH LOGS */}
+              {activeTab === 'notifications' && (
+                <div className="space-y-6">
+                  {/* Header */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                      <h2 className="text-xl sm:text-2xl font-bold font-serif-editorial text-[#162E22]">
+                        Automated Dispatch & Notification Logs
+                      </h2>
+                      <p className="text-xs text-[#252923]/70 mt-0.5">
+                        Audit delivery status for Meta WhatsApp Business Cloud API and Resend transactional emails.
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          setNotificationsLoading(true);
+                          const data = await fetchNotificationLogs();
+                          setNotifications(data);
+                          setNotificationsLoading(false);
+                        }}
+                        disabled={notificationsLoading}
+                        className="px-3 py-1.5 rounded-lg border border-[#263F32]/15 hover:bg-[#F6F3EA] text-xs font-semibold text-[#162E22] flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                      >
+                        <RefreshCw className={`w-3.5 h-3.5 ${notificationsLoading ? 'animate-spin' : ''}`} />
+                        <span>Refresh Logs</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Toast Feedback */}
+                  {retryFeedback && (
+                    <div className="p-3 rounded-xl bg-[#162E22] text-[#F5D77F] text-xs flex items-center justify-between shadow-md">
+                      <span>{retryFeedback}</span>
+                      <button
+                        type="button"
+                        onClick={() => setRetryFeedback(null)}
+                        className="text-white/60 hover:text-white cursor-pointer"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  )}
+
+                  {/* KPI Cards */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div className="p-3.5 rounded-xl bg-white border border-[#263F32]/10 shadow-xs">
+                      <div className="text-[11px] font-bold text-[#252923]/60 uppercase tracking-wider">
+                        Total Dispatches
+                      </div>
+                      <div className="text-xl font-bold font-serif-editorial text-[#162E22] mt-1">
+                        {notifications.length}
+                      </div>
+                    </div>
+                    <div className="p-3.5 rounded-xl bg-white border border-[#263F32]/10 shadow-xs">
+                      <div className="text-[11px] font-bold text-emerald-600 uppercase tracking-wider">
+                        WhatsApp Sent
+                      </div>
+                      <div className="text-xl font-bold font-serif-editorial text-[#162E22] mt-1">
+                        {
+                          notifications.filter(
+                            (n) => n.channel === 'whatsapp' && (n.status === 'sent' || n.status === 'delivered')
+                          ).length
+                        }
+                      </div>
+                    </div>
+                    <div className="p-3.5 rounded-xl bg-white border border-[#263F32]/10 shadow-xs">
+                      <div className="text-[11px] font-bold text-sky-600 uppercase tracking-wider">Email Sent</div>
+                      <div className="text-xl font-bold font-serif-editorial text-[#162E22] mt-1">
+                        {
+                          notifications.filter(
+                            (n) => n.channel === 'email' && (n.status === 'sent' || n.status === 'delivered')
+                          ).length
+                        }
+                      </div>
+                    </div>
+                    <div className="p-3.5 rounded-xl bg-white border border-[#263F32]/10 shadow-xs">
+                      <div className="text-[11px] font-bold text-[#9E3D28] uppercase tracking-wider">
+                        Failed / Retrying
+                      </div>
+                      <div className="text-xl font-bold font-serif-editorial text-[#9E3D28] mt-1">
+                        {notifications.filter((n) => n.status === 'failed' || n.status === 'pending').length}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Channel Filter Chips */}
+                  <div className="flex flex-wrap items-center gap-2">
+                    {[
+                      { id: 'all', label: 'All Dispatches' },
+                      { id: 'whatsapp', label: 'WhatsApp Only' },
+                      { id: 'email', label: 'Email Only' },
+                      { id: 'failed', label: 'Failed Only' },
+                    ].map((tab) => (
+                      <button
+                        key={tab.id}
+                        type="button"
+                        onClick={() => setNotifFilter(tab.id as any)}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer border ${
+                          notifFilter === tab.id
+                            ? 'bg-[#162E22] text-[#F5D77F] border-[#162E22]'
+                            : 'bg-white text-[#252923]/70 border-[#263F32]/15 hover:bg-[#F6F3EA]'
+                        }`}
+                      >
+                        {tab.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Logs Table / Cards */}
+                  {filteredNotifications.length === 0 ? (
+                    <div className="p-10 rounded-2xl bg-white border border-[#263F32]/10 text-center space-y-2">
+                      <Bell className="w-8 h-8 text-[#D4AF37] mx-auto opacity-40" />
+                      <h3 className="text-sm font-bold text-[#162E22]">No Notification Records Found</h3>
+                      <p className="text-xs text-[#252923]/60 max-w-sm mx-auto">
+                        Notifications triggered when customers submit enquiries through the website will appear here with
+                        delivery timestamps and provider IDs.
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      {filteredNotifications.map((log) => {
+                        const isWhatsApp = log.channel === 'whatsapp';
+                        const isSuccess = log.status === 'sent' || log.status === 'delivered';
+                        const isFailed = log.status === 'failed';
+                        const isRetrying = retryingLogId === log.id;
+
+                        return (
+                          <div
+                            key={log.id}
+                            className="p-4 rounded-xl bg-white border border-[#263F32]/10 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                          >
+                            <div className="space-y-1.5 min-w-0">
+                              <div className="flex items-center gap-2 flex-wrap">
+                                {/* Channel Badge */}
+                                <span
+                                  className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                                    isWhatsApp
+                                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                      : 'bg-sky-50 text-sky-700 border border-sky-200'
+                                  }`}
+                                >
+                                  {isWhatsApp ? <MessageCircle className="w-3 h-3" /> : <Mail className="w-3 h-3" />}
+                                  <span>{isWhatsApp ? 'WhatsApp' : 'Email'}</span>
+                                </span>
+
+                                {/* Status Badge */}
+                                <span
+                                  className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                                    isSuccess
+                                      ? 'bg-emerald-100 text-emerald-800'
+                                      : isFailed
+                                      ? 'bg-rose-100 text-rose-800'
+                                      : 'bg-amber-100 text-amber-800'
+                                  }`}
+                                >
+                                  {isSuccess ? (
+                                    <CheckCircle2 className="w-3 h-3" />
+                                  ) : isFailed ? (
+                                    <AlertCircle className="w-3 h-3" />
+                                  ) : (
+                                    <Clock className="w-3 h-3" />
+                                  )}
+                                  <span>{log.status}</span>
+                                </span>
+
+                                {/* Ref Number */}
+                                {log.inquiryReference && (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      const inq = inquiries.find(
+                                        (i) => i.id === log.inquiryId || i.referenceNumber === log.inquiryReference
+                                      );
+                                      if (inq) setSelectedInquiry(inq);
+                                    }}
+                                    className="font-mono text-xs font-bold text-[#162E22] hover:text-[#9E3D28] underline underline-offset-2 cursor-pointer"
+                                    title="Click to view full inquiry"
+                                  >
+                                    {log.inquiryReference}
+                                  </button>
+                                )}
+
+                                {log.customerName && (
+                                  <span className="text-xs text-[#252923]/70 truncate">· {log.customerName}</span>
+                                )}
+                              </div>
+
+                              {/* Recipient & Metadata */}
+                              <div className="text-xs text-[#252923]/80 flex flex-wrap items-center gap-x-3 gap-y-1">
+                                <span>
+                                  Recipient: <strong className="font-mono text-[#162E22]">{log.recipient}</strong>
+                                </span>
+                                {log.providerMessageId && (
+                                  <span className="text-[11px] font-mono text-[#252923]/60 truncate max-w-xs">
+                                    ID: {log.providerMessageId}
+                                  </span>
+                                )}
+                                <span className="text-[11px] text-[#252923]/50">
+                                  {new Date(log.createdAt).toLocaleString('en-IN')}
+                                </span>
+                                <span className="text-[10px] text-[#252923]/50">
+                                  ({log.attemptCount} {log.attemptCount === 1 ? 'attempt' : 'attempts'})
+                                </span>
+                              </div>
+
+                              {/* Error callout */}
+                              {log.errorMessage && (
+                                <div className="p-2 rounded-lg bg-rose-50 border border-rose-200 text-[11px] text-rose-800 font-mono">
+                                  {log.errorMessage}
+                                </div>
+                              )}
+                            </div>
+
+                            {/* Action Button: Retry */}
+                            <div className="shrink-0 flex items-center gap-2">
+                              <button
+                                type="button"
+                                onClick={async () => {
+                                  setRetryingLogId(log.id);
+                                  const res = await retryNotificationJob(log.id);
+                                  setRetryingLogId(null);
+                                  if (res.success && res.log) {
+                                    setNotifications((prev) =>
+                                      prev.map((l) => (l.id === log.id ? res.log! : l))
+                                    );
+                                    setRetryFeedback(`Retry succeeded for ${log.inquiryReference || log.id}`);
+                                  } else {
+                                    setRetryFeedback(`Retry failed: ${res.error || 'Provider rejected request'}`);
+                                  }
+                                }}
+                                disabled={isRetrying || isSuccess}
+                                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-all ${
+                                  isSuccess
+                                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                                    : 'bg-[#9E3D28] text-white hover:bg-[#853220] shadow-xs'
+                                }`}
+                              >
+                                <RefreshCw className={`w-3 h-3 ${isRetrying ? 'animate-spin' : ''}`} />
+                                <span>{isRetrying ? 'Retrying...' : isSuccess ? 'Delivered' : 'Retry Dispatch'}</span>
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* TAB 6: SETTINGS & SOLO OPERATOR CREDENTIALS */}
               {activeTab === 'settings' && (
                 <div className="space-y-6 max-w-3xl">
                   {/* Verification Checklist Alert */}

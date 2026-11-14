@@ -1,10 +1,11 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
+ * INCHARA HOLIDAYS — SERVERLESS SERVICES REGISTRY
  */
 
-import { serviceCategories } from '../src/data/servicesData';
-import { getSupabase, isSupabaseConfigured } from './_shared/supabase';
+import { serviceCategories } from './_shared/servicesData.js';
+import { getSupabase, isSupabaseConfigured } from './_shared/supabase.js';
 
 export default async function handler(req: any, res: any) {
   res.setHeader('Access-Control-Allow-Origin', '*');

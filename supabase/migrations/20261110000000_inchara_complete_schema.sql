@@ -186,6 +186,29 @@ CREATE TABLE IF NOT EXISTS promotions (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+-- 9. NOTIFICATION LOGS & AUDIT DISPATCH TABLE
+CREATE TABLE IF NOT EXISTS notification_logs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  inquiry_id UUID REFERENCES inquiries(id) ON DELETE CASCADE,
+  inquiry_reference TEXT,
+  customer_name TEXT,
+  channel VARCHAR(20) NOT NULL, -- 'whatsapp' or 'email'
+  recipient VARCHAR(200) NOT NULL,
+  template_name TEXT,
+  status VARCHAR(30) NOT NULL DEFAULT 'pending', -- 'pending', 'processing', 'sent', 'delivered', 'failed', 'retry_scheduled'
+  provider_message_id TEXT,
+  provider_response JSONB,
+  error_message TEXT,
+  attempt_count INT DEFAULT 1,
+  last_attempt_at TIMESTAMPTZ DEFAULT NOW(),
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_notification_logs_inquiry_id ON notification_logs(inquiry_id);
+CREATE INDEX IF NOT EXISTS idx_notification_logs_status ON notification_logs(status);
+CREATE INDEX IF NOT EXISTS idx_notification_logs_channel ON notification_logs(channel);
+CREATE INDEX IF NOT EXISTS idx_notification_logs_created ON notification_logs(created_at);
+
 -- 9. TRIGGERS FOR AUTO-UPDATING TIMESTAMPS
 DROP TRIGGER IF EXISTS trigger_update_customers_timestamp ON customers;
 CREATE TRIGGER trigger_update_customers_timestamp
@@ -224,6 +247,7 @@ ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE business_settings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE faqs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE promotions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE notification_logs ENABLE ROW LEVEL SECURITY;
 
 -- Public can read business settings, faqs and promotions:
 CREATE POLICY "Public can view business settings"
@@ -287,5 +311,17 @@ WITH CHECK (true);
 CREATE POLICY "Owner full access on promotions"
 ON promotions FOR ALL
 TO authenticated
+USING (true)
+WITH CHECK (true);
+
+CREATE POLICY "Owner full access on notification_logs"
+ON notification_logs FOR ALL
+TO authenticated
+USING (true)
+WITH CHECK (true);
+
+CREATE POLICY "Service role full access on notification_logs"
+ON notification_logs FOR ALL
+TO service_role
 USING (true)
 WITH CHECK (true);

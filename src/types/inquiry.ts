@@ -205,12 +205,17 @@ export interface InquiryEvent {
 export interface NotificationLog {
   id: string;
   inquiryId: string;
+  inquiryReference?: string;
+  customerName?: string;
   channel: 'email' | 'whatsapp';
   recipient: string;
-  status: 'pending' | 'sent' | 'failed' | 'mock_sent';
-  providerResponse?: string;
+  templateName?: string;
+  status: 'pending' | 'processing' | 'sent' | 'delivered' | 'failed' | 'retry_scheduled' | 'mock_sent';
+  providerMessageId?: string;
+  providerResponse?: unknown;
   errorMessage?: string;
   attemptCount: number;
+  lastAttemptAt?: string;
   createdAt: string;
 }
 

@@ -1,11 +1,12 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
+ * INCHARA HOLIDAYS — ADMIN ANALYTICS & STATS HANDLER
  */
 
-import { getSupabase, isSupabaseConfigured } from '../_shared/supabase';
-import { AdminDashboardStats, InquiryRecord } from '../../src/types/inquiry';
-import { getMemoryInquiries } from '../_shared/store';
+import { getSupabase, isSupabaseConfigured } from '../_shared/supabase.js';
+import { InquiryRecord } from '../_shared/types.js';
+import { getMemoryInquiries } from '../_shared/store.js';
 
 export default async function handler(req: any, res: any) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -23,9 +24,6 @@ export default async function handler(req: any, res: any) {
 
   if (isSupabaseConfigured() && supabase) {
     try {
-      const todayStart = new Date();
-      todayStart.setHours(0, 0, 0, 0);
-
       const { data: allInquiries, error } = await supabase
         .from('inquiries')
         .select('*')
@@ -48,9 +46,6 @@ export default async function handler(req: any, res: any) {
           servicePayload: row.service_payload || {},
           additionalRequirements: row.additional_requirements,
           status: row.status,
-          assignedStaff: row.assigned_staff,
-          internalNotes: row.internal_notes,
-          nextFollowupDate: row.next_followup_date,
           createdAt: row.created_at,
           updatedAt: row.updated_at,
         }))
@@ -58,26 +53,20 @@ export default async function handler(req: any, res: any) {
 
       return res.status(200).json({ success: true, stats });
     } catch (err: any) {
-      return res.status(500).json({ success: false, error: err.message });
+      console.warn('[Stats API] Supabase query failed, falling back to memory:', err);
     }
   }
 
-  // Compute from shared memory store
+  // Fallback to In-Memory Store
   const memoryList = getMemoryInquiries();
   const stats = computeStatsFromList(memoryList);
 
   return res.status(200).json({ success: true, stats });
 }
 
-function computeStatsFromList(list: InquiryRecord[]): AdminDashboardStats {
+function computeStatsFromList(inquiries: InquiryRecord[]) {
   const todayStart = new Date();
   todayStart.setHours(0, 0, 0, 0);
-  const todayStr = new Date().toISOString().split('T')[0];
-
-  const totalInquiries = list.length;
-  let newToday = 0;
-  let pendingFollowups = 0;
-  let convertedCount = 0;
 
   const byCategory: Record<string, number> = {
     holidays: 0,
@@ -86,7 +75,6 @@ function computeStatsFromList(list: InquiryRecord[]): AdminDashboardStats {
     transport: 0,
     visa_passport: 0,
     catering: 0,
-    general: 0,
   };
 
   const byStatus: Record<string, number> = {
@@ -99,43 +87,44 @@ function computeStatsFromList(list: InquiryRecord[]): AdminDashboardStats {
     cancelled: 0,
   };
 
-  list.forEach((item) => {
-    const itemCreated = new Date(item.createdAt);
-    if (itemCreated >= todayStart) {
-      newToday++;
+  let newInquiriesToday = 0;
+  let pendingFollowups = 0;
+  let convertedCount = 0;
+
+  for (const item of inquiries) {
+    if (byCategory[item.serviceCategory] !== undefined) {
+      byCategory[item.serviceCategory]++;
     }
 
-    if (
-      item.nextFollowupDate &&
-      item.nextFollowupDate <= todayStr &&
-      item.status !== 'confirmed' &&
-      item.status !== 'closed' &&
-      item.status !== 'cancelled'
-    ) {
+    if (byStatus[item.status] !== undefined) {
+      byStatus[item.status]++;
+    }
+
+    const created = new Date(item.createdAt);
+    if (created >= todayStart) {
+      newInquiriesToday++;
+    }
+
+    if (item.status === 'in_progress' || item.status === 'proposal_sent') {
       pendingFollowups++;
     }
 
-    if (item.status === 'confirmed') {
+    if (item.status === 'confirmed' || item.status === 'closed') {
       convertedCount++;
     }
+  }
 
-    const cat = item.serviceCategory || 'general';
-    byCategory[cat] = (byCategory[cat] || 0) + 1;
-
-    const st = item.status || 'new';
-    byStatus[st] = (byStatus[st] || 0) + 1;
-  });
-
+  const totalInquiries = inquiries.length;
   const conversionRate = totalInquiries > 0 ? Math.round((convertedCount / totalInquiries) * 100) : 0;
 
   return {
     totalInquiries,
-    newInquiriesToday: newToday,
+    newInquiriesToday,
     pendingFollowups,
     convertedCount,
     conversionRate,
     byCategory,
     byStatus,
-    recentInquiries: list.slice(0, 8),
+    recentInquiries: inquiries.slice(0, 5),
   };
 }
