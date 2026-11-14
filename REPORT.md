@@ -1481,3 +1481,54 @@ Follow these sequential steps to bring the entire platform to 100% live cloud pr
 - **Compilation Check**: `npx tsc --noEmit` passed with 0 errors.
 - **Production Build**: `npm run build` compiled in 1.00s.
 
+---
+
+### Cycle 39: Live WhatsApp & Email Delivery Verification & Multi-Channel Pipeline Audit
+**Date**: November 14, 2026  
+**Status**: Engine Architecture Verified, Independent Failure Isolation Confirmed Live, Provider Keys Pending  
+
+#### 1. Configuration Audit & Expected Environment Variables
+The notification engine (`api/_shared/notifications.ts`) expects the following environment variables on Vercel:
+
+| Channel | Variable Name | Purpose | Production Default / Fallback | Current Status |
+| :--- | :--- | :--- | :--- | :---: |
+| **Database** | `SUPABASE_URL` | Supabase Postgres REST endpoint | `https://jabqfgbpmlnqecxorjuu.supabase.co` | **Configured & Verified** |
+| **Database** | `SUPABASE_SECRET_KEY` | Supabase Service Role / Secret Key | *(Secure Secret)* | **Configured & Verified** |
+| **WhatsApp** | `WHATSAPP_API_TOKEN` | Meta Graph API Cloud Token | None (Required for dispatch) | **Pending Configuration** |
+| **WhatsApp** | `WHATSAPP_PHONE_NUMBER_ID` | WhatsApp Business Phone ID | None (Required for dispatch) | **Pending Configuration** |
+| **WhatsApp** | `STAFF_WHATSAPP_NUMBER` | Recipient for owner WhatsApp alerts | `919036174880` (Ravindra S) | Configured in code |
+| **Email** | `RESEND_API_KEY` | Resend Transactional Email API Key | None (Required for dispatch) | **Pending Configuration** |
+| **Email** | `RESEND_FROM_EMAIL` | Verified sender email address | `notifications@incharaholidays.com` (or `onboarding@resend.dev`) | Configured in code |
+| **Email** | `STAFF_NOTIFICATION_EMAIL` | Recipient for owner HTML email alerts | `info@incharaholidays.com` (Ravindra S) | Configured in code |
+
+#### 2. Verification Protocol & Live Test Evidence
+1. **Serverless Execution Guarantee Fix**:
+   * Previously, `dispatchNotifications` in `api/inquire.ts` ran as an unawaited background promise. In Vercel's serverless environment, this caused runtime freeze prior to email jobs completing.
+   * `await dispatchNotifications(inquiryRecord)` was introduced with internal try/catch. This guarantees execution of WhatsApp alert, Owner HTML email alert, and Customer acknowledgement email before the HTTP cycle terminates.
+2. **Live Test Enquiry Dispatched on Vercel Production (`https://inchara-holidays.vercel.app`)**:
+   * **Enquiry Reference**: `ICH-2026-MBYH` (Service: Pure Veg Catering — Traditional Family Gathering)
+   * **Customer**: Multi-Channel Audit Test (`9036174880`, `test_client@incharaholidays.com`)
+   * **Database Persistence**: **`persistedToDatabase: true`** (Enquiry saved in Supabase `inquiries` table).
+   * **Notification Logs Recorded in Supabase (`notification_logs`)**:
+     * Job 1 `[WHATSAPP]` → `919036174880` | Status: `failed` | Cause: `WHATSAPP_API_TOKEN or WHATSAPP_PHONE_NUMBER_ID environment variable not configured`
+     * Job 2 `[EMAIL]` → `info@incharaholidays.com` | Status: `failed` | Cause: `RESEND_API_KEY environment variable not configured`
+     * Job 3 `[EMAIL]` → `test_client@incharaholidays.com` | Status: `failed` | Cause: `RESEND_API_KEY environment variable not configured`
+3. **Independent Failure Isolation (Verified Live)**:
+   * **Crucial Business Invariant Met**: A failure or lack of credentials in WhatsApp or Email **never drops or discards the customer enquiry**.
+   * Customer enquiry `ICH-2026-MBYH` returned `201 Created` in under 380ms and was permanently persisted in Supabase with complete parameters.
+4. **Admin Notification Workspace & Retry Engine (`/api/admin/notifications`)**:
+   * Verified authenticated log retrieval: `GET /api/admin/notifications` returns complete delivery audit records with customer name, reference, channel badges, error details, and attempt counts.
+   * Verified Retry Dispatch: `POST /api/admin/notifications` tested with log `c2f7c2c5-23fc-48f5-8c36-69bd36f7db96`. Increment of `attemptCount` (1 → 2) and timestamp update confirmed in Supabase without creating duplicate enquiries.
+
+#### 3. Delivery Classification Matrix
+
+| Milestone Item | Status | Verification Detail |
+| :--- | :---: | :--- |
+| **Code Implemented** | **COMPLETED** | Meta WhatsApp v21.0 dispatcher, Resend email dispatcher, 2 responsive HTML email templates, and retry engine fully implemented. |
+| **Credentials Configured** | **PARTIAL** | Supabase database keys configured & verified. Meta WhatsApp & Resend API keys pending input in Vercel. |
+| **API Request Accepted** | **BLOCKED** | Blocked awaiting provider credentials (`WHATSAPP_API_TOKEN`, `RESEND_API_KEY`). |
+| **Message Delivered** | **BLOCKED** | Cannot deliver until valid provider API keys are injected. |
+| **Delivery Independently Confirmed** | **BLOCKED** | No live WhatsApp or Resend provider messages dispatched yet. |
+| **Audit Logging & Retry** | **COMPLETED** | 100% verified live against Supabase `notification_logs` table. |
+
+
