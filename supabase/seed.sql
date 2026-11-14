@@ -32,5 +32,5 @@ display_order = EXCLUDED.display_order;
 -- Default super admin profile
 INSERT INTO public.admin_profiles (email, full_name, role, phone, is_active)
 VALUES 
-('admin@incharaholidays.com', 'Inchara Holidays Administrator', 'super_admin', '+91 94480 00000', true)
+('admin@incharaholidays.com', 'Ravindra S (Owner & Administrator)', 'super_admin', '+91 90361 74880', true)
 ON CONFLICT (email) DO NOTHING;

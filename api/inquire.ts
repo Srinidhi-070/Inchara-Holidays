@@ -166,7 +166,7 @@ export default async function handler(req: any, res: any) {
     return res.status(500).json({
       success: false,
       error: 'An internal server error occurred while registering your inquiry. Please reach our direct WhatsApp hotline.',
-      fallbackContact: '+91 94480 00000'
+      fallbackContact: '+91 90361 74880'
     });
   }
 }

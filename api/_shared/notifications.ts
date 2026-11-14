@@ -71,7 +71,7 @@ export async function dispatchNotifications(inquiry: InquiryRecord): Promise<Dis
   const supabase = getSupabase();
   const summaryText = formatStaffInquirySummary(inquiry);
   const staffEmail = process.env.STAFF_NOTIFICATION_EMAIL || process.env.CONTACT_EMAIL || 'inquiries@incharaholidays.com';
-  const staffWhatsApp = process.env.STAFF_WHATSAPP_NUMBER || process.env.VITE_WHATSAPP_NUMBER || '919448000000';
+  const staffWhatsApp = process.env.STAFF_WHATSAPP_NUMBER || process.env.VITE_WHATSAPP_NUMBER || '919036174880';
 
   // 1. Email Dispatch
   const resendApiKey = process.env.RESEND_API_KEY;

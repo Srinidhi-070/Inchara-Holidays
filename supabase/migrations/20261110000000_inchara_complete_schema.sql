@@ -1,7 +1,7 @@
 -- =====================================================================================
 -- INCHARA HOLIDAYS — COMPLETE BUSINESS OPERATING SYSTEM SCHEMA & RLS
 -- Migration: 20261110000000_inchara_complete_schema.sql
--- Solo Operator Architecture: Owner Srinidhi N S (Owner & Principal Curator)
+-- Solo Operator Architecture: Owner Ravindra S (Owner & Principal Curator)
 -- =====================================================================================
 
 -- 1. EXTENSIONS
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS quotations (
   bank_details JSONB NOT NULL DEFAULT '{}'::jsonb,
   status VARCHAR(20) NOT NULL DEFAULT 'draft', -- draft, sent, accepted, expired
   valid_until DATE,
-  issued_by TEXT NOT NULL DEFAULT 'Srinidhi N S (Owner)',
+  issued_by TEXT NOT NULL DEFAULT 'Ravindra S (Owner)',
   notes TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS receipts (
   payment_mode VARCHAR(50) NOT NULL DEFAULT 'upi', -- upi, neft, imps, cash, card
   transaction_reference TEXT,
   payment_date DATE NOT NULL DEFAULT CURRENT_DATE,
-  received_by TEXT NOT NULL DEFAULT 'Srinidhi N S (Owner)',
+  received_by TEXT NOT NULL DEFAULT 'Ravindra S (Owner)',
   balance_due NUMERIC NOT NULL DEFAULT 0,
   bank_account TEXT NOT NULL DEFAULT 'Canara Bank A/C 110023456789',
   notes TEXT,
@@ -134,20 +134,20 @@ CREATE TABLE IF NOT EXISTS business_settings (
   business_name_kn TEXT NOT NULL DEFAULT 'ಇಂಚರ ಹಾಲಿಡೇಸ್',
   tagline TEXT NOT NULL DEFAULT 'Bespoke Travel, Chauffeur Mobility & Pure Veg Hospitality',
   tagline_kn TEXT NOT NULL DEFAULT 'ವಿಶಿಷ್ಟ ಪ್ರವಾಸಗಳು, ವಿಶ್ವಾಸಾರ್ಹ ಸಾರಿಗೆ & ಶುದ್ಧ ಸಸ್ಯಾಹಾರಿ ಆತಿಥ್ಯ',
-  owner_name TEXT NOT NULL DEFAULT 'Srinidhi N S',
-  phone_primary TEXT NOT NULL DEFAULT '+91 80736 92802',
-  phone_raw TEXT NOT NULL DEFAULT '918073692802',
-  email_primary TEXT NOT NULL DEFAULT 'nssrinidhi72884@gmail.com',
+  owner_name TEXT NOT NULL DEFAULT 'Ravindra S',
+  phone_primary TEXT NOT NULL DEFAULT '+91 90361 74880',
+  phone_raw TEXT NOT NULL DEFAULT '919036174880',
+  email_primary TEXT NOT NULL DEFAULT 'info@incharaholidays.com',
   email_official TEXT NOT NULL DEFAULT 'contact@incharaholidays.com',
-  registered_address_en TEXT NOT NULL DEFAULT '#42, Sayyaji Rao Road, Near Devaraja Market, Mysuru, Karnataka 570001',
-  registered_address_kn TEXT NOT NULL DEFAULT '#೪೨, ಸಯ್ಯಾಜಿ ರಾವ್ ರಸ್ತೆ, ದೇವರಾಜ ಮಾರುಕಟ್ಟೆ ಹತ್ತಿರ, ಮೈಸೂರು, ಕರ್ನಾಟಕ ೫೭೦೦೦೧',
-  reg_number TEXT NOT NULL DEFAULT 'KA-TO-2024-88419',
+  registered_address_en TEXT NOT NULL DEFAULT 'INCHARA HOLIDAYS, 7/1, 6th Cross Rd, Swimming Pool Extension, HN Layout, Malleshwaram, Bengaluru, Karnataka 560003',
+  registered_address_kn TEXT NOT NULL DEFAULT 'ಇಂಚರ ಹಾಲಿಡೇಸ್, ೭/೧, ೬ನೇ ಕ್ರಾಸ್ ರಸ್ತೆ, ಸ್ವಿಮ್ಮಿಂಗ್ ಪೂಲ್ ಬಡಾವಣೆ, ಎಚ್.ಎನ್. ಬಡಾವಣೆ, ಮಲ್ಲೇಶ್ವರಂ, ಬೆಂಗಳೂರು, ಕರ್ನಾಟಕ ೫೬೦೦೦೩',
+  reg_number TEXT NOT NULL DEFAULT '',
   gstin TEXT NOT NULL DEFAULT '29AABCU9603R1ZM',
   pan TEXT NOT NULL DEFAULT 'AABCU9603R',
   bank_name TEXT NOT NULL DEFAULT 'Canara Bank',
   bank_account_number TEXT NOT NULL DEFAULT '110023456789',
   bank_ifsc TEXT NOT NULL DEFAULT 'CNRB0001234',
-  bank_branch TEXT NOT NULL DEFAULT 'Sayyaji Rao Road, Mysuru',
+  bank_branch TEXT NOT NULL DEFAULT 'Malleshwaram Branch, Bengaluru',
   gst_rate_percent NUMERIC NOT NULL DEFAULT 5.0,
   is_verified_by_owner BOOLEAN NOT NULL DEFAULT FALSE,
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
