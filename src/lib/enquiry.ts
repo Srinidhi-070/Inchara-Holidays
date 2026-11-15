@@ -169,7 +169,7 @@ export async function submitEnquiry(payload: EnquiryPayload) {
         fullName: payload.contact.name,
         phone: payload.contact.phone,
         email: payload.contact.email,
-        preferredLanguage: "kn",
+        preferredLanguage: payload.locale === "kn" ? "kn" : "en",
         preferredContactMethod: (payload.contact.preferred as any) || "whatsapp",
         additionalRequirements: payload.contact.notes,
       },

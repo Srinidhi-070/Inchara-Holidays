@@ -293,7 +293,7 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
   async function submit() {
     setStatus("submitting");
     try {
-      const res = await submitEnquiry(payload);
+      const res = await submitEnquiry({ ...payload, locale });
       setReferenceNumber(res.referenceNumber);
       if (res.whatsappUrl) setWhatsappUrl(res.whatsappUrl);
       setStatus("success");

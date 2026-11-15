@@ -258,32 +258,36 @@ export function buildOwnerAlertHtml(inquiry: InquiryRecord): string {
 }
 
 /**
- * Builds responsive, warm customer acknowledgement HTML email
+ * Builds responsive, bilingual customer acknowledgement HTML email.
+ * Primary English text ensures 100% universal readability for all travelers across India & globally,
+ * paired with authentic Kannada cultural elements and dedicated Kannada summary.
  */
 export function buildCustomerAckHtml(inquiry: InquiryRecord): string {
-  const isKn = inquiry.preferredLanguage === 'kn';
   const categoryLabel = CATEGORY_NAMES[inquiry.serviceCategory] || inquiry.serviceCategory;
 
   return `<!DOCTYPE html>
-<html lang="${isKn ? 'kn' : 'en'}">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${isKn ? 'ನಿಮ್ಮ ಪ್ರವಾಸ ವಿಚಾರಣೆ ದಾಖಲಾಗಿದೆ' : 'Enquiry Acknowledged — Inchara Holidays'}</title>
+  <title>Enquiry Acknowledged — Inchara Holidays [${inquiry.referenceNumber}]</title>
 </head>
 <body style="margin:0;padding:0;background-color:#FBF8F1;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;color:#162E22;">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:#FBF8F1;padding:24px 12px;">
     <tr>
       <td align="center">
-        <table role="presentation" width="100%" style="max-width:560px;background-color:#ffffff;border:1px solid #E5DFD3;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(22,46,34,0.06);">
+        <table role="presentation" width="100%" style="max-width:580px;background-color:#ffffff;border:1px solid #E5DFD3;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(22,46,34,0.06);">
           
           <!-- Header -->
           <tr>
             <td style="background-color:#162E22;padding:24px 28px;border-bottom:3px solid #D4AF37;text-align:center;">
               <span style="display:inline-block;color:#F5D77F;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;">INCHARA HOLIDAYS · ಇಂಚರ ಹಾಲಿಡೇಸ್</span>
               <h1 style="margin:6px 0 0;color:#ffffff;font-size:22px;font-family:'Playfair Display',Georgia,serif;font-weight:700;">
-                ${isKn ? 'ನಮಸ್ಕಾರ, ನಿಮ್ಮ ವಿಚಾರಣೆ ನಮಗೆ ತಲುಪಿದೆ' : 'Thank You for Contacting Us'}
+                Thank You for Contacting Us
               </h1>
+              <span style="display:block;color:#F5D77F;font-size:12px;margin-top:4px;opacity:0.9;">
+                ವಿಚಾರಣೆ ಯಶಸ್ವಿಯಾಗಿ ಸ್ವೀಕರಿಸಲಾಗಿದೆ
+              </span>
             </td>
           </tr>
 
@@ -291,43 +295,48 @@ export function buildCustomerAckHtml(inquiry: InquiryRecord): string {
           <tr>
             <td style="padding:28px 28px 20px;">
               <p style="font-size:15px;line-height:1.6;margin:0 0 16px;">
-                ${isKn 
-                  ? `ಆತ್ಮೀಯ <strong>${inquiry.customerName}</strong> ಅವರಿಗೆ,`
-                  : `Dear <strong>${inquiry.customerName}</strong>,`}
+                Dear <strong>${inquiry.customerName}</strong>,
               </p>
               <p style="font-size:14px;line-height:1.6;color:#252923;margin:0 0 16px;">
-                ${isKn
-                  ? `ಇಂಚರ ಹಾಲಿಡೇಸ್ ಮೂಲಕ <strong>${categoryLabel}</strong> ಸೇವೆಗಾಗಿ ನೀವು ಸಲ್ಲಿಸಿದ ವಿಚಾರಣೆ ಯಶಸ್ವಿಯಾಗಿ ದಾಖಲಾಗಿದೆ.`
-                  : `We have received your enquiry for <strong>${categoryLabel}</strong> with Inchara Holidays.`}
+                Namaskara! We have received your enquiry for <strong>${categoryLabel}</strong> with Inchara Holidays.
               </p>
 
               <!-- Reference Card -->
               <div style="background-color:#F6F3EA;border:1px solid #D4AF37;border-radius:8px;padding:16px;text-align:center;margin:20px 0;">
                 <span style="display:block;font-size:11px;color:#9E3D28;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;">
-                  ${isKn ? 'ವಿಚಾರಣೆ ಸಂಖ್ಯೆ' : 'ENQUIRY REFERENCE NUMBER'}
+                  ENQUIRY REFERENCE NUMBER · ವಿಚಾರಣೆ ಸಂಖ್ಯೆ
                 </span>
-                <span style="display:block;font-size:20px;font-weight:800;font-family:monospace;color:#162E22;">
+                <span style="display:block;font-size:22px;font-weight:800;font-family:monospace;color:#162E22;">
                   ${inquiry.referenceNumber}
                 </span>
               </div>
 
               <p style="font-size:14px;line-height:1.6;color:#252923;margin:0 0 16px;">
-                ${isKn
-                  ? 'ನಮ್ಮ ಸಂಸ್ಥೆಯ ಮಾಲೀಕರು ಮತ್ತು ಪ್ರಧಾನ ಮಾರ್ಗದರ್ಶಕರಾದ <strong>ರವೀಂದ್ರ ಎಸ್</strong> ಅವರು ನಿಮ್ಮ ಅಗತ್ಯಗಳನ್ನು ವೈಯಕ್ತಿಕವಾಗಿ ಪರಿಶೀಲಿಸಿ, ಶೀಘ್ರದಲ್ಲೇ ಸೂಕ್ತ ವಿವರಗಳೊಂದಿಗೆ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುತ್ತಾರೆ.'
-                  : 'Our owner-operator, <strong>Ravindra S</strong>, will personally review your itinerary preferences and connect with you shortly.'}
+                Our owner-operator, <strong>Ravindra S (ರವೀಂದ್ರ ಎಸ್)</strong>, will personally review your travel preferences and connect with you shortly with tailored itinerary options.
               </p>
 
-              <p style="font-size:14px;line-height:1.6;color:#252923;margin:0 0 24px;">
-                ${isKn
-                  ? 'ತುರ್ತು ಮಾಹಿತಿ ಅಥವಾ ನೇರ ಸಂಪರ್ಕಕ್ಕಾಗಿ ನಮ್ಮ ವಾಟ್ಸಾಪ್ ಸಹಾಯವಾಣಿಗೆ ಸಂದೇಶ ಕಳುಹಿಸಬಹುದು:'
-                  : 'If you have urgent travel requirements, feel free to message our desk directly via WhatsApp:'}
-              </p>
-
-              <div style="text-align:center;margin-bottom:20px;">
+              <!-- Instant WhatsApp Action -->
+              <div style="text-align:center;margin:24px 0 20px;">
                 <a href="https://wa.me/919036174880?text=${encodeURIComponent(`Namaskara Ravindra, following up on my enquiry ${inquiry.referenceNumber}.`)}"
-                   style="display:inline-block;background-color:#25D366;color:#ffffff;font-size:14px;font-weight:700;text-decoration:none;padding:12px 24px;border-radius:6px;">
-                  ${isKn ? 'ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಮಾತನಾಡಿ (+91 90361 74880)' : 'Chat on WhatsApp (+91 90361 74880)'}
+                   style="display:inline-block;background-color:#25D366;color:#ffffff;font-size:14px;font-weight:700;text-decoration:none;padding:12px 26px;border-radius:6px;box-shadow:0 2px 6px rgba(37,211,102,0.3);">
+                  Chat on WhatsApp (+91 90361 74880)
                 </a>
+                <span style="display:block;font-size:12px;color:#666;margin-top:6px;">
+                  Fastest response · Direct line with Ravindra S
+                </span>
+              </div>
+
+              <!-- Dedicated Kannada Summary Callout -->
+              <div style="margin-top:24px;padding:14px 18px;background-color:#FBF8F1;border-left:3px solid #D4AF37;border-radius:6px;font-size:13px;line-height:1.6;color:#162E22;">
+                <p style="margin:0 0 6px;font-weight:700;color:#9E3D28;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;">
+                  ಕನ್ನಡ ಸಾರಾಂಶ (Kannada Summary):
+                </p>
+                <p style="margin:0 0 6px;">
+                  ನಮಸ್ಕಾರ ${inquiry.customerName}, ಇಂಚರ ಹಾಲಿಡೇಸ್ ಮೂಲಕ <strong>${categoryLabel}</strong> ಸೇವೆಗಾಗಿ ನೀವು ಸಲ್ಲಿಸಿದ ವಿಚಾರಣೆ ಯಶಸ್ವಿಯಾಗಿ ದಾಖಲಾಗಿದೆ (ವಿಚಾರಣೆ ಸಂಖ್ಯೆ: <strong>${inquiry.referenceNumber}</strong>).
+                </p>
+                <p style="margin:0;">
+                  ಸಂಸ್ಥೆಯ ಮಾಲೀಕರಾದ <strong>ರವೀಂದ್ರ ಎಸ್</strong> ಅವರು ಶೀಘ್ರದಲ್ಲೇ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಲಿದ್ದಾರೆ. ತುರ್ತು ಸಂಪರ್ಕಕ್ಕೆ ನೇರ ಸಹಾಯವಾಣಿ: <strong>+91 90361 74880</strong>.
+                </p>
               </div>
             </td>
           </tr>
@@ -336,8 +345,8 @@ export function buildCustomerAckHtml(inquiry: InquiryRecord): string {
           <tr>
             <td style="background-color:#F6F3EA;padding:16px 28px;text-align:center;font-size:11px;color:#666;border-top:1px solid #E5DFD3;">
               <strong>Inchara Holidays</strong> · Premier South Indian Travel & Pure Veg Hospitality<br>
-              Bengaluru Operating Desk: Malleshwaram, Bengaluru - 560003<br>
-              Phone: +91 90361 74880 · inchara-holidays.vercel.app
+              Bengaluru Operating Desk: 7/1, 6th Cross Rd, Swimming Pool Extension, Malleshwaram, Bengaluru - 560003<br>
+              Phone: +91 90361 74880 · Email: incharaholidays@gmail.com · inchara-holidays.vercel.app
             </td>
           </tr>
         </table>
@@ -588,11 +597,9 @@ export async function dispatchNotifications(inquiry: InquiryRecord): Promise<Dis
   // =========================================================================
   if (inquiry.email && inquiry.email.includes('@')) {
     const custAckLogId = crypto.randomUUID();
-    const custSubject = inquiry.preferredLanguage === 'kn'
-      ? `ಇಂಚರ ಹಾಲಿಡೇಸ್ — ನಿಮ್ಮ ವಿಚಾರಣೆ ಸ್ವೀಕರಿಸಲಾಗಿದೆ [${inquiry.referenceNumber}]`
-      : `Enquiry Received — Inchara Holidays [${inquiry.referenceNumber}]`;
+    const custSubject = `Enquiry Received [${inquiry.referenceNumber}] — Inchara Holidays | ಇಂಚರ ಹಾಲಿಡೇಸ್`;
     const custHtml = buildCustomerAckHtml(inquiry);
-    const custText = `Hello ${inquiry.customerName},\nThank you for reaching out to Inchara Holidays. We have received your enquiry for ${CATEGORY_NAMES[inquiry.serviceCategory]} (Ref: ${inquiry.referenceNumber}). Our curator, Ravindra S, will personally review your preferences and contact you shortly.\n\nWarm regards,\nRavindra S · Inchara Holidays\n+91 90361 74880`;
+    const custText = `Dear ${inquiry.customerName},\n\nNamaskara! Thank you for contacting Inchara Holidays. We have successfully registered your enquiry for ${CATEGORY_NAMES[inquiry.serviceCategory]} (Reference: ${inquiry.referenceNumber}).\n\nOur owner-operator, Ravindra S, will personally review your preferences and connect with you shortly with tailored itinerary details.\n\nDirect WhatsApp Helpline: https://wa.me/919036174880\nOperating Desk Phone: +91 90361 74880\n\n---\nಕನ್ನಡ ಸಾರಾಂಶ (Kannada Summary):\nನಮಸ್ಕಾರ, ಇಂಚರ ಹಾಲಿಡೇಸ್ ಮೂಲಕ ನಿಮ್ಮ ಪ್ರವಾಸ ವಿಚಾರಣೆ (ಸಂಖ್ಯೆ: ${inquiry.referenceNumber}) ದಾಖಲಾಗಿದೆ. ರವೀಂದ್ರ ಎಸ್ ಅವರು ಶೀಘ್ರದಲ್ಲೇ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಲಿದ್ದಾರೆ.\n\nWarm regards,\nRavindra S · Inchara Holidays\nBengaluru Operating Desk: 7/1, 6th Cross Rd, Malleshwaram, Bengaluru - 560003\nEmail: incharaholidays@gmail.com`;
 
     const custResult = await dispatchEmailNotification(inquiry.email, custSubject, custHtml, custText);
 

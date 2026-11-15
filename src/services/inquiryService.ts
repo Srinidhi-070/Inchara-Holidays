@@ -105,8 +105,10 @@ export async function submitInquiry(request: CreateInquiryRequest): Promise<{
   // Also cache locally for immediate admin visibility
   saveLocalInquiry(inquiryRecord);
 
-  // 3. Build WhatsApp instant-connect message
-  const waMessage = `ನಮಸ್ಕಾರ Inchara Holidays, ನಾನು ${inquiryRecord.customerName}. ನನ್ನ ಪ್ರವಾಸದ ವಿಚಾರಣೆ Ref: *${referenceNumber}* (${inquiryRecord.serviceCategory} - ${inquiryRecord.serviceType}). ದಯವಿಟ್ಟು ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ ನನ್ನನ್ನು ಸಂಪರ್ಕಿಸಿ.`;
+  // 3. Build WhatsApp instant-connect message based on customer's preferred language
+  const waMessage = request.customer.preferredLanguage === 'kn'
+    ? `ನಮಸ್ಕಾರ Inchara Holidays, ನಾನು ${inquiryRecord.customerName}. ನನ್ನ ಪ್ರವಾಸದ ವಿಚಾರಣೆ Ref: *${referenceNumber}* (${inquiryRecord.serviceCategory} - ${inquiryRecord.serviceType}). ದಯವಿಟ್ಟು ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ ನನ್ನನ್ನು ಸಂಪರ್ಕಿಸಿ.`
+    : `Namaskara Inchara Holidays, I am ${inquiryRecord.customerName}. Following up on my enquiry Ref: *${referenceNumber}* (${inquiryRecord.serviceCategory} - ${inquiryRecord.serviceType}). Please review my details and connect with me.`;
   const whatsappUrl = getWhatsAppInquiryUrl(waMessage);
 
   return {

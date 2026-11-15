@@ -1721,6 +1721,32 @@ Under Section 22 and Section 31 of the Central Goods and Services Tax (CGST) Act
 5. **Brochures & FAQ Disclaimers (`ItineraryBrochureModal.tsx`, `faqData.ts`, `LegalModals.tsx`)**:
    * Removed all mentions of 5% GST in payment schedules, booking policies, and itinerary brochures. All pricing described as net, all-inclusive transparent rates.
 
+---
+
+### Cycle 45: Universal English-First Bilingual Acknowledgement Email & Dynamic Locale Propagation
+**Date**: November 15, 2026  
+**Status**: 100% Accessible to All English and Regional Language Travelers  
+
+#### 1. Problem Identified
+* In `src/lib/enquiry.ts`, the `preferredLanguage` field was hardcoded to `"kn"`, forcing every submission to be tagged as Kannada regardless of the visitor's language selection.
+* `buildCustomerAckHtml` previously rendered a 100% Kannada-only email whenever `preferredLanguage === 'kn'`, causing customers who do not read Kannada script to be unable to read their acknowledgement, booking reference, or curator follow-up details.
+
+#### 2. Architectural Solution Implemented
+1. **Universal English-First Bilingual Email Template (`api/_shared/notifications.ts`)**:
+   * **Subject Line**: `Enquiry Received [${referenceNumber}] — Inchara Holidays | ಇಂಚರ ಹಾಲಿಡೇಸ್` — clearly understood in any inbox worldwide.
+   * **Primary English Body**: Clean, professional English detailing customer salutation, service category, unique reference code (`ICH-2026-XXXX`), Ravindra S personal curator review notice, and one-click WhatsApp button.
+   * **Dedicated Kannada Cultural Callout Block**: Prominently featured below the primary English section, providing a native Kannada summary (*ಕನ್ನಡ ಸಾರಾಂಶ*) with the reference number and direct hotline (`+91 90361 74880`).
+   * **Zero Exclusion**: Every recipient — whether English-only, bilingual, or Kannada-speaking — can understand every detail without barrier.
+2. **Dynamic Frontend Locale Propagation (`EnquiryDialog.tsx` & `src/lib/enquiry.ts`)**:
+   * Extended `EnquiryPayload` with `locale?: Locale`.
+   * `EnquiryDialog` forwards the active interface language (`locale`) to `submitEnquiry`.
+   * `preferredLanguage` now accurately maps to `payload.locale === 'kn' ? 'kn' : 'en'`.
+3. **English Default in Validation Schemas (`validation.ts`)**:
+   * Changed default from `'kn'` to `'en'` in both client (`src/utils/validation.ts`) and serverless (`api/_shared/validation.ts`) schemas, ensuring any third-party or fallback submission defaults to universally accessible English.
+4. **Adaptive WhatsApp Follow-up Message (`inquiryService.ts`)**:
+   * Generates English WhatsApp greeting if `preferredLanguage === 'en'` and Kannada if `preferredLanguage === 'kn'`.
+
+
 
 
 

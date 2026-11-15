@@ -21,7 +21,7 @@ export const customerInputSchema = z.object({
     .email({ message: 'Please enter a valid email address.' })
     .optional()
     .or(z.literal('')),
-  preferredLanguage: z.enum(['kn', 'en']).default('kn'),
+  preferredLanguage: z.enum(['kn', 'en']).default('en'),
   preferredContactMethod: z.enum(['whatsapp', 'phone', 'email']).default('whatsapp'),
   city: z.string().max(80).optional(),
   additionalRequirements: z.string().max(1000).optional(),

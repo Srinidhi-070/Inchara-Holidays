@@ -30,6 +30,7 @@ export type EnquiryPayload = {
   service: ServiceId | "";
   details: EnquiryDetails;
   contact: EnquiryContact;
+  locale?: Locale;
 };
 
 export interface CulturalEtiquetteTip {
