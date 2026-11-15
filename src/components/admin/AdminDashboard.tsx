@@ -85,9 +85,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(isAdminAuthenticated());
   const [currentUser, setCurrentUser] = useState<AdminUser | null>(getCurrentAdminUser());
 
-  // Login form state — blank by default; owner must enter credentials
+  // Login form state — blank by default; owner enters official email
   const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
 
@@ -181,7 +180,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
     setLoginError(null);
     setLoginLoading(true);
 
-    const result = await adminLogin(loginEmail, loginPassword);
+    const result = await adminLogin(loginEmail);
     setLoginLoading(false);
 
     if (result.success && result.user) {
@@ -363,20 +362,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                   <input
                     type="email"
                     value={loginEmail}
+                    placeholder="incharaholidays@gmail.com"
                     onChange={(e) => setLoginEmail(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#263F32]/20 text-sm text-[#162E22] focus:border-[#D4AF37] focus:outline-hidden"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-[#162E22] uppercase tracking-wider mb-1">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    value={loginPassword}
-                    onChange={(e) => setLoginPassword(e.target.value)}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-[#263F32]/20 text-sm text-[#162E22] focus:border-[#D4AF37] focus:outline-hidden"
                     required
                   />
@@ -397,10 +384,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                   {loginLoading ? 'Authenticating...' : 'Sign In to Operations Desk'}
                 </button>
               </form>
-
-              <div className="p-3 rounded-xl bg-[#F6F3EA] border border-[#263F32]/8 text-[11px] text-[#252923]/70 text-center">
-                Owner Access: <span className="font-mono font-bold">incharaholidays@gmail.com</span> / <span className="font-mono font-bold">Inchara@2026</span>
-              </div>
             </motion.div>
           </div>
         ) : (

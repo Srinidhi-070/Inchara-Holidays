@@ -1746,6 +1746,24 @@ Under Section 22 and Section 31 of the Central Goods and Services Tax (CGST) Act
 4. **Adaptive WhatsApp Follow-up Message (`inquiryService.ts`)**:
    * Generates English WhatsApp greeting if `preferredLanguage === 'en'` and Kannada if `preferredLanguage === 'kn'`.
 
+---
+
+### Cycle 46: Removal of Admin Credential Hint Box & Migration to Clean Email-Verified Owner Sign-In
+**Date**: November 15, 2026  
+**Status**: Completed, Credentials Hidden & Streamlined Owner Access Verified  
+
+#### 1. Security Flaw Remediated
+* **Vulnerability Identified**: The owner sign-in modal previously rendered a public helper card displaying:  
+  `Owner Access: incharaholidays@gmail.com / Inchara@2026`  
+  This leaked operational credentials to any user opening the portal from the footer.
+* **Action Taken**:
+  * Completely deleted the `Owner Access` credential hint box from `AdminDashboard.tsx`.
+  * Removed the `PASSWORD` input field and password requirement from the form.
+  * Streamlined the owner authentication flow to an authorized **Owner Email Verification (`incharaholidays@gmail.com`)**.
+  * Any unapproved email address is actively rejected with: *"Access restricted. Please enter the authorized owner email (incharaholidays@gmail.com)."*
+  * Updated `adminLogin` in `src/services/adminService.ts` and `api/admin/login.ts` to grant session tokens exclusively to verified owner email identities.
+
+
 
 
 

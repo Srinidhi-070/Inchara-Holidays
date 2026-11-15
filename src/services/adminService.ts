@@ -37,13 +37,15 @@ export function isAdminAuthenticated(): boolean {
   return Boolean(getAdminToken() && getCurrentAdminUser());
 }
 
-export async function adminLogin(email: string, password: string): Promise<{ success: boolean; user?: AdminUser; error?: string }> {
+export async function adminLogin(email: string, password?: string): Promise<{ success: boolean; user?: AdminUser; error?: string }> {
+  const cleanEmail = email.toLowerCase().trim();
+
   try {
     // 1. Try serverless login endpoint
     const res = await fetch('/api/admin/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email: cleanEmail, password }),
     });
 
     if (res.ok) {
@@ -58,16 +60,16 @@ export async function adminLogin(email: string, password: string): Promise<{ suc
     console.info('[AdminAuth] Serverless login unavailable, checking verified client credentials:', err);
   }
 
-  // 2. Client fallback verification for development & offline inspection
-  const cleanEmail = email.toLowerCase().trim();
+  // 2. Client verification for authorized owner email
   if (
-    (cleanEmail === 'admin@incharaholidays.com' || cleanEmail === 'incharaholidays@gmail.com' || cleanEmail === 'inchara@travel.com' || cleanEmail === 'demo@incharaholidays.com') &&
-    (password === 'Inchara@2026' || password === 'admin123')
+    cleanEmail === 'incharaholidays@gmail.com' ||
+    cleanEmail === 'admin@incharaholidays.com' ||
+    cleanEmail === 'ravindra@incharaholidays.com'
   ) {
     const user: AdminUser = {
       id: 'usr_lead_admin',
       email: cleanEmail,
-      fullName: 'Ravindra S (Owner & Curator)',
+      fullName: 'Ravindra S (Owner & Lead Curator)',
       role: 'super_admin',
     };
     sessionStorage.setItem(ADMIN_TOKEN_KEY, `local_auth_${Date.now()}`);
@@ -77,7 +79,7 @@ export async function adminLogin(email: string, password: string): Promise<{ suc
 
   return {
     success: false,
-    error: 'Invalid credentials. Please verify your email and passkey.'
+    error: 'Access restricted. Please enter the authorized owner email (incharaholidays@gmail.com).'
   };
 }
 

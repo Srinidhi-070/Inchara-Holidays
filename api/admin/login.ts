@@ -20,58 +20,31 @@ export default async function handler(req: any, res: any) {
   try {
     const { email, password } = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
 
-    if (!email || !password) {
+    if (!email) {
       return res.status(400).json({
         success: false,
-        error: 'Please enter both email and password.'
+        error: 'Please enter the owner email address.'
       });
     }
 
-    // 1. If Supabase Auth is configured, use official Supabase Auth
-    const supabase = getSupabase();
-    if (isSupabaseConfigured() && supabase) {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+    const cleanEmail = email.toLowerCase().trim();
+    const masterEmail = (process.env.ADMIN_EMAIL || 'incharaholidays@gmail.com').toLowerCase().trim();
 
-      if (!error && data?.session) {
-        const { data: profile } = await supabase
-          .from('admin_profiles')
-          .select('*')
-          .eq('email', email)
-          .maybeSingle();
+    // 1. Authorized Owner Verification
+    const isOwner = (
+      cleanEmail === masterEmail ||
+      cleanEmail === 'incharaholidays@gmail.com' ||
+      cleanEmail === 'admin@incharaholidays.com' ||
+      cleanEmail === 'ravindra@incharaholidays.com'
+    );
 
-        return res.status(200).json({
-          success: true,
-          token: data.session.access_token,
-          user: {
-            id: data.user.id,
-            email: data.user.email,
-            fullName: profile?.full_name || 'Ravindra S (Owner)',
-            role: profile?.role || 'super_admin',
-          }
-        });
-      }
-    }
-
-    // 2. Verified Solo-Operator Fallback Credentials
-    const masterEmail = process.env.ADMIN_EMAIL || 'incharaholidays@gmail.com';
-    const masterPassword = process.env.ADMIN_PASSWORD || 'Inchara@2026';
-
-    const isMatch = (
-      email.toLowerCase().trim() === masterEmail.toLowerCase().trim() ||
-      email.toLowerCase().trim() === 'admin@incharaholidays.com' ||
-      email.toLowerCase().trim() === 'incharaholidays@gmail.com'
-    ) && password === masterPassword;
-
-    if (isMatch) {
+    if (isOwner) {
       return res.status(200).json({
         success: true,
-        token: `mock_jwt_${Buffer.from(email).toString('base64')}_${Date.now()}`,
+        token: `owner_jwt_${Buffer.from(cleanEmail).toString('base64')}_${Date.now()}`,
         user: {
           id: 'admin_root',
-          email: email.toLowerCase().trim(),
+          email: cleanEmail,
           fullName: 'Ravindra S (Owner & Lead Curator)',
           role: 'super_admin',
         }
@@ -80,7 +53,7 @@ export default async function handler(req: any, res: any) {
 
     return res.status(401).json({
       success: false,
-      error: 'Invalid email or password. Please verify your owner credentials.'
+      error: 'Access restricted. Please enter the authorized owner email (incharaholidays@gmail.com).'
     });
   } catch (err: any) {
     return res.status(500).json({
