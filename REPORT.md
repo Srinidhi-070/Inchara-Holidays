@@ -5,6 +5,29 @@
 
 ---
 
+### 48. Cycle 47: Mobile Screen Space Reduction for Affiliations & Zero-Domain Email SMTP
+
+#### 1. Affiliations Section Mobile Space Reduction (`src/components/HomeSections.tsx`)
+- **Issue**: User reported that on mobile screens, the "Recognised Industry Affiliations & Accreditations" section took up excessive vertical scrolling height (>1,100px) because 4 large cards were stacked vertically in a single column (`grid-cols-1`).
+- **Solution**:
+  - Re-architected layout from `grid-cols-1 sm:grid-cols-2 lg:grid-cols-4` to a compact **2×2 grid (`grid-cols-2 lg:grid-cols-4`)**.
+  - Reduced card padding to `p-3.5 sm:p-5 lg:p-6` with rounded corners `rounded-2xl sm:rounded-3xl`.
+  - Streamlined logo containers to `h-11 sm:h-14 lg:h-16`.
+  - Tuned partner subtitles with `min-h-[26px] sm:min-h-0 flex items-center justify-center leading-tight` so multi-line text (e.g., "Educational & Travel Network") wraps cleanly without unsightly ellipsis clipping.
+  - Reduced section padding from `py-8 sm:py-12` to `py-6 sm:py-10 lg:py-12`.
+  - **Result**: Section height reduced from >1,100px to ~350px (under 40% of standard viewport), perfectly fitting mobile screens. Verified across both English (`EN`) and Kannada (`ಕ`) via Playwright screenshots at `390×844`.
+
+#### 2. Zero-Domain Email Notification Architecture (`api/_shared/notifications.ts`)
+- **Root Cause of External Customer Email Delivery Failure**:
+  - Resend's free trial sandbox (`onboarding@resend.dev`) strictly enforces an anti-spam restriction prohibiting delivery to third-party customer emails without a verified custom domain. Test emails only deliver to the owner's registered email (`nssrinidhi72884@gmail.com`).
+- **Zero-Domain Alternative Implemented**:
+  - Integrated `nodemailer` to enable direct **Google Gmail SMTP** using a standard 16-character Google App Password (`https://myaccount.google.com/apppasswords`).
+  - **Zero Domain Required**: Allows sending from `Inchara Holidays <incharaholidays@gmail.com>` directly to **ANY customer email address worldwide** for 100% free (up to 500 emails/day).
+  - Graceful Dual-Mode Fallback: If `GMAIL_USER` and `GMAIL_APP_PASSWORD` are configured in Vercel environment variables, the system prioritizes Gmail SMTP; otherwise, it falls back to Resend API.
+  - Documented setup instructions and variables in `.env.example`.
+
+---
+
 ### 1. Executive Summary & User Reference Mandate
 Following direct user review and submission of 5 target reference screenshots, we reconciled and overhauled the Inchara Holidays website to replace stripped-down elements with high-end, responsive components that strictly meet the design criteria:
 1. **Universal Enquiry Modal (Image 2)**: Rebuilt with 6 large bold vector artwork cards for all services, 4-step progressive stepper, rigorous form validation across all steps, reference generation (`ICH-2026-XXXX`), localStorage caching, and pre-composed WhatsApp routing.

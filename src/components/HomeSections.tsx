@@ -141,7 +141,7 @@ export function Affiliations({ locale }: { locale: Locale }) {
   ];
 
   return (
-    <section className="py-8 sm:py-12 bg-[#F6F3EA] bg-kolam-subtle border-b border-[#263F32]/10 relative overflow-hidden" id="trust" aria-labelledby="trust-title">
+    <section className="py-6 sm:py-10 lg:py-12 bg-[#F6F3EA] bg-kolam-subtle border-b border-[#263F32]/10 relative overflow-hidden" id="trust" aria-labelledby="trust-title">
       <div 
         className="absolute inset-0 opacity-[0.03] pointer-events-none" 
         style={{
@@ -152,32 +152,32 @@ export function Affiliations({ locale }: { locale: Locale }) {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header matching Image 1 */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-2.5 text-xs sm:text-sm font-bold tracking-widest text-[#9E3D28] uppercase mb-2">
-            <span className="w-6 h-px bg-[#D4AF37]" />
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-8">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2.5 text-[10px] sm:text-xs md:text-sm font-bold tracking-widest text-[#9E3D28] uppercase mb-1 sm:mb-2">
+            <span className="w-4 sm:w-6 h-px bg-[#D4AF37]" />
             <span>✦</span>
             <span>
               {isKn ? "ಅಧಿಕೃತ ಪ್ರವಾಸೋದ್ಯಮ ಮಾನ್ಯತೆಗಳು & ಒಕ್ಕೂಟಗಳು" : "RECOGNISED INDUSTRY AFFILIATIONS & ACCREDITATIONS"}
             </span>
             <span>✦</span>
-            <span className="w-6 h-px bg-[#D4AF37]" />
+            <span className="w-4 sm:w-6 h-px bg-[#D4AF37]" />
           </div>
-          <p className="text-sm sm:text-base text-[#252923]/75 leading-relaxed font-normal">
+          <p className="text-xs sm:text-sm md:text-base text-[#252923]/75 leading-relaxed font-normal">
             {isKn
               ? "ರಾಜ್ಯ, ರಾಷ್ಟ್ರೀಯ ಮತ್ತು ಅಂತಾರಾಷ್ಟ್ರೀಯ ಪ್ರವಾಸೋದ್ಯಮ ಸಂಸ್ಥೆಗಳ ಅಧಿಕೃತ ಸದಸ್ಯತ್ವ ಹೊಂದಿರುವ ಹೆಮ್ಮೆ"
               : "Proud members of leading state, national & international travel trade bodies"}
           </p>
         </div>
 
-        {/* 4 Large White Cards in Row matching Image 1 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+        {/* 4 Cards: Compact 2x2 grid on mobile, 4 columns on desktop */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8">
           {partners.map((p) => (
             <div
               key={p.abbr}
-              className="p-6 sm:p-8 rounded-3xl bg-white border border-[#263F32]/10 hover:border-[#D4AF37] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center group hover:-translate-y-1"
+              className="p-3.5 sm:p-5 lg:p-6 rounded-2xl sm:rounded-3xl bg-white border border-[#263F32]/10 hover:border-[#D4AF37] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center group hover:-translate-y-1"
             >
-              <div className="w-full h-16 sm:h-20 flex items-center justify-center p-2 mb-4 bg-white rounded-2xl">
+              <div className="w-full h-11 sm:h-14 lg:h-16 flex items-center justify-center p-1 sm:p-2 mb-2 sm:mb-3 bg-white rounded-xl">
                 <img
                   src={p.logo}
                   alt={p.alt}
@@ -185,21 +185,21 @@ export function Affiliations({ locale }: { locale: Locale }) {
                   className="max-h-full max-w-[85%] object-contain transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
-              <h3 className="text-base sm:text-lg font-bold font-serif-editorial text-[#162E22] mb-1">
+              <h3 className="text-xs sm:text-base lg:text-lg font-bold font-serif-editorial text-[#162E22] mb-0.5 sm:mb-1">
                 {p.abbr}
               </h3>
-              <p className="text-xs text-[#252923]/60 font-medium">
+              <p className="text-[10px] sm:text-xs text-[#252923]/65 font-medium leading-tight min-h-[26px] sm:min-h-0 flex items-center justify-center">
                 {p.sub}
               </p>
             </div>
           ))}
         </div>
 
-        {/* Bottom Green Compliance Verification Pill matching Image 1 */}
+        {/* Bottom Green Compliance Verification Pill */}
         <div className="flex justify-center">
-          <div className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#EBF7EE] border border-[#25D366]/40 text-[#162E22] text-xs sm:text-sm font-medium shadow-xs">
-            <span className="w-5 h-5 rounded-full bg-[#25D366] text-white flex items-center justify-center shrink-0">
-              <Check className="w-3.5 h-3.5 stroke-[3]" />
+          <div className="inline-flex items-center gap-2 px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#EBF7EE] border border-[#25D366]/40 text-[#162E22] text-[11px] sm:text-xs md:text-sm font-medium shadow-xs text-center">
+            <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#25D366] text-white flex items-center justify-center shrink-0">
+              <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[3]" />
             </span>
             <span>
               {isKn

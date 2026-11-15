@@ -6,6 +6,7 @@
  * independent failure isolation, delivery tracking, and customer acknowledgements.
  */
 
+import nodemailer from 'nodemailer';
 import { InquiryRecord, NotificationLog, DispatchNotificationResult, NotificationChannel } from './types.js';
 import { getSupabase } from './supabase.js';
 import { addMemoryNotificationLog, updateMemoryNotificationLog, getMemoryNotificationLogs } from './store.js';
@@ -459,7 +460,13 @@ async function dispatchWhatsAppNotification(
 }
 
 /**
- * Dispatches an automated transactional email via Resend API
+ * Dispatches an automated transactional email.
+ * Zero-Domain Architecture:
+ *  1. Primary: Google Gmail SMTP (if GMAIL_USER & GMAIL_APP_PASSWORD are provided)
+ *     - 100% Free, NO custom domain required
+ *     - Delivers directly to ANY customer email address worldwide
+ *     - Sends authentically from incharaholidays@gmail.com
+ *  2. Fallback: Resend API (if RESEND_API_KEY is configured)
  */
 async function dispatchEmailNotification(
   toEmail: string,
@@ -467,12 +474,46 @@ async function dispatchEmailNotification(
   htmlContent: string,
   textFallback: string
 ): Promise<{ success: boolean; messageId?: string; error?: string }> {
+  // Strategy 1: Gmail SMTP (zero domain needed, works with ANY customer email)
+  const gmailUser = process.env.GMAIL_USER || process.env.SMTP_USER;
+  const gmailPass = process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS;
+
+  if (gmailUser && gmailPass) {
+    try {
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: gmailUser,
+          pass: gmailPass.replace(/\s+/g, ''), // Strip spaces from Google 16-character app password
+        },
+      });
+
+      const info = await transporter.sendMail({
+        from: `"Inchara Holidays" <${gmailUser}>`,
+        to: toEmail,
+        replyTo: gmailUser,
+        subject,
+        html: htmlContent,
+        text: textFallback,
+      });
+
+      return {
+        success: true,
+        messageId: info.messageId,
+      };
+    } catch (smtpErr: any) {
+      console.error('[NotificationEngine] Gmail SMTP dispatch error:', smtpErr);
+      // Fall through to Resend if configured
+    }
+  }
+
+  // Strategy 2: Resend API
   const resendApiKey = process.env.RESEND_API_KEY;
 
   if (!resendApiKey) {
     return {
       success: false,
-      error: 'RESEND_API_KEY environment variable not configured',
+      error: 'Neither Gmail SMTP (GMAIL_USER & GMAIL_APP_PASSWORD) nor RESEND_API_KEY is configured',
     };
   }
 
