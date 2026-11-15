@@ -65,19 +65,14 @@ export const CtaInvitation: React.FC<CtaInvitationProps> = ({
             <ArrowUpRight className="w-4 h-4 text-[#12261C] stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </button>
 
-          <a
-            href={`https://wa.me/919036174880?text=${encodeURIComponent(
-              language === 'kn'
-                ? 'ನಮಸ್ಕಾರ ರವೀಂದ್ರ, ನಾನು ಇಂಚರ ಹಾಲಿಡೇಸ್ ಪ್ರವಾಸದ ಕುರಿತು ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ವಿಚಾರಿಸಲು ಬಯಸುತ್ತೇನೆ.'
-                : 'Namaskara Ravindra, I would like to inquire about an Inchara Holidays journey.'
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto px-7 py-4 min-h-[48px] rounded-xl border border-[#25D366]/40 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#25D366] text-xs sm:text-sm font-semibold tracking-wide transition-colors flex items-center justify-center gap-2 cursor-pointer active:scale-95 focus-visible:ring-2 focus-visible:ring-[#25D366]"
+          <button
+            type="button"
+            onClick={onOpenContact}
+            className="w-full sm:w-auto px-7 py-4 min-h-[48px] rounded-xl border border-[#D4AF37]/40 text-[#F5D77F] hover:bg-white/5 text-xs sm:text-sm font-semibold tracking-wide transition-colors flex items-center justify-center gap-2 cursor-pointer active:scale-95 focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
           >
-            <MessageCircle className="w-4 h-4 fill-[#25D366]" />
+            <MessageCircle className="w-4 h-4 text-[#D4AF37]" />
             <span>{t.ctaSection.btnWhatsapp}</span>
-          </a>
+          </button>
         </div>
 
         <div className="mt-8 text-xs text-[#E4D8C5]/80">

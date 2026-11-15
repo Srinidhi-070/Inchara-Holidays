@@ -438,7 +438,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
                 ? 'ಯಾವುದೇ ಮುಂಗಡ ಶುಲ್ಕವಿಲ್ಲದೆ ನಿಮ್ಮ ಪ್ರವಾಸ ದಿನಚರಿ ಚರ್ಚಿಸಿ.'
                 : 'Discuss your bespoke itinerary with zero upfront commitment.'}
             </span>
-            <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto">
+            <div className="flex items-center gap-3 w-full sm:w-auto">
               <button
                 type="button"
                 onClick={onClose}
@@ -446,20 +446,6 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
               >
                 {t.modal.close}
               </button>
-              <a
-                href={`https://wa.me/919036174880?text=${encodeURIComponent(
-                  language === 'kn'
-                    ? `ನಮಸ್ಕಾರ ರವೀಂದ್ರ, ನಾನು "${destination.nameKn}" ತಾಣದ ಪ್ರವಾಸದ ಕುರಿತು ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ವಿಚಾರಿಸಲು ಬಯಸುತ್ತೇನೆ.`
-                    : `Namaskara Ravindra, I would like to inquire about a tour to "${destination.nameEn}".`
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 border border-[#25D366]/40 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#25D366] text-xs font-bold transition-all shadow-2xs"
-                title="Instant WhatsApp Advisory"
-              >
-                <MessageCircle className="w-3.5 h-3.5 fill-[#25D366]" />
-                <span>WhatsApp: +91 90361 74880</span>
-              </a>
               <button
                 type="button"
                 onClick={() => {

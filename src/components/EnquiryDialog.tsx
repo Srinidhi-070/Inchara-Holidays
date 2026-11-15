@@ -358,7 +358,7 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
                   rel="noopener noreferrer"
                 >
                   <MessageCircle className="w-5 h-5 fill-white" />
-                  <span>{c.whatsappBtn} (+91 90361 74880)</span>
+                  <span>{c.whatsappBtn}</span>
                 </a>
               )}
               <button

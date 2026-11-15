@@ -7,7 +7,6 @@ import {
   ChevronDown,
   Search,
   Sparkles,
-  MessageCircle,
   MessageCircleQuestion,
   ArrowRight,
   ShieldCheck,
@@ -219,28 +218,14 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ locale, onEnquire }) => 
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
-            <a
-              href={`https://wa.me/919036174880?text=${encodeURIComponent(
-                isKn ? "ನಮಸ್ಕಾರ ರವೀಂದ್ರ, ನನ್ನ ಬಳಿ ವಿಶೇಷ ಪ್ರವಾಸ ಯೋಜನೆಯಿದೆ." : "Namaskara Ravindra, I have a bespoke travel enquiry."
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#25D366]/40 bg-[#25D366]/15 hover:bg-[#25D366]/25 text-[#25D366] text-xs font-semibold transition-all"
-            >
-              <MessageCircle className="w-4 h-4 fill-[#25D366]" />
-              <span>WhatsApp: +91 90361 74880</span>
-            </a>
-
-            <button
-              type="button"
-              onClick={() => onEnquire('holidays', 'Inquiry from FAQ Section')}
-              className="gold-button !m-0 !py-2.5 !px-5 !text-xs font-bold uppercase tracking-wider shrink-0 flex items-center gap-2"
-            >
-              <span>{isKn ? 'ವಿಚಾರಣೆ ಆರಂಭಿಸಿ' : 'Start Enquiry'}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => onEnquire('holidays', 'Inquiry from FAQ Section')}
+            className="gold-button !m-0 !py-2.5 !px-5 !text-xs font-bold uppercase tracking-wider shrink-0 flex items-center gap-2"
+          >
+            <span>{isKn ? 'ವಿಚಾರಣೆ ಆರಂಭಿಸಿ' : 'Start Enquiry'}</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
         </div>
       </div>
     </section>

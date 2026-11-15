@@ -1615,6 +1615,39 @@ The notification engine (`api/_shared/notifications.ts`) expects the following e
   * Verified Contact Modal with Ravindra S and +91 90361 74880.
   * Verified Admin Portal Business Settings with empty/unregistered GSTIN.
 
+---
+
+### Cycle 42: UI De-Cluttering & Footer-Only WhatsApp Placement
+**Date**: November 15, 2026  
+**Status**: Completed, Verified via Playwright Visual QA & Built Cleanly  
+
+#### 1. Removal of Out-of-Place WhatsApp Buttons
+Following direct owner feedback, removed redundant WhatsApp action buttons that cluttered primary conversion flows:
+* **Hero Section (`Hero.tsx` & `HomeSections.tsx`)**: Removed the green WhatsApp button across Concept A, B, and C. Restored pristine two-button layout (`Plan Your Journey` / `Explore Our World`).
+* **Navigation Header (`Header.tsx`)**: Removed the top-right WhatsApp pill and mobile drawer WhatsApp block, keeping the sticky navigation minimalist and focused on core menu exploration and the primary `Enquire` action.
+* **FAQ Banner (`FaqSection.tsx`)**: Reverted bottom curator banner to clean single CTA (`Start Enquiry`).
+* **Package & Destination Modals (`ItineraryModal.tsx` & `DestinationModal.tsx`)**: Removed extra WhatsApp buttons from modal action bars, keeping attention focused on itinerary depth and the primary booking request.
+* **Invitation Section (`HomeSections.tsx` & `CtaInvitation.tsx`)**: Removed floating contact strip before the footer and restored the standard consultation button opening `ContactModal`.
+* **Feature Cards (`WhyUs.tsx` & `translations.ts`)**: Restored natural editorial copy without inline phone numbers in card descriptions.
+
+#### 2. Canonical Contact Placements Preserved
+* **Footer (`Footer.tsx`)**: The primary and permanent home for direct contact channels:
+  * `Call: +91 90361 74880` (Direct voice line)
+  * `WhatsApp: +91 90361 74880` (Direct `wa.me/919036174880` chat link)
+  * `incharaholidays@gmail.com` (Official email link)
+* **Direct Advisory Modal (`ContactModal.tsx`)**: Accessible via the footer *"Operating Desk & Direct Line"* button, housing Ravindra S's curator profile, Instant WhatsApp (`+91 90361 74880`), Direct Call Line (`+91 90361 74880`), Email (`incharaholidays@gmail.com`), and Bengaluru Operating Desk address.
+* **Enquiry Confirmation (`EnquiryDialog.tsx`)**: Retained one-click WhatsApp routing on Step 4 after enquiry submission to allow customers to follow up immediately.
+* **Interactive Travel Map (`InteractiveTravelMap.tsx`)**: Clean `WhatsApp` button routing to `919036174880` for regional tour inquiries.
+
+#### 3. Verification & Compliance
+* `npx tsc --noEmit`: **0 errors**.
+* `npm run build`: **Built cleanly in 820ms**.
+* Visual Playwright inspection confirmed:
+  * Hero section is clean with 0 extra WhatsApp buttons.
+  * Header is clean with standard language switch and enquire CTA.
+  * Footer displays verified WhatsApp (`+91 90361 74880`) and Call lines.
+
+
 
 
 

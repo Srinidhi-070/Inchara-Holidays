@@ -762,10 +762,10 @@ export const InteractiveTravelMap: React.FC<InteractiveTravelMapProps> = ({
                     target="_blank"
                     rel="noopener noreferrer"
                     className="outline-button w-full sm:w-auto py-3 px-4 rounded-xl text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 border-white/20 hover:border-[#25D366] text-white hover:text-[#25D366] transition-colors cursor-pointer"
-                    title={isKn ? 'ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಚಾಟ್ ಮಾಡಿ: +91 90361 74880' : 'Chat on WhatsApp: +91 90361 74880'}
+                    title={isKn ? 'ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಚಾಟ್ ಮಾಡಿ' : 'Chat on WhatsApp'}
                   >
                     <PhoneCall className="w-3.5 h-3.5 text-[#25D366]" />
-                    <span>{isKn ? 'ವಾಟ್ಸಾಪ್: +91 90361 74880' : 'WhatsApp: +91 90361 74880'}</span>
+                    <span>WhatsApp</span>
                   </a>
                 </div>
               </motion.div>

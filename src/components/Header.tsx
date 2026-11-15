@@ -3,7 +3,6 @@ import { copy } from "../content";
 import type { Locale, ServiceId } from "../types";
 import { ArrowRight, CloseIcon, MenuIcon } from "./Icons";
 import { BrandMark } from "./BrandMark";
-import { MessageCircle, Phone, Mail } from "lucide-react";
 
 export const Mark = BrandMark;
 
@@ -83,19 +82,6 @@ export function Header({ locale, setLocale, onEnquire }: Props) {
         </nav>
 
         <div className="header-actions">
-          <a
-            href={`https://wa.me/919036174880?text=${encodeURIComponent(
-              isKn ? "ನಮಸ್ಕಾರ ರವೀಂದ್ರ, ನಾನು ಇಂಚರ ಹಾಲಿಡೇಸ್ ಪ್ರವಾಸದ ಕುರಿತು ವಿಚಾರಿಸಲು ಬಯಸುತ್ತೇನೆ." : "Namaskara Ravindra, I would like to inquire about an Inchara Holidays journey."
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden xl:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/40 text-[#25D366] text-xs font-semibold transition-all hover:scale-102"
-            title="Instant WhatsApp Advisory"
-          >
-            <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
-            <MessageCircle className="w-3.5 h-3.5 fill-[#25D366]" />
-            <span>+91 90361 74880</span>
-          </a>
           <LanguageSwitch locale={locale} setLocale={setLocale} label={String(c.language)} />
           <button className="gold-button header-cta" type="button" onClick={() => onEnquire()}>
             <span className="header-cta__label">{String(c.enquire)}</span>
@@ -144,41 +130,6 @@ export function Header({ locale, setLocale, onEnquire }: Props) {
             {String(c.enquire)}
             <ArrowRight />
           </button>
-
-          {/* Prominent Direct Advisory & WhatsApp Drawer Card */}
-          <div className="pt-4 pb-2 border-t border-white/10 mt-5 flex flex-col gap-2.5">
-            <div className="text-[11px] font-bold uppercase tracking-wider text-[#D4AF37]">
-              {isKn ? "ನೇರ ಸಂಪರ್ಕ & ವಾಟ್ಸಾಪ್" : "Direct Advisory & WhatsApp"}
-            </div>
-            <a
-              href={`https://wa.me/919036174880?text=${encodeURIComponent(
-                isKn ? "ನಮಸ್ಕಾರ ರವೀಂದ್ರ, ನಾನು ಇಂಚರ ಹಾಲಿಡೇಸ್ ಪ್ರವಾಸದ ಕುರಿತು ವಿಚಾರಿಸಲು ಬಯಸುತ್ತೇನೆ." : "Namaskara Ravindra, I would like to inquire about an Inchara Holidays journey."
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 text-xs font-semibold text-[#25D366] hover:brightness-110 py-1"
-              tabIndex={open ? 0 : -1}
-            >
-              <MessageCircle className="w-4 h-4 fill-[#25D366]" />
-              <span>WhatsApp: +91 90361 74880</span>
-            </a>
-            <a
-              href="tel:919036174880"
-              className="inline-flex items-center gap-2.5 text-xs font-semibold text-white/90 hover:text-[#F5D77F] py-1"
-              tabIndex={open ? 0 : -1}
-            >
-              <Phone className="w-4 h-4 text-[#D4AF37]" />
-              <span>Call: +91 90361 74880</span>
-            </a>
-            <a
-              href="mailto:incharaholidays@gmail.com"
-              className="inline-flex items-center gap-2.5 text-xs font-semibold text-white/80 hover:text-[#F5D77F] py-0.5"
-              tabIndex={open ? 0 : -1}
-            >
-              <Mail className="w-4 h-4 text-[#D4AF37]" />
-              <span>incharaholidays@gmail.com</span>
-            </a>
-          </div>
         </nav>
       </div>
     </header>
