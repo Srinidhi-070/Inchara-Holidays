@@ -690,11 +690,11 @@ export const QuotationModal: React.FC<QuotationModalProps> = ({
                       <p className="text-[11px] font-semibold text-[#9E3D28] mt-1">
                         Premier South Indian Travel & Cultural Hospitality
                       </p>
-                      <p className="text-[10px] text-[#252923]/70">
-                        GSTIN: <strong>29AABCU9603R1ZM</strong> · PAN: <strong>AABCU9603R</strong>
+                      <p className="text-[10px] text-[#252923]/70 font-medium">
+                        Unregistered Solo Proprietorship · Malleshwaram, Bengaluru
                       </p>
                       <p className="text-[10px] text-[#252923]/60">
-                        INCHARA HOLIDAYS, 7/1, 6th Cross Rd, Swimming Pool Extension, Malleshwaram, Bengaluru 560003 · +91 90361 74880
+                        INCHARA HOLIDAYS, 7/1, 6th Cross Rd, Swimming Pool Extension, Malleshwaram, Bengaluru 560003 · Phone/WhatsApp: +91 90361 74880 · incharaholidays@gmail.com
                       </p>
                     </div>
                   </div>

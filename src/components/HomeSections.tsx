@@ -98,6 +98,18 @@ export function Hero({ locale, onEnquire, concept = "A", hasSelectedConcept = fa
               <span className="leading-none">{secondaryBtn}</span>
               <ArrowRight className="w-4.5 h-4.5 transition-transform duration-200 group-hover:translate-x-2" />
             </a>
+            <a
+              href={`https://wa.me/919036174880?text=${encodeURIComponent(
+                locale === "kn" ? "ನಮಸ್ಕಾರ ರವೀಂದ್ರ, ನಾನು ಇಂಚರ ಹಾಲಿಡೇಸ್ ಪ್ರವಾಸದ ಕುರಿತು ವಿಚಾರಿಸಲು ಬಯಸುತ್ತೇನೆ." : "Namaskara Ravindra, I would like to inquire about an Inchara Holidays journey."
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-13 sm:h-14 min-h-[52px] sm:min-h-[56px] inline-flex items-center justify-center gap-2.5 text-[#25D366] hover:text-white bg-[#07130C]/60 hover:bg-[#07130C]/80 border border-[#25D366]/40 hover:border-[#25D366] py-3.5 px-5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold tracking-wide transition-all backdrop-blur-md active:scale-95"
+              title="Direct WhatsApp Advisory"
+            >
+              <span className="w-2.5 h-2.5 rounded-full bg-[#25D366] animate-pulse" />
+              <span>WhatsApp: +91 90361 74880</span>
+            </a>
           </div>
         </div>
         <a className="scroll-cue" href="#about" data-reveal="fade" data-delay="450">
@@ -589,6 +601,28 @@ export function InvitationBanner({ locale, onEnquire }: Props) {
             >
               <span className="leading-none">{locale === "kn" ? "ತಾಣಗಳನ್ನು ಅನ್ವೇಷಿಸಿ" : "Explore Destinations"}</span>
               <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+            </a>
+          </div>
+
+          <div className="mt-5 pt-3.5 border-t border-white/10 flex flex-wrap items-center justify-center gap-3 text-xs text-[#F5D77F]">
+            <a
+              href={`https://wa.me/919036174880?text=${encodeURIComponent(
+                locale === "kn" ? "ನಮಸ್ಕಾರ ರವೀಂದ್ರ, ನಾನು ಇಂಚರ ಹಾಲಿಡೇಸ್ ಪ್ರವಾಸದ ಕುರಿತು ವಿಚಾರಿಸಲು ಬಯಸುತ್ತೇನೆ." : "Namaskara Ravindra, I would like to plan a trip with Inchara Holidays."
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-[#25D366] hover:brightness-110 font-semibold"
+            >
+              <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
+              <span>WhatsApp: +91 90361 74880</span>
+            </a>
+            <span className="text-white/40">·</span>
+            <a href="tel:919036174880" className="text-white/80 hover:text-white">
+              Call: +91 90361 74880
+            </a>
+            <span className="text-white/40">·</span>
+            <a href="mailto:incharaholidays@gmail.com" className="text-white/80 hover:text-white">
+              incharaholidays@gmail.com
             </a>
           </div>
         </div>

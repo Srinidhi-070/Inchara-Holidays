@@ -22,8 +22,8 @@ To ensure legal integrity, financial compliance, and zero misrepresentation, thi
 | **Official Email** | `nssrinidhi72884@gmail.com` | **Verified** | Primary dispatch address for lead notifications & customer proposals. |
 | **Registered Address** | `#42, Sayyaji Rao Road, Near Devaraja Market, Mysuru, Karnataka 570001` | **Provisional** | Confirm exact municipal door number and commercial lease/premise address in Mysuru. |
 | **Tourism Registration**| `KA-TO-2024-88419` (Karnataka Tourism Forum) | **Provisional** | Verify official KTF / Karnataka Tourism Department registration certificate number. |
-| **GSTIN** | `29AABCU9603R1ZM` | **Provisional** | Replace with official 15-digit GSTIN issued under State Code 29 (Karnataka) before collecting tax. |
-| **Income Tax PAN** | `AABCU9603R` | **Provisional** | Update with proprietary / business entity PAN card before issuing audited ledger records. |
+| **GSTIN** | *Unregistered* | **Proprietorship** | Inchara Holidays operates as an unregistered proprietorship. No GSTIN is required or charged. |
+| **Income Tax PAN** | *Proprietor PAN* | **Proprietorship** | Retained privately on file by proprietor Ravindra S. |
 | **Bank Name** | Canara Bank | **Verified** | Registered commercial banking partner for client settlements. |
 | **Bank Branch** | Sayyaji Rao Road, Mysuru | **Verified** | Local Mysuru branch. |
 | **Bank Account No.** | `110023456789` | **Provisional** | Replace with active Canara Bank Current / Savings Account number for RTGS/NEFT receipts. |

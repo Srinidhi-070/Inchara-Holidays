@@ -132,7 +132,7 @@ export const translations = {
       headline: 'ನಿಮ್ಮ ಮುಂದಿನ ಪ್ರಯಾಣದ ಕಥೆ ಇಲ್ಲಿಂದ ಶುರುವಾಗಲಿ.',
       subhead: 'ನಿಮ್ಮ ಮನಸ್ಸಿನಲ್ಲಿರುವ ಸ್ಥಳ ಮತ್ತು ದಿನಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳಿ. ಉಳಿದದ್ದನ್ನು ನಾವು ಪ್ರೀತಿಯಿಂದ ಸಿದ್ಧಪಡಿಸುತ್ತೇವೆ.',
       btnPlan: 'ಪ್ರವಾಸದ ಯೋಜನೆ ಆರಂಭಿಸಿ',
-      btnWhatsapp: 'ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ವಿಚಾರಿಸಿ',
+      btnWhatsapp: 'ವಾಟ್ಸಾಪ್: +91 90361 74880',
     },
     footer: {
       blessing: 'ಶುಭ ಪ್ರಯಾಣ · Bon Voyage',
@@ -314,7 +314,7 @@ export const translations = {
         {
           num: '04',
           title: 'Clear Communication',
-          desc: 'Direct WhatsApp and voice access with transparent expectations and zero hidden surprises.',
+          desc: 'Direct WhatsApp (+91 90361 74880) and voice access with transparent expectations and zero hidden surprises.',
         },
         {
           num: '05',
@@ -345,7 +345,7 @@ export const translations = {
       headline: 'Let your next travel story begin here.',
       subhead: 'Tell us where you wish to wander and when. We will craft the rest with care and warmth.',
       btnPlan: 'Start Planning Your Trip',
-      btnWhatsapp: 'Chat on WhatsApp',
+      btnWhatsapp: 'WhatsApp: +91 90361 74880',
     },
     footer: {
       blessing: 'Bon Voyage · ಶುಭ ಪ್ರಯಾಣ',

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import type { Locale, SamplePackage } from "../types";
 import { ArrowUpRight, CloseIcon } from "./Icons";
-import { Printer } from "lucide-react";
+import { Printer, MessageCircle } from "lucide-react";
 import { ItineraryBrochureModal } from "./documents/ItineraryBrochureModal";
 
 type Props = {
@@ -99,7 +99,7 @@ export function ItineraryModal({ pkg, locale, onClose, onPlan }: Props) {
             </p>
 
             <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-[#162E22]/10">
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <button
                   type="button"
                   className="quiet-button !px-4"
@@ -115,6 +115,20 @@ export function ItineraryModal({ pkg, locale, onClose, onPlan }: Props) {
                   <Printer className="w-3.5 h-3.5 text-[#D4AF37]" />
                   <span>{isKn ? "ಬ್ರೋಷರ್ / PDF" : "Brochure PDF"}</span>
                 </button>
+                <a
+                  href={`https://wa.me/919036174880?text=${encodeURIComponent(
+                    isKn
+                      ? `ನಮಸ್ಕಾರ ರವೀಂದ್ರ, ನಾನು "${pkg.titleKn}" (${pkg.durationKn}) ಪ್ರವಾಸದ ಕುರಿತು ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ವಿಚಾರಿಸಲು ಬಯಸುತ್ತೇನೆ.`
+                      : `Namaskara Ravindra, I would like to inquire about the "${pkg.titleEn}" (${pkg.durationEn}) tour package.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-2 rounded-xl border border-[#25D366]/40 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#25D366] text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer transition-all shadow-2xs"
+                  title="WhatsApp Direct Advisory"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 fill-[#25D366]" />
+                  <span>WhatsApp: +91 90361 74880</span>
+                </a>
               </div>
 
               <button

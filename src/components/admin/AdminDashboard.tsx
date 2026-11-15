@@ -112,9 +112,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
   // Business Settings State
   const [bankAccount, setBankAccount] = useState('110023456789');
   const [bankIfsc, setBankIfsc] = useState('CNRB0001234');
-  const [gstin, setGstin] = useState('29AABCU9603R1ZM');
-  const [pan, setPan] = useState('AABCU9603R');
-  const [gstRate, setGstRate] = useState(5);
+  const [gstin, setGstin] = useState('');
+  const [pan, setPan] = useState('');
+  const [gstRate, setGstRate] = useState(0);
   const [settingsSaved, setSettingsSaved] = useState(false);
 
   // Selected Inquiry for Detail Drawer
@@ -401,7 +401,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
               </form>
 
               <div className="p-3 rounded-xl bg-[#F6F3EA] border border-[#263F32]/8 text-[11px] text-[#252923]/70 text-center">
-                Owner Access: <span className="font-mono font-bold">admin@incharaholidays.com</span> / <span className="font-mono font-bold">Inchara@2026</span>
+                Owner Access: <span className="font-mono font-bold">incharaholidays@gmail.com</span> / <span className="font-mono font-bold">Inchara@2026</span>
               </div>
             </motion.div>
           </div>
@@ -1148,10 +1148,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                     <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                     <div className="text-xs space-y-1">
                       <div className="font-bold text-[#162E22] uppercase tracking-wider text-[11px]">
-                        Owner Verification Notice — Provisional Pre-Launch Credentials
+                        Business & Operating Status Notice
                       </div>
                       <p className="text-[#252923]/80 leading-relaxed">
-                        Tax credentials (GSTIN: <span className="font-mono font-bold">29AABCU9603R1ZM</span>, PAN: <span className="font-mono font-bold">AABCU9603R</span>) and Bank Particulars (Canara Bank A/C <span className="font-mono font-bold">110023456789</span>) are configured as provisional defaults. Ravindra S must verify or update these official records prior to accepting live commercial customer funds.
+                        Inchara Holidays operates as an unregistered solo proprietorship. No GSTIN is registered or charged by default. Bank particulars (Canara Bank Malleshwaram) can be updated below for booking settlements.
                       </p>
                     </div>
                   </div>
@@ -1223,17 +1223,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
                   <div className="p-6 rounded-3xl bg-white border border-[#263F32]/12 shadow-xs space-y-4">
                     <h3 className="text-base font-bold font-serif-editorial text-[#162E22] flex items-center gap-2">
                       <CreditCard className="w-4 h-4 text-[#D4AF37]" />
-                      <span>Statutory GST & Quotation Defaults</span>
+                      <span>Proprietorship Status & Tax Defaults</span>
                     </h3>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
                       <div>
                         <label className="block text-[11px] font-bold text-[#162E22] uppercase mb-1">
-                          GSTIN (Karnataka)
+                          GSTIN (Unregistered)
                         </label>
                         <input
                           type="text"
                           value={gstin}
+                          placeholder="Unregistered Proprietorship"
                           onChange={(e) => setGstin(e.target.value)}
                           className="w-full px-3 py-2 rounded-xl border border-[#263F32]/20 font-mono text-[#162E22]"
                         />
@@ -1241,11 +1242,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
 
                       <div>
                         <label className="block text-[11px] font-bold text-[#162E22] uppercase mb-1">
-                          Income Tax PAN
+                          Income Tax PAN (Optional)
                         </label>
                         <input
                           type="text"
                           value={pan}
+                          placeholder="Proprietor PAN"
                           onChange={(e) => setPan(e.target.value)}
                           className="w-full px-3 py-2 rounded-xl border border-[#263F32]/20 font-mono text-[#162E22]"
                         />

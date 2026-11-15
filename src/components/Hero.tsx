@@ -87,6 +87,18 @@ export const Hero: React.FC<HeroProps> = ({
                   <span>{kn ? 'ಪ್ರಯಾಣ ಪತ್ರಿಕೆ ತೆರೆಯಿರಿ' : 'Open the journal'}</span>
                   <span aria-hidden="true">↗</span>
                 </button>
+                <a
+                  href={`https://wa.me/919036174880?text=${encodeURIComponent(
+                    kn ? 'ನಮಸ್ಕಾರ ರವೀಂದ್ರ, ನಾನು ಇಂಚರ ಹಾಲಿಡೇಸ್ ಪ್ರವಾಸದ ಕುರಿತು ವಿಚಾರಿಸಲು ಬಯಸುತ್ತೇನೆ.' : 'Namaskara Ravindra, I would like to inquire about an Inchara Holidays journey.'
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-5 py-3.5 min-h-[46px] rounded-xl bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#128C7E] border border-[#25D366]/40 text-xs sm:text-sm font-semibold tracking-wide transition-all flex items-center justify-center gap-2 shadow-xs active:scale-95 cursor-pointer"
+                  title="Instant WhatsApp Advisory"
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
+                  <span>WhatsApp: +91 90361 74880</span>
+                </a>
               </div>
             </div>
 
@@ -222,6 +234,18 @@ export const Hero: React.FC<HeroProps> = ({
                   <span>{kn ? 'ತಾಣಗಳನ್ನು ಅನ್ವೇಷಿಸಿ' : 'Explore destinations'}</span>
                   <span aria-hidden="true" className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
                 </button>
+                <a
+                  href={`https://wa.me/919036174880?text=${encodeURIComponent(
+                    kn ? 'ನಮಸ್ಕಾರ ರವೀಂದ್ರ, ನಾನು ಇಂಚರ ಹಾಲಿಡೇಸ್ ಪ್ರವಾಸದ ಕುರಿತು ವಿಚಾರಿಸಲು ಬಯಸುತ್ತೇನೆ.' : 'Namaskara Ravindra, I would like to inquire about an Inchara Holidays journey.'
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-5 py-3.5 min-h-[46px] rounded-xl bg-black/40 hover:bg-black/60 text-[#25D366] border border-[#25D366]/40 text-xs sm:text-sm font-semibold tracking-wide transition-all flex items-center justify-center gap-2 backdrop-blur-xs active:scale-95 cursor-pointer"
+                  title="Instant WhatsApp Advisory"
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
+                  <span>WhatsApp: +91 90361 74880</span>
+                </a>
               </div>
             </div>
 
@@ -323,6 +347,18 @@ export const Hero: React.FC<HeroProps> = ({
             <span>{kn ? 'ತಾಣಗಳನ್ನು ಅನ್ವೇಷಿಸಿ' : 'Explore destinations'}</span>
             <span aria-hidden="true" className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
           </button>
+          <a
+            href={`https://wa.me/919036174880?text=${encodeURIComponent(
+              kn ? 'ನಮಸ್ಕಾರ ರವೀಂದ್ರ, ನಾನು ಇಂಚರ ಹಾಲಿಡೇಸ್ ಪ್ರವಾಸದ ಕುರಿತು ವಿಚಾರಿಸಲು ಬಯಸುತ್ತೇನೆ.' : 'Namaskara Ravindra, I would like to inquire about an Inchara Holidays journey.'
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="button button-outline !border-[#25D366]/50 text-[#25D366] hover:bg-[#25D366]/20 inline-flex items-center gap-2 cursor-pointer"
+            title="Instant WhatsApp Advisory"
+          >
+            <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
+            <span>WhatsApp: +91 90361 74880</span>
+          </a>
         </div>
       </div>
       <button

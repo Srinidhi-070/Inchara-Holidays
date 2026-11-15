@@ -177,7 +177,7 @@ export function Footer({
               className="inline-flex items-center gap-2.5 text-xs font-semibold text-white/90 hover:text-[#f5d77f] transition-colors"
             >
               <Phone className="w-4 h-4 text-[#D4AF37]" />
-              <span>{brandConfig.phoneDisplay}</span>
+              <span>{isKn ? `ನೇರ ಕರೆ: ${brandConfig.phoneDisplay}` : `Call: ${brandConfig.phoneDisplay}`}</span>
             </a>
 
             <a
@@ -187,7 +187,7 @@ export function Footer({
               className="flex items-center gap-2.5 text-xs font-semibold text-[#25D366] hover:brightness-110 transition-all"
             >
               <MessageCircle className="w-4 h-4" />
-              <span>{isKn ? "ವಾಟ್ಸಾಪ್ ಚಾಟ್ ಆರಂಭಿಸಿ" : "WhatsApp Chat"}</span>
+              <span>{isKn ? `ವಾಟ್ಸಾಪ್: ${brandConfig.whatsappDisplay}` : `WhatsApp: ${brandConfig.whatsappDisplay}`}</span>
             </a>
 
             <a

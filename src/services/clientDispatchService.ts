@@ -212,8 +212,7 @@ export function buildReceiptWhatsAppText(
     `Your tour arrangements and pure vegetarian meal bookings are formally recorded.\n\n` +
     `Thank you for traveling with Inchara Holidays!\n\n` +
     `Accounts Desk · Inchara Holidays\n` +
-    `GSTIN: 29AABCU9603R1ZM · PAN: AABCU9603R\n` +
-    `📞 +91 90361 74880`
+    `📞 +91 90361 74880 · ✉ incharaholidays@gmail.com`
   );
 }
 
@@ -272,8 +271,8 @@ export function buildReceiptEmailContent(
     `Accounts & Finance Desk\n` +
     `Inchara Holidays\n` +
     `7/1, 6th Cross Rd, Swimming Pool Extension, Malleshwaram, Bengaluru 560003, Karnataka\n` +
-    `GSTIN: 29AABCU9603R1ZM · PAN: AABCU9603R\n` +
-    `Phone: +91 90361 74880\n` +
+    `Phone / WhatsApp: +91 90361 74880\n` +
+    `Email: incharaholidays@gmail.com\n` +
     `Website: ${brandConfig.website}`;
 
   const recipient = inquiry.email || '';

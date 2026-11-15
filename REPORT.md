@@ -1558,5 +1558,63 @@ The notification engine (`api/_shared/notifications.ts`) expects the following e
      * `inquiry_events` table: **0 records** (100% clean).
    * Verified via live API query: `Remaining Inquiries: 0`, `Remaining Notification Logs: 0`.
 
+---
+
+### Cycle 41: GSTIN Removal (Unregistered Proprietorship) & Omnipresent WhatsApp Number (+91 90361 74880)
+**Date**: November 15, 2026  
+**Status**: Completed, Verified via Playwright Visual QA & Built Cleanly  
+
+#### 1. Complete Removal of Fake GSTIN & PAN
+* **Business Classification**: Clarified that Inchara Holidays operates as an unregistered solo proprietorship under the threshold exemption and possesses no GSTIN registration.
+* **Quotation & Receipt Generators (`clientDispatchService.ts`)**:
+  * Removed hardcoded fake GSTIN (`29AABCU9603R1ZM`) and PAN (`AABCU9603R`) from formal WhatsApp and Email dispatch text generators.
+* **Document Modals (`PaymentReceiptModal.tsx` & `QuotationModal.tsx`)**:
+  * Replaced fake GSTIN/PAN markup with clean business status: `"Unregistered Solo Proprietorship · Malleshwaram, Bengaluru"`.
+* **Staff Operations Desk (`AdminDashboard.tsx`)**:
+  * Updated Business Settings state to default GSTIN and PAN to empty strings `''`.
+  * Labeled inputs as `"GSTIN (Unregistered)"` and `"Income Tax PAN (Optional)"`.
+  * Updated advisory notice: *"Inchara Holidays operates as an unregistered solo proprietorship. No GSTIN is registered or charged by default. Bank particulars (Canara Bank Malleshwaram) can be updated below for booking settlements."*
+* **Database Master Setup (`supabase/master_complete_setup.sql` & migrations)**:
+  * Defaulted `gstin` and `pan` database columns to empty strings `''`.
+
+#### 2. Omnipresent WhatsApp Number Propagation (`+91 90361 74880`)
+* **Interactive Travel Map (`InteractiveTravelMap.tsx`)**:
+  * Replaced placeholder WhatsApp URL (`https://wa.me/919900000000`) with verified business number (`https://wa.me/919036174880`).
+  * Updated button label to explicitly display `"WhatsApp: +91 90361 74880"` (En) and `"ವಾಟ್ಸಾಪ್: +91 90361 74880"` (Kn).
+* **Navigation Header (`Header.tsx`)**:
+  * **Desktop**: Added prominent WhatsApp status indicator pill in `header-actions` with live pulsing green badge linking directly to `wa.me/919036174880`.
+  * **Mobile Drawer**: Added a dedicated Direct Advisory & WhatsApp drawer block displaying:
+    * `WhatsApp: +91 90361 74880`
+    * `Call: +91 90361 74880`
+    * `incharaholidays@gmail.com`
+* **Footer (`Footer.tsx`)**:
+  * Updated Call link to explicitly render `"Call: +91 90361 74880"`.
+  * Updated WhatsApp link to explicitly render `"WhatsApp: +91 90361 74880"`.
+* **Hero Section (`Hero.tsx` & `HomeSections.tsx`)**:
+  * Embedded direct WhatsApp advisory button with live indicator dot across Concept A, Concept B, and Concept C.
+* **Universal Enquiry Dialog (`EnquiryDialog.tsx`)**:
+  * Updated phone input placeholder to `+91 90361 74880`.
+  * Updated Step 4 confirmation button label: `"Chat with Ravindra on WhatsApp (+91 90361 74880)"`.
+  * Added direct desk contact advisory: `"Direct Operations Desk & WhatsApp: +91 90361 74880 · incharaholidays@gmail.com"`.
+* **FAQ Section (`FaqSection.tsx`)**:
+  * Added dedicated WhatsApp button in bottom curator banner: `"WhatsApp: +91 90361 74880"`.
+* **CTA Section (`CtaInvitation.tsx` & `translations.ts`)**:
+  * Converted WhatsApp action button into direct `wa.me/919036174880` link displaying `"WhatsApp: +91 90361 74880"`.
+* **Package & Destination Modals (`ItineraryModal.tsx`, `DestinationModal.tsx`)**:
+  * Added direct WhatsApp enquiry actions pre-populating package/destination titles.
+* **Final Invitation Banner (`HomeSections.tsx`)**:
+  * Added direct contact strip before footer linking WhatsApp, Call, and Email.
+
+#### 3. Verification & Compliance
+* `npx tsc --noEmit`: **0 errors** (100% type-safe).
+* `npm run build`: **Built cleanly in 793ms**.
+* Visual Quality Assurance via Playwright:
+  * Verified Desktop Header WhatsApp badge.
+  * Verified Hero Section WhatsApp link.
+  * Verified Footer WhatsApp & Call links.
+  * Verified Contact Modal with Ravindra S and +91 90361 74880.
+  * Verified Admin Portal Business Settings with empty/unregistered GSTIN.
+
+
 
 

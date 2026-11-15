@@ -756,16 +756,16 @@ export const InteractiveTravelMap: React.FC<InteractiveTravelMapProps> = ({
                   </button>
 
                   <a
-                    href={`https://wa.me/919900000000?text=${encodeURIComponent(
+                    href={`https://wa.me/919036174880?text=${encodeURIComponent(
                       `Hello Inchara Holidays, I would like to plan a bespoke tour to ${activeDetail.nameEn} (${activeDetail.durationEn}). Please share itinerary and pure veg dining details.`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="outline-button w-full sm:w-auto py-3 px-4 rounded-xl text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 border-white/20 hover:border-[#25D366] text-white hover:text-[#25D366] transition-colors cursor-pointer"
-                    title={isKn ? 'ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಚಾಟ್ ಮಾಡಿ' : 'Chat on WhatsApp'}
+                    title={isKn ? 'ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಚಾಟ್ ಮಾಡಿ: +91 90361 74880' : 'Chat on WhatsApp: +91 90361 74880'}
                   >
                     <PhoneCall className="w-3.5 h-3.5 text-[#25D366]" />
-                    <span>WhatsApp</span>
+                    <span>{isKn ? 'ವಾಟ್ಸಾಪ್: +91 90361 74880' : 'WhatsApp: +91 90361 74880'}</span>
                   </a>
                 </div>
               </motion.div>

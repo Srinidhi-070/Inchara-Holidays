@@ -358,7 +358,7 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
                   rel="noopener noreferrer"
                 >
                   <MessageCircle className="w-5 h-5 fill-white" />
-                  <span>{c.whatsappBtn}</span>
+                  <span>{c.whatsappBtn} (+91 90361 74880)</span>
                 </a>
               )}
               <button
@@ -369,6 +369,12 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
                 {c.done}
               </button>
             </div>
+
+            <p className="text-[11px] text-[#252923]/75 mt-3 text-center">
+              {locale === 'kn'
+                ? "ರವೀಂದ್ರ ಅವರ ನೇರ ಸಂಪರ್ಕ & ವಾಟ್ಸಾಪ್: +91 90361 74880 · incharaholidays@gmail.com"
+                : "Direct Operations Desk & WhatsApp: +91 90361 74880 · incharaholidays@gmail.com"}
+            </p>
           </div>
         ) : (
           /* MULTI-STEP WIZARD */
@@ -609,7 +615,7 @@ export function EnquiryDialog({ open, locale, initialService, initialDestination
                             contact: { ...curr.contact, phone: e.target.value },
                           }))
                         }
-                        placeholder="+91 98450 12345"
+                        placeholder="+91 90361 74880"
                         className="w-full px-4 py-3 rounded-xl bg-white border border-[#263F32]/20 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 text-sm font-medium text-[#162E22] outline-none shadow-xs"
                       />
                       {errors.phone && (

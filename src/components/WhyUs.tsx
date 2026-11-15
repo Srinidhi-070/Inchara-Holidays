@@ -31,7 +31,7 @@ const content = {
       {
         num: '04',
         title: 'Clear Communication',
-        desc: 'Direct WhatsApp and voice access with transparent expectations and zero hidden surprises.',
+        desc: 'Direct WhatsApp (+91 90361 74880) and voice access with transparent expectations and zero hidden surprises.',
       },
       {
         num: '05',
