@@ -158,7 +158,7 @@ export const ItineraryBrochureModal: React.FC<ItineraryBrochureModalProps> = ({ 
                 </div>
                 <div className="flex items-start gap-2">
                   <ShieldCheck className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
-                  <span><strong>Honest Quotations:</strong> Zero commercial shop stops, zero hidden surcharges, itemized GST invoicing.</span>
+                  <span><strong>Honest Quotations:</strong> Zero commercial shop stops, zero hidden surcharges, all-inclusive transparent billing.</span>
                 </div>
               </div>
             </section>

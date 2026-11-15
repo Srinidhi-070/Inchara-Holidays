@@ -21,7 +21,7 @@ To ensure legal integrity, financial compliance, and zero misrepresentation, thi
 | **Primary Phone** | `+91 90361 74880` | **Verified** | Primary contact for one-click WhatsApp dispatch & phone hotline. |
 | **Official Email** | `incharaholidays@gmail.com` | **Verified** | Primary dispatch address for lead notifications & customer proposals. |
 | **Registered Address** | `INCHARA HOLIDAYS, 7/1, 6th Cross Rd, Swimming Pool Extension, HN Layout, Malleshwaram, Bengaluru, Karnataka 560003` | **Verified** | Malleshwaram operating desk. |
-| **GSTIN** | *Unregistered* | **Proprietorship** | Inchara Holidays operates as an unregistered proprietorship. No GSTIN is required or charged. |
+| **GSTIN** | *Not Registered* | **Exempt** | Inchara Holidays is NOT registered for GSTIN at all. Zero GST is charged or collected. All quotes/receipts are net & all-inclusive. |
 | **Income Tax PAN** | *Proprietor PAN* | **Proprietorship** | Retained privately on file by proprietor Ravindra S. |
 | **Bank Name** | Canara Bank | **Verified** | Registered commercial banking partner for client settlements. |
 | **Bank Branch** | Malleshwaram, Bengaluru | **Verified** | Local Malleshwaram branch. |

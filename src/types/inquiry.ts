@@ -277,8 +277,8 @@ export interface QuotationRecord {
   guestCount: number;
   items: QuotationLineItem[];
   subtotal: number;
-  gstRate: number; // e.g. 5%
-  gstAmount: number;
+  gstRate?: number;
+  gstAmount?: number;
   totalAmount: number;
   validityDays: number;
   paymentTerms: string;
@@ -361,13 +361,13 @@ export interface BusinessSettings {
   registeredAddressEn: string;
   registeredAddressKn: string;
   regNumber: string;
-  gstin: string;
-  pan: string;
+  gstin?: string;
+  pan?: string;
   bankName: string;
   bankAccountNumber: string;
   bankIfsc: string;
   bankBranch: string;
-  gstRatePercent: number;
+  gstRatePercent?: number;
   isVerifiedByOwner: boolean;
   updatedAt: string;
 }

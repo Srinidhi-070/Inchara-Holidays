@@ -90,10 +90,9 @@ export function buildQuotationWhatsAppText(inquiry: InquiryRecord, quotation: Qu
     `💰 *INVESTMENT BREAKDOWN:*\n` +
     `${itemsList}\n` +
     `───────────────────────\n` +
-    `• Subtotal: ₹${quotation.subtotal.toLocaleString('en-IN')}.00\n` +
-    `• GST (${quotation.gstRate}%): ₹${quotation.gstAmount.toLocaleString('en-IN')}.00\n` +
-    `• *TOTAL QUOTED VALUE: ₹${quotation.totalAmount.toLocaleString('en-IN')}.00*\n` +
-    `  _(${numberToWordsINR(quotation.totalAmount)})_\n\n` +
+    `• *TOTAL QUOTED VALUE (Net All-Inclusive): ₹${quotation.totalAmount.toLocaleString('en-IN')}.00*\n` +
+    `  _(${numberToWordsINR(quotation.totalAmount)})_\n` +
+    `  _(Unregistered Solo Proprietorship · Zero GST charged as per turnover exemption)_\n\n` +
     `🌿 *AUTHENTIC INCHARA COMMITMENTS:*\n` +
     `• 100% Pure Vegetarian / Satvik meal assurance arranged across the circuit.\n` +
     `• Verified chauffeurs, private sanitized vehicles, and dedicated 24×7 ground helpline.\n` +
@@ -140,10 +139,9 @@ export function buildQuotationEmailContent(inquiry: InquiryRecord, quotation: Qu
     `Quotation Validity: ${quotation.validityDays} Days\n\n` +
     `ITEMIZED COMMERCIAL BREAKDOWN:\n` +
     `${itemsList}\n\n` +
-    `Subtotal: INR ${quotation.subtotal.toLocaleString('en-IN')}.00\n` +
-    `GST (${quotation.gstRate}%): INR ${quotation.gstAmount.toLocaleString('en-IN')}.00\n` +
-    `TOTAL QUOTED AMOUNT: INR ${quotation.totalAmount.toLocaleString('en-IN')}.00\n` +
-    `Amount in Words: ${numberToWordsINR(quotation.totalAmount)}\n\n` +
+    `TOTAL QUOTED AMOUNT (Net All-Inclusive): INR ${quotation.totalAmount.toLocaleString('en-IN')}.00\n` +
+    `Amount in Words: ${numberToWordsINR(quotation.totalAmount)}\n` +
+    `Note: Unregistered Solo Proprietorship — zero GST charged under turnover exemption.\n\n` +
     `SPECIAL NOTES & INCHARA STANDARD:\n` +
     `${quotation.specialNotes || 'Includes dedicated 100% pure vegetarian culinary care and verified private chauffeur logistics.'}\n\n` +
     `OFFICIAL BANK SETTLEMENT PARTICULARS:\n` +

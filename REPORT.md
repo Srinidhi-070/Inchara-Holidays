@@ -1695,6 +1695,33 @@ Following the Cycle 39–42 mandate, the automated notifications pipeline was te
 * `npm run build`: **0 failures** (clean production Vite build in 711ms).
 * Live Production URL: Verified responsive and operational on `https://inchara-holidays.vercel.app`.
 
+---
+
+### Cycle 44: Complete Elimination of All GST Invoicing, Tax Rate Inputs & Automatic GST Calculations
+**Date**: November 15, 2026  
+**Status**: 100% Compliant with Indian GST Law for Unregistered Businesses  
+
+#### 1. Statutory Compliance Directives Implemented
+Under Section 22 and Section 31 of the Central Goods and Services Tax (CGST) Act, unregistered suppliers below the turnover threshold are legally prohibited from collecting GST, charging tax on quotations, or issuing GST tax invoices. In accordance with this:
+1. **Quotation Engine (`QuotationModal.tsx`)**:
+   * Removed automatic 5% Tour Operator GST addition (`gstRate = 0`, `gstAmount = 0`, `totalAmount = subtotal`).
+   * Removed "Tour Operator GST (5%)" and "Taxes (GST @ 5%)" lines from edit table and official printable A4 document.
+   * Converted quotation totals to **"Net Total Investment (All-Inclusive)"**.
+   * Added statutory disclosure: *"Unregistered Solo Proprietorship · All rates net & all-inclusive (zero GST applicable under turnover exemption)."*
+2. **Client Dispatch Services (`clientDispatchService.ts`)**:
+   * Removed the `GST (5%): ₹...` line from WhatsApp and Email quotation generators.
+   * Dispatches clearly state all-inclusive net investment with zero tax collection.
+3. **Admin Dashboard Business Settings (`AdminDashboard.tsx`)**:
+   * Removed "Tour Operator GST Rate (%)" input field.
+   * Removed "GSTIN (Unregistered)" input field.
+   * Renamed tab from "Business & Tax" to **"Business Profile"**.
+   * Formally displays statutory exemption badge: *"Not Registered for GST · Unregistered Solo Proprietorship"*.
+4. **Service Catalogues & Marketing Copy (`servicesData.ts`, `api/_shared/servicesData.ts`, `InstitutionalCorporateHighlight.tsx`)**:
+   * Replaced all claims of "GST invoicing" with *"Transparent commercial billing and formal institutional accounting documentation"*.
+5. **Brochures & FAQ Disclaimers (`ItineraryBrochureModal.tsx`, `faqData.ts`, `LegalModals.tsx`)**:
+   * Removed all mentions of 5% GST in payment schedules, booking policies, and itinerary brochures. All pricing described as net, all-inclusive transparent rates.
+
+
 
 
 

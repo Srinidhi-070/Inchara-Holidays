@@ -171,8 +171,8 @@ export const InstitutionalCorporateHighlight: React.FC<InstitutionalCorporateHig
                   },
                   {
                     icon: ShieldCheck,
-                    textKn: 'ಜಿಎಸ್‌ಟಿ ಇನ್‌ವಾಯ್ಸ್ & ಅಧಿಕೃತ ಪಾರದರ್ಶಕ ಕಾರ್ಪೊರೇಟ್ ಬಿಲ್ಲಿಂಗ್',
-                    textEn: 'Itemized GST invoicing and compliant procurement billing documentation',
+                    textKn: 'ಅಧಿಕೃತ ಪಾರದರ್ಶಕ ಬಿಲ್ಲಿಂಗ್ & ಕಾರ್ಪೊರೇಟ್ ದಾಖಲೆಗಳು',
+                    textEn: 'Itemized commercial billing and institutional procurement settlement documentation',
                   },
                 ].map((item, i) => {
                   const Icon = item.icon;

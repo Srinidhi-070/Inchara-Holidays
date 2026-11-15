@@ -83,7 +83,7 @@ export const PrivacyPolicyModal: React.FC<LegalModalProps> = ({ isOpen, onClose,
                 <li>
                   {isKn
                     ? 'ನಿಮ್ಮ ಪ್ರವಾಸಕ್ಕೆ ನಿಖರವಾದ ಮಾರ್ಗಸೂಚಿ ಮತ್ತು ಕೊಟೇಶನ್ ಸಿದ್ಧಪಡಿಸಲು.'
-                    : 'To craft bespoke itinerary proposals, calculate accurate GST quotations, and communicate directly with you.'}
+                    : 'To craft bespoke itinerary proposals, calculate accurate all-inclusive travel quotations, and communicate directly with you.'}
                 </li>
                 <li>
                   {isKn

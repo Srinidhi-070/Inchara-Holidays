@@ -254,16 +254,16 @@ export const serviceCategories: ServiceCategoryDef[] = [
           'ವಾರ್ಷಿಕ ಒಪ್ಪಂದ ಆಧಾರಿತ ವಿಶೇಷ ಸಾರಿಗೆ ರಿಯಾಯಿತಿ',
           'ಆಡಿಟ್ ಮಾಡಿದ ೩೦ ರಿಂದ ೫೦ ಸೀಟುಗಳ ಲಕ್ಸುರಿ ಕೋಚ್‌ಗಳು',
           'ಸಂಸ್ಥೆಯ ಬಜೆಟ್ ಮಿತಿಯೊಳಗಿನ ಗುಣಮಟ್ಟದ ನಿರ್ವಹಣೆ',
-          'ಜಿಎಸ್‌ಟಿ ಇನ್‌ವಾಯ್ಸ್ ಹಾಗೂ ಅಧಿಕೃತ ಬಿಲ್ಲಿಂಗ್ ಪಾರದರ್ಶಕತೆ'
+          'ಅಧಿಕೃತ ವಾಣಿಜ್ಯ ಬಿಲ್ಲಿಂಗ್ ಹಾಗೂ ಸಾಂಸ್ಥಿಕ ಲೆಕ್ಕಪತ್ರ ಪಾರದರ್ಶಕತೆ'
         ],
         detailsEn: [
           'Annual institutional contracts with volume pricing benefits',
           'Audited 30 to 50-seater luxury air-conditioned coaches',
           'Strict adherence to institutional budget ceilings without compromising quality',
-          'Full GST invoicing and transparent institutional accounting documentation'
+          'Transparent commercial billing and formal institutional accounting documentation'
         ],
-        highlightsKn: ['ಜಿಎಸ್‌ಟಿ ಬಿಲ್ಲಿಂಗ್', 'ದೊಡ್ಡ ಕೋಚ್‌ಗಳು', 'ಸಾಂಸ್ಥಿಕ ವಿಶ್ವಾಸ'],
-        highlightsEn: ['GST Invoicing', 'Large Coaches', 'Institutional Trust']
+        highlightsKn: ['ಪಾರದರ್ಶಕ ಬಿಲ್ಲಿಂಗ್', 'ದೊಡ್ಡ ಕೋಚ್‌ಗಳು', 'ಸಾಂಸ್ಥಿಕ ವಿಶ್ವಾಸ'],
+        highlightsEn: ['Itemized Billing', 'Large Coaches', 'Institutional Trust']
       }
     ]
   },

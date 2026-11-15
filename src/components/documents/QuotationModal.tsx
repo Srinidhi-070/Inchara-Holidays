@@ -110,9 +110,9 @@ export const QuotationModal: React.FC<QuotationModalProps> = ({
   );
 
   const subtotal = items.reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
-  const gstRate = 5; // 5% tour operator GST
-  const gstAmount = Math.round((subtotal * gstRate) / 100);
-  const totalAmount = subtotal + gstAmount;
+  const gstRate = 0; // Unregistered solo proprietorship - no GST applicable
+  const gstAmount = 0;
+  const totalAmount = subtotal;
 
   const [savedQuote, setSavedQuote] = useState<QuotationRecord | null>(existingQuotation || null);
   const [isEditing, setIsEditing] = useState<boolean>(!existingQuotation);
@@ -388,7 +388,7 @@ export const QuotationModal: React.FC<QuotationModalProps> = ({
                     Edit Commercial Quotation Particulars
                   </h3>
                   <p className="text-xs text-[#252923]/60 mt-0.5">
-                    Customize destination, guest count, and line items. Prices calculate GST automatically.
+                    Customize destination, guest count, and line items. Unregistered proprietorship — all rates are net & all-inclusive.
                   </p>
                 </div>
                 <div className="text-right">
@@ -518,27 +518,9 @@ export const QuotationModal: React.FC<QuotationModalProps> = ({
                       ))}
                     </tbody>
                     <tfoot className="bg-[#FBF8F1] border-t border-[#162E22]/15">
-                      <tr>
-                        <td colSpan={4} className="py-2 px-3 text-right font-semibold text-[11px] text-[#162E22]">
-                          Subtotal Amount:
-                        </td>
-                        <td className="py-2 px-3 text-right font-mono font-bold text-[#162E22]">
-                          ₹{subtotal.toLocaleString('en-IN')}.00
-                        </td>
-                        <td />
-                      </tr>
-                      <tr>
-                        <td colSpan={4} className="py-1.5 px-3 text-right font-semibold text-[11px] text-[#162E22]">
-                          Tour Operator GST (5%):
-                        </td>
-                        <td className="py-1.5 px-3 text-right font-mono font-bold text-[#162E22]">
-                          ₹{gstAmount.toLocaleString('en-IN')}.00
-                        </td>
-                        <td />
-                      </tr>
                       <tr className="bg-[#162E22] text-[#F5D77F] font-bold">
                         <td colSpan={4} className="py-2.5 px-3 text-right text-xs uppercase tracking-wider">
-                          Grand Total Investment:
+                          Net Total Investment (All-Inclusive):
                         </td>
                         <td className="py-2.5 px-3 text-right font-mono text-sm">
                           ₹{totalAmount.toLocaleString('en-IN')}.00
@@ -782,27 +764,11 @@ export const QuotationModal: React.FC<QuotationModalProps> = ({
                       ))}
                     </tbody>
                     <tfoot>
-                      <tr className="bg-[#F6F3EA] border-t-2 border-[#162E22]/20">
-                        <td colSpan={4} className="py-1.5 px-3 text-right text-[11px] font-bold text-[#162E22]">
-                          Subtotal Amount:
-                        </td>
-                        <td className="py-1.5 px-3 text-right font-mono font-bold text-xs text-[#162E22]">
-                          ₹{subtotal.toLocaleString('en-IN')}.00
-                        </td>
-                      </tr>
-                      <tr className="bg-[#F6F3EA]">
-                        <td colSpan={4} className="py-1.5 px-3 text-right text-[11px] font-bold text-[#162E22]">
-                          Taxes (GST @ {gstRate}% Tour Operator):
-                        </td>
-                        <td className="py-1.5 px-3 text-right font-mono font-bold text-xs text-[#162E22]">
-                          ₹{gstAmount.toLocaleString('en-IN')}.00
-                        </td>
-                      </tr>
                       <tr className="bg-[#162E22] text-[#F5D77F] border-t-2 border-[#162E22]">
-                        <td colSpan={4} className="py-2 px-3 text-right text-[11px] font-bold uppercase tracking-wide">
-                          Total Quoted Tour Investment:
+                        <td colSpan={4} className="py-2.5 px-3 text-right text-[11px] font-bold uppercase tracking-wide">
+                          Total Quoted Tour Investment (Net All-Inclusive):
                         </td>
-                        <td className="py-2 px-3 text-right font-mono font-bold text-base text-[#F5D77F]">
+                        <td className="py-2.5 px-3 text-right font-mono font-bold text-base text-[#F5D77F]">
                           ₹{totalAmount.toLocaleString('en-IN')}.00
                         </td>
                       </tr>
@@ -834,8 +800,9 @@ export const QuotationModal: React.FC<QuotationModalProps> = ({
                     <div className="text-[#252923]/80 leading-relaxed text-[10px]">
                       {paymentTerms}
                     </div>
-                    <div className="text-[9px] text-[#162E22]/70 pt-0.5">
-                      • Sanitized chauffeur-driven vehicle with dedicated ground coordinator.
+                    <div className="text-[9px] text-[#162E22]/70 pt-0.5 space-y-0.5">
+                      <div>• Sanitized chauffeur-driven vehicle with dedicated ground coordinator.</div>
+                      <div>• Unregistered Solo Proprietorship · All rates net & all-inclusive (zero GST applicable under turnover exemption).</div>
                     </div>
                   </div>
 
