@@ -467,7 +467,7 @@ async function dispatchEmailNotification(
     };
   }
 
-  const fromEmail = process.env.RESEND_FROM_EMAIL || 'Inchara Holidays <notifications@incharaholidays.com>';
+  const fromEmail = process.env.RESEND_FROM_EMAIL || 'Inchara Holidays <onboarding@resend.dev>';
 
   try {
     const emailRes = await fetch('https://api.resend.com/emails', {

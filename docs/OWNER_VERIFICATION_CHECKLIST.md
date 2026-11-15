@@ -1,13 +1,13 @@
 # INCHARA HOLIDAYS — OWNER VERIFICATION & PRODUCTION LAUNCH CHECKLIST
 **Business**: Inchara Holidays (ಇಂಚರ ಹಾಲಿಡೇಸ್)  
-**Owner & Principal Operator**: Srinidhi N S  
+**Owner & Lead Curator**: Ravindra S (ರವೀಂದ್ರ ಎಸ್)  
 **Document Status**: Pre-Launch Operational Audit & Verification Gate  
 
 ---
 
 ## 1. Executive Summary & Solo Operator Architecture
 Inchara Holidays is engineered specifically as a high-efficiency **Solo Operator Business Operating System**. 
-Every operation — from enquiry capture, multi-category tour planning, customer communications, quotation generation, to money receipts and payment ledgers — is managed exclusively by **Srinidhi N S**.
+Every operation — from enquiry capture, multi-category tour planning, customer communications, quotation generation, to money receipts and payment ledgers — is managed exclusively by **Ravindra S**.
 
 To ensure legal integrity, financial compliance, and zero misrepresentation, this checklist details every business credential currently operating with verified values vs provisional defaults.
 
@@ -17,17 +17,16 @@ To ensure legal integrity, financial compliance, and zero misrepresentation, thi
 
 | Parameter | Current Value in Platform | Status | Action Required from Owner |
 | :--- | :--- | :--- | :--- |
-| **Owner Name** | Srinidhi N S (ಶ್ರೀನಿಧಿ ಎನ್ ಎಸ್) | **Verified** | None. Configured across all platform documents and legal footers. |
-| **Primary Phone** | `+91 80736 92802` / `+91 94480 00000` | **Verified** | Primary contact for one-click WhatsApp dispatch & phone hotline. |
-| **Official Email** | `nssrinidhi72884@gmail.com` | **Verified** | Primary dispatch address for lead notifications & customer proposals. |
-| **Registered Address** | `#42, Sayyaji Rao Road, Near Devaraja Market, Mysuru, Karnataka 570001` | **Provisional** | Confirm exact municipal door number and commercial lease/premise address in Mysuru. |
-| **Tourism Registration**| `KA-TO-2024-88419` (Karnataka Tourism Forum) | **Provisional** | Verify official KTF / Karnataka Tourism Department registration certificate number. |
+| **Owner Name** | Ravindra S (ರವೀಂದ್ರ ಎಸ್) | **Verified** | None. Configured across all platform documents and legal footers. |
+| **Primary Phone** | `+91 90361 74880` | **Verified** | Primary contact for one-click WhatsApp dispatch & phone hotline. |
+| **Official Email** | `incharaholidays@gmail.com` | **Verified** | Primary dispatch address for lead notifications & customer proposals. |
+| **Registered Address** | `INCHARA HOLIDAYS, 7/1, 6th Cross Rd, Swimming Pool Extension, HN Layout, Malleshwaram, Bengaluru, Karnataka 560003` | **Verified** | Malleshwaram operating desk. |
 | **GSTIN** | *Unregistered* | **Proprietorship** | Inchara Holidays operates as an unregistered proprietorship. No GSTIN is required or charged. |
 | **Income Tax PAN** | *Proprietor PAN* | **Proprietorship** | Retained privately on file by proprietor Ravindra S. |
 | **Bank Name** | Canara Bank | **Verified** | Registered commercial banking partner for client settlements. |
-| **Bank Branch** | Sayyaji Rao Road, Mysuru | **Verified** | Local Mysuru branch. |
+| **Bank Branch** | Malleshwaram, Bengaluru | **Verified** | Local Malleshwaram branch. |
 | **Bank Account No.** | `110023456789` | **Provisional** | Replace with active Canara Bank Current / Savings Account number for RTGS/NEFT receipts. |
-| **Bank IFSC Code** | `CNRB0001234` | **Provisional** | Replace with exact Canara Bank Sayyaji Rao Road IFSC code (e.g. `CNRB00000...`). |
+| **Bank IFSC Code** | `CNRB0001234` | **Provisional** | Replace with exact Canara Bank Malleshwaram IFSC code (e.g. `CNRB00000...`). |
 
 ---
 
@@ -37,25 +36,28 @@ Ensure the following variables are configured in the Vercel Production Environme
 
 ```bash
 # Brand & Contact Hotline
-VITE_CONTACT_PHONE="+918073692802"
-VITE_CONTACT_PHONE_DISPLAY="+91 80736 92802"
-VITE_WHATSAPP_NUMBER="918073692802"
-VITE_CONTACT_EMAIL="nssrinidhi72884@gmail.com"
-STAFF_NOTIFICATION_EMAIL="nssrinidhi72884@gmail.com"
+VITE_CONTACT_PHONE="919036174880"
+VITE_CONTACT_PHONE_DISPLAY="+91 90361 74880"
+VITE_WHATSAPP_NUMBER="919036174880"
+VITE_CONTACT_EMAIL="incharaholidays@gmail.com"
+STAFF_NOTIFICATION_EMAIL="incharaholidays@gmail.com"
 
-# Supabase Production Backend (When live activation is authorized)
-SUPABASE_URL="https://your-project-id.supabase.co"
+# Supabase Production Backend
+SUPABASE_URL="https://jabqfgbpmlnqecxorjuu.supabase.co"
 SUPABASE_SERVICE_ROLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6..."
-VITE_SUPABASE_URL="https://your-project-id.supabase.co"
+VITE_SUPABASE_URL="https://jabqfgbpmlnqecxorjuu.supabase.co"
 VITE_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6..."
 
-# Automated Email Dispatch (Resend API)
-RESEND_API_KEY="re_..."
+# Automated WhatsApp & Email Dispatch (When Live Credentials Provided)
+WHATSAPP_API_TOKEN=""
+WHATSAPP_PHONE_NUMBER_ID=""
+RESEND_API_KEY=""
+RESEND_FROM_EMAIL="Inchara Holidays <onboarding@resend.dev>"
 ```
 
 ---
 
-## 4. Operational Protocols for Srinidhi N S
+## 4. Operational Protocols for Ravindra S
 
 1. **Daily Lead Review**:
    - Access the Owner Desk via the footer link **"ಮಾಲೀಕರ ನಿರ್ವಹಣೆ (Owner Portal)"**.
@@ -65,7 +67,7 @@ RESEND_API_KEY="re_..."
 2. **Commercial Proposals & Quotations**:
    - Click **Create Quotation** on any inquiry.
    - Adjust rates, vehicle details, pure veg meal items, and hotel nights.
-   - The system automatically computes 5% Tour Operator GST and formats a single-page A4 portrait document.
+   - The system formats a single-page A4 portrait document with Canara Bank settlement particulars.
    - Click **Share on WhatsApp** or **Send via Email** to dispatch directly to the client.
 
 3. **Settlement & Payment Receipts**:
